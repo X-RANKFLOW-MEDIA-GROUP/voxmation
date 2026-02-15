@@ -1,43 +1,45 @@
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const plans = [
   {
-    name: "AUTOMATION SYSTEMS",
-    tier: "Starter",
-    tagline: "For Speed-to-Lead",
-    setup: "$2,000",
-    retainer: "$650/mo",
-    features: ["1 Channel Integration", "CRM Sync", "Instant Lead Capture", "Basic Analytics"],
+    name: "Starter",
+    price: "$50",
+    period: "/month",
+    features: [
+      "3 Automated Workflows",
+      "Basic AI Assistant Access",
+      "Email + Slack Integration",
+      "Monthly Performance Reports",
+      "Email Support",
+    ],
     highlighted: false,
   },
   {
-    name: "VOICE AI",
-    tier: "Growth",
-    tagline: "For High-Volume Operations",
-    setup: "$4,500",
-    retainer: "$1,400/mo",
+    name: "Pro",
+    price: "$90",
+    period: "/month",
+    badge: "Popular",
     features: [
-      "24/7 Voice Agent",
-      "Calendar Booking",
-      "Multi-Channel Capture",
-      "R-O-C-E Framework",
-      "Weekly Optimization",
+      "10+ Automated Workflows",
+      "Advanced AI Assistant Features",
+      "Bi-Weekly Strategy Reviews",
+      "CRM + Marketing Tool Integrations",
+      "Priority Support",
     ],
     highlighted: true,
   },
   {
-    name: "ENTERPRISE OS",
-    tier: "Scale",
-    tagline: "For Multi-Location Scale",
-    setup: "Custom",
-    retainer: "Custom",
+    name: "Enterprise",
+    price: "Custom",
+    period: "",
     features: [
-      "Custom LLM Training",
-      "Dedicated Server",
-      "SLA Guarantee",
-      "Multi-Location Support",
-      "Priority Engineering",
+      "Unlimited Custom Workflows",
+      "Dedicated AI Strategist",
+      "API & Private Integrations",
+      "Real-Time Performance Dashboards",
+      "24/7 Premium Support + SLA",
     ],
     highlighted: false,
   },
@@ -45,69 +47,73 @@ const plans = [
 
 const PricingSection = () => {
   return (
-    <section id="pricing" className="relative py-24 md:py-32">
-      <div className="container mx-auto px-4">
-        <span className="text-xs font-mono tracking-widest uppercase text-primary mb-4 block text-center">
-          Infrastructure Offers
-        </span>
-        <h2 className="text-3xl md:text-4xl font-display font-bold text-silver-bright mb-4 text-center">
-          Deploy Your Revenue System
-        </h2>
-        <p className="text-muted-foreground text-center mb-16 max-w-lg mx-auto">
-          No contracts. No fluff. Just autonomous systems that pay for themselves.
-        </p>
+    <section id="pricing" className="py-24 md:py-32">
+      <div className="container mx-auto px-6">
+        <Reveal>
+          <span className="text-xs tracking-[0.2em] uppercase text-silver block mb-4 text-center">
+            Pricing
+          </span>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="text-3xl md:text-4xl font-display font-medium text-foreground mb-4 text-center">
+            Flexible Plans for Everyone
+          </h2>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <p className="text-silver mb-16 max-w-lg mx-auto text-center">
+            Choose a plan that fits your goals and scale as you grow
+          </p>
+        </Reveal>
 
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`rounded-xl p-px ${
-                plan.highlighted
-                  ? "bg-gradient-to-b from-primary/60 to-primary/10"
-                  : "bg-border"
-              }`}
-            >
-              <div className="glass-card rounded-xl p-8 h-full flex flex-col bg-card">
-                {plan.highlighted && (
-                  <span className="text-xs font-mono tracking-widest text-primary mb-2">
-                    ★ MOST POPULAR
-                  </span>
-                )}
-                <h3 className="text-lg font-display font-bold text-foreground tracking-wide">
-                  {plan.name}
-                </h3>
-                <p className="text-sm text-muted-foreground mb-6">{plan.tagline}</p>
+          {plans.map((plan, i) => (
+            <Reveal key={plan.name} delay={0.1 * i}>
+              <div
+                className={`rounded-2xl p-px h-full ${
+                  plan.highlighted
+                    ? "bg-gradient-to-b from-foreground/20 to-foreground/5"
+                    : "bg-border"
+                }`}
+              >
+                <div className="surface-card rounded-2xl p-8 h-full flex flex-col">
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-sm text-silver">{plan.name}</span>
+                    {plan.badge && (
+                      <span className="text-[10px] tracking-widest uppercase bg-foreground text-primary-foreground px-3 py-1 rounded-full font-medium">
+                        {plan.badge}
+                      </span>
+                    )}
+                  </div>
 
-                <div className="mb-6">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-3xl font-display font-bold text-foreground">
-                      {plan.setup}
+                  <div className="mb-8">
+                    <span className="text-4xl font-display font-semibold text-foreground">
+                      {plan.price}
                     </span>
-                    <span className="text-sm text-muted-foreground">setup</span>
+                    <span className="text-silver text-sm">{plan.period}</span>
                   </div>
-                  <div className="text-muted-foreground text-sm">
-                    + {plan.retainer} retainer
-                  </div>
+
+                  <Button
+                    variant={plan.highlighted ? "default" : "outline"}
+                    size="lg"
+                    className="w-full mb-8"
+                    asChild
+                  >
+                    <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
+                      Get Started
+                    </a>
+                  </Button>
+
+                  <ul className="space-y-4 flex-1">
+                    {plan.features.map((f) => (
+                      <li key={f} className="flex items-start gap-3 text-sm text-silver">
+                        <Check className="h-4 w-4 text-silver-bright shrink-0 mt-0.5" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                <ul className="space-y-3 mb-8 flex-1">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-center gap-3 text-sm text-muted-foreground">
-                      <Check className="h-4 w-4 text-primary shrink-0" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-
-                <Button
-                  variant={plan.highlighted ? "neon" : "neon-outline"}
-                  size="lg"
-                  className="w-full"
-                >
-                  {plan.setup === "Custom" ? "Book Audit" : "Deploy Now"}
-                </Button>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
