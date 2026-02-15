@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Sparkles, LogIn } from "lucide-react";
+import { Menu, X, LogIn } from "lucide-react";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 
 const navLinks = [
@@ -46,25 +46,27 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: hidden ? -100 : 0, opacity: hidden ? 0 : 1 }}
-      transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="fixed top-0 left-0 right-0 z-50"
     >
-      <div className={`transition-all duration-500 ${scrolled ? "px-4 pt-3" : "px-0 pt-0"}`}>
-        <div className={`mx-auto transition-all duration-500 ${
-          scrolled ? "max-w-5xl rounded-2xl glass-card border border-border shadow-lg shadow-background/50" : "max-w-full bg-transparent"
+      <div className={`transition-all duration-600 ${scrolled ? "px-4 pt-3" : "px-0 pt-0"}`}>
+        <div className={`mx-auto transition-all duration-600 ${
+          scrolled 
+            ? "max-w-5xl rounded-2xl glass-card border border-border/60 shadow-2xl shadow-background/80" 
+            : "max-w-full bg-transparent"
         }`}>
           <div className="flex items-center justify-between h-14 px-5">
             <motion.a
               href="#"
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-              className="font-mono text-sm font-bold tracking-[0.2em] text-foreground hover:text-primary transition-colors"
+              className="font-mono text-sm font-bold tracking-[0.2em] text-foreground hover:text-primary transition-colors duration-300"
               whileHover={{ scale: 1.02 }}
             >
               VOXMATION
             </motion.a>
 
             <div className="hidden md:flex items-center">
-              <div className="flex items-center gap-0.5 rounded-full border border-border/60 px-1.5 py-1 bg-background/30 backdrop-blur-sm">
+              <div className="flex items-center gap-0.5 rounded-full border border-border/40 px-1.5 py-1 bg-background/20 backdrop-blur-sm">
                 {navLinks.map((l) => {
                   const isActive = activeSection === l.href.replace("#", "");
                   return (
@@ -78,8 +80,8 @@ const Navbar = () => {
                       {isActive && (
                         <motion.span
                           layoutId="nav-active"
-                          className="absolute inset-0 rounded-full bg-primary/10 border border-primary/20"
-                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                          className="absolute inset-0 rounded-full bg-primary/8 border border-primary/15"
+                          transition={{ type: "spring", stiffness: 350, damping: 30 }}
                         />
                       )}
                       <span className="relative z-10">{l.label}</span>
@@ -124,8 +126,8 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -10, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
-            transition={{ duration: 0.25 }}
-            className="md:hidden mx-4 mt-2 rounded-2xl glass-card border border-border overflow-hidden shadow-xl"
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="md:hidden mx-4 mt-2 rounded-2xl glass-card border border-border overflow-hidden shadow-2xl"
           >
             <div className="px-5 py-4 space-y-1">
               {navLinks.map((l, i) => (
@@ -133,14 +135,14 @@ const Navbar = () => {
                   key={l.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05, duration: 0.3 }}
+                  transition={{ delay: i * 0.06, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   onClick={() => scrollTo(l.href)}
-                  className="block w-full text-left text-sm py-2.5 px-3 rounded-xl text-silver hover:text-primary hover:bg-primary/5 transition-all font-mono"
+                  className="block w-full text-left text-sm py-3 px-4 rounded-xl text-silver hover:text-primary hover:bg-primary/5 transition-all font-mono"
                 >
                   {l.label}
                 </motion.button>
               ))}
-              <a href="https://portal.voxmation.com" target="_blank" rel="noopener noreferrer" className="block text-sm py-2.5 px-3 text-silver hover:text-foreground font-mono">
+              <a href="https://portal.voxmation.com" target="_blank" rel="noopener noreferrer" className="block text-sm py-3 px-4 text-silver hover:text-foreground font-mono transition-colors">
                 Client Portal Login
               </a>
             </div>
