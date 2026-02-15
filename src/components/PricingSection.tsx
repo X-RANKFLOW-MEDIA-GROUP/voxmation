@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Check, Star } from "lucide-react";
+import { Check, Star, ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import { motion } from "framer-motion";
 
 const plans = [
   {
@@ -46,83 +47,100 @@ const plans = [
 
 const PricingSection = () => {
   return (
-    <section id="pricing" className="py-28 md:py-36">
-      <div className="container mx-auto px-6">
-        <Reveal>
-          <span className="text-xs tracking-[0.25em] uppercase text-primary font-mono block mb-3 text-center">
-            Infrastructure Offers
-          </span>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <h2 className="text-3xl md:text-5xl font-mono font-bold text-silver-bright mb-4 text-center tracking-tight">
-            Deploy Your Revenue System
-          </h2>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <p className="text-silver text-center mb-16 max-w-lg mx-auto">
-            No contracts. No fluff. Just autonomous systems that pay for themselves.
-          </p>
-        </Reveal>
+    <section id="pricing" className="py-32 md:py-40 relative">
+      <div className="absolute inset-0 gradient-radial-section pointer-events-none opacity-30" />
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center mb-20">
+          <Reveal>
+            <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono block mb-4">
+              Infrastructure Offers
+            </span>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-silver-bright mb-5 tracking-[-0.02em]">
+              Deploy Your Revenue System
+            </h2>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <p className="text-silver text-lg max-w-lg mx-auto leading-relaxed">
+              No contracts. No fluff. Just autonomous systems that pay for themselves.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
           {plans.map((plan, i) => (
-            <Reveal key={plan.name} delay={0.1 * i}>
-              <div className={`rounded-2xl p-px h-full ${
-                plan.highlighted
-                  ? "bg-gradient-to-b from-primary/50 to-primary/10 neon-glow"
-                  : "bg-border"
-              }`}>
-                <div className="surface-card rounded-2xl p-8 h-full flex flex-col bg-card relative overflow-hidden">
-                  {/* Top accent line */}
-                  {plan.highlighted && (
-                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
-                  )}
+            <Reveal key={plan.name} delay={0.1 * i} scale>
+              <motion.div
+                whileHover={{ y: -6, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }}
+                className="h-full"
+              >
+                <div className={`rounded-2xl p-px h-full ${
+                  plan.highlighted
+                    ? "bg-gradient-to-b from-primary/40 via-primary/15 to-transparent accent-glow"
+                    : "bg-border/60"
+                }`}>
+                  <div className={`rounded-2xl p-8 lg:p-9 h-full flex flex-col relative overflow-hidden ${
+                    plan.highlighted ? "bg-card" : "surface-card"
+                  }`}>
+                    {/* Top accent */}
+                    {plan.highlighted && (
+                      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+                    )}
+                    {plan.highlighted && (
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-20 bg-gradient-to-b from-primary/8 to-transparent rounded-b-full" />
+                    )}
 
-                  {plan.highlighted && (
-                    <div className="flex items-center gap-1.5 mb-3">
-                      <Star className="h-3 w-3 text-primary fill-primary" />
-                      <span className="text-[10px] font-mono tracking-[0.2em] text-primary uppercase">
-                        Most Popular
-                      </span>
+                    {plan.highlighted && (
+                      <div className="flex items-center gap-2 mb-4 relative">
+                        <Star className="h-3.5 w-3.5 text-primary fill-primary" />
+                        <span className="text-[10px] font-mono tracking-[0.15em] text-primary uppercase">
+                          Most Popular
+                        </span>
+                      </div>
+                    )}
+
+                    <h3 className="text-sm font-mono font-bold text-foreground tracking-wider mb-1 relative">
+                      {plan.name}
+                    </h3>
+                    <p className="text-xs text-silver mb-7 relative">{plan.tagline}</p>
+
+                    <div className="mb-8 relative">
+                      <div className="flex items-baseline gap-2 mb-1">
+                        <span className="text-4xl font-display font-bold text-foreground tracking-tight">{plan.setup}</span>
+                        <span className="text-xs text-silver font-mono">setup</span>
+                      </div>
+                      <p className="text-sm text-silver">
+                        + <span className="text-silver-bright font-medium">{plan.retainer}</span> retainer
+                      </p>
                     </div>
-                  )}
 
-                  <h3 className="text-base font-mono font-bold text-foreground tracking-wider mb-1">
-                    {plan.name}
-                  </h3>
-                  <p className="text-xs text-silver mb-6">{plan.tagline}</p>
+                    <ul className="space-y-3.5 mb-10 flex-1 relative">
+                      {plan.features.map((f) => (
+                        <li key={f} className="flex items-center gap-3 text-sm text-silver">
+                          <div className="w-5 h-5 rounded-full bg-primary/8 flex items-center justify-center shrink-0">
+                            <Check className="h-3 w-3 text-primary" />
+                          </div>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
 
-                  <div className="mb-6">
-                    <div className="flex items-baseline gap-2 mb-1">
-                      <span className="text-3xl font-mono font-bold text-foreground">{plan.setup}</span>
-                      <span className="text-xs text-silver font-mono">setup</span>
-                    </div>
-                    <p className="text-sm text-silver">
-                      + <span className="text-silver-bright">{plan.retainer}</span> retainer
-                    </p>
+                    <Button
+                      variant={plan.highlighted ? "neon" : "neon-outline"}
+                      size="lg"
+                      className="w-full relative"
+                      asChild
+                    >
+                      <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
+                        {plan.setup === "Custom" ? "Book Audit" : "Deploy Now"}
+                        <ArrowUpRight className="h-4 w-4" />
+                      </a>
+                    </Button>
                   </div>
-
-                  <ul className="space-y-3 mb-8 flex-1">
-                    {plan.features.map((f) => (
-                      <li key={f} className="flex items-center gap-3 text-sm text-silver">
-                        <Check className="h-3.5 w-3.5 text-primary shrink-0" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Button
-                    variant={plan.highlighted ? "neon" : "neon-outline"}
-                    size="lg"
-                    className="w-full"
-                    asChild
-                  >
-                    <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
-                      {plan.setup === "Custom" ? "Book Audit" : "Deploy Now"}
-                    </a>
-                  </Button>
                 </div>
-              </div>
+              </motion.div>
             </Reveal>
           ))}
         </div>

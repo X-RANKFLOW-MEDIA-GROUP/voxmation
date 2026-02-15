@@ -21,7 +21,7 @@ export default {
       colors: {
         silver: "hsl(var(--silver))",
         "silver-bright": "hsl(var(--silver-bright))",
-        neon: "hsl(var(--neon))",
+        teal: "hsl(var(--teal))",
         warning: "hsl(var(--warning))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
