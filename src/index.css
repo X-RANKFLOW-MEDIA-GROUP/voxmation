@@ -15,8 +15,8 @@
     --popover: 0 0% 7.1%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 155 100% 50%;
-    --primary-foreground: 0 0% 3%;
+    --primary: 0 0% 90%;
+    --primary-foreground: 0 0% 5%;
 
     --secondary: 0 0% 9%;
     --secondary-foreground: 0 0% 75%;
@@ -32,16 +32,16 @@
 
     --border: 0 0% 14%;
     --input: 0 0% 14%;
-    --ring: 155 100% 50%;
+    --ring: 0 0% 90%;
 
     --radius: 0.625rem;
 
     /* Custom tokens */
     --silver: 0 0% 75%;
     --silver-bright: 0 0% 85%;
-    --neon: 155 100% 50%;
-    --neon-muted: 155 100% 50% / 0.12;
-    --neon-glow: 155 100% 50% / 0.25;
+    --neon: 0 0% 90%;
+    --neon-muted: 0 0% 90% / 0.08;
+    --neon-glow: 0 0% 90% / 0.15;
     --warning: 40 100% 55%;
     --warning-muted: 40 100% 55% / 0.12;
     --surface-glass: 0 0% 100% / 0.03;
@@ -50,12 +50,12 @@
 
     --sidebar-background: 0 0% 5.1%;
     --sidebar-foreground: 0 0% 75%;
-    --sidebar-primary: 155 100% 50%;
-    --sidebar-primary-foreground: 0 0% 3%;
+    --sidebar-primary: 0 0% 90%;
+    --sidebar-primary-foreground: 0 0% 5%;
     --sidebar-accent: 0 0% 13%;
     --sidebar-accent-foreground: 0 0% 75%;
     --sidebar-border: 0 0% 14%;
-    --sidebar-ring: 155 100% 50%;
+    --sidebar-ring: 0 0% 90%;
   }
 }
 
@@ -83,7 +83,7 @@
     color: hsl(var(--silver-bright));
   }
   .text-neon {
-    color: hsl(var(--neon));
+    color: hsl(var(--primary));
   }
 
   .glass-card {
@@ -101,21 +101,17 @@
   }
 
   .neon-glow {
-    box-shadow: 0 0 20px hsl(var(--neon-muted)),
-                0 0 60px hsl(var(--neon-muted));
+    box-shadow: 0 0 20px hsl(var(--neon-muted));
   }
   .neon-glow-strong {
-    box-shadow: 0 0 15px hsl(var(--neon-glow)),
-                0 0 45px hsl(var(--neon-muted)),
+    box-shadow: 0 0 10px hsl(var(--neon-glow)),
                 inset 0 1px 0 hsl(0 0% 100% / 0.1);
   }
   .neon-border {
-    border-color: hsl(var(--neon));
-    box-shadow: 0 0 12px hsl(var(--neon-muted));
+    border-color: hsl(var(--primary));
   }
   .neon-text {
-    text-shadow: 0 0 20px hsl(var(--neon-muted)),
-                 0 0 40px hsl(var(--neon-muted));
+    text-shadow: none;
   }
 
   .warning-glow {
@@ -123,7 +119,7 @@
   }
 
   .gradient-radial-neon {
-    background: radial-gradient(ellipse at 50% 30%, hsl(var(--neon-muted)) 0%, transparent 55%);
+    background: radial-gradient(ellipse at 50% 30%, hsl(0 0% 100% / 0.03) 0%, transparent 55%);
   }
 
   .animate-ticker {
@@ -141,7 +137,7 @@
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: hsl(0 0% 20%); border-radius: 2px; }
 
-::selection { background: hsl(155 100% 50% / 0.15); }
+::selection { background: hsl(0 0% 100% / 0.12); }
 
 /* Smooth scroll */
 html { scroll-behavior: smooth; }
