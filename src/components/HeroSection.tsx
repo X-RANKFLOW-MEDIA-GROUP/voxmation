@@ -1,55 +1,114 @@
 import { Button } from "@/components/ui/button";
-import { Volume2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import heroVisual from "@/assets/hero-visual.png";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      {/* Background radial glow */}
-      <div className="absolute inset-0 gradient-radial-neon opacity-30 pointer-events-none" />
-
-      <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
-        {/* Copy */}
-        <div className="space-y-8 animate-slide-up">
-          <div className="inline-block px-3 py-1 rounded-full border border-primary/30 text-primary text-xs font-mono tracking-widest uppercase">
-            Revenue Infrastructure Partner
-          </div>
-
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight text-silver-bright">
-            Automate Revenue
-            <br />
-            <span className="text-primary neon-text">Before Hiring People.</span>
-          </h1>
-
-          <p className="text-lg text-muted-foreground max-w-lg leading-relaxed">
-            We deploy autonomous Voice AI agents that answer calls, qualify leads,
-            and book appointments 24/7. Zero latency. No sick days.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button variant="neon" size="xl" asChild>
-              <a href="#pricing">Deploy Your System</a>
-            </Button>
-            <Button variant="neon-outline" size="xl">
-              <Volume2 className="mr-2 h-5 w-5" />
-              Hear Our AI Speak
-            </Button>
-          </div>
-        </div>
-
-        {/* Visual */}
-        <div className="relative flex items-center justify-center animate-float">
-          <img
-            src={heroVisual}
-            alt="Autonomous data flow from phone calls to revenue"
-            className="w-full max-w-xl rounded-lg opacity-90"
-            loading="eager"
-          />
-        </div>
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      {/* Background image with overlay */}
+      <div className="absolute inset-0">
+        <img
+          src={heroVisual}
+          alt=""
+          className="w-full h-full object-cover opacity-30"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
       </div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+      {/* Soft radial glow */}
+      <div className="absolute inset-0 gradient-radial pointer-events-none" />
+
+      <div className="relative z-10 text-center max-w-4xl mx-auto px-6 space-y-8">
+        {/* Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="inline-flex items-center gap-2"
+        >
+          <span className="w-2 h-2 rounded-full bg-foreground animate-pulse" />
+          <span className="text-xs tracking-[0.2em] uppercase text-silver-bright">
+            New Gen AI Automation Partner
+          </span>
+        </motion.div>
+
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-medium leading-[1.1] tracking-tight"
+        >
+          Automate Smarter.
+          <br />
+          Grow Faster.{" "}
+          <span className="italic font-light text-silver-bright">With Voxmation.</span>
+        </motion.h1>
+
+        {/* Sub */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="text-lg text-silver max-w-xl mx-auto"
+        >
+          AI Automation for Modern Businesses Made Simple
+        </motion.p>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.8 }}
+        >
+          <Button variant="default" size="xl" asChild>
+            <a
+              href="https://cal.com/voxmation/meeting"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="gap-2"
+            >
+              Book A Free Call
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </Button>
+        </motion.div>
+
+        {/* Social icons */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 1 }}
+          className="flex items-center justify-center gap-6 pt-4"
+        >
+          {["X", "IG", "FB"].map((s) => (
+            <a
+              key={s}
+              href="#"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-silver hover:text-foreground hover:border-foreground/30 transition-all duration-300"
+            >
+              <span className="text-xs font-medium">{s}</span>
+            </a>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ChevronDown className="h-6 w-6 text-silver" />
+        </motion.div>
+      </motion.div>
     </section>
   );
 };
