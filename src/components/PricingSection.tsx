@@ -8,8 +8,6 @@ const plans = [
     name: "AUTOMATION SYSTEMS",
     tier: "Starter",
     tagline: "For Speed-to-Lead",
-    setup: "$2,000",
-    retainer: "$650/mo",
     features: ["1 Channel Integration", "CRM Sync", "Instant Lead Capture", "Basic Analytics Dashboard"],
     highlighted: false,
   },
@@ -17,8 +15,6 @@ const plans = [
     name: "VOICE AI",
     tier: "Growth",
     tagline: "For High-Volume Operations",
-    setup: "$4,500",
-    retainer: "$1,400/mo",
     features: [
       "24/7 Voice Agent",
       "Calendar Booking",
@@ -32,8 +28,6 @@ const plans = [
     name: "ENTERPRISE OS",
     tier: "Scale",
     tagline: "For Multi-Location Scale",
-    setup: "Custom",
-    retainer: "Custom",
     features: [
       "Custom LLM Training",
       "Dedicated Server",
@@ -54,7 +48,7 @@ const PricingSection = () => {
         <div className="text-center mb-20">
           <Reveal>
             <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono block mb-4">
-              Infrastructure Offers
+              Solutions
             </span>
           </Reveal>
           <Reveal delay={0.1}>
@@ -84,7 +78,6 @@ const PricingSection = () => {
                   <div className={`rounded-2xl p-8 lg:p-9 h-full flex flex-col relative overflow-hidden ${
                     plan.highlighted ? "bg-card" : "surface-card"
                   }`}>
-                    {/* Top accent */}
                     {plan.highlighted && (
                       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
                     )}
@@ -104,17 +97,7 @@ const PricingSection = () => {
                     <h3 className="text-sm font-mono font-bold text-foreground tracking-wider mb-1 relative">
                       {plan.name}
                     </h3>
-                    <p className="text-xs text-silver mb-7 relative">{plan.tagline}</p>
-
-                    <div className="mb-8 relative">
-                      <div className="flex items-baseline gap-2 mb-1">
-                        <span className="text-4xl font-display font-bold text-foreground tracking-tight">{plan.setup}</span>
-                        <span className="text-xs text-silver font-mono">setup</span>
-                      </div>
-                      <p className="text-sm text-silver">
-                        + <span className="text-silver-bright font-medium">{plan.retainer}</span> retainer
-                      </p>
-                    </div>
+                    <p className="text-xs text-silver mb-8 relative">{plan.tagline}</p>
 
                     <ul className="space-y-3.5 mb-10 flex-1 relative">
                       {plan.features.map((f) => (
@@ -134,7 +117,7 @@ const PricingSection = () => {
                       asChild
                     >
                       <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
-                        {plan.setup === "Custom" ? "Book Audit" : "Deploy Now"}
+                        Book Your Demo
                         <ArrowUpRight className="h-4 w-4" />
                       </a>
                     </Button>
