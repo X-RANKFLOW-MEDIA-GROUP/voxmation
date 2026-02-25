@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,61 +6,60 @@
 
 @layer base {
   :root {
-    --background: 36 50% 96%;
-    --foreground: 30 10% 12%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 96%;
 
-    --card: 36 40% 93%;
-    --card-foreground: 30 10% 12%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 36 40% 94%;
-    --popover-foreground: 30 10% 12%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 96%;
 
-    --primary: 30 10% 12%;
-    --primary-foreground: 36 50% 96%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 36 30% 88%;
-    --secondary-foreground: 30 10% 25%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 65%;
 
-    --muted: 36 25% 90%;
-    --muted-foreground: 30 8% 45%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 36 35% 87%;
-    --accent-foreground: 30 10% 15%;
+    --accent: 0 0% 14%;
+    --accent-foreground: 0 0% 88%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 30 15% 82%;
-    --input: 30 15% 85%;
-    --ring: 30 10% 30%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 0 0% 50%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
     /* Custom tokens */
-    --silver: 30 8% 42%;
-    --silver-bright: 30 10% 25%;
-    --teal: 192 80% 38%;
-    --teal-muted: 192 80% 38% / 0.08;
-    --teal-glow: 192 80% 38% / 0.12;
-    --teal-subtle: 192 80% 38% / 0.04;
+    --silver: 0 0% 55%;
+    --silver-bright: 0 0% 78%;
+    --teal: 0 0% 100%;
+    --teal-muted: 0 0% 100% / 0.06;
+    --teal-glow: 0 0% 100% / 0.10;
+    --teal-subtle: 0 0% 100% / 0.03;
     --warning: 38 92% 55%;
     --warning-muted: 38 92% 55% / 0.10;
-    --surface-glass: 36 40% 94% / 0.7;
-    --surface-glass-hover: 36 40% 92% / 0.85;
-    --surface-card: 36 40% 94%;
-    --surface-elevated: 36 35% 92%;
-    --gradient-start: 36 50% 96%;
-    --gradient-end: 30 60% 85%;
-    --warm-amber: 30 70% 88%;
+    --surface-glass: 0 0% 100% / 0.03;
+    --surface-glass-hover: 0 0% 100% / 0.06;
+    --surface-card: 0 0% 5%;
+    --surface-elevated: 0 0% 8%;
+    --gradient-start: 0 0% 100%;
+    --gradient-end: 0 0% 70%;
 
-    --sidebar-background: 36 50% 96%;
-    --sidebar-foreground: 30 8% 42%;
-    --sidebar-primary: 30 10% 12%;
-    --sidebar-primary-foreground: 36 50% 96%;
-    --sidebar-accent: 36 35% 87%;
-    --sidebar-accent-foreground: 30 8% 42%;
-    --sidebar-border: 30 15% 82%;
-    --sidebar-ring: 30 10% 30%;
+    --sidebar-background: 0 0% 0%;
+    --sidebar-foreground: 0 0% 55%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 14%;
+    --sidebar-accent-foreground: 0 0% 55%;
+    --sidebar-border: 0 0% 14%;
+    --sidebar-ring: 0 0% 50%;
   }
 }
 
@@ -104,16 +103,17 @@
   }
   .surface-elevated {
     background: hsl(var(--surface-elevated));
-    border: 1px solid hsl(30 15% 78%);
+    border: 1px solid hsl(0 0% 16%);
   }
 
   .accent-glow {
-    box-shadow: 0 4px 24px hsl(var(--teal-muted)),
-                0 1px 3px hsl(30 10% 12% / 0.06);
+    box-shadow: 0 0 30px hsl(0 0% 100% / 0.04),
+                0 0 80px hsl(0 0% 100% / 0.02);
   }
   .accent-glow-strong {
-    box-shadow: 0 4px 20px hsl(var(--teal-glow)),
-                0 1px 3px hsl(30 10% 12% / 0.08);
+    box-shadow: 0 0 20px hsl(0 0% 100% / 0.06),
+                0 0 60px hsl(0 0% 100% / 0.03),
+                inset 0 1px 0 hsl(0 0% 100% / 0.08);
   }
   .accent-border {
     border-color: hsl(var(--teal) / 0.35);
@@ -124,18 +124,15 @@
   }
 
   .gradient-radial-hero {
-    background: radial-gradient(ellipse at 50% 80%, hsl(var(--warm-amber) / 0.5) 0%, hsl(var(--background)) 60%);
+    background: radial-gradient(ellipse at 50% 20%, hsl(var(--teal-subtle)) 0%, transparent 50%);
   }
   .gradient-radial-section {
     background: radial-gradient(ellipse at 50% 50%, hsl(var(--teal-subtle)) 0%, transparent 60%);
   }
   .gradient-mesh {
     background: 
-      radial-gradient(ellipse at 20% 30%, hsl(var(--warm-amber) / 0.15) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 70%, hsl(var(--teal-subtle)) 0%, transparent 50%);
-  }
-  .gradient-warm {
-    background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--warm-amber) / 0.3) 50%, hsl(var(--background)) 100%);
+      radial-gradient(ellipse at 20% 30%, hsl(0 0% 100% / 0.02) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, hsl(0 0% 100% / 0.015) 0%, transparent 50%);
   }
 
   .animate-ticker {
@@ -155,7 +152,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    opacity: 0.02;
+    opacity: 0.015;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 1;
@@ -163,8 +160,8 @@
 
   .line-grid {
     background-image: 
-      linear-gradient(hsl(30 15% 82% / 0.3) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(30 15% 82% / 0.3) 1px, transparent 1px);
+      linear-gradient(hsl(0 0% 14% / 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(0 0% 14% / 0.3) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 }
@@ -191,10 +188,10 @@
 /* Scrollbar */
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: hsl(30 15% 72%); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: hsl(30 15% 60%); }
+::-webkit-scrollbar-thumb { background: hsl(0 0% 20%); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(0 0% 30%); }
 
-::selection { background: hsl(var(--teal) / 0.15); }
+::selection { background: hsl(0 0% 100% / 0.15); }
 
 /* Smooth scroll */
 html { scroll-behavior: smooth; }
