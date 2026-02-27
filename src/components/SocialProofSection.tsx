@@ -1,8 +1,47 @@
 import Reveal from "@/components/Reveal";
 import { motion } from "framer-motion";
-import { Quote } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 
 const logos = ["HubSpot", "Twilio", "OpenAI", "Vapi", "Zapier", "Calendly"];
+
+const testimonials = [
+  {
+    quote: "They didn't just build a bot. They installed a machine that replaced 15 hours of admin work per week.",
+    name: "Marcus D.",
+    role: "Operations Director",
+    company: "Multi-Location SMB",
+  },
+  {
+    quote: "Our lead response time went from 4 hours to under 1 second. The ROI was insane from month one.",
+    name: "Sarah K.",
+    role: "CEO",
+    company: "Home Services Co.",
+  },
+  {
+    quote: "We went from missing 40% of after-hours calls to capturing every single one. Game changer.",
+    name: "James R.",
+    role: "Owner",
+    company: "Regional Plumbing",
+  },
+  {
+    quote: "The AI qualification is scary accurate. It filters tire-kickers better than our senior reps.",
+    name: "Linda T.",
+    role: "Sales Manager",
+    company: "Real Estate Brokerage",
+  },
+  {
+    quote: "No-shows dropped by 89% after we deployed the AI reminder system. Patients love it.",
+    name: "Dr. Patel",
+    role: "Practice Owner",
+    company: "Dental Group",
+  },
+  {
+    quote: "Voxmation didn't just automate our calls — they re-engineered our entire revenue pipeline.",
+    name: "Chris W.",
+    role: "COO",
+    company: "Healthcare Network",
+  },
+];
 
 const SocialProofSection = () => {
   return (
@@ -13,7 +52,7 @@ const SocialProofSection = () => {
         <div className="text-center mb-16">
           <Reveal>
             <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono block mb-4">
-              The Visionaries
+              Testimonials
             </span>
           </Reveal>
           <Reveal delay={0.1}>
@@ -23,32 +62,38 @@ const SocialProofSection = () => {
           </Reveal>
         </div>
 
-        {/* Testimonial */}
-        <Reveal delay={0.2} scale>
-          <motion.div 
-            whileHover={{ y: -4, transition: { duration: 0.4 } }}
-            className="surface-card rounded-2xl p-10 md:p-16 max-w-3xl mx-auto text-center relative overflow-hidden group"
-          >
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            <div className="absolute inset-0 gradient-radial-section opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none" />
-            
-            <div className="relative">
-              <div className="w-12 h-12 rounded-2xl bg-primary/8 flex items-center justify-center mx-auto mb-8">
-                <Quote className="h-5 w-5 text-primary/60" />
-              </div>
-              
-              <p className="text-xl md:text-2xl lg:text-3xl text-foreground font-light leading-relaxed mb-10 font-display tracking-tight">
-                "They didn't just build a bot. They installed a machine that replaced
-                15 hours of admin work per week."
-              </p>
-              
-              <div className="w-12 h-px bg-border mx-auto mb-6" />
-              
-              <p className="text-sm text-silver-bright font-mono tracking-wide">— Operations Director</p>
-              <p className="text-xs text-silver font-mono mt-1">Multi-Location SMB</p>
-            </div>
-          </motion.div>
-        </Reveal>
+        {/* Testimonial grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {testimonials.map((t, i) => (
+            <Reveal key={t.name} delay={0.08 * i} scale>
+              <motion.div
+                whileHover={{ y: -4, transition: { duration: 0.4 } }}
+                className="surface-card rounded-2xl p-7 h-full relative overflow-hidden group hover:border-primary/15 transition-all duration-500"
+              >
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+                <div className="flex gap-1 mb-5">
+                  {[...Array(5)].map((_, j) => (
+                    <Star key={j} className="h-3 w-3 text-primary/40 fill-primary/40" />
+                  ))}
+                </div>
+
+                <Quote className="h-4 w-4 text-primary/20 mb-3" />
+
+                <p className="text-sm text-foreground font-light leading-relaxed mb-6 font-display">
+                  "{t.quote}"
+                </p>
+
+                <div className="border-t border-border/50 pt-4 mt-auto">
+                  <p className="text-xs text-silver-bright font-mono tracking-wide">{t.name}</p>
+                  <p className="text-[10px] text-silver font-mono mt-0.5">
+                    {t.role} · {t.company}
+                  </p>
+                </div>
+              </motion.div>
+            </Reveal>
+          ))}
+        </div>
       </div>
 
       {/* Logo ticker */}
