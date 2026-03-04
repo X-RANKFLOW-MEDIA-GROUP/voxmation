@@ -148,7 +148,7 @@ const Navbar = () => {
             </div>
             <div className="px-5 pb-4">
               <Button variant="neon" size="sm" className="w-full" asChild>
-                <a href="#pricing">Deploy System</a>
+                <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">Book a Call</a>
               </Button>
             </div>
           </motion.div>
