@@ -99,7 +99,7 @@ const Navbar = () => {
                 </a>
               </Button>
               <Button variant="neon" size="sm" asChild>
-                <a href="#pricing">Deploy System</a>
+                <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">Book a Call</a>
               </Button>
             </div>
 
