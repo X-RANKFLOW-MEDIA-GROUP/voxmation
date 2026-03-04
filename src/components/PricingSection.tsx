@@ -117,7 +117,7 @@ const PricingSection = () => {
                       asChild
                     >
                       <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
-                        Book Your Demo
+                        Book a Call
                         <ArrowUpRight className="h-4 w-4" />
                       </a>
                     </Button>

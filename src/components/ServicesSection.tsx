@@ -111,7 +111,7 @@ const ServicesSection = () => {
                   <p className="text-silver leading-relaxed mb-8">{current.desc}</p>
                   <Button variant="neon" size="lg" asChild>
                     <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
-                      Book Your Demo
+                      Book a Call
                       <ArrowUpRight className="h-4 w-4" />
                     </a>
                   </Button>

@@ -12,11 +12,13 @@ import PricingSection from "@/components/PricingSection";
 import SocialProofSection from "@/components/SocialProofSection";
 import FAQSection from "@/components/FAQSection";
 import FooterSection from "@/components/FooterSection";
+import FloatingCTA from "@/components/FloatingCTA";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      <FloatingCTA />
       <main>
         <HeroSection />
         <ProblemSection />

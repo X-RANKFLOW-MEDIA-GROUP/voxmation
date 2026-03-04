@@ -74,8 +74,8 @@ const HeroSection = () => {
             className="flex flex-col sm:flex-row gap-4"
           >
             <Button variant="neon" size="xl" asChild>
-              <a href="#pricing" className="gap-2">
-                Deploy Your System
+              <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
+                Book a Free Call
                 <ArrowUpRight className="h-4 w-4" />
               </a>
             </Button>

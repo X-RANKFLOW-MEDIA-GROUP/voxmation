@@ -34,7 +34,7 @@ const FooterSection = () => {
                 </p>
                 <Button variant="neon" size="xl" asChild>
                   <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
-                    Book Audit
+                    Book a Free Call
                     <ArrowUpRight className="h-4 w-4" />
                   </a>
                 </Button>
