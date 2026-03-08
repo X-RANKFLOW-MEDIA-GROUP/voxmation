@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { PhoneOff, MessageSquare, Reply, CalendarCheck, ArrowRight, Bot } from "lucide-react";
+import { PhoneOff, MessageSquare, Reply, CalendarCheck, ArrowRight } from "lucide-react";
+import phoneMockup from "@/assets/phone-mockup.png";
 
 const timelineSteps = [
   {
