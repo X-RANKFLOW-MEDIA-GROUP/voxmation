@@ -77,7 +77,7 @@ const Navbar = () => {
                   return (
                     <button
                       key={l.href}
-                      onClick={() => scrollTo(l.href)}
+                      onClick={() => scrollTo(l.href, (l as any).isRoute)}
                       className={`relative text-xs px-4 py-1.5 rounded-full transition-all duration-300 font-mono tracking-wide ${
                         isActive ? "text-primary" : "text-silver hover:text-silver-bright"
                       }`}
