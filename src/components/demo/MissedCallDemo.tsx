@@ -120,63 +120,20 @@ const MissedCallDemo = () => {
             ))}
           </div>
 
-          {/* Right — Phone Mockup */}
+          {/* Right — Phone Mockup (Real Image) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3 }}
             className="flex justify-center"
           >
-            <div className="w-full max-w-[300px] bg-card border border-border rounded-[28px] p-1.5 shadow-[0_40px_80px_rgba(0,0,0,0.4)]">
-              <div className="bg-background rounded-[22px] overflow-hidden">
-                {/* Phone status bar */}
-                <div className="px-5 pt-3 pb-2 flex items-center justify-between">
-                  <span className="font-mono text-[0.6rem] text-muted-foreground">9:47 PM</span>
-                  <div className="w-20 h-5 bg-foreground/10 rounded-full" />
-                  <div className="flex gap-1">
-                    <span className="w-3 h-3 bg-foreground/10 rounded-full" />
-                    <span className="w-3 h-3 bg-foreground/10 rounded-full" />
-                  </div>
-                </div>
-
-                {/* Chat header */}
-                <div className="px-4 py-2.5 border-b border-border flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-foreground/[0.06] border border-foreground/10 flex items-center justify-center">
-                    <Bot className="w-4 h-4 text-foreground/40" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-foreground">Comfort Zone HVAC</p>
-                    <p className="text-[0.6rem] text-muted-foreground font-mono">Voxmation AI</p>
-                  </div>
-                </div>
-
-                {/* Messages */}
-                <div className="px-3 py-3 min-h-[320px] flex flex-col gap-2">
-                  {phoneChatMessages.slice(0, visibleMessages).map((msg, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 8, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{ duration: 0.3 }}
-                      className={`${msg.type === "system" ? "self-center" : msg.type === "out" ? "self-start" : "self-end"}`}
-                    >
-                      {msg.type === "system" ? (
-                        <span className="font-mono text-[0.6rem] text-muted-foreground bg-foreground/[0.03] border border-border px-3 py-1 rounded-full">
-                          {msg.text}
-                        </span>
-                      ) : (
-                        <div className={`max-w-[85%] px-3 py-2 rounded-2xl text-[0.78rem] leading-snug ${
-                          msg.type === "out"
-                            ? "bg-card border border-border rounded-bl-sm text-foreground/80"
-                            : "bg-foreground text-background rounded-br-sm"
-                        }`}>
-                          {msg.text}
-                        </div>
-                      )}
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+            <div className="w-full max-w-[320px] rounded-[32px] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.5)] border border-border">
+              <img
+                src={phoneMockup}
+                alt="iPhone showing automated SMS conversation between Voxmation AI and a customer requesting HVAC service"
+                className="w-full h-auto"
+                loading="lazy"
+              />
             </div>
           </motion.div>
         </div>
