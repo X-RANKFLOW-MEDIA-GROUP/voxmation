@@ -24,12 +24,12 @@ const voiceIdMap: Record<string, string> = {
 
 /* ─── DATA ─── */
 const industries = [
-  { id: "hvac", icon: "❄️", label: "HVAC & AC" },
-  { id: "plumbing", icon: "🔧", label: "Plumbing" },
-  { id: "electrical", icon: "⚡", label: "Electrical" },
-  { id: "roofing", icon: "🏠", label: "Roofing" },
-  { id: "landscaping", icon: "🌿", label: "Landscaping" },
-  { id: "cleaning", icon: "🧹", label: "Cleaning" },
+  { id: "hvac", icon: Sparkles, label: "HVAC & AC" },
+  { id: "plumbing", icon: Sparkles, label: "Plumbing" },
+  { id: "electrical", icon: Sparkles, label: "Electrical" },
+  { id: "roofing", icon: Sparkles, label: "Roofing" },
+  { id: "landscaping", icon: Sparkles, label: "Landscaping" },
+  { id: "cleaning", icon: Sparkles, label: "Cleaning" },
 ];
 
 const voices = [
