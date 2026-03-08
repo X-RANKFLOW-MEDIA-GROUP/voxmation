@@ -1,13 +1,22 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Send, ArrowUpRight } from "lucide-react";
+import { Send, ArrowUpRight, Volume2 } from "lucide-react";
 
 /* ─── TYPES ─── */
 interface ChatMessage {
   role: "bot" | "user";
   text: string;
 }
+
+/* ─── VOICE ID MAPPING ─── */
+const voiceIdMap: Record<string, string> = {
+  rachel: "EXAVITQu4vr4xnSDxMaL", // Sarah
+  adam: "onwK4e9ZLuTAKqWW03F9",   // Daniel
+  josh: "TX3LPaxmHKxFdv7VOQHJ",   // Liam
+  bella: "XrExE9yKIg1WjnnlVkGX",  // Matilda
+  elli: "pFZP5JQG7iQjIQuC4Bku",   // Lily
+};
 
 /* ─── DATA ─── */
 const industries = [
@@ -25,7 +34,6 @@ const voices = [
   { id: "josh", icon: "🧑", name: "Josh", desc: "Friendly, young" },
   { id: "bella", icon: "👩‍💼", name: "Bella", desc: "Warm, soft" },
   { id: "elli", icon: "👧", name: "Elli", desc: "Energetic, bright" },
-  { id: "custom", icon: "✏️", name: "Custom", desc: "Enter your own ID" },
 ];
 
 const conversations: Record<string, ChatMessage[]> = {
@@ -85,6 +93,38 @@ const conversations: Record<string, ChatMessage[]> = {
   ],
 };
 
+/* ─── TTS FUNCTION ─── */
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+async function speakText(text: string, voiceId: string): Promise<HTMLAudioElement | null> {
+  try {
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/elevenlabs-tts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+      },
+      body: JSON.stringify({ text, voiceId }),
+    });
+
+    if (!response.ok) {
+      console.error("TTS failed:", response.status);
+      return null;
+    }
+
+    const audioBlob = await response.blob();
+    const audioUrl = URL.createObjectURL(audioBlob);
+    const audio = new Audio(audioUrl);
+    await audio.play();
+    return audio;
+  } catch (err) {
+    console.error("TTS error:", err);
+    return null;
+  }
+}
+
 /* ─── AUDIO VISUALIZER BARS ─── */
 const VisualizerBars = ({ active, color = "bg-foreground/20" }: { active: boolean; color?: string }) => (
   <div className="flex items-center gap-[2px] h-8">
@@ -126,8 +166,14 @@ const Demo = () => {
   const [textInput, setTextInput] = useState("");
   const [callActive, setCallActive] = useState(false);
   const [liveTranscript, setLiveTranscript] = useState("");
+  const [ttsError, setTtsError] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  const getElevenLabsVoiceId = useCallback(() => {
+    return voiceIdMap[selectedVoice] || voiceIdMap.rachel;
+  }, [selectedVoice]);
 
   const startCall = useCallback(() => {
     if (!selectedIndustry) return;
@@ -136,6 +182,7 @@ const Demo = () => {
     setConvoIndex(0);
     setTimer(0);
     setCallActive(true);
+    setTtsError(false);
   }, [selectedIndustry]);
 
   // Timer
@@ -146,7 +193,7 @@ const Demo = () => {
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [callActive]);
 
-  // Auto-play conversation
+  // Auto-play conversation with real TTS
   useEffect(() => {
     if (!callActive || !selectedIndustry) return;
     const convo = conversations[selectedIndustry];
@@ -159,22 +206,50 @@ const Demo = () => {
       return;
     }
     const msg = convo[convoIndex];
-    const delay = convoIndex === 0 ? 1500 : 2200 + Math.random() * 1500;
+    const delay = convoIndex === 0 ? 1500 : 2200 + Math.random() * 1000;
 
-    const timeout = setTimeout(() => {
+    const timeout = setTimeout(async () => {
       if (msg.role === "bot") {
+        // Show typing
         setIsTyping(true);
         setLiveTranscript(msg.text);
-        setTimeout(() => {
+
+        // Start TTS fetch while "typing"
+        const voiceId = getElevenLabsVoiceId();
+
+        setTimeout(async () => {
           setIsTyping(false);
           setAgentSpeaking(true);
           setMessages((prev) => [...prev, msg]);
-          setTimeout(() => {
-            setAgentSpeaking(false);
-            setLiveTranscript("");
-            setConvoIndex((i) => i + 1);
-          }, 1800);
-        }, 1400);
+
+          // Play real TTS audio
+          const audio = await speakText(msg.text, voiceId);
+          if (audio) {
+            currentAudioRef.current = audio;
+            audio.onended = () => {
+              setAgentSpeaking(false);
+              setLiveTranscript("");
+              currentAudioRef.current = null;
+              setConvoIndex((i) => i + 1);
+            };
+            audio.onerror = () => {
+              setAgentSpeaking(false);
+              setLiveTranscript("");
+              setTtsError(true);
+              currentAudioRef.current = null;
+              // Fallback: continue after timeout
+              setTimeout(() => setConvoIndex((i) => i + 1), 1500);
+            };
+          } else {
+            // TTS failed — fallback to timed simulation
+            setTtsError(true);
+            setTimeout(() => {
+              setAgentSpeaking(false);
+              setLiveTranscript("");
+              setConvoIndex((i) => i + 1);
+            }, 2000);
+          }
+        }, 1200);
       } else {
         setLiveTranscript(msg.text);
         setMessages((prev) => [...prev, msg]);
@@ -185,12 +260,22 @@ const Demo = () => {
       }
     }, delay);
     return () => clearTimeout(timeout);
-  }, [callActive, convoIndex, selectedIndustry]);
+  }, [callActive, convoIndex, selectedIndustry, getElevenLabsVoiceId]);
 
   // Scroll chat
   useEffect(() => {
     if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
   }, [messages, isTyping]);
+
+  // Cleanup audio on unmount
+  useEffect(() => {
+    return () => {
+      if (currentAudioRef.current) {
+        currentAudioRef.current.pause();
+        currentAudioRef.current = null;
+      }
+    };
+  }, []);
 
   const formatTime = (s: number) =>
     `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -206,6 +291,10 @@ const Demo = () => {
   const intent = messages.length > 2 ? "Booking" : "—";
 
   const resetAll = () => {
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current = null;
+    }
     setStep(1);
     setMessages([]);
     setTimer(0);
@@ -216,6 +305,7 @@ const Demo = () => {
     setLiveTranscript("");
     setAgentSpeaking(false);
     setIsTyping(false);
+    setTtsError(false);
   };
 
   return (
@@ -234,8 +324,8 @@ const Demo = () => {
 
         <div className="flex items-center gap-4">
           <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full border border-border/60 bg-card/40">
-            <span className="w-[5px] h-[5px] rounded-full bg-foreground/50 animate-pulse" />
-            <span className="font-mono text-[0.62rem] tracking-wider text-muted-foreground uppercase">Voice AI</span>
+            <Volume2 className="w-3 h-3 text-muted-foreground" />
+            <span className="font-mono text-[0.62rem] tracking-wider text-muted-foreground uppercase">ElevenLabs TTS</span>
           </div>
           <Link to="/" className="text-xs font-mono tracking-wider text-muted-foreground hover:text-foreground transition-colors uppercase">
             ← Back
@@ -273,16 +363,17 @@ const Demo = () => {
               </h1>
 
               <p className="text-muted-foreground text-[0.95rem] mb-10 leading-relaxed max-w-md font-light">
-                Voz ultra-realista via IA + seu microfone. Selecione a voz, escolha seu setor e inicie a conversa.
+                Voz ultra-realista via ElevenLabs. Selecione a voz, escolha seu setor e ouça o agente em ação.
               </p>
 
               {/* ── Voice Picker ── */}
               <div className="w-full surface-card rounded-2xl p-6 mb-6 text-left relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
                 <p className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground mb-4 flex items-center gap-2">
-                  🎤 Escolha a voz do agente
+                  <Volume2 className="w-3.5 h-3.5" />
+                  Escolha a voz do agente — ElevenLabs
                 </p>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                   {voices.map((v) => (
                     <button
                       key={v.id}
@@ -340,7 +431,7 @@ const Demo = () => {
                 disabled={!selectedIndustry}
                 className="w-full bg-foreground text-background font-display font-bold rounded-xl py-4 px-7 text-base flex items-center justify-center gap-2.5 shadow-[0_0_40px_hsl(0_0%_100%/0.08)] hover:-translate-y-0.5 hover:shadow-[0_0_60px_hsl(0_0%_100%/0.12)] transition-all disabled:opacity-20 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
               >
-                🎙️ Iniciar Chamada com Voz
+                🎙️ Iniciar Chamada com ElevenLabs
               </button>
             </motion.div>
           )}
@@ -368,7 +459,7 @@ const Demo = () => {
                   </div>
                   <div>
                     <p className="text-xs font-semibold text-foreground">Vox Agent</p>
-                    <p className="font-mono text-[0.58rem] text-muted-foreground">Voxmation</p>
+                    <p className="font-mono text-[0.58rem] text-muted-foreground">ElevenLabs</p>
                   </div>
                 </div>
               </div>
@@ -411,8 +502,9 @@ const Demo = () => {
 
               {/* ── Audio Visualizer ── */}
               <div className="w-full bg-background/60 border-x border-border px-5 py-3 flex items-center gap-4">
-                <span className="font-mono text-[0.58rem] text-muted-foreground tracking-wider uppercase shrink-0">
-                  {agentSpeaking ? "SPEAKING" : "IDLE"}
+                <span className="font-mono text-[0.58rem] text-muted-foreground tracking-wider uppercase shrink-0 flex items-center gap-1.5">
+                  <Volume2 className="w-3 h-3" />
+                  {agentSpeaking ? "ELEVENLABS" : "IDLE"}
                 </span>
                 <div className="flex-1">
                   <VisualizerBars active={agentSpeaking} color="bg-foreground/15" />
@@ -425,6 +517,15 @@ const Demo = () => {
                   {liveTranscript ? `🎤 ${liveTranscript}` : "🎤 Live transcript will appear here..."}
                 </p>
               </div>
+
+              {/* ── TTS Error Banner ── */}
+              {ttsError && (
+                <div className="w-full border-x border-border px-5 py-2">
+                  <div className="bg-destructive/10 border border-destructive/20 rounded-lg px-3 py-2 text-[0.78rem] text-destructive">
+                    ⚠️ TTS unavailable — falling back to text-only mode
+                  </div>
+                </div>
+              )}
 
               {/* ── Chat ── */}
               <div
@@ -499,7 +600,7 @@ const Demo = () => {
                   { label: "Sentiment", value: sentiment },
                   { label: "Lead Score", value: leadScore },
                   { label: "Intent", value: intent },
-                  { label: "Voice", value: voices.find(v => v.id === selectedVoice)?.name || "—" },
+                  { label: "TTS", value: ttsError ? "Fallback" : "ElevenLabs" },
                 ].map((m) => (
                   <div key={m.label} className="surface-card rounded-xl px-3 py-3">
                     <p className="font-mono text-[0.55rem] text-muted-foreground uppercase tracking-[0.12em] mb-1">{m.label}</p>
@@ -510,7 +611,7 @@ const Demo = () => {
 
               {/* Hint */}
               <p className="text-[0.72rem] text-muted-foreground mt-3 text-center font-mono">
-                🤖 Agent is speaking... watch the conversation unfold
+                🔊 Agent is speaking with ElevenLabs voice — listen!
               </p>
             </motion.div>
           )}
@@ -538,7 +639,7 @@ const Demo = () => {
                 Chamada Concluída.
               </h2>
               <p className="text-muted-foreground text-[0.93rem] leading-relaxed mb-8 font-light max-w-md">
-                O agente conduziu toda a conversa com voz realista — qualificou o lead, construiu rapport e agendou o serviço sem nenhum humano envolvido.
+                O agente falou com voz realista via ElevenLabs — qualificou o lead, construiu rapport e agendou o serviço sem nenhum humano envolvido.
               </p>
 
               {/* Summary Card */}
@@ -553,6 +654,7 @@ const Demo = () => {
                   { k: "Mensagens", v: String(messages.length) },
                   { k: "Duração", v: formatTime(timer) },
                   { k: "Voz", v: voices.find(v => v.id === selectedVoice)?.name || "—" },
+                  { k: "TTS", v: "ElevenLabs" },
                   { k: "Resultado", v: "✓ Demo Completed", highlight: true },
                 ].map((r) => (
                   <div key={r.k} className="flex justify-between py-2.5 border-b border-border last:border-0 text-[0.84rem]">
