@@ -774,7 +774,7 @@ const DemoFooter = () => (
 );
 
 /* ─────────────── PAGE ─────────────── */
-const Demo = () => {
+const Demo = () => { // v2
   useEffect(() => {
     document.title = "Demo — Voxmation AI Voice Agents for Home Service Businesses";
   }, []);
