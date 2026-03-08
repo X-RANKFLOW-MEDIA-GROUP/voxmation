@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Reveal from "@/components/Reveal";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const FooterSection = () => {
   return (
