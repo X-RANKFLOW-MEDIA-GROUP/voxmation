@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { Phone, Users, CalendarCheck, DollarSign, Bell, Zap, Bot } from "lucide-react";
+import { Phone, Users, CalendarCheck, DollarSign, Bell, Zap } from "lucide-react";
+import dashboardMockup from "@/assets/dashboard-mockup.png";
 
 /* ─── ANIMATED COUNTER ─── */
 const Counter = ({ target, duration = 2, prefix = "", suffix = "" }: { target: number; duration?: number; prefix?: string; suffix?: string }) => {
