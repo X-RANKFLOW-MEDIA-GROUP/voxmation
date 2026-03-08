@@ -2,16 +2,21 @@ import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, LogIn } from "lucide-react";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const navLinks = [
   { label: "How It Works", href: "#how-it-works" },
   { label: "Services", href: "#services" },
   { label: "Industries", href: "#industries" },
-  { label: "Results", href: "#results" },
+  { label: "Pricing", href: "/pricing", isRoute: true },
+  { label: "ROI Calculator", href: "/roi-calculator", isRoute: true },
+  { label: "Demo", href: "/demo", isRoute: true },
   { label: "FAQ", href: "#faq" },
 ];
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -28,10 +33,19 @@ const Navbar = () => {
     if (diff < -5) setHidden(false);
   });
 
-  const scrollTo = useCallback((href: string) => {
+  const scrollTo = useCallback((href: string, isRoute?: boolean) => {
     setMobileOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+    if (isRoute) {
+      navigate(href);
+    } else if (href.startsWith("#")) {
+      if (location.pathname !== "/") {
+        navigate("/");
+        setTimeout(() => document.querySelector(href)?.scrollIntoView({ behavior: "smooth" }), 100);
+      } else {
+        document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [navigate, location.pathname]);
 
   return (
     <motion.nav
@@ -63,7 +77,7 @@ const Navbar = () => {
                   return (
                     <button
                       key={l.href}
-                      onClick={() => scrollTo(l.href)}
+                      onClick={() => scrollTo(l.href, (l as any).isRoute)}
                       className={`relative text-xs px-4 py-1.5 rounded-full transition-all duration-300 font-mono tracking-wide ${
                         isActive ? "text-primary" : "text-silver hover:text-silver-bright"
                       }`}
@@ -127,7 +141,7 @@ const Navbar = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.06, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  onClick={() => scrollTo(l.href)}
+                  onClick={() => scrollTo(l.href, (l as any).isRoute)}
                   className="block w-full text-left text-sm py-3 px-4 rounded-xl text-silver hover:text-primary hover:bg-primary/5 transition-all font-mono"
                 >
                   {l.label}

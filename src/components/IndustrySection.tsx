@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Reveal from "@/components/Reveal";
 import { motion, AnimatePresence } from "framer-motion";
-import { Flame, Droplets, Zap, Home, Stethoscope, Scale, Sparkles, ArrowUpRight } from "lucide-react";
+import { Flame, Droplets, Zap, Home, Sparkles, Scale, ArrowUpRight, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const industries = [
@@ -10,6 +11,7 @@ const industries = [
     icon: Flame,
     label: "HVAC",
     title: "HVAC Companies",
+    slug: "ai-voice-agent-hvac",
     scenario: "A homeowner's AC breaks at 9 PM. They call your number.",
     without: "Voicemail. They call the next company. You lose a $3,000+ job.",
     withVox: "Your AI answers instantly, qualifies the emergency, and books a next-morning appointment. Lead captured. Job booked.",
@@ -20,6 +22,7 @@ const industries = [
     icon: Droplets,
     label: "Plumbing",
     title: "Plumbing Companies",
+    slug: "ai-voice-agent-for-plumbers",
     scenario: "A burst pipe at midnight. The homeowner is panicking.",
     without: "Your phone goes to voicemail. They Google the next plumber.",
     withVox: "AI answers, confirms emergency dispatch availability, collects info, and sends confirmation. You wake up to a booked job.",
@@ -30,6 +33,7 @@ const industries = [
     icon: Zap,
     label: "Electrical",
     title: "Electricians",
+    slug: "ai-receptionist-electricians",
     scenario: "A customer needs a panel upgrade quote. They call during your busiest day.",
     without: "You're on a job. The call goes unanswered. Lead gone.",
     withVox: "AI answers, qualifies the request, captures property details, and schedules an estimate. Zero interruption to your workflow.",
@@ -40,6 +44,7 @@ const industries = [
     icon: Home,
     label: "Roofing",
     title: "Roofing Companies",
+    slug: "",
     scenario: "Storm season. Leads are flooding in faster than you can answer.",
     without: "You miss 60% of calls. Leads go cold. Money left on the table.",
     withVox: "AI handles unlimited concurrent calls, qualifies damage claims, and books inspections. Every lead captured, none lost.",
@@ -50,6 +55,7 @@ const industries = [
     icon: Sparkles,
     label: "Med Spa",
     title: "Med Spas & Dental",
+    slug: "ai-booking-agent-spa-salon",
     scenario: "A patient wants to book a Botox appointment after hours.",
     without: "Closed office. They book with a competitor who answers.",
     withVox: "AI books the appointment, sends confirmation, and triggers a reminder sequence. No-shows drop by 89%.",
@@ -60,6 +66,7 @@ const industries = [
     icon: Scale,
     label: "Legal",
     title: "Law Firms",
+    slug: "ai-intake-agent-law-office",
     scenario: "A potential client calls about a personal injury case at 7 PM.",
     without: "Answering service takes a message. You call back 16 hours later. They already hired someone else.",
     withVox: "AI qualifies the case type, collects intake info, and books a consultation. First to respond wins the case.",
@@ -157,12 +164,22 @@ const IndustrySection = () => {
                 <div className="text-2xl md:text-3xl font-mono font-bold text-warning tracking-tight">
                   {current.metric}
                 </div>
-                <Button variant="neon" size="lg" asChild>
-                  <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
-                    Book a Demo
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
-                </Button>
+                <div className="flex gap-3">
+                  <Button variant="neon" size="lg" asChild>
+                    <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
+                      Book a Demo
+                      <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  </Button>
+                  {current.slug && (
+                    <Button variant="neon-outline" size="lg" asChild>
+                      <Link to={`/${current.slug}`} className="gap-2">
+                        Learn More
+                        <ExternalLink className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           </motion.div>

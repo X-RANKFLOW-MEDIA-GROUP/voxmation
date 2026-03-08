@@ -11,18 +11,30 @@ import ComparisonSection from "@/components/ComparisonSection";
 import FAQSection from "@/components/FAQSection";
 import FooterSection from "@/components/FooterSection";
 import FloatingCTA from "@/components/FloatingCTA";
+import IntegrationLogos from "@/components/IntegrationLogos";
+import SEOHead from "@/components/SEOHead";
 
 const Index = () => {
-  useEffect(() => {
-    document.title = "Voxmation — AI Voice Agents & Automation for Home Service Businesses";
-  }, []);
-
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="AI Voice Agents & Automation for Home Service Businesses"
+        description="Voxmation's AI answers every call, follows up with every lead, and books appointments 24/7. Built for HVAC, plumbing, electrical, spa, and law firms. No contracts. Setup in 24h."
+        path="/"
+        jsonLd={[{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            { "@type": "Question", name: "How long does setup take?", acceptedAnswer: { "@type": "Answer", text: "Most businesses are live within 7–14 days." } },
+            { "@type": "Question", name: "Is there a long-term contract?", acceptedAnswer: { "@type": "Answer", text: "No. Month-to-month. Cancel anytime." } },
+          ],
+        }]}
+      />
       <Navbar />
       <FloatingCTA />
       <main>
         <HeroSection />
+        <IntegrationLogos />
         <ProblemSection />
         <HowItWorksSection />
         <ServicesSection />
