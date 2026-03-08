@@ -683,14 +683,15 @@ const Demo = () => {
                   rel="noopener noreferrer"
                   className="flex-1 bg-foreground text-background font-display font-bold rounded-xl py-3.5 px-5 text-sm text-center hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 shadow-[0_0_30px_hsl(0_0%_100%/0.06)]"
                 >
-                  Quero meu AI Agent
+                  Get My AI Agent
                   <ArrowUpRight className="w-4 h-4" />
                 </a>
                 <button
                   onClick={resetAll}
-                  className="flex-1 bg-transparent text-foreground/70 border border-border font-display font-semibold rounded-xl py-3.5 px-5 text-sm hover:border-foreground/15 hover:text-foreground transition-all"
+                  className="flex-1 bg-transparent text-foreground/70 border border-border font-display font-semibold rounded-xl py-3.5 px-5 text-sm hover:border-foreground/15 hover:text-foreground transition-all flex items-center justify-center gap-2"
                 >
-                  ↺ Tentar de novo
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  Try Again
                 </button>
               </div>
             </motion.div>
