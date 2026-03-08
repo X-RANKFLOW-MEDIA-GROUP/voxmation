@@ -557,7 +557,7 @@ const Demo = () => {
                         ? "bg-gradient-to-br from-foreground/8 to-foreground/3 border border-foreground/10"
                         : "bg-foreground/5 border border-border font-display font-bold text-foreground/40 text-[0.6rem]"
                     }`}>
-                      {msg.role === "bot" ? "🤖" : (userName?.[0]?.toUpperCase() || "U")}
+                      {msg.role === "bot" ? <Bot className="w-3 h-3 text-foreground/40" /> : (userName?.[0]?.toUpperCase() || "U")}
                     </div>
                     <div className={`max-w-[72%] px-3.5 py-2.5 rounded-xl text-[0.85rem] leading-relaxed ${
                       msg.role === "bot"
