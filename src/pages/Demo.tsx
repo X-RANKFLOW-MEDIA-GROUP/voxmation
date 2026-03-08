@@ -365,15 +365,15 @@ const Demo = () => {
               </p>
 
               <h1 className="font-display font-extrabold text-[clamp(2rem,5vw,3.4rem)] leading-[1.02] tracking-[-0.04em] text-foreground mb-3">
-                Ouça seu{" "}
+                Hear your{" "}
                 <span className="bg-gradient-to-r from-foreground to-foreground/50 bg-clip-text text-transparent">
                   AI Agent
                 </span>{" "}
-                falar.
+                speak.
               </h1>
 
               <p className="text-muted-foreground text-[0.95rem] mb-10 leading-relaxed max-w-md font-light">
-                Voz ultra-realista via ElevenLabs. Selecione a voz, escolha seu setor e ouça o agente em ação.
+                Ultra-realistic voice powered by ElevenLabs. Pick a voice, choose your industry, and listen to your agent in action.
               </p>
 
               {/* ── Voice Picker ── */}
@@ -381,7 +381,7 @@ const Demo = () => {
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
                 <p className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground mb-4 flex items-center gap-2">
                   <Volume2 className="w-3.5 h-3.5" />
-                  Escolha a voz do agente — ElevenLabs
+                  Select Agent Voice — ElevenLabs
                 </p>
                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                   {voices.map((v) => (
@@ -394,7 +394,7 @@ const Demo = () => {
                           : "border-border bg-background/40 hover:border-foreground/10"
                       }`}
                     >
-                      <span className="text-xl">{v.icon}</span>
+                      <v.Icon className="w-5 h-5 text-foreground/60" />
                       <span className="text-[0.72rem] font-semibold text-foreground">{v.name}</span>
                       <span className="text-[0.6rem] text-muted-foreground text-center leading-tight">{v.desc}</span>
                     </button>
@@ -404,7 +404,7 @@ const Demo = () => {
 
               {/* ── Industry Picker ── */}
               <p className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground mb-3 self-start w-full">
-                Tipo de negócio
+                Business Type
               </p>
               <div className="grid grid-cols-3 gap-2.5 w-full mb-6">
                 {industries.map((ind) => (
@@ -417,7 +417,7 @@ const Demo = () => {
                         : "border-border bg-card hover:border-foreground/10 hover:-translate-y-0.5"
                     }`}
                   >
-                    <span className="text-2xl">{ind.icon}</span>
+                    <ind.Icon className="w-6 h-6 text-foreground/50" />
                     <span className="text-[0.75rem] font-semibold text-foreground text-center leading-tight">{ind.label}</span>
                   </button>
                 ))}
@@ -425,11 +425,11 @@ const Demo = () => {
 
               {/* ── Name Input ── */}
               <p className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground mb-2.5 self-start w-full">
-                Seu nome (você será o cliente)
+                Your Name (you'll play the customer)
               </p>
               <input
                 type="text"
-                placeholder="Ex: Carlos"
+                placeholder="e.g. John"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
                 className="w-full bg-card border border-border text-foreground rounded-xl px-4 py-3 text-sm outline-none focus:border-foreground/20 transition-colors mb-6 placeholder:text-muted-foreground font-mono"
@@ -441,7 +441,8 @@ const Demo = () => {
                 disabled={!selectedIndustry}
                 className="w-full bg-foreground text-background font-display font-bold rounded-xl py-4 px-7 text-base flex items-center justify-center gap-2.5 shadow-[0_0_40px_hsl(0_0%_100%/0.08)] hover:-translate-y-0.5 hover:shadow-[0_0_60px_hsl(0_0%_100%/0.12)] transition-all disabled:opacity-20 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
               >
-                🎙️ Iniciar Chamada com ElevenLabs
+                <Mic className="w-5 h-5" />
+                Start Voice Call
               </button>
             </motion.div>
           )}
