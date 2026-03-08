@@ -465,8 +465,8 @@ const Demo = () => {
                 </div>
                 <span className="font-mono text-sm text-muted-foreground tracking-[0.15em]">{formatTime(timer)}</span>
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-foreground/10 to-foreground/5 border border-foreground/15 flex items-center justify-center text-sm">
-                    🤖
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-foreground/10 to-foreground/5 border border-foreground/15 flex items-center justify-center">
+                    <Bot className="w-4 h-4 text-foreground/50" />
                   </div>
                   <div>
                     <p className="text-xs font-semibold text-foreground">Vox Agent</p>
