@@ -656,8 +656,8 @@ const Demo = () => {
               {/* Summary Card */}
               <div className="surface-card rounded-2xl p-6 w-full mb-6 text-left relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
-                <p className="font-mono text-[0.58rem] tracking-[0.16em] text-muted-foreground uppercase mb-4">
-                  📋 Call Summary
+                <p className="font-mono text-[0.58rem] tracking-[0.16em] text-muted-foreground uppercase mb-4 flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Call Summary
                 </p>
                 {[
                   { k: "Lead", v: userName || "Customer" },
