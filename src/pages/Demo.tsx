@@ -661,12 +661,12 @@ const Demo = () => {
                 </p>
                 {[
                   { k: "Lead", v: userName || "Customer" },
-                  { k: "Setor", v: industries.find((i) => i.id === selectedIndustry)?.label || "—" },
-                  { k: "Mensagens", v: String(messages.length) },
-                  { k: "Duração", v: formatTime(timer) },
-                  { k: "Voz", v: voices.find(v => v.id === selectedVoice)?.name || "—" },
+                  { k: "Industry", v: industries.find((i) => i.id === selectedIndustry)?.label || "—" },
+                  { k: "Messages", v: String(messages.length) },
+                  { k: "Duration", v: formatTime(timer) },
+                  { k: "Voice", v: voices.find(v => v.id === selectedVoice)?.name || "—" },
                   { k: "TTS", v: "ElevenLabs" },
-                  { k: "Resultado", v: "✓ Demo Completed", highlight: true },
+                  { k: "Result", v: "Demo Completed", highlight: true },
                 ].map((r) => (
                   <div key={r.k} className="flex justify-between py-2.5 border-b border-border last:border-0 text-[0.84rem]">
                     <span className="text-muted-foreground">{r.k}</span>
