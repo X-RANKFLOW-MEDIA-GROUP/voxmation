@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Reveal from "@/components/Reveal";
 import { motion, AnimatePresence } from "framer-motion";
-import { Flame, Droplets, Zap, Home, Stethoscope, Scale, Sparkles, ArrowUpRight } from "lucide-react";
+import { Flame, Droplets, Zap, Home, Sparkles, Scale, ArrowUpRight, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const industries = [
