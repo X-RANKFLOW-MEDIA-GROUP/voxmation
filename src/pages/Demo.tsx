@@ -337,8 +337,14 @@ const Demo = () => {
         </div>
       </nav>
 
-      {/* ─── CONTENT ─── */}
-      <div className="relative z-10 min-h-screen pt-24 pb-12 px-5 flex flex-col items-center">
+      {/* ─── HERO SECTION ─── */}
+      <div className="pt-16">
+        <DemoHero />
+      </div>
+
+      {/* ─── VOICE AI DEMO ─── */}
+      <div id="voice-demo" className="relative z-10 border-t border-border py-12 px-5 flex flex-col items-center">
+        <AnimatePresence mode="wait">
         <AnimatePresence mode="wait">
 
           {/* ═══════════════ STEP 1: CONFIGURE ═══════════════ */}
