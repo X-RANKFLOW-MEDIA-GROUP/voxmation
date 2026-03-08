@@ -1,798 +1,517 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import Reveal from "@/components/Reveal";
-import FloatingCTA from "@/components/FloatingCTA";
-import {
-  ArrowUpRight, Play, Phone, MessageSquare, CalendarCheck, UserCheck,
-  PhoneOff, Zap, TrendingUp, Clock, ChevronDown, Volume2,
-  Flame, Droplets, Wrench, Home, Sparkles, Scale,
-  ArrowRight, BarChart3, Users, Bell, CheckCircle2, PhoneCall,
-  Workflow, Link2, Bot
-} from "lucide-react";
 import { Link } from "react-router-dom";
+import { ArrowLeft, Mic, Send, ArrowUpRight } from "lucide-react";
 
-/* ─────────────── DEMO HERO ─────────────── */
-const DemoHero = () => (
-  <section className="relative min-h-[90vh] flex items-center overflow-hidden noise-overlay">
-    <div className="absolute inset-0 gradient-radial-hero pointer-events-none" />
-    <div className="absolute inset-0 gradient-mesh pointer-events-none" />
-    <div className="absolute inset-0 line-grid opacity-[0.03] pointer-events-none" />
+/* ─── TYPES ─── */
+interface ChatMessage {
+  role: "bot" | "user";
+  text: string;
+}
 
-    <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center pt-28 pb-20">
-      {/* Copy */}
-      <div className="space-y-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-primary/20 bg-primary/5"
-        >
-          <Play className="h-3 w-3 text-primary" />
-          <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono">
-            Live Demo
-          </span>
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="text-4xl sm:text-5xl md:text-6xl font-display font-bold leading-[1.05] tracking-[-0.02em]"
-        >
-          <span className="text-silver-bright">See How AI</span>
-          <br />
-          <span className="text-silver-bright">Turns Missed Calls</span>
-          <br />
-          <span className="bg-gradient-to-r from-primary to-[hsl(var(--gradient-end))] bg-clip-text text-transparent">
-            Into Booked Jobs.
-          </span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-lg md:text-xl text-silver max-w-lg leading-relaxed"
-        >
-          Watch Voxmation's AI Voice Agent answer a call, qualify the lead,
-          text back missed callers, and book appointments — all in real time.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex flex-col sm:flex-row gap-4"
-        >
-          <Button variant="neon" size="xl" asChild>
-            <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
-              Book Your Live Demo
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
-          </Button>
-          <Button variant="neon-outline" size="xl" asChild>
-            <a href="#interactive-demo" className="gap-2">
-              Explore Below
-              <ChevronDown className="h-4 w-4" />
-            </a>
-          </Button>
-        </motion.div>
-      </div>
-
-      {/* Dashboard mockup */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9, x: 60, filter: "blur(20px)" }}
-        animate={{ opacity: 1, scale: 1, x: 0, filter: "blur(0px)" }}
-        transition={{ duration: 1.2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="relative hidden lg:block"
-      >
-        <DashboardMockup />
-      </motion.div>
-    </div>
-
-    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
-  </section>
-);
-
-/* ─────────────── DASHBOARD MOCKUP ─────────────── */
-const DashboardMockup = () => (
-  <div className="relative">
-    <div className="absolute -inset-10 rounded-3xl bg-gradient-to-br from-primary/8 via-transparent to-primary/4 blur-3xl" />
-    <div className="relative surface-card rounded-2xl border border-border/60 overflow-hidden">
-      {/* Title bar */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-border/50 bg-card/80">
-        <div className="flex gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-destructive/60" />
-          <div className="w-2.5 h-2.5 rounded-full bg-warning/60" />
-          <div className="w-2.5 h-2.5 rounded-full bg-primary/40" />
-        </div>
-        <span className="text-[10px] font-mono text-muted-foreground ml-2">Voxmation Dashboard</span>
-      </div>
-
-      <div className="p-5 space-y-4">
-        {/* Stats row */}
-        <div className="grid grid-cols-3 gap-3">
-          {[
-            { label: "Calls Today", value: "47", trend: "+12%" },
-            { label: "Jobs Booked", value: "18", trend: "+34%" },
-            { label: "Response Time", value: "<1s", trend: "Instant" },
-          ].map((s) => (
-            <div key={s.label} className="rounded-xl bg-background/60 border border-border/40 p-3">
-              <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-wider">{s.label}</p>
-              <p className="text-xl font-mono font-bold text-foreground mt-1">{s.value}</p>
-              <p className="text-[9px] font-mono text-warning mt-0.5">{s.trend}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Recent leads */}
-        <div className="rounded-xl bg-background/60 border border-border/40 p-3">
-          <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-wider mb-3">Recent Leads</p>
-          {[
-            { name: "John M.", type: "HVAC Repair", status: "Booked", time: "2m ago" },
-            { name: "Sarah L.", type: "Plumbing Emergency", status: "Following Up", time: "5m ago" },
-            { name: "Mike R.", type: "Electrical Quote", status: "Qualified", time: "8m ago" },
-          ].map((lead) => (
-            <div key={lead.name} className="flex items-center justify-between py-2 border-b border-border/30 last:border-0">
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Users className="h-3 w-3 text-primary/60" />
-                </div>
-                <div>
-                  <p className="text-[10px] font-mono text-foreground">{lead.name}</p>
-                  <p className="text-[9px] text-muted-foreground">{lead.type}</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className={`text-[9px] font-mono ${lead.status === "Booked" ? "text-primary" : lead.status === "Following Up" ? "text-warning" : "text-silver-bright"}`}>
-                  {lead.status}
-                </p>
-                <p className="text-[8px] text-muted-foreground">{lead.time}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-
-    {/* Floating badge */}
-    <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ delay: 1.3, duration: 0.7 }}
-      className="absolute -bottom-4 -left-4 glass-card rounded-xl px-5 py-3 shadow-2xl animate-float"
-    >
-      <p className="text-[9px] text-primary font-mono uppercase tracking-[0.2em] mb-0.5">Live Status</p>
-      <div className="flex items-center gap-2">
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
-        </span>
-        <p className="text-sm font-mono font-bold text-foreground">AI Active</p>
-      </div>
-    </motion.div>
-
-    <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ delay: 1.5, duration: 0.7 }}
-      className="absolute -top-4 -right-4 glass-card rounded-xl px-5 py-3 shadow-2xl animate-float-delayed"
-    >
-      <p className="text-[9px] text-warning font-mono uppercase tracking-[0.2em] mb-0.5">Today's Revenue</p>
-      <p className="text-lg font-mono font-bold text-foreground">$12,450</p>
-    </motion.div>
-  </div>
-);
-
-/* ─────────────── INTERACTIVE DEMO ─────────────── */
-const demoTabs = [
-  {
-    id: "voice",
-    icon: Volume2,
-    label: "AI Voice Agent",
-    title: "Hear Your AI Answer a Call",
-    desc: "Your AI picks up in under 1 second, greets the caller by business name, qualifies the service request, checks availability, and books the appointment — all in a natural, human-like voice.",
-    steps: [
-      { icon: PhoneCall, text: "Customer calls your business number" },
-      { icon: Bot, text: "AI answers instantly with your greeting" },
-      { icon: UserCheck, text: "Qualifies: service type, urgency, location" },
-      { icon: CalendarCheck, text: "Books the appointment into your calendar" },
-    ],
-  },
-  {
-    id: "missedcall",
-    icon: MessageSquare,
-    label: "Missed Call Text Back",
-    title: "Every Missed Call Gets a Response",
-    desc: "When a call goes unanswered, Voxmation instantly sends a personalized SMS within seconds — keeping the lead warm and driving them to book online or call back.",
-    steps: [
-      { icon: PhoneOff, text: "Call comes in, no one picks up" },
-      { icon: MessageSquare, text: "Instant SMS: 'Sorry we missed you! Book here →'" },
-      { icon: UserCheck, text: "Lead clicks link, fills booking form" },
-      { icon: CalendarCheck, text: "Job booked — zero manual effort" },
-    ],
-  },
-  {
-    id: "crm",
-    icon: Link2,
-    label: "CRM Automation",
-    title: "Your CRM Fills Itself",
-    desc: "Every call, text, and booking is automatically logged in your CRM. Lead data, conversation summaries, service requests, and appointment details — all synced in real time.",
-    steps: [
-      { icon: Phone, text: "AI handles the conversation" },
-      { icon: Workflow, text: "Data extracted: name, service, urgency" },
-      { icon: Link2, text: "Auto-synced to ServiceTitan, Jobber, or HubSpot" },
-      { icon: BarChart3, text: "Pipeline updates in real time" },
-    ],
-  },
-  {
-    id: "booking",
-    icon: CalendarCheck,
-    label: "Booking Workflow",
-    title: "Appointments Book Themselves",
-    desc: "AI checks your real-time availability, books the appointment, sends confirmation SMS to the customer, and schedules reminders to eliminate no-shows.",
-    steps: [
-      { icon: CalendarCheck, text: "AI checks your live calendar" },
-      { icon: CheckCircle2, text: "Books the best available slot" },
-      { icon: MessageSquare, text: "Customer gets instant confirmation" },
-      { icon: Bell, text: "Automated reminders reduce no-shows by 89%" },
-    ],
-  },
-];
-
-const InteractiveDemo = () => {
-  const [active, setActive] = useState(0);
-  const current = demoTabs[active];
-
-  return (
-    <section id="interactive-demo" className="py-32 md:py-40 relative noise-overlay">
-      <div className="absolute inset-0 gradient-mesh pointer-events-none opacity-50" />
-
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <Reveal>
-            <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono block mb-4">
-              Interactive Demo
-            </span>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-silver-bright mb-5 tracking-[-0.02em]">
-              See It in Action
-            </h2>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="text-silver text-lg max-w-xl mx-auto leading-relaxed">
-              Explore each feature of the Voxmation system — from the first ring to the booked job.
-            </p>
-          </Reveal>
-        </div>
-
-        {/* Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {demoTabs.map((tab, i) => (
-            <button
-              key={tab.id}
-              onClick={() => setActive(i)}
-              className={`relative flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-mono tracking-wide transition-all duration-300 ${
-                active === i ? "text-primary" : "text-silver hover:text-silver-bright"
-              }`}
-            >
-              {active === i && (
-                <motion.span
-                  layoutId="demo-tab"
-                  className="absolute inset-0 rounded-full bg-primary/8 border border-primary/15"
-                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                />
-              )}
-              <tab.icon className="h-3.5 w-3.5 relative z-10" />
-              <span className="relative z-10">{tab.label}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Content */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-5xl mx-auto"
-          >
-            <div className="surface-card rounded-2xl p-10 md:p-14 relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-
-              <div className="grid md:grid-cols-2 gap-10 items-start">
-                <div>
-                  <div className="w-12 h-12 rounded-2xl bg-primary/8 border border-primary/15 flex items-center justify-center mb-6">
-                    <current.icon className="h-5 w-5 text-primary/70" />
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-4 tracking-tight">
-                    {current.title}
-                  </h3>
-                  <p className="text-silver leading-relaxed mb-8">{current.desc}</p>
-                  <Button variant="neon" size="lg" asChild>
-                    <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
-                      See a Live Demo
-                      <ArrowUpRight className="h-4 w-4" />
-                    </a>
-                  </Button>
-                </div>
-
-                {/* Flow steps */}
-                <div className="space-y-4">
-                  {current.steps.map((step, j) => (
-                    <motion.div
-                      key={step.text}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: j * 0.1, duration: 0.4 }}
-                      className="flex items-center gap-4 p-4 rounded-xl bg-background/40 border border-border/40 group hover:border-primary/15 transition-all duration-300"
-                    >
-                      <div className="w-10 h-10 rounded-xl bg-primary/8 border border-primary/15 flex items-center justify-center shrink-0">
-                        <step.icon className="h-4 w-4 text-primary/60" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm text-silver-bright font-mono">{step.text}</p>
-                      </div>
-                      <span className="text-[10px] font-mono text-muted-foreground shrink-0">
-                        Step {j + 1}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </section>
-  );
-};
-
-/* ─────────────── INDUSTRY PICKER ─────────────── */
+/* ─── DATA ─── */
 const industries = [
-  { id: "hvac", icon: Flame, label: "HVAC", example: "AC repair call at 9 PM → AI answers, qualifies emergency, books next-morning appointment" },
-  { id: "plumbing", icon: Droplets, label: "Plumbing", example: "Burst pipe at midnight → AI dispatches emergency, collects info, sends confirmation" },
-  { id: "electrical", icon: Zap, label: "Electrical", example: "Panel upgrade request → AI qualifies scope, captures property details, schedules estimate" },
-  { id: "roofing", icon: Home, label: "Roofing", example: "Storm damage inquiry → AI handles surge calls, qualifies claims, books inspections" },
-  { id: "medspa", icon: Sparkles, label: "Med Spa", example: "Botox appointment request → AI books treatment, sends prep instructions, reduces no-shows" },
-  { id: "dental", icon: Sparkles, label: "Dental", example: "New patient intake → AI collects insurance info, schedules cleaning, sends reminders" },
-  { id: "legal", icon: Scale, label: "Legal", example: "Personal injury inquiry → AI qualifies case type, collects intake, books consultation" },
+  { id: "hvac", icon: "❄️", label: "HVAC & AC" },
+  { id: "plumbing", icon: "🔧", label: "Plumbing" },
+  { id: "electrical", icon: "⚡", label: "Electrical" },
+  { id: "roofing", icon: "🏠", label: "Roofing" },
+  { id: "landscaping", icon: "🌿", label: "Landscaping" },
+  { id: "cleaning", icon: "🧹", label: "Cleaning" },
 ];
 
-const IndustryPicker = () => {
-  const [active, setActive] = useState(0);
-
-  return (
-    <section id="industry-demo" className="py-32 md:py-40 relative">
-      <div className="absolute inset-0 gradient-radial-section pointer-events-none opacity-40" />
-
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <Reveal>
-            <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono block mb-4">
-              Your Industry
-            </span>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-silver-bright mb-5 tracking-[-0.02em]">
-              Choose Your Business
-            </h2>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="text-silver text-lg max-w-xl mx-auto leading-relaxed">
-              See a real-world example of how Voxmation works for your specific industry.
-            </p>
-          </Reveal>
-        </div>
-
-        <Reveal delay={0.2}>
-          <div className="max-w-4xl mx-auto">
-            {/* Industry grid */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-10">
-              {industries.map((ind, i) => (
-                <button
-                  key={ind.id}
-                  onClick={() => setActive(i)}
-                  className={`relative flex flex-col items-center gap-2 p-4 rounded-xl transition-all duration-300 ${
-                    active === i
-                      ? "surface-card border-primary/25 bg-primary/5"
-                      : "surface-card hover:border-primary/10"
-                  }`}
-                >
-                  <ind.icon className={`h-5 w-5 transition-colors ${active === i ? "text-primary" : "text-silver"}`} />
-                  <span className={`text-[10px] font-mono tracking-wider transition-colors ${active === i ? "text-primary" : "text-silver"}`}>
-                    {ind.label}
-                  </span>
-                </button>
-              ))}
-            </div>
-
-            {/* Example card */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={industries[active].id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="surface-card rounded-2xl p-8 md:p-12 relative overflow-hidden"
-              >
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-primary/8 border border-primary/15 flex items-center justify-center shrink-0">
-                    {(() => {
-                      const Icon = industries[active].icon;
-                      return <Icon className="h-5 w-5 text-primary/70" />;
-                    })()}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-display font-bold text-foreground mb-3">
-                      {industries[active].label} Example
-                    </h3>
-                    <p className="text-silver-bright leading-relaxed text-lg">
-                      {industries[active].example}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
+const conversations: Record<string, ChatMessage[]> = {
+  hvac: [
+    { role: "bot", text: "Hi, thanks for calling Comfort Zone HVAC! This is Vox, your AI assistant. How can I help you today?" },
+    { role: "user", text: "Hi, I need my AC fixed ASAP — it stopped working this morning." },
+    { role: "bot", text: "I understand, I can help! We have a technician available today at 2PM or 4PM in your area. Which works better for you?" },
+    { role: "user", text: "2PM works great." },
+    { role: "bot", text: "Perfect! I've booked your appointment for today at 2PM. You'll receive a confirmation text shortly. Is there anything else?" },
+    { role: "user", text: "No, that's all. Thanks!" },
+    { role: "bot", text: "Great, have a wonderful day! We'll see you at 2PM. Goodbye!" },
+  ],
+  plumbing: [
+    { role: "bot", text: "Hello! Thanks for calling Quick Fix Plumbing. I'm Vox, your AI assistant. What can I do for you?" },
+    { role: "user", text: "I have a burst pipe in my kitchen — water everywhere!" },
+    { role: "bot", text: "I'm sorry to hear that! Let me dispatch an emergency plumber right away. Can you confirm your address?" },
+    { role: "user", text: "123 Oak Street, Houston." },
+    { role: "bot", text: "Got it! A plumber is on the way and should arrive within 45 minutes. Please shut off the main water valve if you can. I'll send you a tracking link via text." },
+    { role: "user", text: "Thank you so much!" },
+    { role: "bot", text: "You're welcome! Stay safe, help is on the way. Goodbye!" },
+  ],
+  electrical: [
+    { role: "bot", text: "Hi, you've reached Spark Electric! I'm Vox, your AI assistant. How can I assist you?" },
+    { role: "user", text: "I need a panel upgrade for my house." },
+    { role: "bot", text: "Sure! I can schedule an estimate visit. Is your home single or multi-story? And what's the current panel amperage?" },
+    { role: "user", text: "Single story, 100 amp panel." },
+    { role: "bot", text: "Perfect. I have an opening for an estimate this Thursday at 10AM. Would that work for you?" },
+    { role: "user", text: "Yes, that works." },
+    { role: "bot", text: "You're all set for Thursday at 10AM! I'll send a confirmation text now. Have a great day!" },
+  ],
+  roofing: [
+    { role: "bot", text: "Thanks for calling Lone Star Roofing! I'm Vox. How can I help you today?" },
+    { role: "user", text: "We had a storm last night and I think my roof is damaged." },
+    { role: "bot", text: "I'm sorry about that. We're handling many storm damage calls today. I can schedule a free inspection. Are you available tomorrow morning?" },
+    { role: "user", text: "Yes, anytime before noon." },
+    { role: "bot", text: "I've booked your free roof inspection for tomorrow at 9AM. Our inspector will document everything for your insurance claim. I'll text you the details." },
+    { role: "user", text: "Perfect, thanks." },
+    { role: "bot", text: "You're welcome! We'll take care of it. Have a good evening!" },
+  ],
+  landscaping: [
+    { role: "bot", text: "Hello! Green Valley Landscaping here. I'm Vox, your AI assistant. What can I do for you?" },
+    { role: "user", text: "I need a quote for weekly lawn maintenance." },
+    { role: "bot", text: "Happy to help! Can you tell me the approximate lot size and your address so I can pull up the property?" },
+    { role: "user", text: "About half an acre, 456 Elm Drive, Austin." },
+    { role: "bot", text: "Got it! Based on a half-acre lot, our weekly service starts at $65/week. I can schedule a site visit this Friday at 3PM to give you an exact quote. Would that work?" },
+    { role: "user", text: "Yes, let's do it." },
+    { role: "bot", text: "Booked! You'll get a confirmation text shortly. See you Friday!" },
+  ],
+  cleaning: [
+    { role: "bot", text: "Hi! Thanks for calling Shine Bright Cleaning. I'm Vox. How can I help?" },
+    { role: "user", text: "I need a deep cleaning for my apartment — I'm moving out next week." },
+    { role: "bot", text: "We specialize in move-out cleanings! How many bedrooms and bathrooms?" },
+    { role: "user", text: "2 bedrooms, 1 bathroom." },
+    { role: "bot", text: "For a 2bed/1bath move-out deep clean, the price is $220. I can schedule the team for next Monday at 9AM. Does that work?" },
+    { role: "user", text: "Monday works. Let's do it." },
+    { role: "bot", text: "You're booked for Monday at 9AM! I'll send a checklist and confirmation via text. Have a great day!" },
+  ],
 };
 
-/* ─────────────── VOICE AI PLAYER ─────────────── */
-const VoicePlayerSection = () => (
-  <section className="py-32 md:py-40 relative noise-overlay">
-    <div className="absolute inset-0 gradient-mesh pointer-events-none opacity-50" />
-
-    <div className="container mx-auto px-6 relative z-10">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <Reveal>
-            <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono block mb-4">
-              AI Voice Demo
-            </span>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-silver-bright mb-5 tracking-[-0.02em]">
-              Hear the AI in Action
-            </h2>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="text-silver text-lg max-w-xl mx-auto leading-relaxed">
-              This is what your customers hear when they call. Natural. Professional. Always on.
-            </p>
-          </Reveal>
-        </div>
-
-        <Reveal delay={0.2} scale>
-          <div className="surface-card rounded-2xl p-10 md:p-14 relative overflow-hidden text-center">
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-
-            {/* Waveform visual */}
-            <div className="flex items-center justify-center gap-1 mb-8 h-16">
-              {[...Array(40)].map((_, i) => {
-                const h = Math.sin(i * 0.3) * 30 + Math.random() * 20 + 10;
-                return (
-                  <motion.div
-                    key={i}
-                    className="w-1 rounded-full bg-primary/30"
-                    initial={{ height: 4 }}
-                    animate={{ height: [4, h, 4] }}
-                    transition={{
-                      duration: 1.5 + Math.random(),
-                      repeat: Infinity,
-                      delay: i * 0.05,
-                      ease: "easeInOut",
-                    }}
-                  />
-                );
-              })}
-            </div>
-
-            {/* Sample transcript */}
-            <div className="max-w-md mx-auto text-left space-y-4 mb-10">
-              {[
-                { speaker: "AI", text: "Thanks for calling Comfort Zone HVAC! How can I help you today?" },
-                { speaker: "Caller", text: "Hi, my AC unit stopped working. It's really hot in here." },
-                { speaker: "AI", text: "I'm sorry about that! Let me get you scheduled for a repair visit. What's the best time tomorrow morning — 8 AM or 10 AM?" },
-                { speaker: "Caller", text: "8 AM works." },
-                { speaker: "AI", text: "You're booked for 8 AM tomorrow. I'll send a confirmation text right now. Is there anything else I can help with?" },
-              ].map((msg, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.15, duration: 0.4 }}
-                  className={`flex gap-3 ${msg.speaker === "AI" ? "" : "flex-row-reverse"}`}
-                >
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
-                    msg.speaker === "AI" ? "bg-primary/10" : "bg-muted"
-                  }`}>
-                    {msg.speaker === "AI" ? (
-                      <Bot className="h-3.5 w-3.5 text-primary/70" />
-                    ) : (
-                      <Users className="h-3.5 w-3.5 text-muted-foreground" />
-                    )}
-                  </div>
-                  <div className={`rounded-xl px-4 py-2.5 max-w-[80%] ${
-                    msg.speaker === "AI"
-                      ? "bg-primary/5 border border-primary/10"
-                      : "bg-muted/50 border border-border/50"
-                  }`}>
-                    <p className="text-sm text-silver-bright leading-relaxed">{msg.text}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <Button variant="neon" size="xl" asChild>
-              <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
-                Hear a Live Demo Call
-                <Volume2 className="h-4 w-4" />
-              </a>
-            </Button>
-          </div>
-        </Reveal>
-      </div>
-    </div>
-  </section>
-);
-
-/* ─────────────── CALL FLOW VISUALIZATION ─────────────── */
-const flowSteps = [
-  { icon: Phone, title: "Inbound Call", desc: "Customer dials your number" },
-  { icon: Bot, title: "AI Answers (<1s)", desc: "Greets by business name" },
-  { icon: UserCheck, title: "Qualifies Lead", desc: "Service type, urgency, location" },
-  { icon: CalendarCheck, title: "Books Appointment", desc: "Checks live availability" },
-  { icon: MessageSquare, title: "Sends Confirmation", desc: "SMS to customer + your team" },
-  { icon: Link2, title: "CRM Updated", desc: "All data synced instantly" },
-];
-
-const FlowVisualization = () => (
-  <section className="py-32 md:py-40 relative">
-    <div className="absolute inset-0 gradient-radial-section pointer-events-none opacity-30" />
-
-    <div className="container mx-auto px-6 relative z-10">
-      <div className="text-center mb-20">
-        <Reveal>
-          <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono block mb-4">
-            The Flow
-          </span>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-silver-bright mb-5 tracking-[-0.02em]">
-            From Ring to Revenue
-          </h2>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <p className="text-silver text-lg max-w-lg mx-auto leading-relaxed">
-            Every call follows this automated path. No human intervention required.
-          </p>
-        </Reveal>
-      </div>
-
-      <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {flowSteps.map((step, i) => (
-            <Reveal key={step.title} delay={0.08 * i} scale>
-              <motion.div
-                whileHover={{ y: -6 }}
-                className="surface-card rounded-2xl p-5 text-center relative overflow-hidden group hover:border-primary/15 transition-all duration-500"
-              >
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                <span className="text-[10px] font-mono text-muted-foreground mb-3 block">0{i + 1}</span>
-
-                <div className="w-10 h-10 rounded-xl bg-primary/8 border border-primary/15 flex items-center justify-center mx-auto mb-3">
-                  <step.icon className="h-4 w-4 text-primary/60" />
-                </div>
-
-                <h4 className="text-xs font-display font-bold text-foreground mb-1">{step.title}</h4>
-                <p className="text-[10px] text-silver leading-relaxed">{step.desc}</p>
-
-                {i < flowSteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-2.5 z-20">
-                    <ArrowRight className="h-3 w-3 text-primary/20" />
-                  </div>
-                )}
-              </motion.div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-/* ─────────────── BENEFITS ─────────────── */
-const benefits = [
-  { icon: CalendarCheck, metric: "+40%", title: "More Booked Jobs", desc: "AI fills your calendar while you focus on the work." },
-  { icon: Zap, metric: "<1s", title: "Faster Response", desc: "First to respond wins 78% of the time." },
-  { icon: PhoneOff, metric: "0", title: "Lost Leads", desc: "Every call, text, and inquiry is captured." },
-  { icon: TrendingUp, metric: "10x", title: "Higher ROI", desc: "Costs less than a part-time receptionist." },
-];
-
-const DemoBenefits = () => (
-  <section className="py-32 md:py-40 relative noise-overlay">
-    <div className="absolute inset-0 gradient-mesh pointer-events-none opacity-50" />
-
-    <div className="container mx-auto px-6 relative z-10">
-      <div className="text-center mb-16">
-        <Reveal>
-          <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono block mb-4">
-            The Results
-          </span>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-silver-bright mb-5 tracking-[-0.02em]">
-            What Changes When You Go Live
-          </h2>
-        </Reveal>
-      </div>
-
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-        {benefits.map((b, i) => (
-          <Reveal key={b.title} delay={0.1 * i} scale>
-            <motion.div
-              whileHover={{ y: -8, transition: { duration: 0.4 } }}
-              className="surface-card rounded-2xl p-8 text-center relative overflow-hidden group hover:border-primary/15 transition-all duration-500"
-            >
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-warning/30 to-transparent" />
-
-              <p className="text-4xl font-mono font-bold text-warning mb-4 tracking-tight">{b.metric}</p>
-
-              <div className="w-10 h-10 rounded-xl bg-primary/8 border border-primary/15 flex items-center justify-center mx-auto mb-4">
-                <b.icon className="h-5 w-5 text-primary/60" />
-              </div>
-
-              <h3 className="text-base font-display font-semibold text-foreground mb-2">{b.title}</h3>
-              <p className="text-silver text-xs leading-relaxed">{b.desc}</p>
-            </motion.div>
-          </Reveal>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-/* ─────────────── FINAL CTA ─────────────── */
-const FinalCTA = () => (
-  <section className="py-24 md:py-32 relative">
-    <div className="container mx-auto px-6">
-      <Reveal scale>
-        <motion.div
-          whileHover={{ scale: 1.005, transition: { duration: 0.5 } }}
-          className="surface-card rounded-3xl p-12 md:p-20 text-center relative overflow-hidden group"
-        >
-          <div className="absolute inset-0 gradient-radial-section opacity-30 group-hover:opacity-50 pointer-events-none transition-opacity duration-700" />
-          <div className="absolute inset-0 gradient-mesh pointer-events-none opacity-50" />
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-
-          <div className="relative z-10">
-            <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono mb-8 block">
-              Ready to See It Live?
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-display font-bold text-silver-bright mb-5 tracking-[-0.02em] max-w-3xl mx-auto leading-[1.1]">
-              Book Your Personalized
-              <br />
-              <span className="bg-gradient-to-r from-primary to-[hsl(var(--gradient-end))] bg-clip-text text-transparent">
-                Live Demo Today.
-              </span>
-            </h2>
-            <p className="text-silver text-lg mb-12 max-w-lg mx-auto leading-relaxed">
-              We'll show you exactly how Voxmation works for your business, with your industry, your workflows, and your numbers.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="neon" size="xl" asChild>
-                <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
-                  Book Your Live Demo
-                  <ArrowUpRight className="h-4 w-4" />
-                </a>
-              </Button>
-              <Button variant="neon-outline" size="xl" asChild>
-                <Link to="/" className="gap-2">
-                  Back to Home
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </motion.div>
-      </Reveal>
-    </div>
-  </section>
-);
-
-/* ─────────────── DEMO NAVBAR ─────────────── */
-const DemoNavbar = () => (
-  <motion.nav
-    initial={{ y: -100, opacity: 0 }}
-    animate={{ y: 0, opacity: 1 }}
-    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-    className="fixed top-0 left-0 right-0 z-50"
-  >
-    <div className="px-4 pt-3">
-      <div className="mx-auto max-w-5xl rounded-2xl glass-card border border-border/60 shadow-2xl shadow-background/80">
-        <div className="flex items-center justify-between h-14 px-5">
-          <Link
-            to="/"
-            className="font-mono text-sm font-bold tracking-[0.2em] text-foreground hover:text-primary transition-colors duration-300"
-          >
-            VOXMATION
-          </Link>
-
-          <div className="hidden md:flex items-center gap-0.5 rounded-full border border-border/40 px-1.5 py-1 bg-background/20 backdrop-blur-sm">
-            {[
-              { label: "Demo", href: "#interactive-demo" },
-              { label: "Industries", href: "#industry-demo" },
-              { label: "Flow", href: "#" },
-              { label: "Results", href: "#" },
-            ].map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                className="text-xs px-4 py-1.5 rounded-full transition-all duration-300 font-mono tracking-wide text-silver hover:text-silver-bright"
-              >
-                {l.label}
-              </a>
-            ))}
-          </div>
-
-          <Button variant="neon" size="sm" asChild>
-            <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
-              Book a Demo
-            </a>
-          </Button>
-        </div>
-      </div>
-    </div>
-  </motion.nav>
-);
-
-/* ─────────────── FOOTER ─────────────── */
-const DemoFooter = () => (
-  <footer className="border-t border-border py-8">
-    <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-      <Link to="/" className="font-mono text-sm font-bold tracking-[0.2em] text-foreground hover:text-primary transition-colors">
-        VOXMATION
-      </Link>
-      <div className="flex gap-8">
-        <Link to="/" className="text-xs text-silver hover:text-primary transition-colors font-mono tracking-wide">Home</Link>
-        <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="text-xs text-silver hover:text-primary transition-colors font-mono tracking-wide">Book a Demo</a>
-      </div>
-      <p className="text-xs text-muted-foreground font-mono">© 2026 Voxmation LLC</p>
-    </div>
-  </footer>
-);
-
-/* ─────────────── PAGE ─────────────── */
-const Demo = () => { // v2
+/* ─── DEMO PAGE ─── */
+const Demo = () => {
   useEffect(() => {
-    document.title = "Demo — Voxmation AI Voice Agents for Home Service Businesses";
+    document.title = "Voxmation — Voice AI Demo";
   }, []);
 
+  const [step, setStep] = useState(1);
+  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+  const [userName, setUserName] = useState("");
+
+  // Step 2 state
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [timer, setTimer] = useState(0);
+  const [isTyping, setIsTyping] = useState(false);
+  const [agentSpeaking, setAgentSpeaking] = useState(false);
+  const [convoIndex, setConvoIndex] = useState(0);
+  const [textInput, setTextInput] = useState("");
+  const [callActive, setCallActive] = useState(false);
+  const [liveTranscript, setLiveTranscript] = useState("");
+  const chatRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const startCall = useCallback(() => {
+    if (!selectedIndustry) return;
+    setStep(2);
+    setMessages([]);
+    setConvoIndex(0);
+    setTimer(0);
+    setCallActive(true);
+  }, [selectedIndustry]);
+
+  // Timer
+  useEffect(() => {
+    if (callActive) {
+      timerRef.current = setInterval(() => setTimer((t) => t + 1), 1000);
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [callActive]);
+
+  // Auto-play conversation
+  useEffect(() => {
+    if (!callActive || !selectedIndustry) return;
+    const convo = conversations[selectedIndustry];
+    if (!convo || convoIndex >= convo.length) {
+      // End call
+      setTimeout(() => {
+        setCallActive(false);
+        if (timerRef.current) clearInterval(timerRef.current);
+        setStep(3);
+      }, 2000);
+      return;
+    }
+
+    const msg = convo[convoIndex];
+    const delay = convoIndex === 0 ? 1500 : 2000 + Math.random() * 1500;
+
+    const timeout = setTimeout(() => {
+      if (msg.role === "bot") {
+        setIsTyping(true);
+        setLiveTranscript(msg.text);
+        setTimeout(() => {
+          setIsTyping(false);
+          setAgentSpeaking(true);
+          setMessages((prev) => [...prev, msg]);
+          setTimeout(() => {
+            setAgentSpeaking(false);
+            setLiveTranscript("");
+            setConvoIndex((i) => i + 1);
+          }, 1500);
+        }, 1200);
+      } else {
+        setLiveTranscript(msg.text);
+        setMessages((prev) => [...prev, msg]);
+        setTimeout(() => {
+          setLiveTranscript("");
+          setConvoIndex((i) => i + 1);
+        }, 1000);
+      }
+    }, delay);
+
+    return () => clearTimeout(timeout);
+  }, [callActive, convoIndex, selectedIndustry]);
+
+  // Scroll chat
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [messages, isTyping]);
+
+  const formatTime = (s: number) => {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+  };
+
+  const handleSendText = () => {
+    if (!textInput.trim() || !callActive) return;
+    setMessages((prev) => [...prev, { role: "user", text: textInput.trim() }]);
+    setTextInput("");
+  };
+
+  const sentiment = messages.length > 4 ? "Positive" : messages.length > 2 ? "Neutral" : "—";
+  const leadScore = messages.length > 4 ? "Hot 🔥" : messages.length > 2 ? "Warm" : "—";
+  const intent = messages.length > 2 ? "Booking" : "—";
+
   return (
-    <div className="min-h-screen bg-background">
-      <DemoNavbar />
-      <FloatingCTA />
-      <main>
-        <DemoHero />
-        <InteractiveDemo />
-        <IndustryPicker />
-        <VoicePlayerSection />
-        <FlowVisualization />
-        <DemoBenefits />
-        <FinalCTA />
-      </main>
-      <DemoFooter />
+    <div className="min-h-screen bg-background relative">
+      {/* Ambient glow */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,hsl(var(--demo-accent)/0.07),transparent)]" />
+      </div>
+
+      {/* Nav */}
+      <nav className="fixed top-0 left-0 right-0 z-50 px-5 sm:px-9 py-4 flex items-center justify-between bg-background/85 backdrop-blur-xl border-b border-border">
+        <Link to="/" className="font-display font-extrabold text-lg text-foreground flex items-center gap-2.5">
+          <span className="w-[7px] h-[7px] rounded-full bg-demo-accent shadow-[0_0_8px_hsl(var(--demo-accent))] animate-pulse" />
+          Voxmation
+        </Link>
+        <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          ← Back
+        </Link>
+      </nav>
+
+      {/* Content */}
+      <div className="relative z-10 min-h-screen pt-[88px] pb-12 px-5 flex flex-col items-center">
+        <AnimatePresence mode="wait">
+          {/* ═══ STEP 1: SELECT INDUSTRY ═══ */}
+          {step === 1 && (
+            <motion.div
+              key="step1"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.4 }}
+              className="w-full max-w-[620px] text-center flex flex-col items-center"
+            >
+              <p className="font-mono text-[0.68rem] tracking-[0.18em] uppercase text-demo-accent mb-5 flex items-center gap-2.5">
+                <span className="h-px w-6 bg-demo-accent/35" />
+                Voice AI Demo
+                <span className="h-px w-6 bg-demo-accent/35" />
+              </p>
+
+              <h1 className="font-display font-extrabold text-[clamp(2rem,5vw,3.2rem)] leading-[1.05] tracking-[-0.04em] text-foreground mb-3">
+                Fale com seu{" "}
+                <span className="text-demo-accent">AI Agent</span> agora.
+              </h1>
+
+              <p className="text-muted-foreground text-base mb-10 leading-relaxed max-w-md font-light">
+                Escolha seu setor, clique no microfone e converse com o agente de voz — ele responde em voz alta, em inglês, em tempo real.
+              </p>
+
+              {/* Industry picker */}
+              <p className="font-mono text-[0.65rem] tracking-[0.12em] uppercase text-muted-foreground mb-3 self-start w-full">
+                1 — Tipo de negócio
+              </p>
+              <div className="grid grid-cols-3 gap-2.5 w-full mb-6">
+                {industries.map((ind) => (
+                  <button
+                    key={ind.id}
+                    onClick={() => setSelectedIndustry(ind.id)}
+                    className={`flex flex-col items-center gap-2 rounded-xl p-4 border transition-all duration-200 cursor-pointer ${
+                      selectedIndustry === ind.id
+                        ? "border-demo-accent bg-demo-accent/[0.07] shadow-[0_0_18px_hsl(var(--demo-accent)/0.1)]"
+                        : "border-border bg-card hover:border-demo-accent/25 hover:-translate-y-0.5"
+                    }`}
+                  >
+                    <span className="text-2xl">{ind.icon}</span>
+                    <span className="text-[0.78rem] font-semibold text-foreground text-center leading-tight">{ind.label}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Name input */}
+              <p className="font-mono text-[0.65rem] tracking-[0.12em] uppercase text-muted-foreground mb-2.5 self-start w-full">
+                2 — Seu nome (você será o cliente)
+              </p>
+              <input
+                type="text"
+                placeholder="Ex: Carlos"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                className="w-full bg-card border border-border text-foreground rounded-[10px] px-4 py-3 text-sm outline-none focus:border-demo-accent/35 transition-colors mb-6 placeholder:text-muted-foreground"
+              />
+
+              <button
+                onClick={startCall}
+                disabled={!selectedIndustry}
+                className="w-full bg-demo-accent text-background font-display font-bold rounded-xl py-4 px-7 text-base flex items-center justify-center gap-2.5 shadow-[0_0_36px_hsl(var(--demo-accent)/0.18)] hover:-translate-y-0.5 hover:shadow-[0_0_56px_hsl(var(--demo-accent)/0.3)] transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
+              >
+                🎙️ Iniciar Chamada com Voz
+              </button>
+            </motion.div>
+          )}
+
+          {/* ═══ STEP 2: LIVE CALL ═══ */}
+          {step === 2 && (
+            <motion.div
+              key="step2"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.4 }}
+              className="w-full max-w-[720px] flex flex-col items-center"
+            >
+              {/* Call bar */}
+              <div className="w-full bg-card border border-border border-b-0 rounded-t-[14px] px-5 py-3 flex items-center justify-between">
+                <div className="flex items-center gap-1.5 bg-demo-green/10 border border-demo-green/20 rounded-full px-3 py-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-demo-green animate-pulse" />
+                  <span className="font-mono text-[0.65rem] text-demo-green tracking-wider">LIVE CALL</span>
+                </div>
+
+                <span className="font-mono text-sm text-muted-foreground tracking-widest">
+                  {formatTime(timer)}
+                </span>
+
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-demo-accent/20 to-demo-purple/20 border border-demo-accent/25 flex items-center justify-center text-sm">
+                    🤖
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-foreground">Vox Agent</p>
+                    <p className="font-mono text-[0.62rem] text-demo-accent">Voxmation</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Orbs */}
+              <div className="w-full bg-card/60 border-x border-border px-6 py-8 flex items-center justify-center gap-14 min-h-[180px]">
+                {/* Agent orb */}
+                <div className="flex flex-col items-center gap-3.5">
+                  <div
+                    className={`w-[88px] h-[88px] rounded-full flex items-center justify-center text-3xl border-2 transition-transform ${
+                      agentSpeaking
+                        ? "border-demo-accent/60 bg-[radial-gradient(circle,hsl(var(--demo-accent)/0.25),hsl(var(--demo-accent)/0.05))] shadow-[0_0_24px_hsl(var(--demo-accent)/0.2)] animate-pulse"
+                        : "border-demo-accent/35 bg-[radial-gradient(circle,hsl(var(--demo-accent)/0.15),hsl(var(--demo-accent)/0.03))] shadow-[0_0_14px_hsl(var(--demo-accent)/0.1)]"
+                    }`}
+                  >
+                    🤖
+                  </div>
+                  <span className="font-mono text-[0.65rem] tracking-widest uppercase text-demo-accent">VOX AGENT</span>
+                  <span className="text-xs text-muted-foreground">
+                    {agentSpeaking ? "Speaking..." : isTyping ? "Thinking..." : "Listening"}
+                  </span>
+                </div>
+
+                <span className="font-display font-extrabold text-lg text-border tracking-wider">VS</span>
+
+                {/* User orb */}
+                <div className="flex flex-col items-center gap-3.5">
+                  <div className="w-[88px] h-[88px] rounded-full flex items-center justify-center text-3xl border-2 border-demo-purple/35 bg-[radial-gradient(circle,hsl(var(--demo-purple)/0.15),hsl(var(--demo-purple)/0.03))] shadow-[0_0_14px_hsl(var(--demo-purple)/0.1)]">
+                    🎙️
+                  </div>
+                  <span className="font-mono text-[0.65rem] tracking-widest uppercase text-demo-purple">YOU</span>
+                  <span className="text-xs text-muted-foreground">
+                    {userName || "Customer"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Live transcript */}
+              <div className="w-full bg-background/50 border-x border-border px-5 py-2.5 min-h-[36px] flex items-center">
+                <p className={`font-mono text-xs italic transition-colors ${liveTranscript ? "text-demo-accent" : "text-muted-foreground"}`}>
+                  {liveTranscript ? `🎤 ${liveTranscript}` : "🎤 Live transcript will appear here..."}
+                </p>
+              </div>
+
+              {/* Chat area */}
+              <div
+                ref={chatRef}
+                className="w-full bg-card/60 border-x border-border px-5 py-5 max-h-[260px] overflow-y-auto flex flex-col gap-3 scroll-smooth"
+                style={{ scrollbarWidth: "thin" }}
+              >
+                {messages.map((msg, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 7 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={`flex gap-2 items-end ${msg.role === "user" ? "flex-row-reverse" : ""}`}
+                  >
+                    <div
+                      className={`w-[26px] h-[26px] rounded-full shrink-0 flex items-center justify-center text-xs ${
+                        msg.role === "bot"
+                          ? "bg-gradient-to-br from-demo-accent/15 to-demo-purple/15 border border-demo-accent/20"
+                          : "bg-foreground/5 border border-border font-display font-bold text-demo-purple text-[0.65rem]"
+                      }`}
+                    >
+                      {msg.role === "bot" ? "🤖" : (userName?.[0]?.toUpperCase() || "U")}
+                    </div>
+                    <div
+                      className={`max-w-[72%] px-3.5 py-2.5 rounded-xl text-sm leading-relaxed ${
+                        msg.role === "bot"
+                          ? "bg-card border border-border rounded-bl-sm"
+                          : "bg-gradient-to-br from-demo-purple to-[hsl(var(--demo-purple)/0.8)] text-foreground rounded-br-sm"
+                      }`}
+                    >
+                      {msg.text}
+                    </div>
+                  </motion.div>
+                ))}
+
+                {isTyping && (
+                  <div className="flex gap-2 items-end">
+                    <div className="w-[26px] h-[26px] rounded-full bg-gradient-to-br from-demo-accent/15 to-demo-purple/15 border border-demo-accent/20 flex items-center justify-center text-xs">
+                      🤖
+                    </div>
+                    <div className="bg-card border border-border px-3.5 py-3 rounded-xl rounded-bl-sm flex gap-1 items-center">
+                      <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full animate-bounce [animation-delay:0ms]" />
+                      <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full animate-bounce [animation-delay:180ms]" />
+                      <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full animate-bounce [animation-delay:360ms]" />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Text input */}
+              <div className="w-full bg-card border border-border border-t-0 rounded-b-[14px] px-4 py-3 flex items-center gap-2.5">
+                <input
+                  type="text"
+                  placeholder="Type a message (or just watch the demo)..."
+                  value={textInput}
+                  onChange={(e) => setTextInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSendText()}
+                  disabled={!callActive}
+                  className="flex-1 bg-card/80 border border-border text-foreground rounded-lg px-3.5 py-2 text-sm outline-none focus:border-demo-purple/40 transition-colors placeholder:text-muted-foreground disabled:opacity-40 disabled:cursor-not-allowed"
+                />
+                <button
+                  onClick={handleSendText}
+                  disabled={!callActive || !textInput.trim()}
+                  className="bg-demo-purple border-none rounded-lg px-4 py-2 text-foreground font-bold transition-opacity hover:opacity-80 disabled:opacity-25 disabled:cursor-not-allowed"
+                >
+                  <Send className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Metrics */}
+              <div className="w-full grid grid-cols-4 gap-2 mt-3">
+                {[
+                  { label: "Sentiment", value: sentiment, color: "" },
+                  { label: "Lead Score", value: leadScore, color: "text-demo-green" },
+                  { label: "Intent", value: intent, color: "text-demo-accent" },
+                  { label: "Mode", value: "Voice", color: "" },
+                ].map((m) => (
+                  <div key={m.label} className="bg-card border border-border rounded-[10px] px-3 py-2.5">
+                    <p className="font-mono text-[0.6rem] text-muted-foreground uppercase tracking-widest mb-1">{m.label}</p>
+                    <p className={`font-display font-bold text-sm ${m.color || "text-foreground"}`}>{m.value}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Hint */}
+              <p className="text-xs text-muted-foreground mt-3 text-center">
+                🤖 <span className="text-demo-accent">Agent is speaking...</span> watch the conversation unfold
+              </p>
+            </motion.div>
+          )}
+
+          {/* ═══ STEP 3: COMPLETED ═══ */}
+          {step === 3 && (
+            <motion.div
+              key="step3"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.4 }}
+              className="w-full max-w-[520px] text-center flex flex-col items-center"
+            >
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                className="w-[76px] h-[76px] rounded-full bg-demo-green/10 border border-demo-green/30 flex items-center justify-center text-3xl shadow-[0_0_40px_hsl(var(--demo-green)/0.12)] mb-6"
+              >
+                ✓
+              </motion.div>
+
+              <h2 className="font-display font-extrabold text-[2.1rem] tracking-[-0.04em] text-foreground mb-3">
+                Chamada Concluída.
+              </h2>
+              <p className="text-muted-foreground text-base leading-relaxed mb-7 font-light">
+                O agente conduziu a conversa por voz de forma autônoma — qualificou o lead, construiu rapport e agendou o serviço sem nenhum humano envolvido.
+              </p>
+
+              {/* Summary */}
+              <div className="bg-card border border-border rounded-[13px] p-5 w-full mb-6 text-left">
+                <p className="font-mono text-[0.62rem] tracking-[0.14em] text-demo-accent uppercase mb-3">
+                  📋 Auto-logged to CRM
+                </p>
+                {[
+                  { k: "Lead", v: userName || "Customer" },
+                  { k: "Setor", v: industries.find((i) => i.id === selectedIndustry)?.label || "—" },
+                  { k: "Mensagens", v: String(messages.length) },
+                  { k: "Duração", v: formatTime(timer) },
+                  { k: "Modo", v: "Voice + AI" },
+                  { k: "Resultado", v: "✓ Demo Completed", highlight: true },
+                ].map((r) => (
+                  <div key={r.k} className="flex justify-between py-2 border-b border-border last:border-0 text-sm">
+                    <span className="text-muted-foreground">{r.k}</span>
+                    <span className={`font-medium ${r.highlight ? "text-demo-green" : "text-foreground"}`}>{r.v}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTAs */}
+              <div className="flex gap-3 w-full">
+                <a
+                  href="https://cal.com/voxmation/meeting"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-demo-accent text-background font-display font-bold rounded-[10px] py-3.5 px-5 text-sm text-center hover:-translate-y-0.5 transition-transform flex items-center justify-center gap-2"
+                >
+                  Quero meu AI Agent
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+                <button
+                  onClick={() => {
+                    setStep(1);
+                    setMessages([]);
+                    setTimer(0);
+                    setSelectedIndustry(null);
+                    setUserName("");
+                    setConvoIndex(0);
+                    setCallActive(false);
+                  }}
+                  className="flex-1 bg-transparent text-foreground border border-border font-display font-semibold rounded-[10px] py-3.5 px-5 text-sm hover:border-foreground/20 transition-colors"
+                >
+                  ↺ Tentar de novo
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };
