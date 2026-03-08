@@ -45,6 +45,9 @@
     --teal-subtle: 0 0% 100% / 0.03;
     --warning: 38 92% 55%;
     --warning-muted: 38 92% 55% / 0.10;
+    --demo-accent: 187 100% 50%;
+    --demo-purple: 263 84% 55%;
+    --demo-green: 142 71% 45%;
     --surface-glass: 0 0% 100% / 0.03;
     --surface-glass-hover: 0 0% 100% / 0.06;
     --surface-card: 0 0% 5%;
