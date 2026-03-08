@@ -22,6 +22,7 @@ const industries = [
     icon: Droplets,
     label: "Plumbing",
     title: "Plumbing Companies",
+    slug: "ai-voice-agent-for-plumbers",
     scenario: "A burst pipe at midnight. The homeowner is panicking.",
     without: "Your phone goes to voicemail. They Google the next plumber.",
     withVox: "AI answers, confirms emergency dispatch availability, collects info, and sends confirmation. You wake up to a booked job.",
