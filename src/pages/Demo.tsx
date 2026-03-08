@@ -24,21 +24,21 @@ const voiceIdMap: Record<string, string> = {
 };
 
 /* ─── DATA ─── */
-const industries = [
-  { id: "hvac", icon: Sparkles, label: "HVAC & AC" },
-  { id: "plumbing", icon: Sparkles, label: "Plumbing" },
-  { id: "electrical", icon: Sparkles, label: "Electrical" },
-  { id: "roofing", icon: Sparkles, label: "Roofing" },
-  { id: "landscaping", icon: Sparkles, label: "Landscaping" },
-  { id: "cleaning", icon: Sparkles, label: "Cleaning" },
+const industries: { id: string; Icon: LucideIcon; label: string }[] = [
+  { id: "hvac", Icon: Thermometer, label: "HVAC & AC" },
+  { id: "plumbing", Icon: Wrench, label: "Plumbing" },
+  { id: "electrical", Icon: Zap, label: "Electrical" },
+  { id: "roofing", Icon: Home, label: "Roofing" },
+  { id: "landscaping", Icon: TreePine, label: "Landscaping" },
+  { id: "cleaning", Icon: SprayCan, label: "Cleaning" },
 ];
 
-const voices = [
-  { id: "rachel", icon: "👩", name: "Rachel", desc: "Calm, professional" },
-  { id: "adam", icon: "👨", name: "Adam", desc: "Deep, authoritative" },
-  { id: "josh", icon: "🧑", name: "Josh", desc: "Friendly, young" },
-  { id: "bella", icon: "👩‍💼", name: "Bella", desc: "Warm, soft" },
-  { id: "elli", icon: "👧", name: "Elli", desc: "Energetic, bright" },
+const voices: { id: string; Icon: LucideIcon; name: string; desc: string }[] = [
+  { id: "rachel", Icon: CircleUser, name: "Rachel", desc: "Calm, professional" },
+  { id: "adam", Icon: User, name: "Adam", desc: "Deep, authoritative" },
+  { id: "josh", Icon: Headphones, name: "Josh", desc: "Friendly, young" },
+  { id: "bella", Icon: CircleUser, name: "Bella", desc: "Warm, soft" },
+  { id: "elli", Icon: Mic, name: "Elli", desc: "Energetic, bright" },
 ];
 
 const conversations: Record<string, ChatMessage[]> = {
