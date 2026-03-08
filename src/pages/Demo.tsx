@@ -489,9 +489,9 @@ const Demo = () => {
                       scale: [1, 1.06, 1],
                     } : {}}
                     transition={agentSpeaking ? { duration: 1, repeat: Infinity, ease: "easeInOut" } : {}}
-                    className="w-[92px] h-[92px] rounded-full flex items-center justify-center text-3xl border border-foreground/15 bg-[radial-gradient(circle,hsl(0_0%_100%/0.08),hsl(0_0%_100%/0.02))] shadow-[0_0_30px_hsl(0_0%_100%/0.04)]"
+                    className="w-[92px] h-[92px] rounded-full flex items-center justify-center border border-foreground/15 bg-[radial-gradient(circle,hsl(0_0%_100%/0.08),hsl(0_0%_100%/0.02))] shadow-[0_0_30px_hsl(0_0%_100%/0.04)]"
                   >
-                    🤖
+                    <Bot className="w-8 h-8 text-foreground/40" />
                   </motion.div>
                   <span className="font-mono text-[0.6rem] tracking-[0.12em] uppercase text-foreground/50">Vox Agent</span>
                   <span className="text-[0.72rem] text-muted-foreground min-h-[18px]">
