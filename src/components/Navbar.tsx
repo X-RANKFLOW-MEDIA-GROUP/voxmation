@@ -141,7 +141,7 @@ const Navbar = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.06, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  onClick={() => scrollTo(l.href)}
+                  onClick={() => scrollTo(l.href, (l as any).isRoute)}
                   className="block w-full text-left text-sm py-3 px-4 rounded-xl text-silver hover:text-primary hover:bg-primary/5 transition-all font-mono"
                 >
                   {l.label}

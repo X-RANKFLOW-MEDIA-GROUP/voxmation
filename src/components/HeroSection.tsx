@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, ChevronDown, PhoneCall, Clock, Shield, Zap } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { useRef } from "react";
+import TrustBar from "@/components/TrustBar";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -43,12 +45,12 @@ const HeroSection = () => {
             transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-display font-bold leading-[1.05] tracking-[-0.02em]"
           >
-            <span className="text-silver-bright">Stop Losing Calls.</span>
+            <span className="text-silver-bright">You're Under the Sink.</span>
             <br />
-            <span className="text-silver-bright">Start Booking Jobs.</span>
+            <span className="text-silver-bright">Your Phone Is Ringing.</span>
             <br />
             <span className="bg-gradient-to-r from-primary to-[hsl(var(--gradient-end))] bg-clip-text text-transparent">
-              Automatically.
+              Your AI Answers It.
             </span>
           </motion.h1>
 
@@ -59,8 +61,7 @@ const HeroSection = () => {
             className="text-lg md:text-xl text-silver max-w-2xl mx-auto leading-relaxed"
           >
             Voxmation's AI answers every call, follows up with every lead, and books
-            appointments 24/7 — so HVAC, plumbing, electrical, and home service
-            businesses never miss revenue again.
+            appointments 24/7 — so you never lose a job to voicemail again.
           </motion.p>
 
           <motion.div
@@ -71,7 +72,7 @@ const HeroSection = () => {
           >
             <Button variant="neon" size="xl" asChild>
               <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
-                Book a Free Demo
+                Start Free 14-Day Trial
                 <ArrowUpRight className="h-4 w-4" />
               </a>
             </Button>
@@ -83,37 +84,8 @@ const HeroSection = () => {
             </Button>
           </motion.div>
 
-          {/* Trust stats */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="flex flex-wrap items-center justify-center gap-8 pt-6"
-          >
-            {[
-              { icon: PhoneCall, label: "Zero Missed Calls" },
-              { icon: Clock, label: "<1s Response Time" },
-              { icon: Zap, label: "ROI in 30 Days" },
-              { icon: Shield, label: "No Contracts" },
-            ].map((stat) => (
-              <div key={stat.label} className="flex items-center gap-2">
-                <stat.icon className="h-3.5 w-3.5 text-primary/60" />
-                <span className="text-xs text-silver font-mono tracking-wide">{stat.label}</span>
-              </div>
-            ))}
-          </motion.div>
-
-          {/* Social proof line */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
-            className="pt-4"
-          >
-            <p className="text-xs text-silver font-mono tracking-wider">
-              Trusted by <span className="text-primary">50+</span> home service businesses across the US
-            </p>
-          </motion.div>
+          <TrustBar />
+          <AnimatedCounter />
         </div>
       </motion.div>
 
