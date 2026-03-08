@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Send, ArrowUpRight, Volume2, Mic, Bot, User, Headphones, CircleUser, CheckCircle2, RotateCcw, Thermometer, Wrench, Zap, Home, TreePine, SprayCan } from "lucide-react";
+import { Send, ArrowUpRight, Volume2, Mic, Bot, User, Headphones, CircleUser, CheckCircle2, RotateCcw, Thermometer, Wrench, Zap, Home, TreePine, SprayCan, AlertTriangle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import DemoHero from "@/components/demo/DemoHero";
 import MissedCallDemo from "@/components/demo/MissedCallDemo";
@@ -292,7 +292,7 @@ const Demo = () => {
   };
 
   const sentiment = messages.length > 4 ? "Positive" : messages.length > 2 ? "Neutral" : "—";
-  const leadScore = messages.length > 4 ? "Hot 🔥" : messages.length > 2 ? "Warm" : "—";
+  const leadScore = messages.length > 4 ? "Hot" : messages.length > 2 ? "Warm" : "—";
   const intent = messages.length > 2 ? "Booking" : "—";
 
   const resetAll = () => {
@@ -532,8 +532,9 @@ const Demo = () => {
               {/* ── TTS Error Banner ── */}
               {ttsError && (
                 <div className="w-full border-x border-border px-5 py-2">
-                  <div className="bg-destructive/10 border border-destructive/20 rounded-lg px-3 py-2 text-[0.78rem] text-destructive">
-                    ⚠️ TTS unavailable — falling back to text-only mode
+                  <div className="bg-destructive/10 border border-destructive/20 rounded-lg px-3 py-2 text-[0.78rem] text-destructive flex items-center gap-2">
+                    <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                    TTS unavailable — falling back to text-only mode
                   </div>
                 </div>
               )}
