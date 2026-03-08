@@ -532,8 +532,9 @@ const Demo = () => {
               {/* ── TTS Error Banner ── */}
               {ttsError && (
                 <div className="w-full border-x border-border px-5 py-2">
-                  <div className="bg-destructive/10 border border-destructive/20 rounded-lg px-3 py-2 text-[0.78rem] text-destructive">
-                    ⚠️ TTS unavailable — falling back to text-only mode
+                  <div className="bg-destructive/10 border border-destructive/20 rounded-lg px-3 py-2 text-[0.78rem] text-destructive flex items-center gap-2">
+                    <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                    TTS unavailable — falling back to text-only mode
                   </div>
                 </div>
               )}
