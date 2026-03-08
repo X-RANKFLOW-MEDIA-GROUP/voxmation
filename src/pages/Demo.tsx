@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Send, ArrowUpRight, Volume2 } from "lucide-react";
+import { Send, ArrowUpRight, Volume2, Mic, Bot, User, Headphones, CircleUser, CheckCircle2, RotateCcw, Thermometer, Wrench, Zap, Home, TreePine, SprayCan } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import DemoHero from "@/components/demo/DemoHero";
 import MissedCallDemo from "@/components/demo/MissedCallDemo";
 import DashboardMockup from "@/components/demo/DashboardMockup";
@@ -23,21 +24,21 @@ const voiceIdMap: Record<string, string> = {
 };
 
 /* ─── DATA ─── */
-const industries = [
-  { id: "hvac", icon: "❄️", label: "HVAC & AC" },
-  { id: "plumbing", icon: "🔧", label: "Plumbing" },
-  { id: "electrical", icon: "⚡", label: "Electrical" },
-  { id: "roofing", icon: "🏠", label: "Roofing" },
-  { id: "landscaping", icon: "🌿", label: "Landscaping" },
-  { id: "cleaning", icon: "🧹", label: "Cleaning" },
+const industries: { id: string; Icon: LucideIcon; label: string }[] = [
+  { id: "hvac", Icon: Thermometer, label: "HVAC & AC" },
+  { id: "plumbing", Icon: Wrench, label: "Plumbing" },
+  { id: "electrical", Icon: Zap, label: "Electrical" },
+  { id: "roofing", Icon: Home, label: "Roofing" },
+  { id: "landscaping", Icon: TreePine, label: "Landscaping" },
+  { id: "cleaning", Icon: SprayCan, label: "Cleaning" },
 ];
 
-const voices = [
-  { id: "rachel", icon: "👩", name: "Rachel", desc: "Calm, professional" },
-  { id: "adam", icon: "👨", name: "Adam", desc: "Deep, authoritative" },
-  { id: "josh", icon: "🧑", name: "Josh", desc: "Friendly, young" },
-  { id: "bella", icon: "👩‍💼", name: "Bella", desc: "Warm, soft" },
-  { id: "elli", icon: "👧", name: "Elli", desc: "Energetic, bright" },
+const voices: { id: string; Icon: LucideIcon; name: string; desc: string }[] = [
+  { id: "rachel", Icon: CircleUser, name: "Rachel", desc: "Calm, professional" },
+  { id: "adam", Icon: User, name: "Adam", desc: "Deep, authoritative" },
+  { id: "josh", Icon: Headphones, name: "Josh", desc: "Friendly, young" },
+  { id: "bella", Icon: CircleUser, name: "Bella", desc: "Warm, soft" },
+  { id: "elli", Icon: Mic, name: "Elli", desc: "Energetic, bright" },
 ];
 
 const conversations: Record<string, ChatMessage[]> = {
@@ -364,15 +365,15 @@ const Demo = () => {
               </p>
 
               <h1 className="font-display font-extrabold text-[clamp(2rem,5vw,3.4rem)] leading-[1.02] tracking-[-0.04em] text-foreground mb-3">
-                Ouça seu{" "}
+                Hear your{" "}
                 <span className="bg-gradient-to-r from-foreground to-foreground/50 bg-clip-text text-transparent">
                   AI Agent
                 </span>{" "}
-                falar.
+                speak.
               </h1>
 
               <p className="text-muted-foreground text-[0.95rem] mb-10 leading-relaxed max-w-md font-light">
-                Voz ultra-realista via ElevenLabs. Selecione a voz, escolha seu setor e ouça o agente em ação.
+                Ultra-realistic voice powered by ElevenLabs. Pick a voice, choose your industry, and listen to your agent in action.
               </p>
 
               {/* ── Voice Picker ── */}
@@ -380,7 +381,7 @@ const Demo = () => {
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
                 <p className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground mb-4 flex items-center gap-2">
                   <Volume2 className="w-3.5 h-3.5" />
-                  Escolha a voz do agente — ElevenLabs
+                  Select Agent Voice — ElevenLabs
                 </p>
                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                   {voices.map((v) => (
@@ -393,7 +394,7 @@ const Demo = () => {
                           : "border-border bg-background/40 hover:border-foreground/10"
                       }`}
                     >
-                      <span className="text-xl">{v.icon}</span>
+                      <v.Icon className="w-5 h-5 text-foreground/60" />
                       <span className="text-[0.72rem] font-semibold text-foreground">{v.name}</span>
                       <span className="text-[0.6rem] text-muted-foreground text-center leading-tight">{v.desc}</span>
                     </button>
@@ -403,7 +404,7 @@ const Demo = () => {
 
               {/* ── Industry Picker ── */}
               <p className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground mb-3 self-start w-full">
-                Tipo de negócio
+                Business Type
               </p>
               <div className="grid grid-cols-3 gap-2.5 w-full mb-6">
                 {industries.map((ind) => (
@@ -416,7 +417,7 @@ const Demo = () => {
                         : "border-border bg-card hover:border-foreground/10 hover:-translate-y-0.5"
                     }`}
                   >
-                    <span className="text-2xl">{ind.icon}</span>
+                    <ind.Icon className="w-6 h-6 text-foreground/50" />
                     <span className="text-[0.75rem] font-semibold text-foreground text-center leading-tight">{ind.label}</span>
                   </button>
                 ))}
@@ -424,11 +425,11 @@ const Demo = () => {
 
               {/* ── Name Input ── */}
               <p className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground mb-2.5 self-start w-full">
-                Seu nome (você será o cliente)
+                Your Name (you'll play the customer)
               </p>
               <input
                 type="text"
-                placeholder="Ex: Carlos"
+                placeholder="e.g. John"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
                 className="w-full bg-card border border-border text-foreground rounded-xl px-4 py-3 text-sm outline-none focus:border-foreground/20 transition-colors mb-6 placeholder:text-muted-foreground font-mono"
@@ -440,7 +441,8 @@ const Demo = () => {
                 disabled={!selectedIndustry}
                 className="w-full bg-foreground text-background font-display font-bold rounded-xl py-4 px-7 text-base flex items-center justify-center gap-2.5 shadow-[0_0_40px_hsl(0_0%_100%/0.08)] hover:-translate-y-0.5 hover:shadow-[0_0_60px_hsl(0_0%_100%/0.12)] transition-all disabled:opacity-20 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
               >
-                🎙️ Iniciar Chamada com ElevenLabs
+                <Mic className="w-5 h-5" />
+                Start Voice Call
               </button>
             </motion.div>
           )}
@@ -463,8 +465,8 @@ const Demo = () => {
                 </div>
                 <span className="font-mono text-sm text-muted-foreground tracking-[0.15em]">{formatTime(timer)}</span>
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-foreground/10 to-foreground/5 border border-foreground/15 flex items-center justify-center text-sm">
-                    🤖
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-foreground/10 to-foreground/5 border border-foreground/15 flex items-center justify-center">
+                    <Bot className="w-4 h-4 text-foreground/50" />
                   </div>
                   <div>
                     <p className="text-xs font-semibold text-foreground">Vox Agent</p>
@@ -487,9 +489,9 @@ const Demo = () => {
                       scale: [1, 1.06, 1],
                     } : {}}
                     transition={agentSpeaking ? { duration: 1, repeat: Infinity, ease: "easeInOut" } : {}}
-                    className="w-[92px] h-[92px] rounded-full flex items-center justify-center text-3xl border border-foreground/15 bg-[radial-gradient(circle,hsl(0_0%_100%/0.08),hsl(0_0%_100%/0.02))] shadow-[0_0_30px_hsl(0_0%_100%/0.04)]"
+                    className="w-[92px] h-[92px] rounded-full flex items-center justify-center border border-foreground/15 bg-[radial-gradient(circle,hsl(0_0%_100%/0.08),hsl(0_0%_100%/0.02))] shadow-[0_0_30px_hsl(0_0%_100%/0.04)]"
                   >
-                    🤖
+                    <Bot className="w-8 h-8 text-foreground/40" />
                   </motion.div>
                   <span className="font-mono text-[0.6rem] tracking-[0.12em] uppercase text-foreground/50">Vox Agent</span>
                   <span className="text-[0.72rem] text-muted-foreground min-h-[18px]">
@@ -501,8 +503,8 @@ const Demo = () => {
 
                 {/* User Orb */}
                 <div className="flex flex-col items-center gap-4">
-                  <div className="w-[92px] h-[92px] rounded-full flex items-center justify-center text-3xl border border-foreground/10 bg-[radial-gradient(circle,hsl(0_0%_100%/0.04),transparent)] shadow-[0_0_20px_hsl(0_0%_100%/0.02)]">
-                    🎙️
+                  <div className="w-[92px] h-[92px] rounded-full flex items-center justify-center border border-foreground/10 bg-[radial-gradient(circle,hsl(0_0%_100%/0.04),transparent)] shadow-[0_0_20px_hsl(0_0%_100%/0.02)]">
+                    <Mic className="w-8 h-8 text-foreground/30" />
                   </div>
                   <span className="font-mono text-[0.6rem] tracking-[0.12em] uppercase text-foreground/50">You</span>
                   <span className="text-[0.72rem] text-muted-foreground">{userName || "Customer"}</span>
@@ -523,7 +525,7 @@ const Demo = () => {
               {/* ── Live Transcript ── */}
               <div className="w-full bg-background/40 border-x border-border px-5 py-2.5 min-h-[34px] flex items-center">
                 <p className={`font-mono text-[0.7rem] italic transition-colors duration-300 ${liveTranscript ? "text-foreground/60" : "text-muted-foreground/60"}`}>
-                  {liveTranscript ? `🎤 ${liveTranscript}` : "🎤 Live transcript will appear here..."}
+                  {liveTranscript ? liveTranscript : "Live transcript will appear here..."}
                 </p>
               </div>
 
@@ -555,7 +557,7 @@ const Demo = () => {
                         ? "bg-gradient-to-br from-foreground/8 to-foreground/3 border border-foreground/10"
                         : "bg-foreground/5 border border-border font-display font-bold text-foreground/40 text-[0.6rem]"
                     }`}>
-                      {msg.role === "bot" ? "🤖" : (userName?.[0]?.toUpperCase() || "U")}
+                      {msg.role === "bot" ? <Bot className="w-3 h-3 text-foreground/40" /> : (userName?.[0]?.toUpperCase() || "U")}
                     </div>
                     <div className={`max-w-[72%] px-3.5 py-2.5 rounded-xl text-[0.85rem] leading-relaxed ${
                       msg.role === "bot"
@@ -568,7 +570,7 @@ const Demo = () => {
                 ))}
                 {isTyping && (
                   <div className="flex gap-2 items-end">
-                    <div className="w-[26px] h-[26px] rounded-full bg-gradient-to-br from-foreground/8 to-foreground/3 border border-foreground/10 flex items-center justify-center text-xs">🤖</div>
+                    <div className="w-[26px] h-[26px] rounded-full bg-gradient-to-br from-foreground/8 to-foreground/3 border border-foreground/10 flex items-center justify-center"><Bot className="w-3 h-3 text-foreground/40" /></div>
                     <div className="bg-card border border-border px-3.5 py-3 rounded-xl rounded-bl-sm flex gap-1.5 items-center">
                       {[0, 1, 2].map((d) => (
                         <motion.span
@@ -639,32 +641,32 @@ const Demo = () => {
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.15 }}
-                className="w-[80px] h-[80px] rounded-full bg-foreground/5 border border-foreground/15 flex items-center justify-center text-3xl shadow-[0_0_50px_hsl(0_0%_100%/0.06)] mb-7"
+                className="w-[80px] h-[80px] rounded-full bg-foreground/5 border border-foreground/15 flex items-center justify-center shadow-[0_0_50px_hsl(0_0%_100%/0.06)] mb-7"
               >
-                ✓
+                <CheckCircle2 className="w-8 h-8 text-foreground/60" />
               </motion.div>
 
               <h2 className="font-display font-extrabold text-[2.2rem] tracking-[-0.04em] text-foreground mb-3">
-                Chamada Concluída.
+                Call Completed.
               </h2>
               <p className="text-muted-foreground text-[0.93rem] leading-relaxed mb-8 font-light max-w-md">
-                O agente falou com voz realista via ElevenLabs — qualificou o lead, construiu rapport e agendou o serviço sem nenhum humano envolvido.
+                The agent conducted the entire conversation with realistic ElevenLabs voice — qualified the lead, built rapport, and booked the service with zero human involvement.
               </p>
 
               {/* Summary Card */}
               <div className="surface-card rounded-2xl p-6 w-full mb-6 text-left relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
-                <p className="font-mono text-[0.58rem] tracking-[0.16em] text-muted-foreground uppercase mb-4">
-                  📋 Call Summary
+                <p className="font-mono text-[0.58rem] tracking-[0.16em] text-muted-foreground uppercase mb-4 flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Call Summary
                 </p>
                 {[
                   { k: "Lead", v: userName || "Customer" },
-                  { k: "Setor", v: industries.find((i) => i.id === selectedIndustry)?.label || "—" },
-                  { k: "Mensagens", v: String(messages.length) },
-                  { k: "Duração", v: formatTime(timer) },
-                  { k: "Voz", v: voices.find(v => v.id === selectedVoice)?.name || "—" },
+                  { k: "Industry", v: industries.find((i) => i.id === selectedIndustry)?.label || "—" },
+                  { k: "Messages", v: String(messages.length) },
+                  { k: "Duration", v: formatTime(timer) },
+                  { k: "Voice", v: voices.find(v => v.id === selectedVoice)?.name || "—" },
                   { k: "TTS", v: "ElevenLabs" },
-                  { k: "Resultado", v: "✓ Demo Completed", highlight: true },
+                  { k: "Result", v: "Demo Completed", highlight: true },
                 ].map((r) => (
                   <div key={r.k} className="flex justify-between py-2.5 border-b border-border last:border-0 text-[0.84rem]">
                     <span className="text-muted-foreground">{r.k}</span>
@@ -681,14 +683,15 @@ const Demo = () => {
                   rel="noopener noreferrer"
                   className="flex-1 bg-foreground text-background font-display font-bold rounded-xl py-3.5 px-5 text-sm text-center hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 shadow-[0_0_30px_hsl(0_0%_100%/0.06)]"
                 >
-                  Quero meu AI Agent
+                  Get My AI Agent
                   <ArrowUpRight className="w-4 h-4" />
                 </a>
                 <button
                   onClick={resetAll}
-                  className="flex-1 bg-transparent text-foreground/70 border border-border font-display font-semibold rounded-xl py-3.5 px-5 text-sm hover:border-foreground/15 hover:text-foreground transition-all"
+                  className="flex-1 bg-transparent text-foreground/70 border border-border font-display font-semibold rounded-xl py-3.5 px-5 text-sm hover:border-foreground/15 hover:text-foreground transition-all flex items-center justify-center gap-2"
                 >
-                  ↺ Tentar de novo
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  Try Again
                 </button>
               </div>
             </motion.div>

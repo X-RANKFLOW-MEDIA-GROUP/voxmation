@@ -1,35 +1,31 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { PhoneOff, MessageSquare, Reply, CalendarCheck, ArrowRight } from "lucide-react";
+import { PhoneOff, MessageSquare, Reply, CalendarCheck, ArrowRight, Bot } from "lucide-react";
 
 const timelineSteps = [
   {
     icon: PhoneOff,
     title: "Missed Call",
-    desc: "Customer calls at 9:47 PM. No one picks up.",
+    desc: "Customer calls at 9:47 PM. Nobody picks up.",
     time: "9:47 PM",
-    color: "text-foreground",
   },
   {
     icon: MessageSquare,
     title: "Auto SMS Sent",
-    desc: "AI sends personalized text within 30 seconds.",
+    desc: "AI sends a personalized text within 30 seconds.",
     time: "9:47 PM",
-    color: "text-foreground",
   },
   {
     icon: Reply,
     title: "Lead Replies",
     desc: '"Yes, I need my AC fixed ASAP."',
     time: "9:49 PM",
-    color: "text-foreground",
   },
   {
     icon: CalendarCheck,
     title: "Appointment Booked",
-    desc: "AI books next available slot automatically.",
+    desc: "AI books the next available slot automatically.",
     time: "9:50 PM",
-    color: "text-foreground",
   },
 ];
 
@@ -38,8 +34,8 @@ const phoneChatMessages = [
   { type: "out", text: "Hi! This is Comfort Zone HVAC. Sorry we missed your call. How can we help? Reply here or we'll call you back!" },
   { type: "in", text: "Yes! My AC stopped working. Can someone come tomorrow?" },
   { type: "out", text: "Absolutely! I have a technician available tomorrow at 10 AM. Should I book it?" },
-  { type: "in", text: "Yes please! 🙏" },
-  { type: "out", text: "Done! ✅ You're booked for tomorrow at 10 AM. You'll get a reminder. Have a great night!" },
+  { type: "in", text: "Yes please!" },
+  { type: "out", text: "Done! You're booked for tomorrow at 10 AM. You'll get a reminder. Have a great night!" },
 ];
 
 const MissedCallDemo = () => {
@@ -50,11 +46,9 @@ const MissedCallDemo = () => {
 
   useEffect(() => {
     if (!inView) return;
-    // Animate timeline steps
     const stepTimers = timelineSteps.map((_, i) =>
       setTimeout(() => setActiveStep(i), 800 + i * 1200)
     );
-    // Animate phone messages
     const msgTimers = phoneChatMessages.map((_, i) =>
       setTimeout(() => setVisibleMessages(i + 1), 1500 + i * 1000)
     );
@@ -75,14 +69,14 @@ const MissedCallDemo = () => {
           className="mb-16"
         >
           <p className="font-mono text-[0.62rem] tracking-[0.22em] uppercase text-muted-foreground mb-4 flex items-center gap-3">
-            <span className="h-px w-6 bg-foreground/15" />
+            <PhoneOff className="w-3 h-3" />
             Missed Call Recovery
           </p>
           <h2 className="font-display font-extrabold text-[clamp(1.8rem,4vw,3rem)] leading-[1.05] tracking-[-0.04em] text-foreground mb-3 max-w-lg">
-            Nenhuma chamada perdida vira lead perdido.
+            No missed call ever becomes a lost lead.
           </h2>
           <p className="text-muted-foreground text-base max-w-md font-light leading-relaxed">
-            Quando você não atende, a Voxmation responde em 30 segundos via SMS — e converte em agendamento automaticamente.
+            When you don't answer, Voxmation responds within 30 seconds via SMS — and converts it into a booked appointment automatically.
           </p>
         </motion.div>
 
@@ -97,7 +91,6 @@ const MissedCallDemo = () => {
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="flex gap-4 relative"
               >
-                {/* Vertical line */}
                 <div className="flex flex-col items-center">
                   <div className={`w-10 h-10 rounded-full border flex items-center justify-center shrink-0 transition-all duration-500 ${
                     activeStep >= i
@@ -115,7 +108,6 @@ const MissedCallDemo = () => {
                   )}
                 </div>
 
-                {/* Content */}
                 <div className="pt-1.5 pb-8">
                   <div className="flex items-center gap-3 mb-1">
                     <h3 className="font-display font-bold text-foreground text-sm">{step.title}</h3>
@@ -148,7 +140,9 @@ const MissedCallDemo = () => {
 
                 {/* Chat header */}
                 <div className="px-4 py-2.5 border-b border-border flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-foreground/[0.06] border border-foreground/10 flex items-center justify-center text-sm">🤖</div>
+                  <div className="w-8 h-8 rounded-full bg-foreground/[0.06] border border-foreground/10 flex items-center justify-center">
+                    <Bot className="w-4 h-4 text-foreground/40" />
+                  </div>
                   <div>
                     <p className="text-xs font-semibold text-foreground">Comfort Zone HVAC</p>
                     <p className="text-[0.6rem] text-muted-foreground font-mono">Voxmation AI</p>

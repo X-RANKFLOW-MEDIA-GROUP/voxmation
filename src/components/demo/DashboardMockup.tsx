@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { Phone, Users, CalendarCheck, TrendingUp, Bell, Clock, DollarSign, Zap } from "lucide-react";
+import { Phone, Users, CalendarCheck, DollarSign, Bell, Zap, Bot } from "lucide-react";
 
 /* ─── ANIMATED COUNTER ─── */
 const Counter = ({ target, duration = 2, prefix = "", suffix = "" }: { target: number; duration?: number; prefix?: string; suffix?: string }) => {
@@ -29,12 +29,12 @@ const Counter = ({ target, duration = 2, prefix = "", suffix = "" }: { target: n
 
 /* ─── LIVE NOTIFICATION ─── */
 const notifications = [
-  { icon: "📞", text: "AI answered call from (214) 555-0342", time: "Just now" },
-  { icon: "📅", text: "Appointment booked — HVAC repair, $280", time: "2m ago" },
-  { icon: "💬", text: "Missed call SMS sent → Lead replied", time: "5m ago" },
-  { icon: "🔥", text: "Lead scored HOT — follow-up #2 sent", time: "8m ago" },
-  { icon: "✅", text: "Invoice #1047 paid — $340.00", time: "12m ago" },
-  { icon: "📞", text: "Outbound call completed — lead qualified", time: "15m ago" },
+  { icon: Phone, text: "AI answered call from (214) 555-0342", time: "Just now" },
+  { icon: CalendarCheck, text: "Appointment booked — HVAC repair, $280", time: "2m ago" },
+  { icon: Zap, text: "Missed call SMS sent → Lead replied", time: "5m ago" },
+  { icon: Bell, text: "Lead scored HOT — follow-up #2 sent", time: "8m ago" },
+  { icon: DollarSign, text: "Invoice #1047 paid — $340.00", time: "12m ago" },
+  { icon: Phone, text: "Outbound call completed — lead qualified", time: "15m ago" },
 ];
 
 const DashboardMockup = () => {
@@ -51,9 +51,9 @@ const DashboardMockup = () => {
   }, [inView]);
 
   const leads = [
-    { name: "Maria Santos", status: "Hot 🔥", service: "AC Repair", value: "$340", time: "3m" },
+    { name: "Sarah Mitchell", status: "Hot", service: "AC Repair", value: "$340", time: "3m" },
     { name: "James Wilson", status: "Warm", service: "Plumbing", value: "$220", time: "18m" },
-    { name: "Ana Oliveira", status: "Hot 🔥", service: "Electrical", value: "$480", time: "34m" },
+    { name: "Emily Rodriguez", status: "Hot", service: "Electrical", value: "$480", time: "34m" },
     { name: "Robert Chen", status: "New", service: "Roofing", value: "$1,200", time: "1h" },
   ];
 
@@ -71,10 +71,10 @@ const DashboardMockup = () => {
             CRM & Dashboard
           </p>
           <h2 className="font-display font-extrabold text-[clamp(1.8rem,4vw,3rem)] leading-[1.05] tracking-[-0.04em] text-foreground mb-3">
-            Tudo num só lugar.
+            Everything in one place.
           </h2>
           <p className="text-muted-foreground text-base max-w-md mx-auto font-light leading-relaxed">
-            Leads, follow-ups, agendamentos e receita — monitorados em tempo real pelo seu dashboard AI.
+            Leads, follow-ups, appointments, and revenue — all monitored in real time through your AI dashboard.
           </p>
         </motion.div>
 
@@ -105,10 +105,10 @@ const DashboardMockup = () => {
             {/* KPI Row */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
               {[
-                { icon: Phone, label: "Calls Today", value: 47, suffix: "", prefix: "" },
-                { icon: Users, label: "Leads Captured", value: 23, suffix: "", prefix: "" },
-                { icon: CalendarCheck, label: "Booked Jobs", value: 12, suffix: "", prefix: "" },
-                { icon: DollarSign, label: "Revenue Today", value: 8400, suffix: "", prefix: "$" },
+                { icon: Phone, label: "Calls Today", value: 47, prefix: "" },
+                { icon: Users, label: "Leads Captured", value: 23, prefix: "" },
+                { icon: CalendarCheck, label: "Booked Jobs", value: 12, prefix: "" },
+                { icon: DollarSign, label: "Revenue Today", value: 8400, prefix: "$" },
               ].map((kpi, i) => (
                 <motion.div
                   key={kpi.label}
@@ -119,7 +119,7 @@ const DashboardMockup = () => {
                 >
                   <kpi.icon className="w-4 h-4 text-muted-foreground mb-2" />
                   <p className="font-display font-extrabold text-xl text-foreground">
-                    <Counter target={kpi.value} prefix={kpi.prefix} suffix={kpi.suffix} />
+                    <Counter target={kpi.value} prefix={kpi.prefix} />
                   </p>
                   <p className="font-mono text-[0.55rem] text-muted-foreground tracking-wider mt-1">{kpi.label}</p>
                 </motion.div>
@@ -174,7 +174,7 @@ const DashboardMockup = () => {
                       transition={{ duration: 0.4 }}
                       className="flex items-start gap-2.5 bg-background/40 border border-border/50 rounded-lg px-3 py-2"
                     >
-                      <span className="text-sm shrink-0 mt-0.5">{notif.icon}</span>
+                      <notif.icon className="w-3.5 h-3.5 text-foreground/40 shrink-0 mt-0.5" />
                       <div className="flex-1 min-w-0">
                         <p className="text-[0.72rem] text-foreground/70 leading-snug">{notif.text}</p>
                         <p className="font-mono text-[0.55rem] text-muted-foreground mt-0.5">{notif.time}</p>

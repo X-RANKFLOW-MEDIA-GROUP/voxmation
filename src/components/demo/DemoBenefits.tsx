@@ -1,31 +1,31 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { CalendarCheck, Clock, ShieldCheck, TrendingUp, ArrowUpRight } from "lucide-react";
+import { CalendarCheck, Clock, ShieldCheck, TrendingUp, ArrowUpRight, Mic } from "lucide-react";
 
 const benefits = [
   {
     icon: CalendarCheck,
     title: "More Booked Jobs",
     stat: "3.2x",
-    desc: "Mais agendamentos com follow-up automático e booking 24/7 — sem depender de secretária.",
+    desc: "More appointments with automated follow-up and 24/7 booking — no receptionist needed.",
   },
   {
     icon: Clock,
     title: "Faster Response Time",
     stat: "<30s",
-    desc: "Resposta em menos de 30 segundos para cada chamada perdida ou lead novo via SMS.",
+    desc: "Every missed call or new lead gets a response within 30 seconds via AI-powered SMS.",
   },
   {
     icon: ShieldCheck,
     title: "Fewer Lost Leads",
     stat: "98%",
-    desc: "Capture rate de 98% — nenhum lead fica sem resposta, mesmo fora do horário comercial.",
+    desc: "98% capture rate — no lead goes unanswered, even after hours or on weekends.",
   },
   {
     icon: TrendingUp,
     title: "Higher ROI",
     stat: "847%",
-    desc: "Retorno médio de 847% no primeiro trimestre. O sistema se paga no primeiro mês.",
+    desc: "Average 847% return in the first quarter. The system pays for itself in month one.",
   },
 ];
 
@@ -47,10 +47,10 @@ const DemoBenefits = () => {
             Why Voxmation
           </p>
           <h2 className="font-display font-extrabold text-[clamp(1.8rem,4vw,3rem)] leading-[1.05] tracking-[-0.04em] text-foreground mb-3">
-            Resultados que falam por si.
+            Results that speak for themselves.
           </h2>
           <p className="text-muted-foreground text-base max-w-md mx-auto font-light leading-relaxed">
-            Cada dólar investido volta multiplicado. Cada chamada vira oportunidade.
+            Every dollar invested comes back multiplied. Every call becomes an opportunity.
           </p>
         </motion.div>
 
@@ -92,10 +92,10 @@ const DemoBenefits = () => {
 
             <div className="relative z-10">
               <h3 className="font-display font-extrabold text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.08] tracking-[-0.04em] text-foreground mb-4">
-                Pronto para colocar seu telefone no piloto automático?
+                Ready to put your phone on autopilot?
               </h3>
               <p className="text-muted-foreground text-[0.95rem] leading-relaxed mb-8 max-w-md mx-auto font-light">
-                Agende uma demo personalizada e veja como a Voxmation pode transformar chamadas perdidas em receita — em menos de 5 minutos.
+                Schedule a personalized demo and see how Voxmation can turn missed calls into revenue — in under 5 minutes.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -105,14 +105,15 @@ const DemoBenefits = () => {
                   rel="noopener noreferrer"
                   className="bg-foreground text-background font-display font-bold rounded-xl py-4 px-8 text-sm flex items-center justify-center gap-2.5 shadow-[0_0_40px_hsl(0_0%_100%/0.08)] hover:-translate-y-0.5 hover:shadow-[0_0_60px_hsl(0_0%_100%/0.12)] transition-all"
                 >
-                  Agendar Demo Gratuita
+                  Schedule Free Demo
                   <ArrowUpRight className="w-4 h-4" />
                 </a>
                 <a
                   href="#voice-demo"
                   className="border border-border text-foreground/70 font-display font-semibold rounded-xl py-4 px-8 text-sm flex items-center justify-center gap-2 hover:border-foreground/15 hover:text-foreground transition-all"
                 >
-                  🎙️ Ouvir o AI Agent primeiro
+                  <Mic className="w-4 h-4" />
+                  Hear the AI Agent first
                 </a>
               </div>
             </div>
