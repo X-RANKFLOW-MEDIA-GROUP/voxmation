@@ -33,6 +33,7 @@ const industries = [
     icon: Zap,
     label: "Electrical",
     title: "Electricians",
+    slug: "ai-receptionist-electricians",
     scenario: "A customer needs a panel upgrade quote. They call during your busiest day.",
     without: "You're on a job. The call goes unanswered. Lead gone.",
     withVox: "AI answers, qualifies the request, captures property details, and schedules an estimate. Zero interruption to your workflow.",
