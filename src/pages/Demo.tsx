@@ -2,6 +2,10 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Send, ArrowUpRight, Volume2 } from "lucide-react";
+import DemoHero from "@/components/demo/DemoHero";
+import MissedCallDemo from "@/components/demo/MissedCallDemo";
+import DashboardMockup from "@/components/demo/DashboardMockup";
+import DemoBenefits from "@/components/demo/DemoBenefits";
 
 /* ─── TYPES ─── */
 interface ChatMessage {
@@ -333,8 +337,13 @@ const Demo = () => {
         </div>
       </nav>
 
-      {/* ─── CONTENT ─── */}
-      <div className="relative z-10 min-h-screen pt-24 pb-12 px-5 flex flex-col items-center">
+      {/* ─── HERO SECTION ─── */}
+      <div className="pt-16">
+        <DemoHero />
+      </div>
+
+      {/* ─── VOICE AI DEMO ─── */}
+      <div id="voice-demo" className="relative z-10 border-t border-border py-12 px-5 flex flex-col items-center">
         <AnimatePresence mode="wait">
 
           {/* ═══════════════ STEP 1: CONFIGURE ═══════════════ */}
@@ -685,6 +694,19 @@ const Demo = () => {
             </motion.div>
           )}
         </AnimatePresence>
+      </div>
+
+      {/* ─── ADDITIONAL SECTIONS ─── */}
+      <div className="relative z-10 border-t border-border">
+        <MissedCallDemo />
+      </div>
+
+      <div className="relative z-10 border-t border-border bg-card/20">
+        <DashboardMockup />
+      </div>
+
+      <div className="relative z-10 border-t border-border">
+        <DemoBenefits />
       </div>
     </div>
   );
