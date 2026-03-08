@@ -2,12 +2,15 @@ import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, LogIn } from "lucide-react";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const navLinks = [
   { label: "How It Works", href: "#how-it-works" },
   { label: "Services", href: "#services" },
   { label: "Industries", href: "#industries" },
-  { label: "Results", href: "#results" },
+  { label: "Pricing", href: "/pricing", isRoute: true },
+  { label: "ROI Calculator", href: "/roi-calculator", isRoute: true },
+  { label: "Demo", href: "/demo", isRoute: true },
   { label: "FAQ", href: "#faq" },
 ];
 
