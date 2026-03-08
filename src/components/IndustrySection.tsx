@@ -164,12 +164,22 @@ const IndustrySection = () => {
                 <div className="text-2xl md:text-3xl font-mono font-bold text-warning tracking-tight">
                   {current.metric}
                 </div>
-                <Button variant="neon" size="lg" asChild>
-                  <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
-                    Book a Demo
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
-                </Button>
+                <div className="flex gap-3">
+                  <Button variant="neon" size="lg" asChild>
+                    <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
+                      Book a Demo
+                      <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  </Button>
+                  {current.slug && (
+                    <Button variant="neon-outline" size="lg" asChild>
+                      <Link to={`/${current.slug}`} className="gap-2">
+                        Learn More
+                        <ExternalLink className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           </motion.div>

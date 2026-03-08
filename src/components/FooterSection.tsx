@@ -59,10 +59,21 @@ const FooterSection = () => {
             VOXMATION
           </span>
           <div className="flex flex-wrap gap-8 justify-center">
-            {["Book a Demo", "Service Terms", "Privacy Policy"].map((link) => (
-              <a key={link} href={link === "Book a Demo" ? "https://cal.com/voxmation/meeting" : "#"} className="text-xs text-silver hover:text-primary transition-colors duration-300 font-mono tracking-wide" target={link === "Book a Demo" ? "_blank" : undefined} rel={link === "Book a Demo" ? "noopener noreferrer" : undefined}>
-                {link}
-              </a>
+            {[
+              { label: "Pricing", to: "/pricing" },
+              { label: "ROI Calculator", to: "/roi-calculator" },
+              { label: "Demo", to: "/demo" },
+              { label: "Book a Call", href: "https://cal.com/voxmation/meeting" },
+            ].map((link) => (
+              'to' in link ? (
+                <Link key={link.label} to={link.to!} className="text-xs text-silver hover:text-primary transition-colors duration-300 font-mono tracking-wide">
+                  {link.label}
+                </Link>
+              ) : (
+                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="text-xs text-silver hover:text-primary transition-colors duration-300 font-mono tracking-wide">
+                  {link.label}
+                </a>
+              )
             ))}
           </div>
           <div className="flex items-center gap-5">
