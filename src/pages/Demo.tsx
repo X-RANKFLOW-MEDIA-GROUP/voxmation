@@ -690,6 +690,19 @@ const Demo = () => {
           )}
         </AnimatePresence>
       </div>
+
+      {/* ─── ADDITIONAL SECTIONS ─── */}
+      <div className="relative z-10 border-t border-border">
+        <MissedCallDemo />
+      </div>
+
+      <div className="relative z-10 border-t border-border bg-card/20">
+        <DashboardMockup />
+      </div>
+
+      <div className="relative z-10 border-t border-border">
+        <DemoBenefits />
+      </div>
     </div>
   );
 };
