@@ -2,6 +2,10 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Send, ArrowUpRight, Volume2 } from "lucide-react";
+import DemoHero from "@/components/demo/DemoHero";
+import MissedCallDemo from "@/components/demo/MissedCallDemo";
+import DashboardMockup from "@/components/demo/DashboardMockup";
+import DemoBenefits from "@/components/demo/DemoBenefits";
 
 /* ─── TYPES ─── */
 interface ChatMessage {
