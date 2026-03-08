@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ArrowUpRight, Phone, MessageSquare, Calendar, BarChart3 } from "lucide-react";
+import { ArrowUpRight, Phone, MessageSquare, Calendar, BarChart3, Mic, Bot, Zap, Activity } from "lucide-react";
 
 const DemoHero = () => {
   const ref = useRef(null);
@@ -22,19 +22,19 @@ const DemoHero = () => {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="font-mono text-[0.62rem] tracking-[0.22em] uppercase text-muted-foreground mb-5 flex items-center gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-foreground/40 animate-pulse" />
+              <Activity className="w-3 h-3" />
               Interactive Demo
             </p>
 
             <h1 className="font-display font-extrabold text-[clamp(2.4rem,5vw,4rem)] leading-[1.02] tracking-[-0.045em] text-foreground mb-5">
-              Veja como chamadas viram{" "}
+              See how calls become{" "}
               <span className="bg-gradient-to-r from-foreground to-foreground/40 bg-clip-text text-transparent">
-                receita.
+                revenue.
               </span>
             </h1>
 
             <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-8 max-w-lg font-light">
-              AI Voice Agents, missed call recovery, CRM automation e appointment booking — tudo funcionando junto, 24/7, sem humanos.
+              AI Voice Agents, missed call recovery, CRM automation, and appointment booking — all working together, 24/7, with zero human effort.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -42,7 +42,8 @@ const DemoHero = () => {
                 href="#voice-demo"
                 className="bg-foreground text-background font-display font-bold rounded-xl py-3.5 px-7 text-sm flex items-center gap-2.5 shadow-[0_0_40px_hsl(0_0%_100%/0.08)] hover:-translate-y-0.5 hover:shadow-[0_0_60px_hsl(0_0%_100%/0.12)] transition-all"
               >
-                🎙️ Ouvir o AI Agent
+                <Mic className="w-4 h-4" />
+                Hear the AI Agent
               </a>
               <a
                 href="https://cal.com/voxmation/meeting"
@@ -50,7 +51,7 @@ const DemoHero = () => {
                 rel="noopener noreferrer"
                 className="border border-border text-foreground/70 font-display font-semibold rounded-xl py-3.5 px-7 text-sm flex items-center gap-2 hover:border-foreground/15 hover:text-foreground transition-all"
               >
-                Agendar Demo
+                Schedule a Demo
                 <ArrowUpRight className="w-4 h-4" />
               </a>
             </div>
@@ -104,7 +105,7 @@ const DemoHero = () => {
                   { time: "2m ago", text: "AI booked HVAC repair — $340", accent: true },
                   { time: "8m ago", text: "Missed call → SMS sent → Lead replied" },
                   { time: "14m ago", text: "Follow-up #3 → Appointment confirmed", accent: true },
-                  { time: "22m ago", text: "New lead qualified — Score: Hot 🔥" },
+                  { time: "22m ago", text: "New lead qualified — Score: Hot" },
                 ].map((item, i) => (
                   <motion.div
                     key={i}
@@ -113,7 +114,7 @@ const DemoHero = () => {
                     transition={{ delay: 0.8 + i * 0.12 }}
                     className="flex items-center gap-3 bg-background/30 border border-border/50 rounded-lg px-3 py-2"
                   >
-                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.accent ? "bg-foreground" : "bg-foreground/20"}`} />
+                    <Zap className={`w-3 h-3 shrink-0 ${item.accent ? "text-foreground/60" : "text-foreground/20"}`} />
                     <span className="text-[0.78rem] text-foreground/70 flex-1">{item.text}</span>
                     <span className="font-mono text-[0.6rem] text-muted-foreground shrink-0">{item.time}</span>
                   </motion.div>
