@@ -97,11 +97,9 @@ const Navbar = () => {
             </div>
 
             <div className="hidden lg:flex items-center gap-3">
-              <Button variant="portal" size="sm" asChild>
-                <a href="https://portal.voxmation.com" target="_blank" rel="noopener noreferrer">
+              <Button variant="portal" size="sm" onClick={() => navigate("/portal")}>
                   <LogIn className="h-3 w-3 mr-1" />
                   Client Portal
-                </a>
               </Button>
               <Button variant="neon" size="sm" asChild>
                 <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">Book a Demo</a>
@@ -147,9 +145,9 @@ const Navbar = () => {
                   {l.label}
                 </motion.button>
               ))}
-              <a href="https://portal.voxmation.com" target="_blank" rel="noopener noreferrer" className="block text-sm py-3 px-4 text-silver hover:text-foreground font-mono transition-colors">
+              <button onClick={() => { setMobileOpen(false); navigate("/portal"); }} className="block w-full text-left text-sm py-3 px-4 text-silver hover:text-foreground font-mono transition-colors">
                 Client Portal
-              </a>
+              </button>
             </div>
             <div className="px-5 pb-4">
               <Button variant="neon" size="sm" className="w-full" asChild>
