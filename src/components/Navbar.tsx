@@ -33,10 +33,19 @@ const Navbar = () => {
     if (diff < -5) setHidden(false);
   });
 
-  const scrollTo = useCallback((href: string) => {
+  const scrollTo = useCallback((href: string, isRoute?: boolean) => {
     setMobileOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+    if (isRoute) {
+      navigate(href);
+    } else if (href.startsWith("#")) {
+      if (location.pathname !== "/") {
+        navigate("/");
+        setTimeout(() => document.querySelector(href)?.scrollIntoView({ behavior: "smooth" }), 100);
+      } else {
+        document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [navigate, location.pathname]);
 
   return (
     <motion.nav
