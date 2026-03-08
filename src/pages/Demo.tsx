@@ -570,7 +570,7 @@ const Demo = () => {
                 ))}
                 {isTyping && (
                   <div className="flex gap-2 items-end">
-                    <div className="w-[26px] h-[26px] rounded-full bg-gradient-to-br from-foreground/8 to-foreground/3 border border-foreground/10 flex items-center justify-center text-xs">🤖</div>
+                    <div className="w-[26px] h-[26px] rounded-full bg-gradient-to-br from-foreground/8 to-foreground/3 border border-foreground/10 flex items-center justify-center"><Bot className="w-3 h-3 text-foreground/40" /></div>
                     <div className="bg-card border border-border px-3.5 py-3 rounded-xl rounded-bl-sm flex gap-1.5 items-center">
                       {[0, 1, 2].map((d) => (
                         <motion.span
