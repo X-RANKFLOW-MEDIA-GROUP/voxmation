@@ -1,5 +1,5 @@
 import Reveal from "@/components/Reveal";
-import { AlertTriangle, PhoneOff, Clock, TrendingDown } from "lucide-react";
+import { AlertTriangle, PhoneOff, Clock, TrendingDown, MessageSquareX } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
@@ -30,15 +30,22 @@ const stats = [
     icon: PhoneOff, 
     value: 67, 
     suffix: "%", 
-    label: "of callers hang up on voicemail",
-    detail: "Every missed call is lost revenue"
+    label: "of callers hang up when they hit voicemail",
+    detail: "Every missed call = lost revenue"
   },
   { 
     icon: Clock, 
     value: 80, 
     suffix: "%", 
-    label: "drop in conversion after 5-min delay",
+    label: "drop in conversion after 5 minutes of wait time",
     detail: "Speed-to-lead wins every time"
+  },
+  { 
+    icon: MessageSquareX, 
+    value: 48, 
+    suffix: "%", 
+    label: "of home service leads never get a follow-up",
+    detail: "No follow-up = no booked job"
   },
 ];
 
@@ -58,22 +65,24 @@ const ProblemSection = () => {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-silver-bright mb-20 tracking-[-0.02em] max-w-3xl">
-            The Revenue Leak
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-silver-bright mb-6 tracking-[-0.02em] max-w-3xl">
+            Your Business Is Bleeding Money
           </h2>
         </Reveal>
+        <Reveal delay={0.15}>
+          <p className="text-silver text-lg mb-16 max-w-2xl leading-relaxed">
+            Missed calls, slow follow-ups, and no-show appointments are silently killing your revenue. Here's what the data says:
+          </p>
+        </Reveal>
 
-        {/* Warning dashboard cards */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-16">
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-16">
           {stats.map((s, i) => (
             <Reveal key={s.value} delay={0.15 + i * 0.12} scale>
               <motion.div 
                 whileHover={{ y: -4, transition: { duration: 0.3 } }}
                 className="surface-card rounded-2xl p-8 md:p-10 relative overflow-hidden group hover:border-warning/20 transition-all duration-500"
               >
-                {/* Scan line */}
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-warning/40 to-transparent" />
-                {/* Corner accent */}
                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-warning/5 to-transparent rounded-bl-full" />
                 
                 <div className="flex items-center gap-3 mb-6">
@@ -83,10 +92,10 @@ const ProblemSection = () => {
                   <span className="text-xs font-mono text-warning/70 tracking-wider uppercase">{s.detail}</span>
                 </div>
                 
-                <p className="text-6xl md:text-7xl font-mono font-bold text-foreground mb-4 tracking-tight">
+                <p className="text-5xl md:text-6xl font-mono font-bold text-foreground mb-4 tracking-tight">
                   <CountUp target={s.value} suffix={s.suffix} />
                 </p>
-                <p className="text-silver text-lg leading-relaxed">{s.label}</p>
+                <p className="text-silver text-base leading-relaxed">{s.label}</p>
               </motion.div>
             </Reveal>
           ))}
@@ -98,10 +107,9 @@ const ProblemSection = () => {
             <div className="relative">
               <TrendingDown className="h-5 w-5 text-warning mb-4" />
               <p className="text-lg md:text-xl text-silver leading-relaxed">
-                Your business is bleeding money in 5-minute increments. You don't need
-                more leads.{" "}
+                You don't need more leads.{" "}
                 <span className="text-foreground font-medium">
-                  You need an infrastructure that captures the ones you already have.
+                  You need a system that captures, follows up, and books the leads you already have — before your competitor does.
                 </span>
               </p>
             </div>
