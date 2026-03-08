@@ -79,113 +79,19 @@ const DashboardMockup = () => {
           </p>
         </motion.div>
 
-        {/* Dashboard */}
+        {/* Dashboard — Real Screenshot */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="bg-card border border-border rounded-2xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.3)]"
+          className="rounded-2xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.4)] border border-border"
         >
-          {/* Top bar */}
-          <div className="border-b border-border px-5 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-foreground/10" />
-                <span className="w-2.5 h-2.5 rounded-full bg-foreground/10" />
-                <span className="w-2.5 h-2.5 rounded-full bg-foreground/10" />
-              </div>
-              <span className="font-mono text-[0.6rem] text-muted-foreground ml-2 tracking-wider">VOXMATION CRM — LIVE</span>
-            </div>
-            <div className="flex items-center gap-1.5 bg-foreground/5 border border-foreground/10 rounded-full px-2.5 py-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-foreground animate-pulse" />
-              <span className="font-mono text-[0.58rem] text-foreground/50 tracking-wider">LIVE</span>
-            </div>
-          </div>
-
-          <div className="p-5">
-            {/* KPI Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
-              {[
-                { icon: Phone, label: "Calls Today", value: 47, prefix: "" },
-                { icon: Users, label: "Leads Captured", value: 23, prefix: "" },
-                { icon: CalendarCheck, label: "Booked Jobs", value: 12, prefix: "" },
-                { icon: DollarSign, label: "Revenue Today", value: 8400, prefix: "$" },
-              ].map((kpi, i) => (
-                <motion.div
-                  key={kpi.label}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.4 + i * 0.1 }}
-                  className="bg-background/50 border border-border rounded-xl p-4"
-                >
-                  <kpi.icon className="w-4 h-4 text-muted-foreground mb-2" />
-                  <p className="font-display font-extrabold text-xl text-foreground">
-                    <Counter target={kpi.value} prefix={kpi.prefix} />
-                  </p>
-                  <p className="font-mono text-[0.55rem] text-muted-foreground tracking-wider mt-1">{kpi.label}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="grid lg:grid-cols-3 gap-4">
-              {/* Lead Table */}
-              <div className="lg:col-span-2 bg-background/30 border border-border rounded-xl overflow-hidden">
-                <div className="px-4 py-2.5 border-b border-border flex items-center justify-between">
-                  <span className="font-mono text-[0.6rem] text-muted-foreground tracking-wider uppercase">Recent Leads</span>
-                  <span className="font-mono text-[0.55rem] text-muted-foreground">{leads.length} active</span>
-                </div>
-                <div className="divide-y divide-border">
-                  {leads.map((lead, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0 }}
-                      animate={inView ? { opacity: 1 } : {}}
-                      transition={{ delay: 0.8 + i * 0.15 }}
-                      className="px-4 py-3 flex items-center gap-3 hover:bg-foreground/[0.02] transition-colors"
-                    >
-                      <div className="w-7 h-7 rounded-full bg-foreground/[0.04] border border-border flex items-center justify-center text-[0.6rem] font-display font-bold text-foreground/40">
-                        {lead.name.split(" ").map(n => n[0]).join("")}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-foreground truncate">{lead.name}</p>
-                        <p className="text-[0.65rem] text-muted-foreground">{lead.service}</p>
-                      </div>
-                      <span className="font-mono text-[0.6rem] text-foreground/60 shrink-0">{lead.status}</span>
-                      <span className="font-display font-bold text-xs text-foreground shrink-0">{lead.value}</span>
-                      <span className="font-mono text-[0.55rem] text-muted-foreground shrink-0">{lead.time}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Live Notifications */}
-              <div className="bg-background/30 border border-border rounded-xl overflow-hidden">
-                <div className="px-4 py-2.5 border-b border-border flex items-center gap-2">
-                  <Bell className="w-3 h-3 text-muted-foreground" />
-                  <span className="font-mono text-[0.6rem] text-muted-foreground tracking-wider uppercase">Live Activity</span>
-                </div>
-                <div className="p-3 space-y-2">
-                  {notifications.map((notif, i) => (
-                    <motion.div
-                      key={i}
-                      animate={{
-                        opacity: i === activeNotif ? 1 : 0.4,
-                        scale: i === activeNotif ? 1 : 0.98,
-                      }}
-                      transition={{ duration: 0.4 }}
-                      className="flex items-start gap-2.5 bg-background/40 border border-border/50 rounded-lg px-3 py-2"
-                    >
-                      <notif.icon className="w-3.5 h-3.5 text-foreground/40 shrink-0 mt-0.5" />
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[0.72rem] text-foreground/70 leading-snug">{notif.text}</p>
-                        <p className="font-mono text-[0.55rem] text-muted-foreground mt-0.5">{notif.time}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          <img
+            src={dashboardMockup}
+            alt="Voxmation CRM dashboard showing 47 calls, 23 leads captured, 12 booked jobs, and $8,400 revenue with live activity feed"
+            className="w-full h-auto"
+            loading="lazy"
+          />
         </motion.div>
       </div>
     </section>
