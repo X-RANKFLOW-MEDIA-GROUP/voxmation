@@ -11,6 +11,7 @@ const industries = [
     icon: Flame,
     label: "HVAC",
     title: "HVAC Companies",
+    slug: "ai-voice-agent-hvac",
     scenario: "A homeowner's AC breaks at 9 PM. They call your number.",
     without: "Voicemail. They call the next company. You lose a $3,000+ job.",
     withVox: "Your AI answers instantly, qualifies the emergency, and books a next-morning appointment. Lead captured. Job booked.",
