@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const FooterSection = () => {
   return (
     <footer className="border-t border-border relative">
-      {/* CTA band */}
+      {/* Final CTA band */}
       <div className="py-24 md:py-32">
         <div className="container mx-auto px-6">
           <Reveal scale>
@@ -20,24 +20,31 @@ const FooterSection = () => {
               
               <div className="relative z-10">
                 <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono mb-8 block">
-                  Ready to deploy?
+                  Ready to Grow?
                 </span>
-                <h2 className="text-3xl md:text-4xl lg:text-6xl font-display font-bold text-silver-bright mb-5 tracking-[-0.02em] max-w-2xl mx-auto leading-[1.1]">
-                  Stop Losing Revenue.
+                <h2 className="text-3xl md:text-4xl lg:text-6xl font-display font-bold text-silver-bright mb-5 tracking-[-0.02em] max-w-3xl mx-auto leading-[1.1]">
+                  Stop Losing Calls.
                   <br />
                   <span className="bg-gradient-to-r from-primary to-[hsl(var(--gradient-end))] bg-clip-text text-transparent">
-                    Start Building Infrastructure.
+                    Start Booking More Jobs.
                   </span>
                 </h2>
-                <p className="text-silver text-lg mb-12 max-w-md mx-auto leading-relaxed">
-                  Book your revenue audit. We'll show you exactly where you're bleeding money.
+                <p className="text-silver text-lg mb-12 max-w-lg mx-auto leading-relaxed">
+                  Book a free demo and see exactly how Voxmation can recover lost revenue and fill your calendar on autopilot.
                 </p>
-                <Button variant="neon" size="xl" asChild>
-                  <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
-                    Book a Free Call
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button variant="neon" size="xl" asChild>
+                    <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
+                      Book a Free Demo
+                      <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  </Button>
+                  <Button variant="neon-outline" size="xl" asChild>
+                    <a href="#services" className="gap-2">
+                      Explore Services
+                    </a>
+                  </Button>
+                </div>
               </div>
             </motion.div>
           </Reveal>
@@ -51,8 +58,8 @@ const FooterSection = () => {
             VOXMATION
           </span>
           <div className="flex flex-wrap gap-8 justify-center">
-            {["Book Audit", "Service Terms", "Privacy Policy"].map((link) => (
-              <a key={link} href="#" className="text-xs text-silver hover:text-primary transition-colors duration-300 font-mono tracking-wide">
+            {["Book a Demo", "Service Terms", "Privacy Policy"].map((link) => (
+              <a key={link} href={link === "Book a Demo" ? "https://cal.com/voxmation/meeting" : "#"} className="text-xs text-silver hover:text-primary transition-colors duration-300 font-mono tracking-wide" target={link === "Book a Demo" ? "_blank" : undefined} rel={link === "Book a Demo" ? "noopener noreferrer" : undefined}>
                 {link}
               </a>
             ))}
@@ -69,7 +76,7 @@ const FooterSection = () => {
             ))}
           </div>
           <p className="text-xs text-muted-foreground font-mono">
-            © 2026 Voxmation LLC.
+            © 2026 Voxmation LLC. All rights reserved.
           </p>
         </div>
       </div>

@@ -1,13 +1,14 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, LogIn } from "lucide-react";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 
 const navLinks = [
-  { label: "Problem", href: "#problem" },
-  { label: "Solution", href: "#solution" },
-  { label: "Method", href: "#methodology" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "How It Works", href: "#how-it-works" },
+  { label: "Services", href: "#services" },
+  { label: "Industries", href: "#industries" },
+  { label: "Results", href: "#results" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 const Navbar = () => {
@@ -26,16 +27,6 @@ const Navbar = () => {
     if (diff > 5) setHidden(true);
     if (diff < -5) setHidden(false);
   });
-
-  useEffect(() => {
-    const ids = navLinks.map((l) => l.href.replace("#", ""));
-    const observer = new IntersectionObserver(
-      (entries) => { entries.forEach((e) => { if (e.isIntersecting) setActiveSection(e.target.id); }); },
-      { rootMargin: "-40% 0px -55% 0px" }
-    );
-    ids.forEach((id) => { const el = document.getElementById(id); if (el) observer.observe(el); });
-    return () => observer.disconnect();
-  }, []);
 
   const scrollTo = useCallback((href: string) => {
     setMobileOpen(false);
@@ -65,7 +56,7 @@ const Navbar = () => {
               VOXMATION
             </motion.a>
 
-            <div className="hidden md:flex items-center">
+            <div className="hidden lg:flex items-center">
               <div className="flex items-center gap-0.5 rounded-full border border-border/40 px-1.5 py-1 bg-background/20 backdrop-blur-sm">
                 {navLinks.map((l) => {
                   const isActive = activeSection === l.href.replace("#", "");
@@ -91,7 +82,7 @@ const Navbar = () => {
               </div>
             </div>
 
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-3">
               <Button variant="portal" size="sm" asChild>
                 <a href="https://portal.voxmation.com" target="_blank" rel="noopener noreferrer">
                   <LogIn className="h-3 w-3 mr-1" />
@@ -99,11 +90,11 @@ const Navbar = () => {
                 </a>
               </Button>
               <Button variant="neon" size="sm" asChild>
-                <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">Book a Call</a>
+                <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">Book a Demo</a>
               </Button>
             </div>
 
-            <motion.button className="md:hidden text-foreground p-1" onClick={() => setMobileOpen(!mobileOpen)} whileTap={{ scale: 0.9 }}>
+            <motion.button className="lg:hidden text-foreground p-1" onClick={() => setMobileOpen(!mobileOpen)} whileTap={{ scale: 0.9 }}>
               <AnimatePresence mode="wait">
                 {mobileOpen ? (
                   <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
@@ -127,7 +118,7 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden mx-4 mt-2 rounded-2xl glass-card border border-border overflow-hidden shadow-2xl"
+            className="lg:hidden mx-4 mt-2 rounded-2xl glass-card border border-border overflow-hidden shadow-2xl"
           >
             <div className="px-5 py-4 space-y-1">
               {navLinks.map((l, i) => (
@@ -143,12 +134,12 @@ const Navbar = () => {
                 </motion.button>
               ))}
               <a href="https://portal.voxmation.com" target="_blank" rel="noopener noreferrer" className="block text-sm py-3 px-4 text-silver hover:text-foreground font-mono transition-colors">
-                Client Portal Login
+                Client Portal
               </a>
             </div>
             <div className="px-5 pb-4">
               <Button variant="neon" size="sm" className="w-full" asChild>
-                <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">Book a Call</a>
+                <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">Book a Demo</a>
               </Button>
             </div>
           </motion.div>
