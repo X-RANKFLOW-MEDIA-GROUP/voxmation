@@ -345,7 +345,6 @@ const Demo = () => {
       {/* ─── VOICE AI DEMO ─── */}
       <div id="voice-demo" className="relative z-10 border-t border-border py-12 px-5 flex flex-col items-center">
         <AnimatePresence mode="wait">
-        <AnimatePresence mode="wait">
 
           {/* ═══════════════ STEP 1: CONFIGURE ═══════════════ */}
           {step === 1 && (
