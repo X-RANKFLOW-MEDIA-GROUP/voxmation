@@ -292,7 +292,7 @@ const Demo = () => {
   };
 
   const sentiment = messages.length > 4 ? "Positive" : messages.length > 2 ? "Neutral" : "—";
-  const leadScore = messages.length > 4 ? "Hot 🔥" : messages.length > 2 ? "Warm" : "—";
+  const leadScore = messages.length > 4 ? "Hot" : messages.length > 2 ? "Warm" : "—";
   const intent = messages.length > 2 ? "Booking" : "—";
 
   const resetAll = () => {
