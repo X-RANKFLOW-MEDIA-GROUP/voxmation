@@ -641,9 +641,9 @@ const Demo = () => {
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.15 }}
-                className="w-[80px] h-[80px] rounded-full bg-foreground/5 border border-foreground/15 flex items-center justify-center text-3xl shadow-[0_0_50px_hsl(0_0%_100%/0.06)] mb-7"
+                className="w-[80px] h-[80px] rounded-full bg-foreground/5 border border-foreground/15 flex items-center justify-center shadow-[0_0_50px_hsl(0_0%_100%/0.06)] mb-7"
               >
-                ✓
+                <CheckCircle2 className="w-8 h-8 text-foreground/60" />
               </motion.div>
 
               <h2 className="font-display font-extrabold text-[2.2rem] tracking-[-0.04em] text-foreground mb-3">
