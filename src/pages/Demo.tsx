@@ -775,13 +775,12 @@ const DemoFooter = () => (
 
 /* ─────────────── PAGE ─────────────── */
 const Demo = () => {
+  useEffect(() => {
+    document.title = "Demo — Voxmation AI Voice Agents for Home Service Businesses";
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Demo — Voxmation AI Voice Agents for Home Service Businesses</title>
-        <meta name="description" content="See how Voxmation's AI Voice Agents answer calls, recover missed leads, and book appointments automatically. Live demo for HVAC, plumbing, electrical, and more." />
-        <link rel="canonical" href="https://voxmation.com/demo" />
-      </Helmet>
       <DemoNavbar />
       <FloatingCTA />
       <main>
