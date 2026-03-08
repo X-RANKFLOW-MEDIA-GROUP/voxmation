@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Send, ArrowUpRight, Volume2 } from "lucide-react";
+import { Send, ArrowUpRight, Volume2, Mic, Bot, User, AudioWaveform, Headphones, CircleUser, Sparkles, CheckCircle2, RotateCcw } from "lucide-react";
 import DemoHero from "@/components/demo/DemoHero";
 import MissedCallDemo from "@/components/demo/MissedCallDemo";
 import DashboardMockup from "@/components/demo/DashboardMockup";
