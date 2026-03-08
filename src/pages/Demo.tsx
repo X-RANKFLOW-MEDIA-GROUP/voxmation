@@ -647,10 +647,10 @@ const Demo = () => {
               </motion.div>
 
               <h2 className="font-display font-extrabold text-[2.2rem] tracking-[-0.04em] text-foreground mb-3">
-                Chamada Concluída.
+                Call Completed.
               </h2>
               <p className="text-muted-foreground text-[0.93rem] leading-relaxed mb-8 font-light max-w-md">
-                O agente falou com voz realista via ElevenLabs — qualificou o lead, construiu rapport e agendou o serviço sem nenhum humano envolvido.
+                The agent conducted the entire conversation with realistic ElevenLabs voice — qualified the lead, built rapport, and booked the service with zero human involvement.
               </p>
 
               {/* Summary Card */}
