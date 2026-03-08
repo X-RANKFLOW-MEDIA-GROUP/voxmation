@@ -525,7 +525,7 @@ const Demo = () => {
               {/* ── Live Transcript ── */}
               <div className="w-full bg-background/40 border-x border-border px-5 py-2.5 min-h-[34px] flex items-center">
                 <p className={`font-mono text-[0.7rem] italic transition-colors duration-300 ${liveTranscript ? "text-foreground/60" : "text-muted-foreground/60"}`}>
-                  {liveTranscript ? `🎤 ${liveTranscript}` : "🎤 Live transcript will appear here..."}
+                  {liveTranscript ? liveTranscript : "Live transcript will appear here..."}
                 </p>
               </div>
 
