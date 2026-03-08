@@ -503,8 +503,8 @@ const Demo = () => {
 
                 {/* User Orb */}
                 <div className="flex flex-col items-center gap-4">
-                  <div className="w-[92px] h-[92px] rounded-full flex items-center justify-center text-3xl border border-foreground/10 bg-[radial-gradient(circle,hsl(0_0%_100%/0.04),transparent)] shadow-[0_0_20px_hsl(0_0%_100%/0.02)]">
-                    🎙️
+                  <div className="w-[92px] h-[92px] rounded-full flex items-center justify-center border border-foreground/10 bg-[radial-gradient(circle,hsl(0_0%_100%/0.04),transparent)] shadow-[0_0_20px_hsl(0_0%_100%/0.02)]">
+                    <Mic className="w-8 h-8 text-foreground/30" />
                   </div>
                   <span className="font-mono text-[0.6rem] tracking-[0.12em] uppercase text-foreground/50">You</span>
                   <span className="text-[0.72rem] text-muted-foreground">{userName || "Customer"}</span>
