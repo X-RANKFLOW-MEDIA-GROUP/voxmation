@@ -43,28 +43,104 @@ const Dashboard = () => {
     bookedAppointments: 0,
     revenueImpact: 0,
   });
+  const [liveActivity, setLiveActivity] = useState<typeof recentActivity>([]);
+  const [isConnected, setIsConnected] = useState(false);
+
+  const fetchMetrics = useCallback(async () => {
+    if (!user) return;
+    const [callsRes, leadsRes, bookingsRes] = await Promise.all([
+      supabase.from("calls").select("status").eq("user_id", user.id),
+      supabase.from("leads").select("status").eq("user_id", user.id),
+      supabase.from("bookings").select("id").eq("user_id", user.id),
+    ]);
+    const calls = callsRes.data || [];
+    const leads = leadsRes.data || [];
+    const bookings = bookingsRes.data || [];
+    setMetrics({
+      totalCalls: calls.length || 146,
+      missedCalls: calls.filter((c) => c.status === "missed").length || 23,
+      recoveredLeads: leads.filter((l) => l.status === "qualified" || l.status === "booked").length || 89,
+      bookedAppointments: bookings.length || 67,
+      revenueImpact: (bookings.length || 67) * 450,
+    });
+  }, [user]);
 
   useEffect(() => {
-    const fetchMetrics = async () => {
-      if (!user) return;
-      const [callsRes, leadsRes, bookingsRes] = await Promise.all([
-        supabase.from("calls").select("status").eq("user_id", user.id),
-        supabase.from("leads").select("status").eq("user_id", user.id),
-        supabase.from("bookings").select("id").eq("user_id", user.id),
-      ]);
-      const calls = callsRes.data || [];
-      const leads = leadsRes.data || [];
-      const bookings = bookingsRes.data || [];
-      setMetrics({
-        totalCalls: calls.length || 146,
-        missedCalls: calls.filter((c) => c.status === "missed").length || 23,
-        recoveredLeads: leads.filter((l) => l.status === "qualified" || l.status === "booked").length || 89,
-        bookedAppointments: bookings.length || 67,
-        revenueImpact: (bookings.length || 67) * 450,
-      });
-    };
     fetchMetrics();
-  }, [user]);
+    setLiveActivity(recentActivity);
+  }, [fetchMetrics]);
+
+  // Real-time subscriptions
+  useEffect(() => {
+    if (!user) return;
+
+    let channel: RealtimeChannel;
+
+    const setupRealtime = () => {
+      channel = supabase
+        .channel('dashboard-realtime')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'calls', filter: `user_id=eq.${user.id}` },
+          (payload) => {
+            console.log('Call update:', payload);
+            fetchMetrics();
+            const newActivity = {
+              time: "Just now",
+              text: payload.eventType === 'INSERT' 
+                ? `New call received from ${(payload.new as any).caller_name || 'Unknown'}`
+                : `Call status updated`,
+              type: (payload.new as any)?.status === 'missed' ? 'recovered' : 'completed'
+            };
+            setLiveActivity(prev => [newActivity, ...prev.slice(0, 5)]);
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'leads', filter: `user_id=eq.${user.id}` },
+          (payload) => {
+            console.log('Lead update:', payload);
+            fetchMetrics();
+            const newActivity = {
+              time: "Just now",
+              text: payload.eventType === 'INSERT'
+                ? `New lead captured: ${(payload.new as any).name || 'Unknown'}`
+                : `Lead ${(payload.new as any).name || ''} status updated to ${(payload.new as any).status}`,
+              type: 'new'
+            };
+            setLiveActivity(prev => [newActivity, ...prev.slice(0, 5)]);
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'bookings', filter: `user_id=eq.${user.id}` },
+          (payload) => {
+            console.log('Booking update:', payload);
+            fetchMetrics();
+            const newActivity = {
+              time: "Just now",
+              text: payload.eventType === 'INSERT'
+                ? `New appointment booked: ${(payload.new as any).title || 'Service'}`
+                : `Booking updated`,
+              type: 'booked'
+            };
+            setLiveActivity(prev => [newActivity, ...prev.slice(0, 5)]);
+          }
+        )
+        .subscribe((status) => {
+          console.log('Realtime status:', status);
+          setIsConnected(status === 'SUBSCRIBED');
+        });
+    };
+
+    setupRealtime();
+
+    return () => {
+      if (channel) {
+        supabase.removeChannel(channel);
+      }
+    };
+  }, [user, fetchMetrics]);
 
   const displayMetrics = {
     totalCalls: metrics.totalCalls || 146,
