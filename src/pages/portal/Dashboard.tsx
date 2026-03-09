@@ -153,7 +153,15 @@ const Dashboard = () => {
   return (
     <div>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-        <h1 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-1 tracking-tight">Dashboard</h1>
+        <div className="flex items-center justify-between mb-1">
+          <h1 className="text-2xl md:text-3xl font-display font-bold text-foreground tracking-tight">Dashboard</h1>
+          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono ${
+            isConnected ? 'bg-emerald-500/10 text-emerald-400' : 'bg-muted text-silver'
+          }`}>
+            <Wifi className={`h-3 w-3 ${isConnected ? 'animate-pulse' : ''}`} />
+            {isConnected ? 'Live' : 'Connecting...'}
+          </div>
+        </div>
         <p className="text-silver text-sm font-mono mb-8">Real-time performance overview of your AI systems</p>
       </motion.div>
 
