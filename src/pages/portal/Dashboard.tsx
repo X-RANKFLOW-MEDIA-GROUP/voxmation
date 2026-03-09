@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import MetricCard from "@/components/portal/MetricCard";
 import StatusBadge from "@/components/portal/StatusBadge";
-import { motion } from "framer-motion";
-import { Phone, PhoneOff, UserCheck, Calendar, DollarSign, TrendingUp, Activity } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Phone, PhoneOff, UserCheck, Calendar, DollarSign, TrendingUp, Activity, Wifi } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
+import type { RealtimeChannel } from "@supabase/supabase-js";
 
 const demoChartData = [
   { day: "Mon", calls: 18, booked: 7 },
@@ -42,28 +43,104 @@ const Dashboard = () => {
     bookedAppointments: 0,
     revenueImpact: 0,
   });
+  const [liveActivity, setLiveActivity] = useState<typeof recentActivity>([]);
+  const [isConnected, setIsConnected] = useState(false);
+
+  const fetchMetrics = useCallback(async () => {
+    if (!user) return;
+    const [callsRes, leadsRes, bookingsRes] = await Promise.all([
+      supabase.from("calls").select("status").eq("user_id", user.id),
+      supabase.from("leads").select("status").eq("user_id", user.id),
+      supabase.from("bookings").select("id").eq("user_id", user.id),
+    ]);
+    const calls = callsRes.data || [];
+    const leads = leadsRes.data || [];
+    const bookings = bookingsRes.data || [];
+    setMetrics({
+      totalCalls: calls.length || 146,
+      missedCalls: calls.filter((c) => c.status === "missed").length || 23,
+      recoveredLeads: leads.filter((l) => l.status === "qualified" || l.status === "booked").length || 89,
+      bookedAppointments: bookings.length || 67,
+      revenueImpact: (bookings.length || 67) * 450,
+    });
+  }, [user]);
 
   useEffect(() => {
-    const fetchMetrics = async () => {
-      if (!user) return;
-      const [callsRes, leadsRes, bookingsRes] = await Promise.all([
-        supabase.from("calls").select("status").eq("user_id", user.id),
-        supabase.from("leads").select("status").eq("user_id", user.id),
-        supabase.from("bookings").select("id").eq("user_id", user.id),
-      ]);
-      const calls = callsRes.data || [];
-      const leads = leadsRes.data || [];
-      const bookings = bookingsRes.data || [];
-      setMetrics({
-        totalCalls: calls.length || 146,
-        missedCalls: calls.filter((c) => c.status === "missed").length || 23,
-        recoveredLeads: leads.filter((l) => l.status === "qualified" || l.status === "booked").length || 89,
-        bookedAppointments: bookings.length || 67,
-        revenueImpact: (bookings.length || 67) * 450,
-      });
-    };
     fetchMetrics();
-  }, [user]);
+    setLiveActivity(recentActivity);
+  }, [fetchMetrics]);
+
+  // Real-time subscriptions
+  useEffect(() => {
+    if (!user) return;
+
+    let channel: RealtimeChannel;
+
+    const setupRealtime = () => {
+      channel = supabase
+        .channel('dashboard-realtime')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'calls', filter: `user_id=eq.${user.id}` },
+          (payload) => {
+            console.log('Call update:', payload);
+            fetchMetrics();
+            const newActivity = {
+              time: "Just now",
+              text: payload.eventType === 'INSERT' 
+                ? `New call received from ${(payload.new as any).caller_name || 'Unknown'}`
+                : `Call status updated`,
+              type: (payload.new as any)?.status === 'missed' ? 'recovered' : 'completed'
+            };
+            setLiveActivity(prev => [newActivity, ...prev.slice(0, 5)]);
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'leads', filter: `user_id=eq.${user.id}` },
+          (payload) => {
+            console.log('Lead update:', payload);
+            fetchMetrics();
+            const newActivity = {
+              time: "Just now",
+              text: payload.eventType === 'INSERT'
+                ? `New lead captured: ${(payload.new as any).name || 'Unknown'}`
+                : `Lead ${(payload.new as any).name || ''} status updated to ${(payload.new as any).status}`,
+              type: 'new'
+            };
+            setLiveActivity(prev => [newActivity, ...prev.slice(0, 5)]);
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'bookings', filter: `user_id=eq.${user.id}` },
+          (payload) => {
+            console.log('Booking update:', payload);
+            fetchMetrics();
+            const newActivity = {
+              time: "Just now",
+              text: payload.eventType === 'INSERT'
+                ? `New appointment booked: ${(payload.new as any).title || 'Service'}`
+                : `Booking updated`,
+              type: 'booked'
+            };
+            setLiveActivity(prev => [newActivity, ...prev.slice(0, 5)]);
+          }
+        )
+        .subscribe((status) => {
+          console.log('Realtime status:', status);
+          setIsConnected(status === 'SUBSCRIBED');
+        });
+    };
+
+    setupRealtime();
+
+    return () => {
+      if (channel) {
+        supabase.removeChannel(channel);
+      }
+    };
+  }, [user, fetchMetrics]);
 
   const displayMetrics = {
     totalCalls: metrics.totalCalls || 146,
@@ -76,7 +153,15 @@ const Dashboard = () => {
   return (
     <div>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-        <h1 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-1 tracking-tight">Dashboard</h1>
+        <div className="flex items-center justify-between mb-1">
+          <h1 className="text-2xl md:text-3xl font-display font-bold text-foreground tracking-tight">Dashboard</h1>
+          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono ${
+            isConnected ? 'bg-emerald-500/10 text-emerald-400' : 'bg-muted text-silver'
+          }`}>
+            <Wifi className={`h-3 w-3 ${isConnected ? 'animate-pulse' : ''}`} />
+            {isConnected ? 'Live' : 'Connecting...'}
+          </div>
+        </div>
         <p className="text-silver text-sm font-mono mb-8">Real-time performance overview of your AI systems</p>
       </motion.div>
 
@@ -163,13 +248,22 @@ const Dashboard = () => {
       >
         <h3 className="text-sm font-mono font-bold text-foreground tracking-wide mb-5">Recent Activity</h3>
         <div className="space-y-3">
-          {recentActivity.map((a, i) => (
-            <div key={i} className="flex items-center gap-4 py-2 border-b border-border/30 last:border-0">
-              <StatusBadge status={a.type} />
-              <p className="text-sm text-silver-bright flex-1 font-mono">{a.text}</p>
-              <span className="text-[10px] text-silver font-mono shrink-0">{a.time}</span>
-            </div>
-          ))}
+          <AnimatePresence mode="popLayout">
+            {liveActivity.map((a, i) => (
+              <motion.div
+                key={`${a.time}-${a.text}-${i}`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center gap-4 py-2 border-b border-border/30 last:border-0"
+              >
+                <StatusBadge status={a.type} />
+                <p className="text-sm text-silver-bright flex-1 font-mono">{a.text}</p>
+                <span className="text-[10px] text-silver font-mono shrink-0">{a.time}</span>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </motion.div>
     </div>
