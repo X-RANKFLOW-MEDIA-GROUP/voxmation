@@ -248,13 +248,22 @@ const Dashboard = () => {
       >
         <h3 className="text-sm font-mono font-bold text-foreground tracking-wide mb-5">Recent Activity</h3>
         <div className="space-y-3">
-          {recentActivity.map((a, i) => (
-            <div key={i} className="flex items-center gap-4 py-2 border-b border-border/30 last:border-0">
-              <StatusBadge status={a.type} />
-              <p className="text-sm text-silver-bright flex-1 font-mono">{a.text}</p>
-              <span className="text-[10px] text-silver font-mono shrink-0">{a.time}</span>
-            </div>
-          ))}
+          <AnimatePresence mode="popLayout">
+            {liveActivity.map((a, i) => (
+              <motion.div
+                key={`${a.time}-${a.text}-${i}`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center gap-4 py-2 border-b border-border/30 last:border-0"
+              >
+                <StatusBadge status={a.type} />
+                <p className="text-sm text-silver-bright flex-1 font-mono">{a.text}</p>
+                <span className="text-[10px] text-silver font-mono shrink-0">{a.time}</span>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </motion.div>
     </div>
