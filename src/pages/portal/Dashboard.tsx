@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import MetricCard from "@/components/portal/MetricCard";
 import StatusBadge from "@/components/portal/StatusBadge";
-import { motion } from "framer-motion";
-import { Phone, PhoneOff, UserCheck, Calendar, DollarSign, TrendingUp, Activity } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Phone, PhoneOff, UserCheck, Calendar, DollarSign, TrendingUp, Activity, Wifi } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
+import type { RealtimeChannel } from "@supabase/supabase-js";
 
 const demoChartData = [
   { day: "Mon", calls: 18, booked: 7 },
