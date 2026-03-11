@@ -41,12 +41,21 @@ const Bookings = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
 
   useEffect(() => {
-    const fetch = async () => {
-      if (!user) return;
+    if (!user) return;
+    const fetchBookings = async () => {
       const { data } = await supabase.from("bookings").select("*").eq("user_id", user.id).order("scheduled_at", { ascending: true });
       setBookings(data && data.length > 0 ? data : demoBookings);
     };
-    fetch();
+    fetchBookings();
+
+    const channel = supabase
+      .channel('bookings-realtime')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'bookings', filter: `user_id=eq.${user.id}` }, () => {
+        fetchBookings();
+      })
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
   }, [user]);
 
   const upcoming = bookings.filter((b) => new Date(b.scheduled_at) >= new Date() && b.status !== "cancelled");

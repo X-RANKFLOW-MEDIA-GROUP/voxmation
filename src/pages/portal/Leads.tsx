@@ -36,12 +36,21 @@ const Leads = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const fetch = async () => {
-      if (!user) return;
+    if (!user) return;
+    const fetchLeads = async () => {
       const { data } = await supabase.from("leads").select("*").eq("user_id", user.id).order("created_at", { ascending: false });
       setLeads(data && data.length > 0 ? data : demoLeads);
     };
-    fetch();
+    fetchLeads();
+
+    const channel = supabase
+      .channel('leads-realtime')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'leads', filter: `user_id=eq.${user.id}` }, () => {
+        fetchLeads();
+      })
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
   }, [user]);
 
   const filtered = leads.filter((l) =>

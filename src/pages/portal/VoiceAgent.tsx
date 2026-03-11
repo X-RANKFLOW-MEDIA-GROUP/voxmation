@@ -44,12 +44,21 @@ const VoiceAgent = () => {
   const [expanded, setExpanded] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetch = async () => {
-      if (!user) return;
+    if (!user) return;
+    const fetchCalls = async () => {
       const { data } = await supabase.from("calls").select("*").eq("user_id", user.id).order("created_at", { ascending: false });
       setCalls(data && data.length > 0 ? data : demoCalls);
     };
-    fetch();
+    fetchCalls();
+
+    const channel = supabase
+      .channel('calls-realtime')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'calls', filter: `user_id=eq.${user.id}` }, () => {
+        fetchCalls();
+      })
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
   }, [user]);
 
   return (
