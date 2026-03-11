@@ -8,6 +8,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/portal/ProtectedRoute";
 import PortalLayout from "@/components/portal/PortalLayout";
 import Index from "./pages/Index";
+import HomeTest from "./pages/HomeTest";
 import Demo from "./pages/Demo";
 import Pricing from "./pages/Pricing";
 import ROICalculator from "./pages/ROICalculator";
@@ -42,6 +43,7 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/home-test" element={<HomeTest />} />
               <Route path="/demo" element={<Demo />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/roi-calculator" element={<ROICalculator />} />
