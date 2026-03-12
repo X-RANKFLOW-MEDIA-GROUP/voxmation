@@ -7,6 +7,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import voxmationLogo from "@/assets/voxmation-logo.png";
+import mascotMale from "@/assets/mascot-male.png";
+import mascotFemale from "@/assets/mascot-female.png";
 import SEOHead from "@/components/SEOHead";
 
 const fadeUp = {
