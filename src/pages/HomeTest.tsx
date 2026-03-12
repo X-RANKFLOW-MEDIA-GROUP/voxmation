@@ -376,8 +376,19 @@ const HomeTest = () => {
       </section>
 
       {/* ─── CTA ─── */}
-      <section className="py-24 px-6 bg-[hsl(var(--brand-orange))]">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="py-24 px-6 bg-[hsl(var(--brand-orange))] relative overflow-hidden">
+        {/* Female mascot on the left */}
+        <motion.div
+          initial={{ opacity: 0, x: -60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="hidden lg:block absolute bottom-0 left-8 w-[280px]"
+        >
+          <img src={mascotFemale} alt="Voxmation AI Assistant" className="w-full h-auto drop-shadow-2xl" />
+        </motion.div>
+
+        <div className="max-w-3xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
