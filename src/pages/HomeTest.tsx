@@ -7,6 +7,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import voxmationLogo from "@/assets/voxmation-logo.png";
+import mascotMale from "@/assets/mascot-male.png";
+import mascotFemale from "@/assets/mascot-female.png";
 import SEOHead from "@/components/SEOHead";
 
 const fadeUp = {
@@ -145,41 +147,18 @@ const HomeTest = () => {
             </motion.div>
           </div>
 
-          {/* Hero visual — Stats cards */}
+          {/* Hero visual — Mascot */}
           <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden lg:block absolute top-16 right-0 w-[420px]"
+            initial={{ opacity: 0, x: 60, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="hidden lg:block absolute -top-8 right-0 w-[400px]"
           >
-            <div className="space-y-4">
-              {[
-                { icon: PhoneCall, label: "Calls Answered", value: "2,847", sub: "+34% this month", color: "hsl(var(--highlight-blue))" },
-                { icon: Target, label: "Leads Recovered", value: "412", sub: "From missed calls", color: "hsl(var(--brand-orange))" },
-                { icon: Calendar, label: "Appointments Booked", value: "189", sub: "This week", color: "hsl(var(--highlight-blue))" },
-                { icon: TrendingUp, label: "Revenue Impact", value: "$127K", sub: "+89% vs manual", color: "hsl(var(--brand-orange))" },
-              ].map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.7 + i * 0.12, duration: 0.5 }}
-                  className="flex items-center gap-4 bg-white rounded-2xl p-4 border border-[hsl(var(--primary-blue))]/8 shadow-sm hover:shadow-md hover:border-[hsl(var(--brand-orange))]/20 transition-all group"
-                >
-                  <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-                    style={{ backgroundColor: `${s.color}15` }}
-                  >
-                    <s.icon className="h-5 w-5" style={{ color: s.color }} />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-xs text-[hsl(var(--primary-blue))]/45 font-medium">{s.label}</p>
-                    <p className="text-xl font-bold text-[hsl(var(--primary-blue))]">{s.value}</p>
-                  </div>
-                  <span className="text-[10px] font-semibold text-[hsl(var(--brand-orange))] bg-[hsl(var(--brand-orange))]/8 px-2.5 py-1 rounded-full">{s.sub}</span>
-                </motion.div>
-              ))}
-            </div>
+            <img 
+              src={mascotMale} 
+              alt="Voxmation AI Assistant" 
+              className="w-full h-auto drop-shadow-2xl"
+            />
           </motion.div>
         </div>
       </section>
@@ -397,8 +376,19 @@ const HomeTest = () => {
       </section>
 
       {/* ─── CTA ─── */}
-      <section className="py-24 px-6 bg-[hsl(var(--brand-orange))]">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="py-24 px-6 bg-[hsl(var(--brand-orange))] relative overflow-hidden">
+        {/* Female mascot on the left */}
+        <motion.div
+          initial={{ opacity: 0, x: -60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="hidden lg:block absolute bottom-0 left-8 w-[280px]"
+        >
+          <img src={mascotFemale} alt="Voxmation AI Assistant" className="w-full h-auto drop-shadow-2xl" />
+        </motion.div>
+
+        <div className="max-w-3xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
