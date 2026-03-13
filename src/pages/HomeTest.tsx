@@ -23,7 +23,7 @@ const HomeTest = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[hsl(var(--surface-white))] text-[hsl(var(--primary-blue))] overflow-hidden">
+    <div className="min-h-screen bg-bg-body text-text-primary overflow-hidden">
       <SEOHead
         title="AI Voice Agents & Automation for Home Service Businesses"
         description="Voxmation's AI answers every call, follows up with every lead, and books appointments 24/7."
@@ -35,18 +35,18 @@ const HomeTest = () => {
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[hsl(var(--primary-blue))]/5"
+        className="fixed top-0 left-0 right-0 z-50 bg-bg-surface/80 backdrop-blur-xl border-b border-brand-primary/5"
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between h-16 px-6">
           <div className="flex items-center gap-3">
             <img src={voxmationLogo} alt="Voxmation" className="h-9 w-9 rounded-lg" />
-            <span className="font-bold text-lg tracking-tight text-[hsl(var(--primary-blue))]">
-              VOX<span className="text-[hsl(var(--brand-orange))]">mation</span>
+            <span className="font-bold text-lg tracking-tight text-brand-primary">
+              VOX<span className="text-brand-accent">mation</span>
             </span>
           </div>
           <div className="hidden md:flex items-center gap-8">
             {["How It Works", "Services", "Pricing", "Demo"].map(l => (
-              <a key={l} href={`#${l.toLowerCase().replace(/ /g, "-")}`} className="text-sm font-medium text-[hsl(var(--primary-blue))]/60 hover:text-[hsl(var(--brand-orange))] transition-colors">
+              <a key={l} href={`#${l.toLowerCase().replace(/ /g, "-")}`} className="text-sm font-medium text-text-secondary hover:text-brand-accent transition-colors">
                 {l}
               </a>
             ))}
@@ -56,14 +56,14 @@ const HomeTest = () => {
               variant="ghost"
               size="sm"
               onClick={() => navigate("/portal")}
-              className="text-[hsl(var(--primary-blue))]/60 hover:text-[hsl(var(--primary-blue))] hover:bg-[hsl(var(--primary-blue))]/5"
+              className="text-text-secondary hover:text-brand-primary hover:bg-brand-primary/5"
             >
               <LogIn className="h-4 w-4 mr-1.5" />
               Portal
             </Button>
             <Button
               size="sm"
-              className="bg-[hsl(var(--primary-blue))] text-white hover:bg-[hsl(var(--highlight-blue))] shadow-lg shadow-[hsl(var(--primary-blue))]/20"
+              className="bg-brand-primary text-text-inverse hover:bg-brand-secondary shadow-lg shadow-brand-primary/20"
               asChild
             >
               <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
@@ -78,15 +78,15 @@ const HomeTest = () => {
       <section className="relative pt-32 pb-24 px-6">
         {/* Subtle background orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-[hsl(var(--brand-orange))]/5 blur-3xl" />
-          <div className="absolute -bottom-60 -left-40 w-[500px] h-[500px] rounded-full bg-[hsl(var(--highlight-blue))]/5 blur-3xl" />
+          <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-brand-accent/5 blur-3xl" />
+          <div className="absolute -bottom-60 -left-40 w-[500px] h-[500px] rounded-full bg-brand-secondary/5 blur-3xl" />
         </div>
 
         <div className="max-w-7xl mx-auto relative">
           <div className="max-w-3xl">
             <motion.div
               variants={fadeUp} initial="hidden" animate="visible" custom={0}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[hsl(var(--brand-orange))]/10 text-[hsl(var(--brand-orange))] text-xs font-semibold tracking-wide mb-8"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-accent/10 text-brand-accent text-xs font-semibold tracking-wide mb-8"
             >
               <Sparkles className="h-3.5 w-3.5" />
               AI-Powered Voice & Automation Platform
@@ -98,12 +98,12 @@ const HomeTest = () => {
             >
               Never miss a call.
               <br />
-              <span className="text-[hsl(var(--brand-orange))]">Never lose a lead.</span>
+              <span className="text-brand-accent">Never lose a lead.</span>
             </motion.h1>
 
             <motion.p
               variants={fadeUp} initial="hidden" animate="visible" custom={2}
-              className="text-lg md:text-xl text-[hsl(var(--primary-blue))]/55 leading-relaxed max-w-xl mb-10"
+              className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-xl mb-10"
             >
               AI voice agents that answer every call, book appointments, and follow up with leads — 24/7. Built for home service businesses.
             </motion.p>
@@ -114,7 +114,7 @@ const HomeTest = () => {
             >
               <Button
                 size="lg"
-                className="bg-[hsl(var(--brand-orange))] text-white hover:bg-[hsl(var(--brand-orange))]/90 shadow-xl shadow-[hsl(var(--brand-orange))]/25 text-base px-8 h-13"
+                className="bg-action-primary text-text-inverse hover:bg-action-primary-hover shadow-xl shadow-brand-accent/25 text-base px-8 h-13"
                 asChild
               >
                 <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
@@ -126,7 +126,7 @@ const HomeTest = () => {
                 variant="outline"
                 size="lg"
                 onClick={() => navigate("/demo")}
-                className="border-[hsl(var(--primary-blue))]/15 text-[hsl(var(--primary-blue))] hover:bg-[hsl(var(--primary-blue))]/5 text-base px-8 h-13"
+                className="border-brand-primary/15 text-brand-primary hover:bg-brand-primary/5 text-base px-8 h-13"
               >
                 <Play className="mr-2 h-4 w-4" />
                 Watch Demo
@@ -136,11 +136,11 @@ const HomeTest = () => {
             {/* Trust line */}
             <motion.div
               variants={fadeUp} initial="hidden" animate="visible" custom={4}
-              className="mt-12 flex items-center gap-6 text-sm text-[hsl(var(--primary-blue))]/40"
+              className="mt-12 flex items-center gap-6 text-sm text-text-secondary/60"
             >
               {["No contracts", "Setup in 24h", "Cancel anytime"].map(t => (
                 <span key={t} className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-[hsl(var(--brand-orange))]" />
+                  <CheckCircle2 className="h-3.5 w-3.5 text-brand-accent" />
                   {t}
                 </span>
               ))}
@@ -164,10 +164,10 @@ const HomeTest = () => {
       </section>
 
       {/* ─── Logos / Trust ─── */}
-      <section className="py-16 border-y border-[hsl(var(--primary-blue))]/5 bg-[hsl(var(--surface-white))]">
+      <section className="py-16 border-y border-brand-primary/5 bg-bg-surface">
         <div className="max-w-5xl mx-auto text-center">
-          <p className="text-xs font-semibold tracking-[0.2em] text-[hsl(var(--primary-blue))]/30 uppercase mb-8">Trusted by 200+ service businesses</p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14 text-[hsl(var(--primary-blue))]/20">
+          <p className="text-xs font-semibold tracking-[0.2em] text-text-secondary/50 uppercase mb-8">Trusted by 200+ service businesses</p>
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14 text-text-secondary/30">
             {["HVAC Pro", "ElectriFix", "PlumbRight", "CleanAir Co", "SparkWorks", "AquaFlow"].map(name => (
               <span key={name} className="text-lg font-bold tracking-tight">{name}</span>
             ))}
@@ -182,9 +182,9 @@ const HomeTest = () => {
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} className="text-center mb-16"
           >
-            <span className="text-xs font-semibold tracking-[0.2em] text-[hsl(var(--brand-orange))] uppercase">How It Works</span>
-            <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-5 text-[hsl(var(--primary-blue))]">Three steps to zero missed leads</h2>
-            <p className="text-[hsl(var(--primary-blue))]/50 text-lg max-w-2xl mx-auto">Our AI handles the entire pipeline from first ring to booked appointment.</p>
+            <span className="text-xs font-semibold tracking-[0.2em] text-brand-accent uppercase">How It Works</span>
+            <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-5 text-brand-primary">Three steps to zero missed leads</h2>
+            <p className="text-text-secondary text-lg max-w-2xl mx-auto">Our AI handles the entire pipeline from first ring to booked appointment.</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -199,14 +199,14 @@ const HomeTest = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15, duration: 0.5 }}
-                className="relative p-8 rounded-3xl bg-white border border-[hsl(var(--primary-blue))]/6 hover:border-[hsl(var(--brand-orange))]/25 hover:shadow-lg transition-all group"
+                className="relative p-8 rounded-3xl bg-bg-surface border border-brand-primary/6 hover:border-brand-accent/25 hover:shadow-lg transition-all group"
               >
-                <span className="text-6xl font-bold text-[hsl(var(--primary-blue))]/[0.03] absolute top-4 right-6 font-mono">{s.step}</span>
-                <div className="w-14 h-14 rounded-2xl bg-[hsl(var(--brand-orange))]/8 flex items-center justify-center mb-6 group-hover:bg-[hsl(var(--brand-orange))]/15 transition-colors">
-                  <s.icon className="h-7 w-7 text-[hsl(var(--brand-orange))]" />
+                <span className="text-6xl font-bold text-brand-primary/[0.03] absolute top-4 right-6 font-mono">{s.step}</span>
+                <div className="w-14 h-14 rounded-2xl bg-brand-accent/8 flex items-center justify-center mb-6 group-hover:bg-brand-accent/15 transition-colors">
+                  <s.icon className="h-7 w-7 text-brand-accent" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-[hsl(var(--primary-blue))]">{s.title}</h3>
-                <p className="text-[hsl(var(--primary-blue))]/50 leading-relaxed">{s.desc}</p>
+                <h3 className="text-xl font-bold mb-3 text-brand-primary">{s.title}</h3>
+                <p className="text-text-secondary leading-relaxed">{s.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -214,15 +214,15 @@ const HomeTest = () => {
       </section>
 
       {/* ─── Services ─── */}
-      <section id="services" className="py-24 px-6 bg-[hsl(var(--primary-blue))]">
+      <section id="services" className="py-24 px-6 bg-brand-primary">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} className="text-center mb-16"
           >
-            <span className="text-xs font-semibold tracking-[0.2em] text-[hsl(var(--brand-orange))] uppercase">Services</span>
-            <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-5 text-white">Everything you need to grow</h2>
-            <p className="text-white/50 text-lg max-w-2xl mx-auto">A complete AI automation stack built for service businesses.</p>
+            <span className="text-xs font-semibold tracking-[0.2em] text-brand-accent uppercase">Services</span>
+            <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-5 text-text-inverse">Everything you need to grow</h2>
+            <p className="text-text-inverse/50 text-lg max-w-2xl mx-auto">A complete AI automation stack built for service businesses.</p>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -240,13 +240,13 @@ const HomeTest = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08, duration: 0.5 }}
-                className="p-7 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-[hsl(var(--brand-orange))]/30 hover:bg-white/[0.06] transition-all group"
+                className="p-7 rounded-2xl bg-text-inverse/[0.04] border border-text-inverse/[0.08] hover:border-brand-accent/30 hover:bg-text-inverse/[0.06] transition-all group"
               >
-                <div className="w-12 h-12 rounded-xl bg-[hsl(var(--brand-orange))]/10 flex items-center justify-center mb-5 group-hover:bg-[hsl(var(--brand-orange))]/20 transition-colors">
-                  <s.icon className="h-6 w-6 text-[hsl(var(--brand-orange))]" />
+                <div className="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center mb-5 group-hover:bg-brand-accent/20 transition-colors">
+                  <s.icon className="h-6 w-6 text-brand-accent" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{s.title}</h3>
-                <p className="text-white/45 text-sm leading-relaxed">{s.desc}</p>
+                <h3 className="text-lg font-bold text-text-inverse mb-2">{s.title}</h3>
+                <p className="text-text-inverse/45 text-sm leading-relaxed">{s.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -271,8 +271,8 @@ const HomeTest = () => {
                 transition={{ delay: i * 0.1 }}
                 className="text-center"
               >
-                <p className="text-4xl md:text-5xl font-bold text-[hsl(var(--brand-orange))] mb-2">{s.value}</p>
-                <p className="text-sm text-[hsl(var(--primary-blue))]/45 font-medium">{s.label}</p>
+                <p className="text-4xl md:text-5xl font-bold text-brand-accent mb-2">{s.value}</p>
+                <p className="text-sm text-text-secondary/70 font-medium">{s.label}</p>
               </motion.div>
             ))}
           </div>
@@ -280,14 +280,14 @@ const HomeTest = () => {
       </section>
 
       {/* ─── Testimonials ─── */}
-      <section className="py-24 px-6 bg-[hsl(var(--surface-white))]">
+      <section className="py-24 px-6 bg-bg-surface">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} className="text-center mb-16"
           >
-            <span className="text-xs font-semibold tracking-[0.2em] text-[hsl(var(--brand-orange))] uppercase">Testimonials</span>
-            <h2 className="text-3xl md:text-5xl font-bold mt-4 text-[hsl(var(--primary-blue))]">Trusted by businesses like yours</h2>
+            <span className="text-xs font-semibold tracking-[0.2em] text-brand-accent uppercase">Testimonials</span>
+            <h2 className="text-3xl md:text-5xl font-bold mt-4 text-brand-primary">Trusted by businesses like yours</h2>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -302,17 +302,17 @@ const HomeTest = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.12 }}
-                className="bg-white rounded-2xl p-8 border border-[hsl(var(--primary-blue))]/6 shadow-sm"
+                className="bg-bg-surface rounded-2xl p-8 border border-brand-primary/6 shadow-sm"
               >
                 <div className="flex gap-0.5 mb-5">
                   {Array.from({ length: t.stars }).map((_, j) => (
-                    <Star key={j} className="h-4 w-4 fill-[hsl(var(--brand-orange))] text-[hsl(var(--brand-orange))]" />
+                    <Star key={j} className="h-4 w-4 fill-brand-accent text-brand-accent" />
                   ))}
                 </div>
-                <p className="text-[hsl(var(--primary-blue))]/70 leading-relaxed mb-6">"{t.quote}"</p>
+                <p className="text-text-secondary leading-relaxed mb-6">"{t.quote}"</p>
                 <div>
-                  <p className="font-bold text-[hsl(var(--primary-blue))]">{t.name}</p>
-                  <p className="text-xs text-[hsl(var(--primary-blue))]/40">{t.role}</p>
+                  <p className="font-bold text-brand-primary">{t.name}</p>
+                  <p className="text-xs text-text-secondary/60">{t.role}</p>
                 </div>
               </motion.div>
             ))}
@@ -324,9 +324,9 @@ const HomeTest = () => {
       <section id="pricing" className="py-24 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <span className="text-xs font-semibold tracking-[0.2em] text-[hsl(var(--brand-orange))] uppercase">Pricing</span>
-            <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-5 text-[hsl(var(--primary-blue))]">Simple, transparent pricing</h2>
-            <p className="text-[hsl(var(--primary-blue))]/50 text-lg max-w-2xl mx-auto mb-12">No hidden fees. No contracts. Start with a free audit and only pay when you're ready.</p>
+            <span className="text-xs font-semibold tracking-[0.2em] text-brand-accent uppercase">Pricing</span>
+            <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-5 text-brand-primary">Simple, transparent pricing</h2>
+            <p className="text-text-secondary text-lg max-w-2xl mx-auto mb-12">No hidden fees. No contracts. Start with a free audit and only pay when you're ready.</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -341,32 +341,31 @@ const HomeTest = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className={`rounded-2xl p-8 text-left ${p.popular ? "bg-[hsl(var(--primary-blue))] border-2 border-[hsl(var(--brand-orange))]/30" : "bg-white border border-[hsl(var(--primary-blue))]/8"}`}
+                className={`relative p-8 rounded-3xl border ${p.popular ? 'border-brand-accent bg-brand-accent/[0.02]' : 'border-brand-primary/6 bg-bg-surface'}`}
               >
                 {p.popular && (
-                  <span className="inline-block px-3 py-1 rounded-full bg-[hsl(var(--brand-orange))]/15 text-[hsl(var(--brand-orange))] text-xs font-semibold mb-5">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-accent text-text-inverse text-xs font-semibold px-4 py-1 rounded-full">
                     Most Popular
                   </span>
                 )}
-                <h3 className={`text-xl font-bold mb-2 ${p.popular ? "text-white" : "text-[hsl(var(--primary-blue))]"}`}>{p.name}</h3>
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className={`text-4xl font-bold ${p.popular ? "text-white" : "text-[hsl(var(--primary-blue))]"}`}>{p.price}</span>
-                  <span className={p.popular ? "text-white/50" : "text-[hsl(var(--primary-blue))]/40"}>{p.period}</span>
-                </div>
-                <ul className="space-y-3 mb-8">
+                <p className="text-lg font-semibold text-brand-primary mb-2">{p.name}</p>
+                <p className="text-4xl font-bold text-brand-primary mb-6">{p.price}<span className="text-lg text-text-secondary/60">{p.period}</span></p>
+                <ul className="space-y-3 mb-8 text-left">
                   {p.features.map(f => (
-                    <li key={f} className={`flex items-center gap-3 text-sm ${p.popular ? "text-white/70" : "text-[hsl(var(--primary-blue))]/60"}`}>
-                      <CheckCircle2 className={`h-4 w-4 shrink-0 ${p.popular ? "text-[hsl(var(--brand-orange))]" : "text-[hsl(var(--brand-orange))]"}`} />
-                      {f}
+                    <li key={f} className="flex items-start gap-3 text-text-secondary">
+                      <CheckCircle2 className="h-5 w-5 text-brand-accent shrink-0 mt-0.5" />
+                      <span className="text-sm">{f}</span>
                     </li>
                   ))}
                 </ul>
                 <Button
-                  className={`w-full ${p.popular ? "bg-[hsl(var(--brand-orange))] hover:bg-[hsl(var(--brand-orange))]/90 text-white" : "bg-[hsl(var(--primary-blue))] hover:bg-[hsl(var(--highlight-blue))] text-white"}`}
+                  size="lg"
+                  className={`w-full ${p.popular ? 'bg-action-primary text-text-inverse hover:bg-action-primary-hover' : 'bg-brand-primary text-text-inverse hover:bg-brand-secondary'}`}
                   asChild
                 >
                   <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
-                    {p.name === "Scale" ? "Contact Sales" : "Get Started"}
+                    Get Started
+                    <ChevronRight className="ml-1 h-4 w-4" />
                   </a>
                 </Button>
               </motion.div>
@@ -376,45 +375,44 @@ const HomeTest = () => {
       </section>
 
       {/* ─── CTA ─── */}
-      <section className="py-24 px-6 bg-[hsl(var(--brand-orange))] relative overflow-hidden">
-        {/* Female mascot on the left */}
-        <motion.div
-          initial={{ opacity: 0, x: -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="hidden lg:block absolute bottom-0 left-8 w-[280px]"
-        >
-          <img src={mascotFemale} alt="Voxmation AI Assistant" className="w-full h-auto drop-shadow-2xl" />
-        </motion.div>
-
-        <div className="max-w-3xl mx-auto text-center relative z-10">
+      <section className="py-24 px-6 bg-brand-accent">
+        <div className="max-w-4xl mx-auto text-center relative">
+          {/* Mascot overlay */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="hidden lg:block absolute -bottom-24 left-0 w-[280px]"
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Ready to stop missing calls?</h2>
-            <p className="text-white/70 text-lg mb-10">Join 200+ service businesses that use Voxmation to capture more leads and book more jobs.</p>
+            <img 
+              src={mascotFemale} 
+              alt="Voxmation AI Assistant" 
+              className="w-full h-auto drop-shadow-2xl"
+            />
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="text-3xl md:text-5xl font-bold text-brand-primary mb-6">Ready to stop missing calls?</h2>
+            <p className="text-brand-primary/60 text-lg max-w-xl mx-auto mb-10">Join hundreds of service businesses turning missed calls into booked jobs with AI.</p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button
                 size="lg"
-                className="bg-white text-[hsl(var(--brand-orange))] hover:bg-white/90 text-base px-10 h-13 shadow-xl"
+                className="bg-brand-primary text-text-inverse hover:bg-brand-secondary text-base px-10 h-14"
                 asChild
               >
                 <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
-                  Book Your Free Audit
+                  Book Free Demo
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
               <Button
-                variant="outline"
                 size="lg"
+                variant="outline"
                 onClick={() => navigate("/demo")}
-                className="border-white/30 text-white hover:bg-white/10 text-base px-8 h-13"
+                className="border-brand-primary/30 text-brand-primary hover:bg-brand-primary/10 text-base px-10 h-14"
               >
-                <Play className="mr-2 h-4 w-4" />
-                Watch Demo
+                Try Demo
               </Button>
             </div>
           </motion.div>
@@ -422,41 +420,50 @@ const HomeTest = () => {
       </section>
 
       {/* ─── Footer ─── */}
-      <footer className="py-16 px-6 border-t border-[hsl(var(--primary-blue))]/8">
+      <footer className="py-16 px-6 bg-brand-primary border-t border-text-inverse/5">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
-            <div className="md:col-span-1">
-              <div className="flex items-center gap-2 mb-4">
-                <img src={voxmationLogo} alt="Voxmation" className="h-8 w-8 rounded-lg" />
-                <span className="font-bold text-lg text-[hsl(var(--primary-blue))]">
-                  VOX<span className="text-[hsl(var(--brand-orange))]">mation</span>
+          <div className="grid md:grid-cols-4 gap-10 mb-12">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <img src={voxmationLogo} alt="Voxmation" className="h-9 w-9 rounded-lg" />
+                <span className="font-bold text-lg text-text-inverse">
+                  VOX<span className="text-brand-accent">mation</span>
                 </span>
               </div>
-              <p className="text-sm text-[hsl(var(--primary-blue))]/50 leading-relaxed">AI voice agents and automation for home service businesses.</p>
+              <p className="text-text-inverse/50 text-sm leading-relaxed">AI voice agents and automation for home service businesses. Never miss a call again.</p>
             </div>
-            {[
-              { title: "Product", links: ["Features", "Pricing", "Demo", "Portal"] },
-              { title: "Company", links: ["About", "Blog", "Careers", "Contact"] },
-              { title: "Legal", links: ["Privacy", "Terms", "Security"] },
-            ].map(col => (
-              <div key={col.title}>
-                <h4 className="font-semibold text-sm text-[hsl(var(--primary-blue))] mb-4">{col.title}</h4>
-                <ul className="space-y-2">
-                  {col.links.map(l => (
-                    <li key={l}>
-                      <a href="#" className="text-sm text-[hsl(var(--primary-blue))]/50 hover:text-[hsl(var(--brand-orange))] transition-colors">{l}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            <div>
+              <p className="font-semibold text-text-inverse mb-4">Product</p>
+              <ul className="space-y-3 text-sm text-text-inverse/50">
+                <li><a href="#how-it-works" className="hover:text-brand-accent transition-colors">How It Works</a></li>
+                <li><a href="#services" className="hover:text-brand-accent transition-colors">Services</a></li>
+                <li><a href="#pricing" className="hover:text-brand-accent transition-colors">Pricing</a></li>
+                <li><a href="/demo" className="hover:text-brand-accent transition-colors">Demo</a></li>
+              </ul>
+            </div>
+            <div>
+              <p className="font-semibold text-text-inverse mb-4">Industries</p>
+              <ul className="space-y-3 text-sm text-text-inverse/50">
+                <li><span className="hover:text-brand-accent transition-colors cursor-pointer">HVAC</span></li>
+                <li><span className="hover:text-brand-accent transition-colors cursor-pointer">Plumbing</span></li>
+                <li><span className="hover:text-brand-accent transition-colors cursor-pointer">Electrical</span></li>
+                <li><span className="hover:text-brand-accent transition-colors cursor-pointer">Cleaning</span></li>
+              </ul>
+            </div>
+            <div>
+              <p className="font-semibold text-text-inverse mb-4">Company</p>
+              <ul className="space-y-3 text-sm text-text-inverse/50">
+                <li><a href="mailto:hello@voxmation.ai" className="hover:text-brand-accent transition-colors">Contact</a></li>
+                <li><a href="/portal" className="hover:text-brand-accent transition-colors">Client Portal</a></li>
+                <li><a href="/auth" className="hover:text-brand-accent transition-colors">Login</a></li>
+              </ul>
+            </div>
           </div>
-          <div className="pt-8 border-t border-[hsl(var(--primary-blue))]/8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-[hsl(var(--primary-blue))]/40">© 2024 Voxmation. All rights reserved.</p>
-            <div className="flex items-center gap-6">
-              {["Twitter", "LinkedIn", "YouTube"].map(s => (
-                <a key={s} href="#" className="text-sm text-[hsl(var(--primary-blue))]/40 hover:text-[hsl(var(--brand-orange))] transition-colors">{s}</a>
-              ))}
+          <div className="pt-8 border-t border-text-inverse/10 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-text-inverse/40">© 2026 Voxmation. All rights reserved.</p>
+            <div className="flex items-center gap-6 text-sm text-text-inverse/40">
+              <span className="hover:text-brand-accent transition-colors cursor-pointer">Privacy</span>
+              <span className="hover:text-brand-accent transition-colors cursor-pointer">Terms</span>
             </div>
           </div>
         </div>
