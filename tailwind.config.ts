@@ -19,18 +19,61 @@ export default {
         mono: ["JetBrains Mono", "monospace"],
       },
       colors: {
-        silver: "hsl(var(--silver))",
-        "silver-bright": "hsl(var(--silver-bright))",
-        teal: "hsl(var(--teal))",
-        warning: "hsl(var(--warning))",
-        "demo-accent": "hsl(var(--demo-accent))",
-        "demo-purple": "hsl(var(--demo-purple))",
-        "demo-green": "hsl(var(--demo-green))",
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
+        // Brand Colors
+        brand: {
+          primary: "hsl(var(--color-brand-primary))",
+          secondary: "hsl(var(--color-brand-secondary))",
+          accent: "hsl(var(--color-brand-accent))",
+        },
+        // Background Colors
+        bg: {
+          body: "hsl(var(--color-bg-body))",
+          surface: "hsl(var(--color-bg-surface))",
+          subtle: "hsl(var(--color-bg-subtle))",
+        },
+        // Text Colors
+        text: {
+          primary: "hsl(var(--color-text-primary))",
+          secondary: "hsl(var(--color-text-secondary))",
+          inverse: "hsl(var(--color-text-inverse))",
+        },
+        // Border Colors
+        border: {
+          subtle: "hsl(var(--color-border-subtle))",
+          strong: "hsl(var(--color-border-strong))",
+        },
+        // Action Colors
+        action: {
+          primary: "hsl(var(--color-action-primary))",
+          "primary-hover": "hsl(var(--color-action-primary-hover))",
+          secondary: "hsl(var(--color-action-secondary))",
+          "secondary-hover": "hsl(var(--color-action-secondary-hover))",
+        },
+        // Feedback Colors
+        feedback: {
+          success: "hsl(var(--color-feedback-success))",
+          error: "hsl(var(--color-feedback-error))",
+          warning: "hsl(var(--color-feedback-warning))",
+        },
+        // Legacy support
+        silver: "hsl(var(--color-text-secondary))",
+        "silver-bright": "hsl(var(--color-border-strong))",
+        teal: "hsl(var(--color-brand-accent))",
+        warning: "hsl(var(--color-brand-accent))",
+        "demo-accent": "hsl(var(--color-brand-secondary))",
+        "demo-purple": "hsl(var(--color-brand-primary))",
+        "demo-green": "hsl(var(--color-feedback-success))",
+        // shadcn compatibility
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -51,14 +94,8 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
+        ring: "hsl(var(--ring))",
+        input: "hsl(var(--input))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
