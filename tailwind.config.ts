@@ -39,6 +39,7 @@ export default {
         },
         // Border Colors
         border: {
+          DEFAULT: "hsl(var(--border))",
           subtle: "hsl(var(--color-border-subtle))",
           strong: "hsl(var(--color-border-strong))",
         },
