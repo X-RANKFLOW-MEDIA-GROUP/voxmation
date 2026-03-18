@@ -62,10 +62,15 @@ const LeadCaptureDialog = ({ open, onOpenChange, pageSource = "website" }: LeadC
     }
 
     setLoading(true);
-    const { error } = await supabase.from("website_leads").insert({
-      ...result.data,
+    const { error } = await supabase.from("website_leads").insert([{
+      full_name: result.data.full_name,
+      business_name: result.data.business_name,
+      email: result.data.email,
+      phone: result.data.phone,
+      industry: result.data.industry || null,
+      monthly_call_volume: result.data.monthly_call_volume || null,
       page_source: pageSource,
-    });
+    }]);
     setLoading(false);
 
     if (error) {
