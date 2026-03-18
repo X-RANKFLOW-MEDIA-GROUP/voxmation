@@ -298,6 +298,45 @@ export type Database = {
         }
         Relationships: []
       }
+      website_leads: {
+        Row: {
+          business_name: string
+          created_at: string | null
+          email: string
+          full_name: string
+          id: string
+          industry: string | null
+          monthly_call_volume: string | null
+          page_source: string | null
+          phone: string
+          source: string | null
+        }
+        Insert: {
+          business_name: string
+          created_at?: string | null
+          email: string
+          full_name: string
+          id?: string
+          industry?: string | null
+          monthly_call_volume?: string | null
+          page_source?: string | null
+          phone: string
+          source?: string | null
+        }
+        Update: {
+          business_name?: string
+          created_at?: string | null
+          email?: string
+          full_name?: string
+          id?: string
+          industry?: string | null
+          monthly_call_volume?: string | null
+          page_source?: string | null
+          phone?: string
+          source?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

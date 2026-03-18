@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
@@ -10,6 +11,7 @@ import voxmationLogo from "@/assets/voxmation-logo.png";
 import mascotMale from "@/assets/mascot-male.png";
 import mascotFemale from "@/assets/mascot-female.png";
 import SEOHead from "@/components/SEOHead";
+import LeadCaptureDialog from "@/components/LeadCaptureDialog";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -21,6 +23,13 @@ const fadeUp = {
 
 const HomeTest = () => {
   const navigate = useNavigate();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogSource, setDialogSource] = useState("navbar");
+
+  const openLead = (source: string) => {
+    setDialogSource(source);
+    setDialogOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-bg-body text-text-primary overflow-hidden">
@@ -64,11 +73,9 @@ const HomeTest = () => {
             <Button
               size="sm"
               className="bg-brand-primary text-text-inverse hover:bg-brand-secondary shadow-lg shadow-brand-primary/20"
-              asChild
+              onClick={() => openLead("navbar")}
             >
-              <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
-                Book a Demo
-              </a>
+              Book a Demo
             </Button>
           </div>
         </div>
@@ -76,7 +83,6 @@ const HomeTest = () => {
 
       {/* ─── Hero ─── */}
       <section className="relative pt-32 pb-24 px-6">
-        {/* Subtle background orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-brand-accent/5 blur-3xl" />
           <div className="absolute -bottom-60 -left-40 w-[500px] h-[500px] rounded-full bg-brand-secondary/5 blur-3xl" />
@@ -115,12 +121,10 @@ const HomeTest = () => {
               <Button
                 size="lg"
                 className="bg-action-primary text-text-inverse hover:bg-action-primary-hover shadow-xl shadow-brand-accent/25 text-base px-8 h-13"
-                asChild
+                onClick={() => openLead("hero")}
               >
-                <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
-                  Get Started Free
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
+                Get Started Free
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button
                 variant="outline"
@@ -133,7 +137,6 @@ const HomeTest = () => {
               </Button>
             </motion.div>
 
-            {/* Trust line */}
             <motion.div
               variants={fadeUp} initial="hidden" animate="visible" custom={4}
               className="mt-12 flex items-center gap-6 text-sm text-text-secondary/60"
@@ -147,16 +150,15 @@ const HomeTest = () => {
             </motion.div>
           </div>
 
-          {/* Hero visual — Mascot */}
           <motion.div
             initial={{ opacity: 0, x: 60, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="hidden lg:block absolute -top-8 right-0 w-[400px]"
           >
-            <img 
-              src={mascotMale} 
-              alt="Voxmation AI Assistant" 
+            <img
+              src={mascotMale}
+              alt="Voxmation AI Assistant"
               className="w-full h-auto drop-shadow-2xl"
             />
           </motion.div>
@@ -361,12 +363,10 @@ const HomeTest = () => {
                 <Button
                   size="lg"
                   className={`w-full ${p.popular ? 'bg-action-primary text-text-inverse hover:bg-action-primary-hover' : 'bg-brand-primary text-text-inverse hover:bg-brand-secondary'}`}
-                  asChild
+                  onClick={() => openLead("pricing_" + p.name.toLowerCase())}
                 >
-                  <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
-                    Get Started
-                    <ChevronRight className="ml-1 h-4 w-4" />
-                  </a>
+                  Get Started
+                  <ChevronRight className="ml-1 h-4 w-4" />
                 </Button>
               </motion.div>
             ))}
@@ -377,7 +377,6 @@ const HomeTest = () => {
       {/* ─── CTA ─── */}
       <section className="py-24 px-6 bg-brand-accent">
         <div className="max-w-4xl mx-auto text-center relative">
-          {/* Mascot overlay */}
           <motion.div
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -385,9 +384,9 @@ const HomeTest = () => {
             transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="hidden lg:block absolute -bottom-24 left-0 w-[280px]"
           >
-            <img 
-              src={mascotFemale} 
-              alt="Voxmation AI Assistant" 
+            <img
+              src={mascotFemale}
+              alt="Voxmation AI Assistant"
               className="w-full h-auto drop-shadow-2xl"
             />
           </motion.div>
@@ -399,12 +398,10 @@ const HomeTest = () => {
               <Button
                 size="lg"
                 className="bg-brand-primary text-text-inverse hover:bg-brand-secondary text-base px-10 h-14"
-                asChild
+                onClick={() => openLead("cta_bottom")}
               >
-                <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">
-                  Book Free Demo
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
+                Book Free Demo
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button
                 size="lg"
@@ -468,6 +465,8 @@ const HomeTest = () => {
           </div>
         </div>
       </footer>
+
+      <LeadCaptureDialog open={dialogOpen} onOpenChange={setDialogOpen} pageSource={dialogSource} />
     </div>
   );
 };
