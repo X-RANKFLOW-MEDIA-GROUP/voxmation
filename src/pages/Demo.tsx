@@ -99,17 +99,12 @@ const conversations: Record<string, ChatMessage[]> = {
 };
 
 /* ─── TTS FUNCTION ─── */
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-
 async function speakText(text: string, voiceId: string): Promise<HTMLAudioElement | null> {
   try {
-    const response = await fetch(`${SUPABASE_URL}/functions/v1/elevenlabs-tts`, {
+    const response = await fetch(`/api/tts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
       },
       body: JSON.stringify({ text, voiceId }),
     });
