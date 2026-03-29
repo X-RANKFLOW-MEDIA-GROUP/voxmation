@@ -1,3 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /portal
+Disallow: /portal/
+Disallow: /auth
+
 User-agent: Googlebot
 Allow: /
 
@@ -10,5 +16,4 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
-Allow: /
+Sitemap: https://voxmation.com/sitemap.xml

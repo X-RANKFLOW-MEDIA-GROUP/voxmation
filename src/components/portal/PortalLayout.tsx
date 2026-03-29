@@ -7,6 +7,7 @@ import {
   Plug, CreditCard, LifeBuoy, LogOut, ChevronLeft, ChevronRight, Menu, X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Helmet } from "react-helmet-async";
 
 const navItems = [
   { path: "/portal", icon: LayoutDashboard, label: "Dashboard" },
@@ -100,6 +101,9 @@ const PortalLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="min-h-screen bg-background flex">
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       {/* Desktop Sidebar */}
       <aside
         className={`hidden lg:flex flex-col border-r border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 shrink-0 ${

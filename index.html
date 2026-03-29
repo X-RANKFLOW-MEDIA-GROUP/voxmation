@@ -3,30 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Preconnect for performance (Core Web Vitals) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Default title & meta (overridden per-page by react-helmet-async) -->
     <title>Voxmation — AI Voice Agents &amp; Automation for Home Service Businesses</title>
-    <meta name="description" content="Voxmation deploys AI Voice Agents that answer every call, follow up with every lead, and book appointments 24/7 for HVAC, plumbing, electrical, and home service businesses.">
+    <meta name="description" content="Voxmation deploys AI Voice Agents that answer every call, follow up with every lead, and book appointments 24/7 for HVAC, plumbing, electrical, and home service businesses." />
     <meta name="author" content="Voxmation LLC" />
     <meta name="keywords" content="AI Voice Agent, Home Service Automation, HVAC AI, Plumbing AI, Missed Call Text Back, CRM Automation, Lead Follow Up, Appointment Booking AI" />
+    <link rel="canonical" href="https://voxmation.com/" />
 
-    
-    
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://voxmation.com" />
-    <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/46b4ccce-1014-4546-899d-31855b49d838/id-preview-7b9638af--6156c48b-d658-406d-97be-2f7f6241342d.lovable.app-1773855708091.png">
+    <meta property="og:site_name" content="Voxmation" />
+    <meta property="og:url" content="https://voxmation.com/" />
+    <meta property="og:title" content="Voxmation — AI Voice Agents &amp; Automation for Home Service Businesses" />
+    <meta property="og:description" content="Voxmation deploys AI Voice Agents that answer every call, follow up with every lead, and book appointments 24/7 for HVAC, plumbing, electrical, and home service businesses." />
+    <meta property="og:image" content="https://voxmation.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Voxmation — AI Voice Agent platform dashboard" />
 
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@voxmation" />
-    
-    
-    <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/46b4ccce-1014-4546-899d-31855b49d838/id-preview-7b9638af--6156c48b-d658-406d-97be-2f7f6241342d.lovable.app-1773855708091.png">
+    <meta name="twitter:title" content="Voxmation — AI Voice Agents &amp; Automation for Home Service Businesses" />
+    <meta name="twitter:description" content="Voxmation deploys AI Voice Agents that answer every call, follow up with every lead, and book appointments 24/7 for HVAC, plumbing, electrical, and home service businesses." />
+    <meta name="twitter:image" content="https://voxmation.com/og-image.png" />
 
+    <!-- Organization Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Voxmation",
       "url": "https://voxmation.com",
+      "logo": "https://voxmation.com/favicon.ico",
       "description": "AI Voice Agents & Automation for Home Service Businesses",
+      "sameAs": [
+        "https://x.com/voxmation",
+        "https://instagram.com/voxmation",
+        "https://facebook.com/voxmation"
+      ],
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "sales",
@@ -34,11 +54,36 @@
       }
     }
     </script>
-    <meta property="og:title" content="Voxmation — AI Voice Agents &amp; Automation for Home Service Businesses">
-  <meta name="twitter:title" content="Voxmation — AI Voice Agents &amp; Automation for Home Service Businesses">
-  <meta property="og:description" content="Voxmation deploys AI Voice Agents that answer every call, follow up with every lead, and book appointments 24/7 for HVAC, plumbing, electrical, and home service businesses.">
-  <meta name="twitter:description" content="Voxmation deploys AI Voice Agents that answer every call, follow up with every lead, and book appointments 24/7 for HVAC, plumbing, electrical, and home service businesses.">
-</head>
+
+    <!-- SoftwareApplication Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Voxmation",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://voxmation.com",
+      "description": "AI-powered voice agents for home service businesses. 24/7 call answering, lead qualification, and automated appointment booking.",
+      "offers": {
+        "@type": "Offer",
+        "price": "297",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "297",
+          "priceCurrency": "USD",
+          "billingDuration": "P1M"
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "87"
+      }
+    }
+    </script>
+  </head>
 
   <body>
     <div id="root"></div>

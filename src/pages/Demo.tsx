@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Send, ArrowUpRight, Volume2, Mic, Bot, User, Headphones, CircleUser, CheckCircle2, RotateCcw, Thermometer, Wrench, Zap, Home, TreePine, SprayCan, AlertTriangle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 import DemoHero from "@/components/demo/DemoHero";
 import MissedCallDemo from "@/components/demo/MissedCallDemo";
 import DashboardMockup from "@/components/demo/DashboardMockup";
@@ -148,9 +149,6 @@ const VisualizerBars = ({ active, color = "bg-foreground/20" }: { active: boolea
 
 /* ─── MAIN DEMO PAGE ─── */
 const Demo = () => {
-  useEffect(() => {
-    document.title = "Voxmation — Voice AI Demo";
-  }, []);
 
   const [step, setStep] = useState(1);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
@@ -310,6 +308,11 @@ const Demo = () => {
 
   return (
     <div className="min-h-screen bg-background relative">
+      <SEOHead
+        title="Live Voice AI Demo — Hear Your AI Agent in Action"
+        description="Try Voxmation's AI voice agent live. Pick an industry, choose a voice, and hear how your AI answers calls, qualifies leads, and books appointments automatically."
+        path="/demo"
+      />
       {/* Ambient radial glow */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_40%_at_50%_-10%,hsl(0_0%_100%/0.03),transparent)]" />

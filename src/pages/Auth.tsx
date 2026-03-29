@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { ArrowLeft, Loader2, Mail, Lock, User } from "lucide-react";
 import { Link } from "react-router-dom";
+import SEOHead from "@/components/SEOHead";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -48,6 +49,12 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-6 relative">
+      <SEOHead
+        title="Sign In — Voxmation Client Portal"
+        description="Sign in to your Voxmation client portal."
+        path="/auth"
+        noindex={true}
+      />
       <div className="absolute inset-0 gradient-radial-hero pointer-events-none" />
 
       <motion.div
