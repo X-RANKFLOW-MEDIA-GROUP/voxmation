@@ -4,7 +4,13 @@ import { Menu, X, LogIn } from "lucide-react";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const navLinks = [
+type NavLink = {
+  label: string;
+  href: string;
+  isRoute?: boolean;
+};
+
+const navLinks: NavLink[] = [
   { label: "How It Works", href: "#how-it-works" },
   { label: "Services", href: "#services" },
   { label: "Industries", href: "#industries" },
@@ -77,7 +83,7 @@ const Navbar = () => {
                   return (
                     <button
                       key={l.href}
-                      onClick={() => scrollTo(l.href, (l as any).isRoute)}
+                      onClick={() => scrollTo(l.href, l.isRoute)}
                       className={`relative text-xs px-4 py-1.5 rounded-full transition-all duration-300 font-mono tracking-wide ${
                         isActive ? "text-primary" : "text-silver hover:text-silver-bright"
                       }`}
@@ -139,7 +145,7 @@ const Navbar = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.06, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  onClick={() => scrollTo(l.href, (l as any).isRoute)}
+                  onClick={() => scrollTo(l.href, l.isRoute)}
                   className="block w-full text-left text-sm py-3 px-4 rounded-xl text-silver hover:text-primary hover:bg-primary/5 transition-all font-mono"
                 >
                   {l.label}
