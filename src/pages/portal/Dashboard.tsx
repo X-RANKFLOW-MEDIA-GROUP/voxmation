@@ -6,7 +6,8 @@ import StatusBadge from "@/components/portal/StatusBadge";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, PhoneOff, UserCheck, Calendar, DollarSign, TrendingUp, Activity, Wifi } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
-import type { RealtimeChannel } from "@supabase/supabase-js";
+import type { RealtimeChannel, RealtimePostgresChangesPayload } from "@supabase/supabase-js";
+import type { Database } from "@/integrations/supabase/types";
 
 const demoChartData = [
   { day: "Mon", calls: 18, booked: 7 },
@@ -34,6 +35,17 @@ const recentActivity = [
   { time: "2h ago", text: "Reminder sent for tomorrow's appointment", type: "active" },
 ];
 
+type ActivityType = "booked" | "recovered" | "new" | "completed" | "active";
+
+type ActivityItem = {
+  time: string;
+  text: string;
+  type: ActivityType;
+};
+
+const getPayloadRecord = <T extends object>(payload: RealtimePostgresChangesPayload<T>) =>
+  (payload.new ?? {}) as Partial<T>;
+
 const Dashboard = () => {
   const { user } = useAuth();
   const [metrics, setMetrics] = useState({
@@ -43,7 +55,7 @@ const Dashboard = () => {
     bookedAppointments: 0,
     revenueImpact: 0,
   });
-  const [liveActivity, setLiveActivity] = useState<typeof recentActivity>([]);
+  const [liveActivity, setLiveActivity] = useState<ActivityItem[]>([]);
   const [isConnected, setIsConnected] = useState(false);
 
   const fetchMetrics = useCallback(async () => {
@@ -82,15 +94,16 @@ const Dashboard = () => {
         .on(
           'postgres_changes',
           { event: '*', schema: 'public', table: 'calls', filter: `user_id=eq.${user.id}` },
-          (payload) => {
+          (payload: RealtimePostgresChangesPayload<Database["public"]["Tables"]["calls"]["Row"]>) => {
             console.log('Call update:', payload);
             fetchMetrics();
-            const newActivity = {
+            const call = getPayloadRecord(payload);
+            const newActivity: ActivityItem = {
               time: "Just now",
               text: payload.eventType === 'INSERT' 
-                ? `New call received from ${(payload.new as any).caller_name || 'Unknown'}`
+                ? `New call received from ${call.caller_name || "Unknown"}`
                 : `Call status updated`,
-              type: (payload.new as any)?.status === 'missed' ? 'recovered' : 'completed'
+              type: call.status === "missed" ? "recovered" : "completed",
             };
             setLiveActivity(prev => [newActivity, ...prev.slice(0, 5)]);
           }
@@ -98,15 +111,16 @@ const Dashboard = () => {
         .on(
           'postgres_changes',
           { event: '*', schema: 'public', table: 'leads', filter: `user_id=eq.${user.id}` },
-          (payload) => {
+          (payload: RealtimePostgresChangesPayload<Database["public"]["Tables"]["leads"]["Row"]>) => {
             console.log('Lead update:', payload);
             fetchMetrics();
-            const newActivity = {
+            const lead = getPayloadRecord(payload);
+            const newActivity: ActivityItem = {
               time: "Just now",
               text: payload.eventType === 'INSERT'
-                ? `New lead captured: ${(payload.new as any).name || 'Unknown'}`
-                : `Lead ${(payload.new as any).name || ''} status updated to ${(payload.new as any).status}`,
-              type: 'new'
+                ? `New lead captured: ${lead.name || "Unknown"}`
+                : `Lead ${lead.name || ""} status updated to ${lead.status || "unknown"}`,
+              type: "new",
             };
             setLiveActivity(prev => [newActivity, ...prev.slice(0, 5)]);
           }
@@ -114,15 +128,16 @@ const Dashboard = () => {
         .on(
           'postgres_changes',
           { event: '*', schema: 'public', table: 'bookings', filter: `user_id=eq.${user.id}` },
-          (payload) => {
+          (payload: RealtimePostgresChangesPayload<Database["public"]["Tables"]["bookings"]["Row"]>) => {
             console.log('Booking update:', payload);
             fetchMetrics();
-            const newActivity = {
+            const booking = getPayloadRecord(payload);
+            const newActivity: ActivityItem = {
               time: "Just now",
               text: payload.eventType === 'INSERT'
-                ? `New appointment booked: ${(payload.new as any).title || 'Service'}`
+                ? `New appointment booked: ${booking.title || "Service"}`
                 : `Booking updated`,
-              type: 'booked'
+              type: "booked",
             };
             setLiveActivity(prev => [newActivity, ...prev.slice(0, 5)]);
           }
