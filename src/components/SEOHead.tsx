@@ -4,10 +4,13 @@ interface SEOHeadProps {
   title: string;
   description: string;
   path: string;
-  type?: "website" | "article";
+  type?: "website" | "article" | "product";
   image?: string;
   noindex?: boolean;
   jsonLd?: object[];
+  author?: string;
+  publishedDate?: string;
+  keywords?: string;
 }
 
 const BASE_URL = "https://voxmation.com";
@@ -21,6 +24,9 @@ const SEOHead = ({
   image = DEFAULT_OG_IMAGE,
   noindex = false,
   jsonLd = [],
+  author,
+  publishedDate,
+  keywords,
 }: SEOHeadProps) => {
   const url = `${BASE_URL}${path}`;
   const fullTitle = title.includes("Voxmation") ? title : `${title} | Voxmation`;
@@ -48,6 +54,7 @@ const SEOHead = ({
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
+      {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={url} />
 
       {noindex && <meta name="robots" content="noindex, nofollow" />}
@@ -69,6 +76,10 @@ const SEOHead = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
+
+      {/* Article Metadata */}
+      {type === "article" && publishedDate && <meta property="article:published_time" content={publishedDate} />}
+      {type === "article" && author && <meta name="author" content={author} />}
 
       {/* JSON-LD */}
       <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>

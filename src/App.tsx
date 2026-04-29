@@ -23,6 +23,12 @@ import Automations from "./pages/portal/Automations";
 import Integrations from "./pages/portal/Integrations";
 import Billing from "./pages/portal/Billing";
 import Support from "./pages/portal/Support";
+import UseCases from "./pages/UseCases";
+import Industries from "./pages/Industries";
+import CaseStudies from "./pages/CaseStudies";
+import UseCaseDetail from "./pages/UseCaseDetail";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,6 +53,12 @@ const App = () => (
               <Route path="/demo" element={<Demo />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/roi-calculator" element={<ROICalculator />} />
+              <Route path="/use-cases" element={<UseCases />} />
+              <Route path="/use-cases/:slug" element={<UseCaseDetail />} />
+              <Route path="/industries" element={<Industries />} />
+              <Route path="/case-studies" element={<CaseStudies />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/portal" element={<PortalPage><Dashboard /></PortalPage>} />
               <Route path="/portal/voice-agent" element={<PortalPage><VoiceAgent /></PortalPage>} />
