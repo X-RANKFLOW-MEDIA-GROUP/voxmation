@@ -8,6 +8,7 @@ import DemoHero from "@/components/demo/DemoHero";
 import MissedCallDemo from "@/components/demo/MissedCallDemo";
 import DashboardMockup from "@/components/demo/DashboardMockup";
 import DemoBenefits from "@/components/demo/DemoBenefits";
+import VoiceDemonstration from "@/components/VoiceDemonstration";
 
 /* ─── TYPES ─── */
 interface ChatMessage {
@@ -701,6 +702,16 @@ const Demo = () => {
       {/* ─── ADDITIONAL SECTIONS ─── */}
       <div className="relative z-10 border-t border-border">
         <MissedCallDemo />
+      </div>
+
+      <div className="relative z-10 border-t border-border">
+        <section className="container mx-auto px-6 py-24 md:py-32">
+          <VoiceDemonstration
+            title="Experience Our AI Voice Firsthand"
+            subtitle="Listen to realistic voice samples across different profiles. Each voice is powered by ElevenLabs TTS and can be customized for your needs."
+            showVisualizer={true}
+          />
+        </section>
       </div>
 
       <div className="relative z-10 border-t border-border bg-card/20">
