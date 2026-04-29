@@ -23,18 +23,7 @@ const steps = [
   },
 ];
 
-// Pulse animation for icons
-const pulseAnimation = (delay: number) => ({
-  scale: [1, 1.1, 1],
-  opacity: [1, 0.8, 1],
-  transition: { duration: 2.5, delay, repeat: Infinity, ease: "easeInOut" }
-});
 
-// Rotating animation for step numbers
-const rotateAnimation = {
-  rotate: [0, 360],
-  transition: { duration: 20, repeat: Infinity, ease: "linear" }
-};
 
 const HowItWorksSection = () => {
   return (
@@ -76,7 +65,6 @@ const HowItWorksSection = () => {
                 <div className="flex items-center justify-between mb-8 relative z-10">
                   {/* Premium icon container */}
                   <motion.div
-                    animate={pulseAnimation(i * 0.3)}
                     whileHover={{ scale: 1.15 }}
                     className="relative"
                   >
@@ -88,16 +76,13 @@ const HowItWorksSection = () => {
                     </div>
                   </motion.div>
 
-                  {/* Animated step number */}
-                  <motion.div
-                    animate={rotateAnimation}
-                    className="relative"
-                  >
+                  {/* Step number */}
+                  <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent rounded-full opacity-50" />
                     <span className="text-5xl font-mono font-bold text-primary/12 group-hover:text-primary/20 transition-colors duration-500 relative">
                       {step.num}
                     </span>
-                  </motion.div>
+                  </div>
                 </div>
 
                 <h3 className="text-xl font-display font-bold text-foreground mb-4 tracking-tight relative z-10">
