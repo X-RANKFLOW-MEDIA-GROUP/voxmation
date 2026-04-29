@@ -23,9 +23,22 @@ const steps = [
   },
 ];
 
+// Pulse animation for icons
+const pulseAnimation = (delay: number) => ({
+  scale: [1, 1.1, 1],
+  opacity: [1, 0.8, 1],
+  transition: { duration: 2.5, delay, repeat: Infinity, ease: "easeInOut" }
+});
+
+// Rotating animation for step numbers
+const rotateAnimation = {
+  rotate: [0, 360],
+  transition: { duration: 20, repeat: Infinity, ease: "linear" }
+};
+
 const HowItWorksSection = () => {
   return (
-    <section id="how-it-works" className="py-32 md:py-40 relative noise-overlay">
+    <section id="how-it-works" className="py-32 md:py-40 relative noise-overlay overflow-hidden">
       <div className="absolute inset-0 gradient-mesh pointer-events-none opacity-50" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -54,24 +67,51 @@ const HowItWorksSection = () => {
                 whileHover={{ y: -8, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }}
                 className="surface-card rounded-2xl p-8 lg:p-10 h-full relative overflow-hidden group hover:border-primary/15 transition-all duration-500"
               >
+                {/* Animated top border glow */}
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                <div className="flex items-center justify-between mb-8">
-                  <div className="w-14 h-14 rounded-2xl bg-primary/8 border border-primary/15 flex items-center justify-center group-hover:bg-primary/12 group-hover:border-primary/25 transition-all duration-500">
-                    <step.icon className="h-6 w-6 text-primary/70" />
-                  </div>
-                  <span className="text-5xl font-mono font-bold text-primary/8 group-hover:text-primary/15 transition-colors duration-500">
-                    {step.num}
-                  </span>
+                {/* Background gradient on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="flex items-center justify-between mb-8 relative z-10">
+                  {/* Premium icon container */}
+                  <motion.div
+                    animate={pulseAnimation(i * 0.3)}
+                    whileHover={{ scale: 1.15 }}
+                    className="relative"
+                  >
+                    {/* Icon glow background */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/20 to-primary/30 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+                    
+                    <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-primary/20 to-primary/5 border-2 border-primary/25 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/15 group-hover:border-primary/40 transition-all duration-500 shadow-lg">
+                      <step.icon className="h-7 w-7 text-primary/85 group-hover:text-primary/100 transition-colors duration-500" />
+                    </div>
+                  </motion.div>
+
+                  {/* Animated step number */}
+                  <motion.div
+                    animate={rotateAnimation}
+                    className="relative"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent rounded-full opacity-50" />
+                    <span className="text-5xl font-mono font-bold text-primary/12 group-hover:text-primary/20 transition-colors duration-500 relative">
+                      {step.num}
+                    </span>
+                  </motion.div>
                 </div>
 
-                <h3 className="text-xl font-display font-bold text-foreground mb-4 tracking-tight">
+                <h3 className="text-xl font-display font-bold text-foreground mb-4 tracking-tight relative z-10">
                   {step.title}
                 </h3>
-                <p className="text-silver text-sm leading-relaxed">{step.desc}</p>
+                <p className="text-silver text-sm leading-relaxed relative z-10">{step.desc}</p>
 
                 {i < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 -right-4 lg:-right-5 w-8 lg:w-10 h-px bg-gradient-to-r from-border to-transparent z-20" />
+                  <motion.div
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    transition={{ delay: 0.3 + i * 0.2, duration: 0.8 }}
+                    className="hidden md:block absolute top-1/2 -right-4 lg:-right-5 w-8 lg:w-10 h-px bg-gradient-to-r from-primary/40 to-transparent z-20 origin-left"
+                  />
                 )}
               </motion.div>
             </Reveal>
