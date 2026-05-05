@@ -1,33 +1,27 @@
 import Reveal from "@/components/Reveal";
 import { motion } from "framer-motion";
-import { Search, Plug, Rocket } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const steps = [
-  {
-    num: "01",
-    icon: Search,
-    title: "We Audit Your Workflow",
-    desc: "We analyze your call flow, lead sources, and follow-up gaps to identify exactly where you're losing revenue.",
-  },
-  {
-    num: "02",
-    icon: Plug,
-    title: "We Build & Connect",
-    desc: "We deploy your AI Voice Agent, set up missed call recovery, connect your CRM, and automate your booking system.",
-  },
-  {
-    num: "03",
-    icon: Rocket,
-    title: "You Start Booking More Jobs",
-    desc: "Within days, your AI is answering calls, following up with leads, and filling your calendar — 24/7, no extra staff.",
-  },
-];
+interface HowItWorksStep {
+  num: string;
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
 
+interface HowItWorksProps {
+  title?: string;
+  subtitle?: string;
+  steps: HowItWorksStep[];
+}
 
-
-const HowItWorksSection = () => {
+const HowItWorks = ({
+  title = "How It Works",
+  subtitle = "Get started in 3 simple steps.",
+  steps,
+}: HowItWorksProps) => {
   return (
-    <section id="how-it-works" className="py-32 md:py-40 relative noise-overlay overflow-hidden">
+    <section className="py-32 md:py-40 relative noise-overlay overflow-hidden">
       <div className="absolute inset-0 gradient-mesh pointer-events-none opacity-50" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -39,13 +33,11 @@ const HowItWorksSection = () => {
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-silver-bright mb-5 tracking-[-0.02em]">
-              How It Works
+              {title}
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
-            <p className="text-silver text-lg max-w-lg mx-auto leading-relaxed">
-              Go from missed calls to a fully automated booking machine in 3 simple steps.
-            </p>
+            <p className="text-silver text-lg max-w-lg mx-auto leading-relaxed">{subtitle}</p>
           </Reveal>
         </div>
 
@@ -88,7 +80,7 @@ const HowItWorksSection = () => {
                 <h3 className="text-xl font-display font-bold text-foreground mb-4 tracking-tight relative z-10">
                   {step.title}
                 </h3>
-                <p className="text-silver text-sm leading-relaxed relative z-10">{step.desc}</p>
+                <p className="text-silver text-sm leading-relaxed relative z-10">{step.description}</p>
 
                 {i < steps.length - 1 && (
                   <motion.div
@@ -107,4 +99,4 @@ const HowItWorksSection = () => {
   );
 };
 
-export default HowItWorksSection;
+export default HowItWorks;

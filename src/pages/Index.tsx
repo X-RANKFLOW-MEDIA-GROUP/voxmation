@@ -12,6 +12,7 @@ import FAQSection from "@/components/FAQSection";
 import FooterSection from "@/components/FooterSection";
 import FloatingCTA from "@/components/FloatingCTA";
 import IntegrationLogos from "@/components/IntegrationLogos";
+import VoiceDemonstration from "@/components/VoiceDemonstration";
 import SEOHead from "@/components/SEOHead";
 
 const Index = () => {
@@ -61,6 +62,15 @@ const Index = () => {
         <ProblemSection />
         <HowItWorksSection />
         <ServicesSection />
+        <section className="border-t border-border py-24 md:py-32">
+          <div className="container mx-auto px-6">
+            <VoiceDemonstration
+              title="Hear Your AI Agent In Action"
+              subtitle="Experience our ultra-realistic voice technology powered by ElevenLabs. Each voice is customizable and supports multiple languages for global reach."
+              showVisualizer={true}
+            />
+          </div>
+        </section>
         <IndustrySection />
         <BenefitsSection />
         <ComparisonSection />
