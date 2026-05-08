@@ -11,6 +11,7 @@ import Index from "./pages/Index";
 import HomeTest from "./pages/HomeTest";
 import Demo from "./pages/Demo";
 import Pricing from "./pages/Pricing";
+import Contact from "./pages/Contact";
 import ROICalculator from "./pages/ROICalculator";
 import IndustryPage from "./pages/IndustryPage";
 import Auth from "./pages/Auth";
@@ -56,6 +57,7 @@ const App = () => (
               <Route path="/home-test" element={<HomeTest />} />
               <Route path="/demo" element={<Demo />} />
               <Route path="/pricing" element={<Pricing />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/roi-calculator" element={<ROICalculator />} />
               <Route path="/use-cases" element={<UseCases />} />
               <Route path="/use-cases/:slug" element={<UseCaseDetail />} />

@@ -8,6 +8,7 @@ import IndustrySection from "@/components/IndustrySection";
 import BenefitsSection from "@/components/BenefitsSection";
 import SocialProofSection from "@/components/SocialProofSection";
 import ComparisonSection from "@/components/ComparisonSection";
+import HomePricingSection from "@/components/HomePricingSection";
 import FAQSection from "@/components/FAQSection";
 import FooterSection from "@/components/FooterSection";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -74,6 +75,7 @@ const Index = () => {
         <IndustrySection />
         <BenefitsSection />
         <ComparisonSection />
+        <HomePricingSection />
         <SocialProofSection />
         <FAQSection />
       </main>
