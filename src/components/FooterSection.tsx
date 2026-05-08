@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Reveal from "@/components/Reveal";
+import MascotImage from "@/components/brand/MascotImage";
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
