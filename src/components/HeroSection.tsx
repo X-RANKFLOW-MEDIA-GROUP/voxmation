@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, Sparkles } from "lucide-react";
 import LeadCaptureDialog from "@/components/LeadCaptureDialog";
+import MascotImage from "@/components/brand/MascotImage";
 import { VOXMATION_PHONE, VOXMATION_PHONE_TEL } from "@/lib/contact";
 
 const fadeUp = {
