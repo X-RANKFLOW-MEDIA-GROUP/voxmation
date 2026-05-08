@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { VOXMATION_PHONE, VOXMATION_SUPPORT_EMAIL } from "@/lib/contact";
 
 interface SEOHeadProps {
   title: string;
@@ -40,8 +41,12 @@ const SEOHead = ({
     description: "AI Voice Agents & Automation for Home Service Businesses",
     contactPoint: {
       "@type": "ContactPoint",
-      contactType: "sales",
-      url: "https://cal.com/voxmation/meeting",
+      contactType: "sales and customer support",
+      telephone: VOXMATION_PHONE,
+      email: VOXMATION_SUPPORT_EMAIL,
+      availableLanguage: ["English"],
+      areaServed: "US",
+      url: "https://voxmation.com/contact",
     },
     sameAs: [
       "https://x.com/voxmation",

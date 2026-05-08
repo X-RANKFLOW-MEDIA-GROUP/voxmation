@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import { Phone, Sparkles } from "lucide-react";
 import LeadCaptureDialog from "@/components/LeadCaptureDialog";
-import MascotImage from "@/components/brand/MascotImage";
+import { VOXMATION_PHONE, VOXMATION_PHONE_TEL } from "@/lib/contact";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -54,14 +54,14 @@ const HeroSection = () => {
             variants={fadeUp} initial="hidden" animate="visible" custom={1}
             className="text-3xl font-semibold tracking-tight text-brand-primary md:text-4xl"
           >
-            Automate calls and leads
+            AI Voice Agents for Home Service Businesses
             <br />
             <motion.span
               className="bg-gradient-to-r from-brand-accent via-brand-secondary to-brand-accent bg-size-200 bg-pos-0 text-transparent bg-clip-text"
               animate={{ backgroundPosition: ["0% 0%", "100% 0%", "0% 0%"] }}
               transition={{ duration: 4, repeat: Infinity }}
             >
-              with AI voice agents that close deals.
+              that answer, qualify, and book jobs.
             </motion.span>
           </motion.h1>
 
@@ -69,20 +69,19 @@ const HeroSection = () => {
             variants={fadeUp} initial="hidden" animate="visible" custom={2}
             className="max-w-xl text-sm text-text-secondary md:text-base"
           >
-            Voxmation connects your CRM, calendar, and billing stack to
-            run voice campaigns, qualification, and follow-up — no extra headcount.
+            Answer every call. Follow up every lead. Book appointments 24/7 with AI voice agents connected to your CRM, calendar, and billing stack.
           </motion.p>
 
           <motion.div
             variants={fadeUp} initial="hidden" animate="visible" custom={3}
             className="flex flex-wrap items-center gap-3"
           >
-            <motion.button
-              onClick={() => setDialogOpen(true)}
+            <motion.a
+              href={VOXMATION_PHONE_TEL}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
               animate={glowPulse}
-              className="rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-text-inverse shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
+              className="rounded-full bg-warning px-5 py-2.5 text-sm font-semibold text-background shadow-lg hover:shadow-xl transition-all relative overflow-hidden group flex items-center gap-2"
             >
               <motion.span
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent"
@@ -90,14 +89,23 @@ const HeroSection = () => {
                 transition={{ duration: 2, repeat: Infinity }}
                 style={{ opacity: 0.3 }}
               />
+              <Phone className="relative h-4 w-4" />
+              <span className="relative">Call Now: {VOXMATION_PHONE}</span>
+            </motion.a>
+            <motion.button
+              onClick={() => setDialogOpen(true)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              className="rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-text-inverse shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
+            >
               <span className="relative">Book a Free Demo</span>
             </motion.button>
             <motion.a
-              href="#how-it-works"
+              href="#pricing"
               whileHover={{ x: 5 }}
               className="text-sm font-semibold text-brand-secondary hover:text-brand-accent transition-colors flex items-center gap-1"
             >
-              See how it works
+              View Pricing
               <motion.span
                 animate={{ x: [0, 4, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
@@ -111,7 +119,7 @@ const HeroSection = () => {
             variants={fadeUp} initial="hidden" animate="visible" custom={4}
             className="text-xs text-text-secondary/80"
           >
-            On average, teams cut manual follow-up time by 40%.
+            No contracts. Setup in 24–48 hours. Call 844-687-7999 for help any time.
           </motion.p>
         </div>
 
