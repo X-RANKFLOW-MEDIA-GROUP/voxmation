@@ -21,6 +21,13 @@ const FooterSection = () => {
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
               
               <div className="relative z-10">
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="mb-8 flex justify-center"
+                >
+                  <MascotImage type="both" size="lg" className="w-44 md:w-56 drop-shadow-2xl" />
+                </motion.div>
                 <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono mb-8 block">
                   Ready to Grow?
                 </span>
