@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import LeadCaptureDialog from "@/components/LeadCaptureDialog";
+import MascotImage from "@/components/brand/MascotImage";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -121,7 +122,7 @@ const HeroSection = () => {
           <motion.div
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="rounded-2xl bg-bg-surface p-5 shadow-xl ring-1 ring-border-subtle hover:ring-brand-secondary/20 transition-all duration-300 group"
+            className="rounded-2xl bg-bg-surface p-5 shadow-xl ring-1 ring-border-subtle hover:ring-brand-secondary/20 transition-all duration-300 group relative overflow-hidden"
           >
             <motion.div
               animate={{ opacity: [0.8, 1, 0.8] }}
@@ -135,7 +136,7 @@ const HeroSection = () => {
               />
               Real-Time Dashboard
             </motion.div>
-            <div className="space-y-2 rounded-xl bg-bg-body p-4">
+            <div className="space-y-2 rounded-xl bg-bg-body p-4 relative z-10">
               {[
                 { label: "Calls today", value: "328", color: "text-brand-primary" },
                 { label: "Qualified leads", value: "74", color: "text-brand-accent" },
@@ -158,6 +159,24 @@ const HeroSection = () => {
                   </motion.span>
                 </motion.div>
               ))}
+            </div>
+
+            <div className="mt-4 grid gap-4 rounded-2xl border border-brand-secondary/10 bg-gradient-to-br from-bg-body to-bg-surface p-4 sm:grid-cols-[1fr_auto] sm:items-end relative z-10">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-secondary">Meet Ashley &amp; Chris</p>
+                <p className="mt-2 text-sm font-medium text-brand-primary">Your AI voice agent and automation operator work every lead together.</p>
+                <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-text-secondary">
+                  <span className="rounded-full bg-brand-accent/10 px-2.5 py-1 text-brand-accent">Answers calls</span>
+                  <span className="rounded-full bg-brand-secondary/10 px-2.5 py-1 text-brand-secondary">Books jobs</span>
+                </div>
+              </div>
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="mx-auto -mb-2 sm:-mr-2"
+              >
+                <MascotImage type="both" size="md" priority lazy={false} className="w-36 sm:w-44" />
+              </motion.div>
             </div>
           </motion.div>
         </motion.div>
