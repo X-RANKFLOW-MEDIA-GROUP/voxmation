@@ -13,6 +13,7 @@ import FooterSection from "@/components/FooterSection";
 import FloatingCTA from "@/components/FloatingCTA";
 import IntegrationLogos from "@/components/IntegrationLogos";
 import VoiceDemonstration from "@/components/VoiceDemonstration";
+import MascotConciergeSection from "@/components/MascotConciergeSection";
 import SEOHead from "@/components/SEOHead";
 
 const Index = () => {
@@ -62,6 +63,7 @@ const Index = () => {
         <ProblemSection />
         <HowItWorksSection />
         <ServicesSection />
+        <MascotConciergeSection />
         <section className="border-t border-border py-24 md:py-32">
           <div className="container mx-auto px-6">
             <VoiceDemonstration
