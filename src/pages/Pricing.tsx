@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/FooterSection";
 import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ArrowUpRight, Check, X, Zap, Building2, Rocket } from "lucide-react";
+import { Check, Phone, X, Zap, Building2, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
+import { VOXMATION_PHONE, VOXMATION_PHONE_TEL } from "@/lib/contact";
 
 const plans = [
   {
@@ -127,7 +127,7 @@ const Pricing = () => {
           </Reveal>
           <Reveal delay={0.15}>
             <p className="text-silver text-lg max-w-xl mx-auto leading-relaxed">
-              No hidden fees. No long-term contracts. Pay less than a part-time receptionist — get 10x the results.
+              No hidden fees. No long-term contracts. Pay less than a part-time receptionist — get 10x the results. Questions? Call 844-687-7999.
             </p>
           </Reveal>
         </div>
@@ -187,15 +187,18 @@ const Pricing = () => {
                   </div>
 
                   <Button variant={plan.popular ? "neon" : "neon-outline"} size="lg" className="w-full" asChild>
-                    <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
+                    <a href={VOXMATION_PHONE_TEL} className="gap-2">
                       {plan.cta}
-                      <ArrowUpRight className="h-4 w-4" />
+                      <Phone className="h-4 w-4" />
                     </a>
                   </Button>
                 </motion.div>
               </Reveal>
             ))}
           </div>
+          <p className="mt-10 text-center text-sm text-silver font-mono">
+            Prefer to talk through plans? <a href={VOXMATION_PHONE_TEL} className="text-primary font-bold hover:underline">Call {VOXMATION_PHONE}</a>.
+          </p>
         </div>
       </section>
 

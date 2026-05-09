@@ -8,11 +8,13 @@ import IndustrySection from "@/components/IndustrySection";
 import BenefitsSection from "@/components/BenefitsSection";
 import SocialProofSection from "@/components/SocialProofSection";
 import ComparisonSection from "@/components/ComparisonSection";
+import HomePricingSection from "@/components/HomePricingSection";
 import FAQSection from "@/components/FAQSection";
 import FooterSection from "@/components/FooterSection";
 import FloatingCTA from "@/components/FloatingCTA";
 import IntegrationLogos from "@/components/IntegrationLogos";
 import VoiceDemonstration from "@/components/VoiceDemonstration";
+import MascotConciergeSection from "@/components/MascotConciergeSection";
 import SEOHead from "@/components/SEOHead";
 
 const Index = () => {
@@ -62,6 +64,7 @@ const Index = () => {
         <ProblemSection />
         <HowItWorksSection />
         <ServicesSection />
+        <MascotConciergeSection />
         <section className="border-t border-border py-24 md:py-32">
           <div className="container mx-auto px-6">
             <VoiceDemonstration
@@ -74,6 +77,7 @@ const Index = () => {
         <IndustrySection />
         <BenefitsSection />
         <ComparisonSection />
+        <HomePricingSection />
         <SocialProofSection />
         <FAQSection />
       </main>

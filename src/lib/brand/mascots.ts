@@ -30,7 +30,7 @@ export const mascots: Record<'ashley' | 'chris' | 'both', MascotConfig> = {
     alt: 'Ashley and Chris, VOXmatiON mascot team',
     role: 'Complete AI Solutions Team',
     recommendedUse: ['hero', 'cta-section', 'team-section'],
-    aspectRatio: '16 / 9',
+    aspectRatio: '4 / 5',
   },
 };
 
