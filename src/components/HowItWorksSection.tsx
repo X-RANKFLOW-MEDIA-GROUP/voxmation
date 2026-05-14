@@ -1,7 +1,6 @@
 import Reveal from "@/components/Reveal";
 import { motion } from "framer-motion";
 import { Search, Plug, Rocket } from "lucide-react";
-import MascotImage from "@/components/brand/MascotImage";
 
 const steps = [
   {
@@ -103,26 +102,6 @@ const HowItWorksSection = () => {
             </Reveal>
           ))}
         </div>
-
-        <Reveal delay={0.35}>
-          <div className="mt-14 max-w-4xl mx-auto surface-card rounded-3xl p-6 md:p-8 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/8 via-transparent to-warning/8 pointer-events-none" />
-            <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-                className="shrink-0"
-              >
-                <MascotImage type="ashley" size="md" className="w-36 md:w-44" />
-              </motion.div>
-              <div>
-                <p className="text-xs tracking-[0.15em] uppercase text-primary font-mono mb-2">Ashley guides setup</p>
-                <h3 className="text-2xl font-display font-bold text-foreground mb-2">A friendly handoff from first call to booked appointment.</h3>
-                <p className="text-silver leading-relaxed">Use the mascot throughout the process to make the voice AI feel approachable while keeping the technical workflow clear and professional.</p>
-              </div>
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

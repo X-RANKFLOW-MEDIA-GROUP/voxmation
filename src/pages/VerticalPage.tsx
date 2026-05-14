@@ -1,21 +1,38 @@
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { verticalsData } from "@/data/seoData";
-import { generateFaqSchema, generateSoftwareApplicationSchema } from "@/lib/schemaHelpers";
+import { generateFaqSchema, generateSoftwareApplicationSchema, generateBreadcrumbSchema } from "@/lib/schemaHelpers";
 import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/FooterSection";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import Reveal from "@/components/Reveal";
+import { Button } from "@/components/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+
+// Industry page slugs that should redirect to IndustryPage
+const industryPageSlugs = [
+  "ai-voice-agent-for-plumbers",
+  "ai-receptionist-electricians", 
+  "ai-booking-agent-spa-salon",
+  "ai-intake-agent-law-office",
+  "ai-voice-agent-hvac",
+];
 
 export default function VerticalPage() {
-  const { vertical } = useParams<{ vertical: string }>();
-  const data = vertical ? verticalsData[vertical as keyof typeof verticalsData] : null;
+  const { slug } = useParams<{ slug: string }>();
+  
+  // Check if this slug should be handled by IndustryPage
+  if (slug && industryPageSlugs.includes(slug)) {
+    // Render IndustryPage component inline to avoid redirect loop
+    const IndustryPage = require("./IndustryPage").default;
+    return <IndustryPage />;
+  }
+  
+  // Check for vertical data
+  const data = slug ? verticalsData[slug as keyof typeof verticalsData] : null;
 
   if (!data) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-xl text-text-secondary">Industry not found.</p>
-      </div>
-    );
+    return <Navigate to="/404" replace />;
   }
 
   const Icon = data.icon || (() => null);

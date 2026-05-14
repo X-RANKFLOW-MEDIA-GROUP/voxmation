@@ -11,7 +11,6 @@ import Index from "./pages/Index";
 import HomeTest from "./pages/HomeTest";
 import Demo from "./pages/Demo";
 import Pricing from "./pages/Pricing";
-import Contact from "./pages/Contact";
 import ROICalculator from "./pages/ROICalculator";
 import IndustryPage from "./pages/IndustryPage";
 import Auth from "./pages/Auth";
@@ -30,6 +29,7 @@ import CaseStudies from "./pages/CaseStudies";
 import UseCaseDetail from "./pages/UseCaseDetail";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Contact from "./pages/Contact";
 import VerticalPage from "./pages/VerticalPage";
 import StateVerticalPage from "./pages/StateVerticalPage";
 import ComparisonPage from "./pages/ComparisonPage";
@@ -53,30 +53,22 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
+              {/* Static routes first - these take priority */}
               <Route path="/" element={<Index />} />
               <Route path="/home-test" element={<HomeTest />} />
               <Route path="/demo" element={<Demo />} />
               <Route path="/pricing" element={<Pricing />} />
-              <Route path="/contact" element={<Contact />} />
               <Route path="/roi-calculator" element={<ROICalculator />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/use-cases" element={<UseCases />} />
               <Route path="/use-cases/:slug" element={<UseCaseDetail />} />
               <Route path="/industries" element={<Industries />} />
               <Route path="/case-studies" element={<CaseStudies />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
-              
-              {/* Vertical Pillar Pages */}
-              <Route path="/:vertical" element={<VerticalPage />} />
-              <Route path="/:vertical/:state" element={<StateVerticalPage />} />
-              
-              {/* Comparison Pages */}
-              <Route path="/vs-:slug" element={<ComparisonPage />} />
-              
-              {/* Resource Pages */}
-              <Route path="/resources/:slug" element={<ResourcePage />} />
-              
               <Route path="/auth" element={<Auth />} />
+              
+              {/* Portal routes - protected */}
               <Route path="/portal" element={<PortalPage><Dashboard /></PortalPage>} />
               <Route path="/portal/voice-agent" element={<PortalPage><VoiceAgent /></PortalPage>} />
               <Route path="/portal/missed-calls" element={<PortalPage><MissedCalls /></PortalPage>} />
@@ -86,7 +78,20 @@ const App = () => (
               <Route path="/portal/integrations" element={<PortalPage><Integrations /></PortalPage>} />
               <Route path="/portal/billing" element={<PortalPage><Billing /></PortalPage>} />
               <Route path="/portal/support" element={<PortalPage><Support /></PortalPage>} />
-              <Route path="/:slug" element={<IndustryPage />} />
+              
+              {/* Comparison Pages - specific pattern before dynamic */}
+              <Route path="/vs-:slug" element={<ComparisonPage />} />
+              
+              {/* Resource Pages */}
+              <Route path="/resources/:slug" element={<ResourcePage />} />
+              
+              {/* Dynamic SEO pages - vertical pillar pages with state variations */}
+              <Route path="/:vertical/:state" element={<StateVerticalPage />} />
+              
+              {/* Single segment dynamic routes - vertical pages first, then industry pages as fallback */}
+              <Route path="/:slug" element={<VerticalPage />} />
+              
+              {/* 404 fallback */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
