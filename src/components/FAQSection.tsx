@@ -4,7 +4,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const faqs = [
   {
     q: "How long does setup take?",
-    a: "Most businesses are live within 24–48 hours for call answering, then we continue refining CRM integration, AI training, workflow setup, and testing with your team.",
+    a: "Most businesses are live within 7–14 days. We handle everything — CRM integration, AI training, workflow setup, and testing. You don't have to lift a finger.",
   },
   {
     q: "Will the AI sound robotic to my customers?",
@@ -12,27 +12,19 @@ const faqs = [
   },
   {
     q: "Does it work with my existing CRM and tools?",
-    a: "Yes. We integrate with ServiceTitan, Jobber, Housecall Pro, GoHighLevel, HubSpot, Pipedrive, JobNimbus, Zoho, and most major CRMs and scheduling tools. Our team handles the entire setup.",
+    a: "Yes. We integrate with ServiceTitan, Jobber, Housecall Pro, GoHighLevel, HubSpot, Zoho, and most major CRMs and scheduling tools. Our team handles the entire setup.",
   },
   {
     q: "What happens if the AI can't handle a call?",
     a: "Smart escalation is built in. If a conversation exceeds the AI's scope, it seamlessly transfers to your team with full context — so nothing is lost.",
   },
   {
-    q: "What if I need help?",
-    a: "Support is available 24/7. Call 844-687-7999 or email support@voxmation.com anytime.",
-  },
-  {
     q: "Is there a long-term contract?",
     a: "No. We operate month-to-month because we believe our results speak for themselves. You stay because the ROI is undeniable, not because of a contract.",
   },
   {
-    q: "How much does Voxmation cost?",
-    a: "Plans start at $297/month with a 14-day free trial. Call 844-687-7999 for a custom quote based on your call volume, locations, and integrations.",
-  },
-  {
-    q: "Can I try it free first?",
-    a: "Yes. You can start with a 14-day free trial with no credit card required. Call 844-687-7999 or book a demo to get started.",
+    q: "How much does it cost?",
+    a: "Pricing depends on your call volume and the services you need. Most home service businesses pay less than the cost of a part-time receptionist. Book a demo and we'll give you a custom quote.",
   },
   {
     q: "Will this work for my specific type of business?",

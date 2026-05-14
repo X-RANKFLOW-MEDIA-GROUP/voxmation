@@ -48,7 +48,6 @@ export function generateOrganizationSchema() {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Customer Support",
-      telephone: "844-687-7999",
       email: "support@voxmation.com",
       availableLanguage: ["English"]
     }

@@ -1,19 +1,50 @@
+# Voxmation - AI Voice Agents for Home Service Businesses
+# https://voxmation.com
+
 User-agent: *
 Allow: /
-Disallow: /portal
 Disallow: /portal/
+Disallow: /portal
 Disallow: /auth
+Disallow: /api/
+Disallow: /_next/
+Disallow: /home-test
 
+# Allow important crawlers full access
 User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Social media crawlers for rich previews
 User-agent: Twitterbot
 Allow: /
 
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Pinterest
+Allow: /
+
+# Crawl-delay to be polite to servers
+User-agent: *
+Crawl-delay: 1
+
+# Sitemaps
 Sitemap: https://voxmation.com/sitemap.xml
+
+# Host
+Host: https://voxmation.com

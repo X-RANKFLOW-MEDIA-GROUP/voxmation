@@ -1,0 +1,43 @@
+{
+  "name": "Voxmation - AI Voice Agents for Home Service Businesses",
+  "short_name": "Voxmation",
+  "description": "AI Voice Agents that answer every call, follow up with every lead, and book appointments 24/7 for HVAC, plumbing, electrical, and home service businesses.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Voxmation AI Voice Agent Dashboard"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

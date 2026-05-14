@@ -1,10 +1,8 @@
 import { Button } from "@/components/ui/button";
 import Reveal from "@/components/Reveal";
-import MascotImage from "@/components/brand/MascotImage";
-import { ArrowUpRight, Mail, Phone } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { VOXMATION_PHONE, VOXMATION_PHONE_TEL, VOXMATION_SUPPORT_EMAIL, VOXMATION_SUPPORT_MAILTO } from "@/lib/contact";
 
 const FooterSection = () => {
   return (
@@ -22,13 +20,6 @@ const FooterSection = () => {
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
               
               <div className="relative z-10">
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="mb-8 flex justify-center"
-                >
-                  <MascotImage type="both" size="lg" className="w-44 md:w-56 drop-shadow-2xl" />
-                </motion.div>
                 <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono mb-8 block">
                   Ready to Grow?
                 </span>
@@ -50,33 +41,14 @@ const FooterSection = () => {
                     </a>
                   </Button>
                   <Button variant="neon-outline" size="xl" asChild>
-                    <a href={VOXMATION_PHONE_TEL} className="gap-2">
-                      <Phone className="h-4 w-4" />
-                      Call {VOXMATION_PHONE}
+                    <a href="#services" className="gap-2">
+                      Explore Services
                     </a>
                   </Button>
                 </div>
               </div>
             </motion.div>
           </Reveal>
-        </div>
-      </div>
-
-      <div className="border-t border-border py-10">
-        <div className="container mx-auto px-6">
-          <div className="surface-card rounded-2xl p-6 max-w-4xl mx-auto text-center">
-            <h3 className="text-xl font-display font-bold text-silver-bright mb-4">Get in Touch</h3>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm font-mono">
-              <a href={VOXMATION_PHONE_TEL} className="inline-flex items-center gap-2 text-primary hover:underline">
-                <Phone className="h-4 w-4" />
-                Phone: {VOXMATION_PHONE} (24/7)
-              </a>
-              <a href={VOXMATION_SUPPORT_MAILTO} className="inline-flex items-center gap-2 text-primary hover:underline">
-                <Mail className="h-4 w-4" />
-                Email: {VOXMATION_SUPPORT_EMAIL}
-              </a>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -91,7 +63,6 @@ const FooterSection = () => {
               { label: "Pricing", to: "/pricing" },
               { label: "ROI Calculator", to: "/roi-calculator" },
               { label: "Demo", to: "/demo" },
-              { label: "Contact", to: "/contact" },
               { label: "Book a Call", href: "https://cal.com/voxmation/meeting" },
             ].map((link) => (
               'to' in link ? (
