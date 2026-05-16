@@ -42,7 +42,7 @@ export default function ResourcePage() {
         <div className="prose prose-invert max-w-none">
           <div className="bg-zinc-800 rounded-lg p-8 border border-zinc-700 mb-12">
             <p className="text-lg text-text-secondary leading-relaxed">
-              This comprehensive guide covers everything {data.name || "contractors"} need to know about {data.slug === "hvac-roi-calculator" ? "calculating ROI" : data.slug === "ai-voice-agent-compliance-home-service" ? "compliance requirements" : "missed call recovery"}.
+              This comprehensive guide covers everything contractors need to know about {data.slug === "hvac-roi-calculator" ? "calculating ROI" : data.slug === "ai-voice-agent-compliance-home-service" ? "compliance requirements" : "missed call recovery"}.
             </p>
           </div>
 

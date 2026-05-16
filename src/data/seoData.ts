@@ -1,4 +1,6 @@
 // Vertical industries data for SEO
+import type { ComponentType } from "react";
+
 export interface Vertical {
   slug: string;
   name: string;
@@ -12,6 +14,7 @@ export interface Vertical {
   benefits: { title: string; description: string }[];
   complianceNote: string;
   faqItems: { q: string; a: string }[];
+  icon?: ComponentType<{ className?: string }>;
 }
 
 export interface StateData {
