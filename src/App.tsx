@@ -10,6 +10,8 @@ import PortalLayout from "@/components/portal/PortalLayout";
 import Index from "./pages/Index";
 import HomeTest from "./pages/HomeTest";
 import Demo from "./pages/Demo";
+import TrialBuilder from "./pages/TrialBuilder";
+import TrialStart from "./pages/TrialStart";
 import Pricing from "./pages/Pricing";
 import ROICalculator from "./pages/ROICalculator";
 import IndustryPage from "./pages/IndustryPage";
@@ -67,6 +69,8 @@ const App = () => (
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/trial-builder" element={<TrialBuilder />} />
+              <Route path="/trial/start" element={<TrialStart />} />
               
               {/* Portal routes - protected */}
               <Route path="/portal" element={<PortalPage><Dashboard /></PortalPage>} />
