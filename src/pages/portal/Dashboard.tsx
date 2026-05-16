@@ -26,15 +26,6 @@ const demoLeadFunnel = [
   { stage: "Booked", count: 98 },
 ];
 
-const recentActivity = [
-  { time: "2 min ago", text: "AI booked HVAC repair for Sarah M.", type: "booked" },
-  { time: "15 min ago", text: "Missed call recovered — SMS sent to (512) 555-0147", type: "recovered" },
-  { time: "32 min ago", text: "New lead captured: Mike T. — Plumbing", type: "new" },
-  { time: "1h ago", text: "AI completed call — 4m 23s — Appointment booked", type: "completed" },
-  { time: "1h 45m ago", text: "Follow-up SMS sent to 3 leads", type: "active" },
-  { time: "2h ago", text: "Reminder sent for tomorrow's appointment", type: "active" },
-];
-
 type ActivityType = "booked" | "recovered" | "new" | "completed" | "active";
 
 type ActivityItem = {
@@ -42,6 +33,15 @@ type ActivityItem = {
   text: string;
   type: ActivityType;
 };
+
+const recentActivity: ActivityItem[] = [
+  { time: "2 min ago", text: "AI booked HVAC repair for Sarah M.", type: "booked" },
+  { time: "15 min ago", text: "Missed call recovered — SMS sent to (512) 555-0147", type: "recovered" },
+  { time: "32 min ago", text: "New lead captured: Mike T. — Plumbing", type: "new" },
+  { time: "1h ago", text: "AI completed call — 4m 23s — Appointment booked", type: "completed" },
+  { time: "1h 45m ago", text: "Follow-up SMS sent to 3 leads", type: "active" },
+  { time: "2h ago", text: "Reminder sent for tomorrow's appointment", type: "active" },
+];
 
 const getPayloadRecord = <T extends object>(payload: RealtimePostgresChangesPayload<T>) =>
   (payload.new ?? {}) as Partial<T>;

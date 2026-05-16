@@ -1,6 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
+type WebKitAudioWindow = Window & typeof globalThis & {
+  webkitAudioContext?: typeof AudioContext;
+};
+
 interface VisualizerWaveProps {
   isPlaying: boolean;
   audioElement?: HTMLAudioElement;
@@ -26,13 +30,16 @@ export const VisualizerWave = ({
 
     try {
       // Create audio context and analyser
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const AudioContextConstructor = window.AudioContext || (window as WebKitAudioWindow).webkitAudioContext;
+      if (!AudioContextConstructor) return;
+
+      const audioContext = new AudioContextConstructor();
       const analyser = audioContext.createAnalyser();
       analyser.fftSize = 256;
       analyser.smoothingTimeConstant = 0.85;
 
       // Connect audio element to analyser
-      const source = audioContext.createMediaElementAudioSource(audioElement);
+      const source = audioContext.createMediaElementSource(audioElement);
       source.connect(analyser);
       analyser.connect(audioContext.destination);
 

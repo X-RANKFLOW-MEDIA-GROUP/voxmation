@@ -8,6 +8,7 @@ import { ArrowRight, Check } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import IndustryPage from "./IndustryPage";
 
 // Industry page slugs that should redirect to IndustryPage
 const industryPageSlugs = [
@@ -24,7 +25,6 @@ export default function VerticalPage() {
   // Check if this slug should be handled by IndustryPage
   if (slug && industryPageSlugs.includes(slug)) {
     // Render IndustryPage component inline to avoid redirect loop
-    const IndustryPage = require("./IndustryPage").default;
     return <IndustryPage />;
   }
   
