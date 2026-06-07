@@ -60,10 +60,13 @@ const FooterSection = () => {
           </span>
           <div className="flex flex-wrap gap-8 justify-center">
             {[
+              { label: "Services", to: "/services" },
               { label: "How It Works", to: "/how-it-works" },
               { label: "Missed Call Recovery", to: "/missed-call-recovery" },
               { label: "Pricing", to: "/pricing" },
-              { label: "ROI Calculator", to: "/roi-calculator" },
+              { label: "ROI Calculator", to: "/tools/missed-call-roi-calculator" },
+              { label: "Industries", to: "/industries" },
+              { label: "About", to: "/about" },
               { label: "Demo", to: "/demo" },
               { label: "Book a Call", href: "https://cal.com/voxmation/meeting" },
             ].map((link) => (

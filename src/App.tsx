@@ -12,6 +12,12 @@ import HomeTest from "./pages/HomeTest";
 import Demo from "./pages/Demo";
 import HowItWorksPage from "./pages/HowItWorks";
 import MissedCallRecovery from "./pages/MissedCallRecovery";
+import Services from "./pages/Services";
+import About from "./pages/About";
+import MissedCallRoiCalculator from "./pages/MissedCallRoiCalculator";
+import IndustryReceptionistPage from "./pages/IndustryReceptionistPage";
+import ComparePage from "./pages/ComparePage";
+import AlternativePage from "./pages/AlternativePage";
 import TrialBuilder from "./pages/TrialBuilder";
 import TrialStart from "./pages/TrialStart";
 import Pricing from "./pages/Pricing";
@@ -63,8 +69,11 @@ const App = () => (
               <Route path="/demo" element={<Demo />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/missed-call-recovery" element={<MissedCallRecovery />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/about" element={<About />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/roi-calculator" element={<ROICalculator />} />
+              <Route path="/tools/missed-call-roi-calculator" element={<MissedCallRoiCalculator />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/use-cases" element={<UseCases />} />
               <Route path="/use-cases/:slug" element={<UseCaseDetail />} />
@@ -89,7 +98,12 @@ const App = () => (
               
               {/* Comparison Pages - specific pattern before dynamic */}
               <Route path="/vs-:slug" element={<ComparisonPage />} />
-              
+              <Route path="/compare/:slug" element={<ComparePage />} />
+              <Route path="/alternatives/:slug" element={<AlternativePage />} />
+
+              {/* Industry AI receptionist pages */}
+              <Route path="/industries/:slug" element={<IndustryReceptionistPage />} />
+
               {/* Resource Pages */}
               <Route path="/resources/:slug" element={<ResourcePage />} />
               
