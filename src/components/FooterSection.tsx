@@ -60,6 +60,8 @@ const FooterSection = () => {
           </span>
           <div className="flex flex-wrap gap-8 justify-center">
             {[
+              { label: "How It Works", to: "/how-it-works" },
+              { label: "Missed Call Recovery", to: "/missed-call-recovery" },
               { label: "Pricing", to: "/pricing" },
               { label: "ROI Calculator", to: "/roi-calculator" },
               { label: "Demo", to: "/demo" },

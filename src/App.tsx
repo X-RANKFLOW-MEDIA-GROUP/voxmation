@@ -10,6 +10,8 @@ import PortalLayout from "@/components/portal/PortalLayout";
 import Index from "./pages/Index";
 import HomeTest from "./pages/HomeTest";
 import Demo from "./pages/Demo";
+import HowItWorksPage from "./pages/HowItWorks";
+import MissedCallRecovery from "./pages/MissedCallRecovery";
 import TrialBuilder from "./pages/TrialBuilder";
 import TrialStart from "./pages/TrialStart";
 import Pricing from "./pages/Pricing";
@@ -59,6 +61,8 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/home-test" element={<HomeTest />} />
               <Route path="/demo" element={<Demo />} />
+              <Route path="/how-it-works" element={<HowItWorksPage />} />
+              <Route path="/missed-call-recovery" element={<MissedCallRecovery />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/roi-calculator" element={<ROICalculator />} />
               <Route path="/contact" element={<Contact />} />

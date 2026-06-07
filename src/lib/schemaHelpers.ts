@@ -35,22 +35,39 @@ export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://voxmation.com/#organization",
     name: "Voxmation",
+    legalName: "Voxmation LLC",
+    alternateName: ["VOXmatiON", "Voxmation AI", "Voxmation AI Receptionist"],
     url: "https://voxmation.com",
-    logo: "https://voxmation.com/logo.png",
+    logo: "https://voxmation.com/Logo.PNG",
     description: "AI voice agents for home service contractors. Answer every call, qualify leads, and book appointments 24/7.",
+    disambiguatingDescription:
+      "Voxmation (voxmation.com) is a US-based AI phone answering and missed-call recovery platform for home service contractors. It is not affiliated with Voxme inventory software, Voxmotion Agency, or VoxMachine.",
     foundingDate: "2023",
     sameAs: [
       "https://www.linkedin.com/company/voxmation",
-      "https://twitter.com/voxmation",
+      "https://x.com/voxmation",
+      "https://instagram.com/voxmation",
       "https://www.facebook.com/voxmation"
     ],
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "Customer Support",
-      email: "support@voxmation.com",
-      availableLanguage: ["English"]
-    }
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        telephone: "+1-844-687-7999",
+        email: "sales@voxmation.com",
+        url: "https://cal.com/voxmation/meeting",
+        availableLanguage: ["English"]
+      },
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        telephone: "+1-844-687-7999",
+        email: "support@voxmation.com",
+        availableLanguage: ["English"]
+      }
+    ]
   };
 }
 
