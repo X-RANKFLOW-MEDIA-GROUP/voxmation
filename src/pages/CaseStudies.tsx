@@ -6,77 +6,79 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 
+// Illustrative scenarios — not verified client case studies. Each describes how
+// the platform handles a common situation. No invented metrics or named clients.
 const caseStudies = [
   {
-    company: "Premier Plumbing Co.",
-    result: "35% Revenue Increase in 60 Days",
+    company: "Plumbing company",
+    result: "After-Hours Calls, Answered",
     industry: "Plumbing",
-    quote: "We were losing 40% of our after-hours calls. Now our AI answers every single one and books the job. Revenue is up 35% in 60 days.",
-    author: "Marcus D., Owner",
+    quote: "After-hours emergency calls that used to reach voicemail are answered, triaged by urgency, and booked automatically — turning missed calls into jobs.",
+    author: "Illustrative scenario",
     metrics: [
-      { label: "More booked jobs", value: "+40%" },
-      { label: "After-hours capture", value: "100%" },
-      { label: "Response time", value: "< 1s" },
+      { label: "Call answering", value: "24/7" },
+      { label: "After-hours capture", value: "Every call" },
+      { label: "Response time", value: "< 2s" },
     ],
   },
   {
-    company: "R&R Electrical Services",
-    result: "3x More Qualified Leads",
+    company: "Electrical company",
+    result: "Every Lead Qualified",
     industry: "Electrical",
-    quote: "Voxmation replaced our answering service and it's not even close. The AI qualifies leads better than our $15/hr receptionist did.",
-    author: "James R., Owner",
+    quote: "Instead of an answering service taking a message, the AI answers and qualifies every inbound call, capturing leads that would otherwise be missed.",
+    author: "Illustrative scenario",
     metrics: [
-      { label: "Leads per week", value: "+300%" },
-      { label: "Cost savings", value: "-70%" },
-      { label: "Lead quality", value: "+150%" },
+      { label: "Lead capture", value: "Every call" },
+      { label: "Availability", value: "24/7" },
+      { label: "Response time", value: "< 2s" },
     ],
   },
   {
-    company: "Bright Smile Dental & Spa",
-    result: "89% Fewer No-Shows",
+    company: "Dental & spa practice",
+    result: "Fewer No-Shows",
     industry: "Dental/Spa",
-    quote: "No-shows dropped by 89% after we deployed the AI reminder system. Patients love it. Staff loves it. Revenue loves it.",
-    author: "Dr. Patel, Practice Owner",
+    quote: "Automated confirmations and reminder sequences help keep the calendar full and reduce no-shows, while after-hours booking captures clients around the clock.",
+    author: "Illustrative scenario",
     metrics: [
-      { label: "No-show reduction", value: "-89%" },
-      { label: "After-hours bookings", value: "+60%" },
-      { label: "Satisfaction score", value: "4.9★" },
+      { label: "Reminders", value: "Automated" },
+      { label: "After-hours booking", value: "24/7" },
+      { label: "Confirmations", value: "Instant" },
     ],
   },
   {
-    company: "Westbrook Law Group",
-    result: "3x More Signed Cases",
+    company: "Law firm",
+    result: "First to Respond",
     industry: "Law",
-    quote: "We signed 3x more cases last quarter because Voxmation responds to inquiries instantly. First to respond wins in legal.",
-    author: "Chris W., Managing Partner",
+    quote: "Prospective-client intake calls are answered and qualified instantly, so the firm responds before the competition — first to respond often wins in legal.",
+    author: "Illustrative scenario",
     metrics: [
-      { label: "Cases signed", value: "+3x" },
-      { label: "Response time", value: "< 1s" },
-      { label: "Lead completion", value: "95%" },
+      { label: "Intake answering", value: "24/7" },
+      { label: "Response time", value: "< 2s" },
+      { label: "Lead capture", value: "Every call" },
     ],
   },
   {
-    company: "StormShield HVAC",
-    result: "312% More Inspections",
+    company: "HVAC company",
+    result: "Storm-Surge Coverage",
     industry: "HVAC",
-    quote: "We went from missing 60% of storm-season calls to capturing every single one. Booked 312% more inspections last quarter.",
-    author: "Mike T., Operations Manager",
+    quote: "During storm-season and heat-wave surges, the AI answers unlimited concurrent calls so every inbound lead is captured and booked for service.",
+    author: "Illustrative scenario",
     metrics: [
-      { label: "More booked jobs", value: "+40%" },
-      { label: "Storm season capture", value: "100%" },
-      { label: "More inspections", value: "+312%" },
+      { label: "Surge capacity", value: "Unlimited" },
+      { label: "Call capture", value: "Every call" },
+      { label: "Availability", value: "24/7" },
     ],
   },
   {
-    company: "Elite Cleaning Solutions",
-    result: "45% More Service Calls",
+    company: "Cleaning company",
+    result: "Inquiries Captured in the Field",
     industry: "Cleaning Services",
-    quote: "After implementing Voxmation, we're booking 45% more service calls. The AI handles inquiry calls perfectly while we're in the field.",
-    author: "Sarah L., CEO",
+    quote: "While crews are on the job, the AI answers inquiry calls, qualifies them, and books service — so leads aren't lost when no one can pick up.",
+    author: "Illustrative scenario",
     metrics: [
-      { label: "Service calls booked", value: "+45%" },
-      { label: "Response accuracy", value: "98%" },
-      { label: "Customer satisfaction", value: "4.8★" },
+      { label: "Inquiry answering", value: "24/7" },
+      { label: "Lead capture", value: "Every call" },
+      { label: "Booking", value: "Automated" },
     ],
   },
 ];
@@ -94,8 +96,8 @@ const CaseStudies = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Case Studies | How Voxmation Helped Businesses Grow Revenue"
-        description="Real results from real businesses. See how HVAC, plumbing, dental, and other service businesses increased revenue and eliminated missed calls with Voxmation AI."
+        title="Use Cases | How Voxmation Handles Calls Across Industries"
+        description="Illustrative examples of how Voxmation handles calls for HVAC, plumbing, dental, legal, and other service businesses — answering, qualifying, and booking 24/7."
         path="/case-studies"
         jsonLd={[breadcrumbSchema]}
       />
@@ -113,12 +115,17 @@ const CaseStudies = () => {
             </Reveal>
             <Reveal delay={0.1}>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-silver-bright mb-6 tracking-[-0.02em] leading-[1.1]">
-                Proven Results Across Industries
+                How Voxmation Works Across Industries
               </h1>
             </Reveal>
             <Reveal delay={0.15}>
-              <p className="text-silver text-lg md:text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
-                From 35% revenue increases to 89% fewer no-shows. Here's what real businesses achieved with Voxmation.
+              <p className="text-silver text-lg md:text-xl leading-relaxed mb-4 max-w-2xl mx-auto">
+                Illustrative examples of how Voxmation answers, qualifies, and books calls for service businesses.
+              </p>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="text-silver/60 text-xs md:text-sm mb-8 max-w-2xl mx-auto italic">
+                These are illustrative scenarios, not verified client results. Contact us for references.
               </p>
             </Reveal>
           </div>

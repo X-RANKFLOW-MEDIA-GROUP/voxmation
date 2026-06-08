@@ -48,6 +48,19 @@ const BlogPost = () => {
     keywords: post.keywords.join(", "),
   };
 
+  const faqSchema =
+    post.faqs && post.faqs.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: post.faqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }
+      : null;
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -55,7 +68,7 @@ const BlogPost = () => {
         description={post.metaDescription}
         path={`/blog/${post.slug}`}
         type="article"
-        jsonLd={[breadcrumbSchema, articleSchema]}
+        jsonLd={faqSchema ? [breadcrumbSchema, articleSchema, faqSchema] : [breadcrumbSchema, articleSchema]}
       />
       <Navbar />
 
@@ -164,6 +177,31 @@ const BlogPost = () => {
           </Reveal>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      {post.faqs && post.faqs.length > 0 && (
+        <section className="pb-8 md:pb-12">
+          <div className="container mx-auto px-6">
+            <div className="max-w-3xl mx-auto">
+              <Reveal>
+                <h2 className="text-2xl md:text-3xl font-display font-bold text-silver-bright mb-6 tracking-[-0.02em]">
+                  Frequently Asked Questions
+                </h2>
+              </Reveal>
+              <div className="space-y-4">
+                {post.faqs.map((f, i) => (
+                  <Reveal key={f.q} delay={0.05 * i}>
+                    <div className="surface-card rounded-2xl p-6">
+                      <h3 className="text-base font-display font-semibold text-foreground mb-2">{f.q}</h3>
+                      <p className="text-silver text-sm leading-relaxed">{f.a}</p>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 md:py-28 relative">

@@ -39,13 +39,6 @@ const Index = () => {
               priceCurrency: "USD",
               offerCount: "3",
             },
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: "4.9",
-              reviewCount: "87",
-              bestRating: "5",
-              worstRating: "1",
-            },
             featureList: [
               "24/7 AI Call Answering",
               "Missed Call Text-Back",
@@ -83,11 +76,6 @@ const Index = () => {
               price: "297",
               priceValidUntil: "2027-12-31",
               availability: "https://schema.org/InStock",
-            },
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: "4.9",
-              reviewCount: "87",
             },
           },
           {

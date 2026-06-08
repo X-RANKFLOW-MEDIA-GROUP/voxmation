@@ -6,8 +6,8 @@ const benefits = [
   {
     icon: Zap,
     title: "Speed to Lead",
-    desc: "Respond to every inquiry in under 1 second. The first business to respond wins 78% of the time.",
-    metric: "< 1s",
+    desc: "Respond to every inquiry in seconds. The first business to respond usually wins the job.",
+    metric: "< 2s",
   },
   {
     icon: PhoneOff,
@@ -19,7 +19,7 @@ const benefits = [
     icon: CalendarCheck,
     title: "More Booked Jobs",
     desc: "Automated booking fills your calendar without lifting a finger. More appointments, more revenue.",
-    metric: "+40%",
+    metric: "Automated",
   },
   {
     icon: UserCheck,
@@ -30,8 +30,8 @@ const benefits = [
   {
     icon: TrendingUp,
     title: "Higher ROI",
-    desc: "Most clients see positive ROI within 30 days. No long-term contracts — results speak for themselves.",
-    metric: "30 days",
+    desc: "Estimate your potential return using your own call volume and job value. No long-term contracts.",
+    metric: "No contract",
   },
 ];
 

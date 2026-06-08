@@ -37,7 +37,7 @@ const industries: Record<string, IndustryData> = {
     benefits: [
       { title: "24/7 Emergency Booking", desc: "Your AI answers plumbing emergencies around the clock — no missed revenue from after-hours calls." },
       { title: "Instant Lead Capture", desc: "Every caller's info is captured, qualified, and synced to your CRM before you even wake up." },
-      { title: "Reduced No-Shows", desc: "Automated confirmation texts and reminders cut no-shows by up to 89%." },
+      { title: "Reduced No-Shows", desc: "Automated confirmation texts and reminders help reduce no-shows." },
     ],
     faqs: [
       { q: "Can the AI handle emergency plumbing calls?", a: "Yes. The AI is trained to identify emergency vs. routine calls, collect the right info (address, issue type, urgency), and book the appropriate slot." },
@@ -46,8 +46,8 @@ const industries: Record<string, IndustryData> = {
       { q: "How fast is setup for a plumbing company?", a: "Most plumbing businesses are live within 7-14 days. We handle everything — scripts, integrations, and testing." },
       { q: "How much does it cost compared to an answering service?", a: "Significantly less. Most plumbing companies pay under $500/month — a fraction of what traditional answering services charge, with better results." },
     ],
-    testimonial: { quote: "We were losing 40% of our after-hours calls. Now our AI answers every single one and books the job. Revenue is up 35% in 60 days.", name: "Marcus D.", role: "Owner", company: "Premier Plumbing Co." },
-    stats: [{ label: "More booked jobs", value: "+40%" }, { label: "Avg. response time", value: "< 1s" }, { label: "After-hours capture rate", value: "100%" }],
+    testimonial: { quote: "After-hours calls that used to reach voicemail are now answered and booked automatically — turning missed calls into jobs.", name: "Illustrative example", role: "Use case", company: "" },
+    stats: [{ label: "Call answering", value: "24/7" }, { label: "Response time", value: "< 2s" }, { label: "After-hours capture", value: "Every call" }],
   },
   "ai-receptionist-electricians": {
     slug: "ai-receptionist-electricians",
@@ -70,21 +70,21 @@ const industries: Record<string, IndustryData> = {
       { q: "How quickly can I be set up?", a: "7-14 days. We customize scripts for your electrical business and test everything before going live." },
       { q: "Can it send follow-up texts to leads?", a: "Yes. Missed call text-back, appointment confirmations, and follow-up sequences are all automated." },
     ],
-    testimonial: { quote: "Voxmation replaced our answering service and it's not even close. The AI qualifies leads better than our $15/hr receptionist did.", name: "James R.", role: "Owner", company: "R&R Electrical Services" },
-    stats: [{ label: "Hours saved/week", value: "15+" }, { label: "Lead capture rate", value: "100%" }, { label: "Cost vs. receptionist", value: "-70%" }],
+    testimonial: { quote: "The AI answers and qualifies every inbound call, capturing leads that an answering service would have only taken a message for.", name: "Illustrative example", role: "Use case", company: "" },
+    stats: [{ label: "Lead capture", value: "Every call" }, { label: "Availability", value: "24/7" }, { label: "Response time", value: "< 2s" }],
   },
   "ai-booking-agent-spa-salon": {
     slug: "ai-booking-agent-spa-salon",
     name: "Spa & Salon",
     icon: Sparkles,
     headline: "Book More Appointments — Even After Hours",
-    subheadline: "Your AI books appointments, sends confirmations, and reduces no-shows by 89%. All while your spa is closed.",
+    subheadline: "Your AI books appointments, sends confirmations, and helps reduce no-shows. All while your spa is closed.",
     keyword: "AI appointment booking for spas",
-    metaDesc: "AI booking agent for spas and salons. 24/7 appointment scheduling, automated reminders, and 89% fewer no-shows. Start your free trial.",
+    metaDesc: "AI booking agent for spas and salons. 24/7 appointment scheduling, automated reminders, and fewer no-shows. Start your free trial.",
     heroScenario: "A client wants to book a facial at 10 PM. Your office is closed. Without AI, they book with a competitor. With Voxmation, your AI books the appointment instantly, sends confirmation, and triggers a reminder sequence.",
     benefits: [
       { title: "24/7 Appointment Booking", desc: "Clients book anytime — evenings, weekends, holidays. Never lose a booking to closed hours." },
-      { title: "89% Fewer No-Shows", desc: "Automated confirmation texts and reminders dramatically reduce missed appointments." },
+      { title: "Fewer No-Shows", desc: "Automated confirmation texts and reminders help reduce missed appointments." },
       { title: "Upsell on Autopilot", desc: "AI suggests add-on services during the booking flow to increase average ticket value." },
     ],
     faqs: [
@@ -94,8 +94,8 @@ const industries: Record<string, IndustryData> = {
       { q: "What about cancellations and rescheduling?", a: "The AI handles cancellations, rescheduling, and waitlist management automatically." },
       { q: "How does it reduce no-shows?", a: "Automated SMS confirmations 24h before, plus day-of reminders. Clients can confirm, cancel, or reschedule via text." },
     ],
-    testimonial: { quote: "No-shows dropped by 89% after we deployed the AI reminder system. Patients love it. Staff loves it. Revenue loves it.", name: "Dr. Patel", role: "Practice Owner", company: "Bright Smile Dental & Spa" },
-    stats: [{ label: "Fewer no-shows", value: "89%" }, { label: "After-hours bookings", value: "+60%" }, { label: "Client satisfaction", value: "4.9★" }],
+    testimonial: { quote: "Automated reminders and confirmations help keep the calendar full and reduce no-shows, while after-hours booking captures clients around the clock.", name: "Illustrative example", role: "Use case", company: "" },
+    stats: [{ label: "Reminders", value: "Automated" }, { label: "After-hours booking", value: "24/7" }, { label: "Confirmations", value: "Instant" }],
   },
   "ai-intake-agent-law-office": {
     slug: "ai-intake-agent-law-office",
@@ -118,8 +118,8 @@ const industries: Record<string, IndustryData> = {
       { q: "Can it screen for conflicts of interest?", a: "Yes. The AI can run basic conflict checks against names you provide during intake." },
       { q: "What about after-hours emergency calls?", a: "The AI handles them 24/7, qualifying urgency and escalating true emergencies to your designated attorney." },
     ],
-    testimonial: { quote: "We signed 3x more cases last quarter because Voxmation responds to inquiries instantly. First to respond wins in legal.", name: "Chris W.", role: "Managing Partner", company: "Westbrook Law Group" },
-    stats: [{ label: "More signed cases", value: "3x" }, { label: "Response time", value: "< 1s" }, { label: "Intake completion", value: "95%" }],
+    testimonial: { quote: "Prospective-client calls are answered and qualified instantly, so the firm responds first — and in legal, first to respond often wins.", name: "Illustrative example", role: "Use case", company: "" },
+    stats: [{ label: "Intake answering", value: "24/7" }, { label: "Response time", value: "< 2s" }, { label: "Lead capture", value: "Every call" }],
   },
   "ai-voice-agent-hvac": {
     slug: "ai-voice-agent-hvac",
@@ -142,8 +142,8 @@ const industries: Record<string, IndustryData> = {
       { q: "Can it provide estimates or pricing?", a: "The AI can share your standard pricing ranges and book an in-home estimate for custom quotes." },
       { q: "How does it handle seasonal maintenance plan upsells?", a: "We can configure the AI to mention your maintenance plans during relevant calls and capture interested leads." },
     ],
-    testimonial: { quote: "We went from missing 60% of storm-season calls to capturing every single one. Booked 312% more inspections last quarter.", name: "Mike T.", role: "Operations Manager", company: "StormShield HVAC" },
-    stats: [{ label: "More booked jobs", value: "+40%" }, { label: "Storm season capture", value: "100%" }, { label: "More inspections", value: "+312%" }],
+    testimonial: { quote: "During storm-season surges, the AI answers unlimited concurrent calls so every inbound lead is captured and booked for an inspection.", name: "Illustrative example", role: "Use case", company: "" },
+    stats: [{ label: "Storm-surge capacity", value: "Unlimited" }, { label: "Call capture", value: "Every call" }, { label: "Availability", value: "24/7" }],
   },
 };
 
@@ -292,11 +292,10 @@ const IndustryPage = () => {
             <div className="max-w-2xl mx-auto surface-card rounded-2xl p-10 md:p-14 text-center relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-warning/30 to-transparent" />
               <p className="text-lg text-foreground font-display font-light leading-relaxed mb-6">
-                "{data.testimonial.quote}"
+                {data.testimonial.quote}
               </p>
-              <p className="text-xs text-silver-bright font-mono">{data.testimonial.name}</p>
-              <p className="text-[10px] text-silver font-mono mt-1">
-                {data.testimonial.role} · {data.testimonial.company}
+              <p className="text-[10px] text-silver font-mono mt-1 uppercase tracking-wider">
+                Illustrative example · {data.name}
               </p>
             </div>
           </Reveal>
