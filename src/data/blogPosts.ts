@@ -63,7 +63,7 @@ Voxmation is purpose-built for home service businesses. It understands your indu
 - Lead qualification and scoring
 - Real-time dashboards with revenue tracking
 
-**Pricing:** Starting at $299/month
+**Pricing:** Starting at $297/month
 **ROI:** Estimate your potential return with a missed-call ROI calculator based on your own call volume and job value
 
 ### 2. Retell AI
@@ -96,9 +96,7 @@ For a typical home service business:
 **Monthly revenue leak:** $20,000
 **Annual revenue leak:** $240,000
 
-With Voxmation at $299/month ($3,588/year), your ROI is clear:
-- Break-even: Day 1-2 (recovering just 2 missed calls)
-- Annual profit: $236,412
+With Voxmation starting at $297/month ($3,564/year), even recovering a small share of those missed calls can cover the cost many times over. The exact numbers depend on your call volume, average job value, and close rate — estimate yours with our missed call ROI calculator.
 
 ## Implementation Timeline
 
@@ -111,7 +109,7 @@ Most home service businesses are fully operational within 14 days.
 
 ## Conclusion
 
-For home service businesses, Voxmation is the clear winner. It's purpose-built for your industry, integrates with your existing tools, and delivers ROI within the first month.
+For home service businesses, Voxmation is built for your industry, integrates with your existing tools, and is designed to pay for itself by recovering revenue you're currently losing to missed calls.
 
 Don't let missed calls keep costing you revenue every month.`,
     keywords: ["AI voice agent", "home services", "best AI answering service", "HVAC AI", "plumbing AI"],
