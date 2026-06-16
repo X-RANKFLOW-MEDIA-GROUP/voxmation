@@ -26,7 +26,7 @@ interface LeadCaptureDialogProps {
   pageSource?: string;
 }
 
-const industries = ["HVAC", "Plumbing", "Electrical", "Cleaning", "Landscaping", "Roofing", "Pest Control", "Other"];
+const industries = ["HVAC", "Plumbing", "Electrical", "Roofing", "Landscaping", "Cleaning", "Pest Control", "Painting", "Carpentry", "Appliance Repair", "Locksmith", "Tree Service", "Snow Removal", "Garage Doors", "Handyman", "Other"];
 const callVolumes = ["Under 100", "100–300", "300–500", "500+"];
 
 const LeadCaptureDialog = ({ open, onOpenChange, pageSource = "website" }: LeadCaptureDialogProps) => {
