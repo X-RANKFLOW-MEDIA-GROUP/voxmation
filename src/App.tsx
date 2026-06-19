@@ -36,6 +36,7 @@ import VerticalPage from "./pages/VerticalPage";
 import StateVerticalPage from "./pages/StateVerticalPage";
 import ComparisonPage from "./pages/ComparisonPage";
 import ResourcePage from "./pages/ResourcePage";
+import Jobs from "./pages/Jobs";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -69,6 +70,7 @@ const App = () => (
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/jobs" element={<Jobs />} />
               <Route path="/trial-builder" element={<TrialBuilder />} />
               <Route path="/trial/start" element={<TrialStart />} />
               
