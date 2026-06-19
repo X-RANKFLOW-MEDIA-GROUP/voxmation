@@ -4,6 +4,11 @@ import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 import path from "path";
+import {
+  sendEmail,
+  getCandidateConfirmationEmail,
+  getAdminNotificationEmail,
+} from "./email";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -156,17 +161,41 @@ app.post("/api/jobs/apply", upload.single("resume"), async (req, res) => {
     applications.set(applicationId, application);
 
     // Send confirmation email to candidate
-    console.log(`\n📧 Sending confirmation email to ${email}...`);
-    console.log(`Application ID: ${applicationId}`);
+    const candidateEmailTemplate = getCandidateConfirmationEmail(
+      fullName,
+      jobTitle,
+      applicationId
+    );
+    const candidateEmailSent = await sendEmail({
+      to: email,
+      subject: candidateEmailTemplate.subject,
+      html: candidateEmailTemplate.html,
+      text: candidateEmailTemplate.text,
+    });
 
     // Send admin notification
-    console.log(`\n📧 Sending admin notification to careers@voxmation.com...`);
-    console.log(`New application from ${fullName} for ${jobTitle}`);
+    const adminEmail = process.env.ADMIN_EMAIL || "careers@voxmation.com";
+    const adminEmailTemplate = getAdminNotificationEmail(
+      fullName,
+      email,
+      phone,
+      jobTitle,
+      yearsExperience,
+      applicationId
+    );
+    const adminEmailSent = await sendEmail({
+      to: adminEmail,
+      subject: adminEmailTemplate.subject,
+      html: adminEmailTemplate.html,
+      text: adminEmailTemplate.text,
+    });
 
     res.json({
       success: true,
       applicationId,
-      message: "Application submitted successfully. Check your email for confirmation.",
+      message: candidateEmailSent
+        ? "Application submitted successfully. Check your email for confirmation."
+        : "Application submitted, but there was an issue sending the confirmation email. Our team will still review your application.",
     });
   } catch (error) {
     console.error("Application submission error:", error);
