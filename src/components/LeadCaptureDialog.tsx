@@ -72,8 +72,8 @@ const LeadCaptureDialog = ({ open, onOpenChange, pageSource = "website" }: LeadC
       });
 
       toast({
-        title: "🎉 Trial ativado!",
-        description: "Confira seu email para a chave de API. Você tem 7 dias grátis com acesso completo!",
+        title: "🎉 Trial Activated!",
+        description: "Check your email for your API key. You have 7 days of free access with full features!",
       });
       onOpenChange(false);
       setForm({ full_name: "", business_name: "", email: "", phone: "", industry: "", monthly_call_volume: "" });
@@ -83,8 +83,8 @@ const LeadCaptureDialog = ({ open, onOpenChange, pageSource = "website" }: LeadC
     } catch (error) {
       console.error("Trial creation error:", error);
       toast({
-        title: "Erro ao criar trial",
-        description: "Por favor, tente novamente ou entre em contato conosco.",
+        title: "Error Creating Trial",
+        description: "Please try again or contact us for support.",
         variant: "destructive",
       });
     } finally {

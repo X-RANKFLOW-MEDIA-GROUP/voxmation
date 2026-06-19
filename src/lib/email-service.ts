@@ -11,7 +11,7 @@ export async function sendTrialEmail(
   apiKey: string,
   expiresAt: string
 ): Promise<void> {
-  const formattedDate = new Date(expiresAt).toLocaleDateString('pt-BR', {
+  const formattedDate = new Date(expiresAt).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -19,84 +19,84 @@ export async function sendTrialEmail(
 
   const emailPayload: EmailPayload = {
     to: email,
-    subject: '🎉 Seu trial Voxmation está ativo! - 7 dias grátis',
+    subject: '🎉 Your Voxmation Trial is Active! - 7 Days Free',
     html: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; text-align: center; border-radius: 8px 8px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 28px;">🚀 Bem-vindo à Voxmation!</h1>
+          <h1 style="color: white; margin: 0; font-size: 28px;">🚀 Welcome to Voxmation!</h1>
         </div>
 
         <div style="background: white; padding: 40px; border-radius: 0 0 8px 8px; border: 1px solid #e5e7eb;">
           <p style="color: #374151; font-size: 16px; line-height: 1.6;">
-            Olá <strong>${businessName}</strong>,
+            Hello <strong>${businessName}</strong>,
           </p>
 
           <p style="color: #374151; font-size: 16px; line-height: 1.6;">
-            Seu trial de 7 dias foi ativado com sucesso! Você tem acesso completo ao Voxmation com vozes realistas alimentadas por ElevenLabs.
+            Your 7-day trial has been activated successfully! You have full access to Voxmation with realistic voices powered by ElevenLabs.
           </p>
 
           <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 30px 0;">
             <p style="color: #6b7280; font-size: 12px; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;">
-              Sua Chave de API
+              Your API Key
             </p>
             <div style="background: white; padding: 15px; border-radius: 4px; border: 1px solid #e5e7eb; font-family: monospace; font-size: 14px; word-break: break-all;">
               <code>${apiKey}</code>
             </div>
           </div>
 
-          <h2 style="color: #1f2937; font-size: 18px; margin-top: 30px;">O que você pode fazer:</h2>
+          <h2 style="color: #1f2937; font-size: 18px; margin-top: 30px;">What You Can Do:</h2>
           <ul style="color: #374151; font-size: 16px; line-height: 2;">
-            <li>✓ Gerar chamadas AI com vozes realistas</li>
-            <li>✓ Testar diferentes indústrias e cenários</li>
-            <li>✓ Acessar todas as 5 vozes ElevenLabs</li>
-            <li>✓ Até 1.000 chamadas de teste</li>
+            <li>✓ Generate AI calls with realistic voices</li>
+            <li>✓ Test different industries and scenarios</li>
+            <li>✓ Access all 5 ElevenLabs voices</li>
+            <li>✓ Up to 1,000 test calls</li>
           </ul>
 
           <div style="background: #fef3c7; padding: 20px; border-radius: 8px; margin: 30px 0; border-left: 4px solid #f59e0b;">
             <p style="color: #92400e; margin: 0; font-weight: 500;">
-              ⏱️ Seu trial expira em <strong>${formattedDate}</strong>
+              ⏱️ Your trial expires on <strong>${formattedDate}</strong>
             </p>
           </div>
 
           <p style="color: #374151; font-size: 14px; margin-top: 30px;">
-            Para começar, acesse sua dashboard e navegue até "API Keys" para integrar com sua aplicação.
+            To get started, access your dashboard and navigate to "API Keys" to integrate with your application.
           </p>
 
           <a href="https://voxmation.com/dashboard" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: 600; margin: 30px 0;">
-            Acessar Dashboard
+            Access Dashboard
           </a>
 
           <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 40px 0;">
 
           <p style="color: #6b7280; font-size: 14px;">
-            Dúvidas? Entre em contato com nossa equipe em <a href="mailto:suporte@voxmation.com" style="color: #667eea; text-decoration: none;">suporte@voxmation.com</a>
+            Questions? Contact our team at <a href="mailto:support@voxmation.com" style="color: #667eea; text-decoration: none;">support@voxmation.com</a>
           </p>
 
           <p style="color: #9ca3af; font-size: 12px;">
-            © 2026 Voxmation. Todos os direitos reservados.
+            © 2026 Voxmation. All rights reserved.
           </p>
         </div>
       </div>
     `,
     text: `
-Bem-vindo à Voxmation!
+Welcome to Voxmation!
 
-Seu trial de 7 dias foi ativado com sucesso!
+Your 7-day trial has been activated successfully!
 
-SUA CHAVE DE API:
+YOUR API KEY:
 ${apiKey}
 
-O que você pode fazer:
-✓ Gerar chamadas AI com vozes realistas
-✓ Testar diferentes indústrias e cenários
-✓ Acessar todas as 5 vozes ElevenLabs
-✓ Até 1.000 chamadas de teste
+What You Can Do:
+✓ Generate AI calls with realistic voices
+✓ Test different industries and scenarios
+✓ Access all 5 ElevenLabs voices
+✓ Up to 1,000 test calls
 
-Seu trial expira em ${formattedDate}
+Your trial expires on ${formattedDate}
 
-Para começar, acesse sua dashboard e navegue até "API Keys" para integrar com sua aplicação.
+To get started, access your dashboard and navigate to "API Keys" to integrate with your application.
 
-Dúvidas? Entre em contato conosco em suporte@voxmation.com
+Questions? Contact us at support@voxmation.com
 
 © 2026 Voxmation
     `,
@@ -126,50 +126,50 @@ export async function sendTrialExpiringEmail(
 ): Promise<void> {
   const emailPayload: EmailPayload = {
     to: email,
-    subject: '⏰ Seu trial Voxmation expira em 24 horas',
+    subject: '⏰ Your Voxmation Trial Expires in 24 Hours',
     html: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%); padding: 40px 20px; text-align: center; border-radius: 8px 8px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 28px;">⏰ Seu Trial Está Acabando!</h1>
+          <h1 style="color: white; margin: 0; font-size: 28px;">⏰ Your Trial is Ending!</h1>
         </div>
 
         <div style="background: white; padding: 40px; border-radius: 0 0 8px 8px; border: 1px solid #e5e7eb;">
           <p style="color: #374151; font-size: 16px; line-height: 1.6;">
-            Olá <strong>${businessName}</strong>,
+            Hello <strong>${businessName}</strong>,
           </p>
 
           <p style="color: #374151; font-size: 16px; line-height: 1.6;">
-            Seu trial de 7 dias com a Voxmation expira em <strong>24 horas</strong> (${expiresAt}).
+            Your 7-day trial with Voxmation expires in <strong>24 hours</strong> (${expiresAt}).
           </p>
 
           <div style="background: #fef3c7; padding: 20px; border-radius: 8px; margin: 30px 0; border-left: 4px solid #f59e0b;">
             <p style="color: #92400e; margin: 0; font-weight: 500;">
-              Aproveite sua última chance para testar a IA mais avançada do mercado!
+              This is your last chance to experience the most advanced AI on the market!
             </p>
           </div>
 
           <a href="https://voxmation.com/pricing" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: 600; margin: 30px 0;">
-            Ver Planos
+            View Plans
           </a>
 
           <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 40px 0;">
 
           <p style="color: #6b7280; font-size: 14px;">
-            Dúvidas? Fale conosco em <a href="mailto:suporte@voxmation.com" style="color: #667eea; text-decoration: none;">suporte@voxmation.com</a>
+            Questions? Contact us at <a href="mailto:support@voxmation.com" style="color: #667eea; text-decoration: none;">support@voxmation.com</a>
           </p>
         </div>
       </div>
     `,
     text: `
-Seu Trial Está Acabando!
+Your Trial is Ending!
 
-Seu trial de 7 dias com a Voxmation expira em 24 horas (${expiresAt}).
+Your 7-day trial with Voxmation expires in 24 hours (${expiresAt}).
 
-Aproveite sua última chance para testar a IA mais avançada do mercado!
+This is your last chance to experience the most advanced AI on the market!
 
-Ver Planos: https://voxmation.com/pricing
+View Plans: https://voxmation.com/pricing
 
-Dúvidas? Fale conosco em suporte@voxmation.com
+Questions? Contact us at support@voxmation.com
     `,
   };
 
