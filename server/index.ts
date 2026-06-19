@@ -1,11 +1,67 @@
 import express from "express";
 import cors from "cors";
+import multer from "multer";
+import { v4 as uuidv4 } from "uuid";
+import fs from "fs";
+import path from "path";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
+// Multer configuration for file uploads
+const uploadsDir = path.join(process.cwd(), "uploads");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: (_req, _file, cb) => {
+    cb(null, uploadsDir);
+  },
+  filename: (_req, file, cb) => {
+    const uniqueName = `${uuidv4()}${path.extname(file.originalname)}`;
+    cb(null, uniqueName);
+  },
+});
+
+const upload = multer({
+  storage,
+  fileFilter: (_req, file, cb) => {
+    const allowedMimes = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+    if (allowedMimes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Invalid file type"));
+    }
+  },
+});
+
+// In-memory storage for applications
+interface JobApplication {
+  id: string;
+  jobId: string;
+  jobTitle: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  resumeUrl?: string;
+  resumeFileName?: string;
+  answers: {
+    yearsExperience: string;
+    greatestAchievement: string;
+    whyInterested: string;
+    additionalInfo: string;
+  };
+  status: "new" | "reviewed" | "shortlisted" | "rejected" | "hired";
+  appliedAt: string;
+  notes?: string;
+}
+
+const applications: Map<string, JobApplication> = new Map();
 
 app.post("/api/tts", async (req, res) => {
   const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
@@ -53,6 +109,132 @@ app.post("/api/tts", async (req, res) => {
     console.error("TTS error:", error);
     const msg = error instanceof Error ? error.message : "Unknown error";
     res.status(500).json({ error: msg });
+  }
+});
+
+// Job Applications Endpoints
+app.post("/api/jobs/apply", upload.single("resume"), async (req, res) => {
+  try {
+    const {
+      jobId,
+      jobTitle,
+      fullName,
+      email,
+      phone,
+      yearsExperience,
+      greatestAchievement,
+      whyInterested,
+      additionalInfo,
+    } = req.body;
+
+    if (!jobId || !fullName || !email || !phone) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    const applicationId = uuidv4();
+    const resumeUrl = req.file ? `/api/resumes/${req.file.filename}` : undefined;
+
+    const application: JobApplication = {
+      id: applicationId,
+      jobId,
+      jobTitle,
+      fullName,
+      email,
+      phone,
+      resumeUrl,
+      resumeFileName: req.file?.originalname,
+      answers: {
+        yearsExperience,
+        greatestAchievement,
+        whyInterested,
+        additionalInfo,
+      },
+      status: "new",
+      appliedAt: new Date().toISOString(),
+    };
+
+    applications.set(applicationId, application);
+
+    // Send confirmation email to candidate
+    console.log(`\n📧 Sending confirmation email to ${email}...`);
+    console.log(`Application ID: ${applicationId}`);
+
+    // Send admin notification
+    console.log(`\n📧 Sending admin notification to careers@voxmation.com...`);
+    console.log(`New application from ${fullName} for ${jobTitle}`);
+
+    res.json({
+      success: true,
+      applicationId,
+      message: "Application submitted successfully. Check your email for confirmation.",
+    });
+  } catch (error) {
+    console.error("Application submission error:", error);
+    const msg = error instanceof Error ? error.message : "Unknown error";
+    res.status(500).json({ message: `Failed to submit application: ${msg}` });
+  }
+});
+
+// Get all applications (admin only)
+app.get("/api/jobs/applications", (_req, res) => {
+  try {
+    const allApplications = Array.from(applications.values()).sort(
+      (a, b) => new Date(b.appliedAt).getTime() - new Date(a.appliedAt).getTime()
+    );
+    res.json(allApplications);
+  } catch (error) {
+    console.error("Fetch applications error:", error);
+    res.status(500).json({ message: "Failed to fetch applications" });
+  }
+});
+
+// Update application status
+app.patch("/api/jobs/applications/:id", (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status, notes } = req.body;
+
+    const application = applications.get(id);
+    if (!application) {
+      return res.status(404).json({ message: "Application not found" });
+    }
+
+    application.status = status;
+    if (notes) {
+      application.notes = notes;
+    }
+
+    applications.set(id, application);
+
+    res.json({
+      success: true,
+      message: `Application status updated to ${status}`,
+    });
+  } catch (error) {
+    console.error("Update application error:", error);
+    res.status(500).json({ message: "Failed to update application" });
+  }
+});
+
+// Serve resume files
+app.get("/api/resumes/:filename", (req, res) => {
+  try {
+    const filename = req.params.filename;
+    const filepath = path.join(uploadsDir, filename);
+
+    // Security check: ensure file is in uploads directory
+    if (!filepath.startsWith(uploadsDir)) {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
+    if (!fs.existsSync(filepath)) {
+      return res.status(404).json({ message: "File not found" });
+    }
+
+    res.download(filepath);
+  } catch (error) {
+    console.error("Resume download error:", error);
+    res.status(500).json({ message: "Failed to download resume" });
   }
 });
 

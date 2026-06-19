@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Reveal from "@/components/Reveal";
 
 interface JobCardProps {
@@ -168,7 +169,7 @@ export default function JobCard({ job }: JobCardProps) {
               />
             </Button>
             <Button asChild className="flex-1 bg-primary hover:bg-primary/90">
-              <a href={job.applyUrl}>Apply Now</a>
+              <Link to={`/jobs/${job.id}/apply`}>Apply Now</Link>
             </Button>
           </div>
         </div>

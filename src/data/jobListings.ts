@@ -27,7 +27,6 @@ export interface JobListing {
   requirements: JobRequirement[];
   benefits: Benefit[];
   whyJoinUs: string[];
-  applyUrl: string;
 }
 
 export const jobListings: JobListing[] = [
@@ -142,6 +141,5 @@ export const jobListings: JobListing[] = [
       "Clear performance metrics so you always know how you're doing",
       "Regular feedback and coaching to help you improve and earn more",
     ],
-    applyUrl: "mailto:careers@voxmation.com?subject=Outbound%20Sales%20Representative%20Application",
   },
 ];
