@@ -2,6 +2,19 @@ import nodemailer from "nodemailer";
 
 // Create transporter
 const createTransporter = () => {
+  // SendGrid configuration
+  if (process.env.EMAIL_SERVICE === "sendgrid" && process.env.SENDGRID_API_KEY) {
+    return nodemailer.createTransport({
+      host: "smtp.sendgrid.net",
+      port: 587,
+      secure: false,
+      auth: {
+        user: "apikey",
+        pass: process.env.SENDGRID_API_KEY,
+      },
+    });
+  }
+
   // Gmail example - requires "App Password" (not regular password)
   // Docs: https://support.google.com/accounts/answer/185833
   if (process.env.EMAIL_SERVICE === "gmail") {
