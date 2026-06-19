@@ -153,6 +153,125 @@ The Voxmation Team
   };
 };
 
+// Status change email templates
+export const getStatusChangeEmail = (
+  candidateName: string,
+  status: string,
+  jobTitle: string,
+  applicationId: string
+) => {
+  const statusMessages = {
+    reviewed: {
+      title: "Your Application is Under Review",
+      message: "Thank you for submitting your application! Our team is currently reviewing your qualifications and experience.",
+    },
+    shortlisted: {
+      title: "You've Been Shortlisted! 🎉",
+      message:
+        "Great news! Your application has impressed our team, and you've been shortlisted for the next round of interviews.",
+    },
+    rejected: {
+      title: "Application Status Update",
+      message:
+        "Thank you for your interest in Voxmation. While your application was impressive, we've decided to move forward with other candidates at this time.",
+    },
+    hired: {
+      title: "Congratulations! You're Hired! 🎉",
+      message:
+        "We're thrilled to offer you the {jobTitle} position at Voxmation! Please check your email for next steps.",
+    },
+  };
+
+  const statusInfo =
+    statusMessages[status as keyof typeof statusMessages] || statusMessages.reviewed;
+
+  return {
+    subject: statusInfo.title,
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center; }
+            .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 8px 8px; }
+            .highlight { background: #e8f1ff; padding: 15px; border-left: 4px solid #667eea; margin: 20px 0; }
+            .footer { color: #666; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; }
+            .cta { display: inline-block; background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin-top: 20px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>${statusInfo.title}</h1>
+            </div>
+            <div class="content">
+              <p>Hi ${candidateName},</p>
+              <p>${statusInfo.message}</p>
+
+              <div class="highlight">
+                <strong>Position:</strong> ${jobTitle}
+                <br>
+                <strong>Application ID:</strong> ${applicationId}
+              </div>
+
+              ${
+                status === "shortlisted"
+                  ? `
+                <p>Our hiring team will reach out to schedule an interview. Please keep an eye on your email and phone for next steps.</p>
+                <p>If you have any questions in the meantime, feel free to reach out to us at careers@voxmation.com</p>
+              `
+                  : ""
+              }
+
+              ${
+                status === "hired"
+                  ? `
+                <p>Please reply to this email or contact careers@voxmation.com to discuss start date and onboarding details.</p>
+                <p>Welcome to the Voxmation team!</p>
+              `
+                  : ""
+              }
+
+              <p>Best regards,<br>The Voxmation Team</p>
+
+              <div class="footer">
+                <p>© 2024 Voxmation. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
+    text: `
+${statusInfo.title}
+
+Hi ${candidateName},
+
+${statusInfo.message}
+
+Position: ${jobTitle}
+Application ID: ${applicationId}
+
+${
+  status === "shortlisted"
+    ? "Our hiring team will reach out to schedule an interview. Please keep an eye on your email and phone for next steps.\n\nIf you have any questions, feel free to reach out to us at careers@voxmation.com"
+    : ""
+}
+
+${
+  status === "hired"
+    ? "Please reply to this email or contact careers@voxmation.com to discuss start date and onboarding details.\n\nWelcome to the Voxmation team!"
+    : ""
+}
+
+Best regards,
+The Voxmation Team
+    `,
+  };
+};
+
 // Admin notification email template
 export const getAdminNotificationEmail = (
   candidateName: string,

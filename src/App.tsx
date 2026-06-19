@@ -5,7 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { AdminAuthProvider } from "@/contexts/AdminAuthContext";
 import ProtectedRoute from "@/components/portal/ProtectedRoute";
+import ProtectedAdminRoute from "@/components/admin/ProtectedAdminRoute";
 import PortalLayout from "@/components/portal/PortalLayout";
 import Index from "./pages/Index";
 import HomeTest from "./pages/HomeTest";
@@ -39,6 +41,7 @@ import ResourcePage from "./pages/ResourcePage";
 import Jobs from "./pages/Jobs";
 import ApplyJob from "./pages/ApplyJob";
 import ApplicationDashboard from "./pages/admin/ApplicationDashboard";
+import AdminLogin from "./pages/admin/AdminLogin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -53,9 +56,10 @@ const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
+        <AdminAuthProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
           <BrowserRouter>
             <Routes>
               {/* Static routes first - these take priority */}
@@ -74,7 +78,15 @@ const App = () => (
               <Route path="/auth" element={<Auth />} />
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/jobs/:jobId/apply" element={<ApplyJob />} />
-              <Route path="/admin/applications" element={<ApplicationDashboard />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route
+                path="/admin/applications"
+                element={
+                  <ProtectedAdminRoute>
+                    <ApplicationDashboard />
+                  </ProtectedAdminRoute>
+                }
+              />
               <Route path="/trial-builder" element={<TrialBuilder />} />
               <Route path="/trial/start" element={<TrialStart />} />
               
@@ -106,6 +118,7 @@ const App = () => (
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
+        </AdminAuthProvider>
       </AuthProvider>
     </QueryClientProvider>
   </HelmetProvider>
