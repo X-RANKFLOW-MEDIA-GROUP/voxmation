@@ -18,6 +18,11 @@ export default defineConfig({
     },
   },
   plugins: [react()],
+  // Bundle CJS-only deps into the SSR/prerender output so Node ESM can import
+  // them without named-export interop errors.
+  ssr: {
+    noExternal: ["react-helmet-async"],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
