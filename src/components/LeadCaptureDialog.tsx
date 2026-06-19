@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { Loader2, ArrowRight } from "lucide-react";
+import { createTrial } from "@/lib/trial-service";
 
 const leadSchema = z.object({
   full_name: z.string().trim().min(1, "Full name is required").max(100),
@@ -62,28 +62,34 @@ const LeadCaptureDialog = ({ open, onOpenChange, pageSource = "website" }: LeadC
     }
 
     setLoading(true);
-    const { error } = await supabase.from("website_leads").insert([{
-      full_name: result.data.full_name,
-      business_name: result.data.business_name,
-      email: result.data.email,
-      phone: result.data.phone,
-      industry: result.data.industry || null,
-      monthly_call_volume: result.data.monthly_call_volume || null,
-      page_source: pageSource,
-    }]);
-    setLoading(false);
+    try {
+      await createTrial({
+        email: result.data.email,
+        businessName: result.data.business_name,
+        industry: result.data.industry,
+        fullName: result.data.full_name,
+        phone: result.data.phone,
+      });
 
-    if (error) {
-      toast({ title: "Something went wrong", description: "Please try again or email us directly.", variant: "destructive" });
-      return;
+      toast({
+        title: "🎉 Trial ativado!",
+        description: "Confira seu email para a chave de API. Você tem 7 dias grátis com acesso completo!",
+      });
+      onOpenChange(false);
+      setForm({ full_name: "", business_name: "", email: "", phone: "", industry: "", monthly_call_volume: "" });
+
+      // Open Cal.com for scheduling
+      window.open("https://cal.com/voxmation/meeting", "_blank", "noopener,noreferrer");
+    } catch (error) {
+      console.error("Trial creation error:", error);
+      toast({
+        title: "Erro ao criar trial",
+        description: "Por favor, tente novamente ou entre em contato conosco.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
-
-    toast({ title: "Thanks! We'll be in touch within 24 hours.", description: "You can also schedule a time right now." });
-    onOpenChange(false);
-    setForm({ full_name: "", business_name: "", email: "", phone: "", industry: "", monthly_call_volume: "" });
-
-    // Open Cal.com for immediate scheduling
-    window.open("https://cal.com/voxmation/meeting", "_blank", "noopener,noreferrer");
   };
 
   return (
