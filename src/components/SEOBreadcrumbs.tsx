@@ -56,8 +56,8 @@ const SEOBreadcrumbs = ({ items, showHome = true }: SEOBreadcrumbsProps) => {
         </div>
       </nav>
 
-      {/* Breadcrumb Schema for SEO */}
-      <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+      {/* Breadcrumb Schema for SEO (dangerouslySetInnerHTML so JSON-LD isn't HTML-escaped during SSR) */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
     </>
   );
 };

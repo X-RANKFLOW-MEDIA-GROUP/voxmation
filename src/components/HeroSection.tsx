@@ -110,7 +110,7 @@ const HeroSection = () => {
             variants={fadeUp} initial="hidden" animate="visible" custom={4}
             className="text-xs text-text-secondary/80"
           >
-            On average, teams cut manual follow-up time by 40%.
+            Automate manual follow-up so your team can focus on the work.
           </motion.p>
         </div>
 

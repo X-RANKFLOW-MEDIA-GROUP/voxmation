@@ -15,7 +15,7 @@ const industries = [
     scenario: "A homeowner's AC breaks at 9 PM. They call your number.",
     without: "Voicemail. They call the next company. You lose a $3,000+ job.",
     withVox: "Your AI answers instantly, qualifies the emergency, and books a next-morning appointment. Lead captured. Job booked.",
-    metric: "+40% more booked jobs",
+    metric: "Every call answered",
   },
   {
     id: "plumbing",
@@ -37,7 +37,7 @@ const industries = [
     scenario: "A customer needs a panel upgrade quote. They call during your busiest day.",
     without: "You're on a job. The call goes unanswered. Lead gone.",
     withVox: "AI answers, qualifies the request, captures property details, and schedules an estimate. Zero interruption to your workflow.",
-    metric: "15+ hrs/week saved",
+    metric: "Saves staff time",
   },
   {
     id: "roofing",
@@ -46,9 +46,9 @@ const industries = [
     title: "Roofing Companies",
     slug: "",
     scenario: "Storm season. Leads are flooding in faster than you can answer.",
-    without: "You miss 60% of calls. Leads go cold. Money left on the table.",
+    without: "You miss calls during the surge. Leads go cold. Money left on the table.",
     withVox: "AI handles unlimited concurrent calls, qualifies damage claims, and books inspections. Every lead captured, none lost.",
-    metric: "312% more appointments",
+    metric: "Every lead captured",
   },
   {
     id: "medspa",
@@ -58,8 +58,8 @@ const industries = [
     slug: "ai-booking-agent-spa-salon",
     scenario: "A patient wants to book a Botox appointment after hours.",
     without: "Closed office. They book with a competitor who answers.",
-    withVox: "AI books the appointment, sends confirmation, and triggers a reminder sequence. No-shows drop by 89%.",
-    metric: "89% fewer no-shows",
+    withVox: "AI books the appointment, sends confirmation, and triggers a reminder sequence to help reduce no-shows.",
+    metric: "Fewer no-shows",
   },
   {
     id: "legal",
@@ -70,7 +70,7 @@ const industries = [
     scenario: "A potential client calls about a personal injury case at 7 PM.",
     without: "Answering service takes a message. You call back 16 hours later. They already hired someone else.",
     withVox: "AI qualifies the case type, collects intake info, and books a consultation. First to respond wins the case.",
-    metric: "< 1s response time",
+    metric: "< 2s response time",
   },
 ];
 

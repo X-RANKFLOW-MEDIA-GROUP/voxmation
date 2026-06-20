@@ -30,8 +30,8 @@ const DEFAULT_REASONS = [
     description: "Every lead is automatically logged to your CRM — ServiceTitan, Jobber, HubSpot, GoHighLevel, and more.",
   },
   {
-    title: "40%+ ROI in 30 Days",
-    description: "Most home service businesses break even within 30 days. Profitable from month one.",
+    title: "Built to Pay for Itself",
+    description: "Recover missed-call revenue that typically exceeds the cost of the platform — estimate your own ROI before you commit.",
   },
   {
     title: "White-Glove Support",

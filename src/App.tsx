@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,40 +10,46 @@ import { AdminAuthProvider } from "@/contexts/AdminAuthContext";
 import ProtectedRoute from "@/components/portal/ProtectedRoute";
 import ProtectedAdminRoute from "@/components/admin/ProtectedAdminRoute";
 import PortalLayout from "@/components/portal/PortalLayout";
+// Homepage stays eager for fast first paint / LCP; everything else is
+// code-split so each route ships only the JS it needs.
 import Index from "./pages/Index";
-import HomeTest from "./pages/HomeTest";
-import Demo from "./pages/Demo";
-import TrialBuilder from "./pages/TrialBuilder";
-import TrialStart from "./pages/TrialStart";
-import Pricing from "./pages/Pricing";
-import ROICalculator from "./pages/ROICalculator";
-import IndustryPage from "./pages/IndustryPage";
-import Auth from "./pages/Auth";
-import Dashboard from "./pages/portal/Dashboard";
-import VoiceAgent from "./pages/portal/VoiceAgent";
-import MissedCalls from "./pages/portal/MissedCalls";
-import Leads from "./pages/portal/Leads";
-import Bookings from "./pages/portal/Bookings";
-import Automations from "./pages/portal/Automations";
-import Integrations from "./pages/portal/Integrations";
-import Billing from "./pages/portal/Billing";
-import Support from "./pages/portal/Support";
-import UseCases from "./pages/UseCases";
-import Industries from "./pages/Industries";
-import CaseStudies from "./pages/CaseStudies";
-import UseCaseDetail from "./pages/UseCaseDetail";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import Contact from "./pages/Contact";
-import VerticalPage from "./pages/VerticalPage";
-import StateVerticalPage from "./pages/StateVerticalPage";
-import ComparisonPage from "./pages/ComparisonPage";
-import ResourcePage from "./pages/ResourcePage";
-import Jobs from "./pages/Jobs";
-import ApplyJob from "./pages/ApplyJob";
-import ApplicationDashboard from "./pages/admin/ApplicationDashboard";
-import AdminLogin from "./pages/admin/AdminLogin";
-import NotFound from "./pages/NotFound";
+
+const HomeTest = lazy(() => import("./pages/HomeTest"));
+const Demo = lazy(() => import("./pages/Demo"));
+const HowItWorksPage = lazy(() => import("./pages/HowItWorks"));
+const MissedCallRecovery = lazy(() => import("./pages/MissedCallRecovery"));
+const Services = lazy(() => import("./pages/Services"));
+const About = lazy(() => import("./pages/About"));
+const MissedCallRoiCalculator = lazy(() => import("./pages/MissedCallRoiCalculator"));
+const IndustryReceptionistPage = lazy(() => import("./pages/IndustryReceptionistPage"));
+const ComparePage = lazy(() => import("./pages/ComparePage"));
+const AlternativePage = lazy(() => import("./pages/AlternativePage"));
+const TrialBuilder = lazy(() => import("./pages/TrialBuilder"));
+const TrialStart = lazy(() => import("./pages/TrialStart"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const ROICalculator = lazy(() => import("./pages/ROICalculator"));
+const Auth = lazy(() => import("./pages/Auth"));
+const Dashboard = lazy(() => import("./pages/portal/Dashboard"));
+const VoiceAgent = lazy(() => import("./pages/portal/VoiceAgent"));
+const MissedCalls = lazy(() => import("./pages/portal/MissedCalls"));
+const Leads = lazy(() => import("./pages/portal/Leads"));
+const Bookings = lazy(() => import("./pages/portal/Bookings"));
+const Automations = lazy(() => import("./pages/portal/Automations"));
+const Integrations = lazy(() => import("./pages/portal/Integrations"));
+const Billing = lazy(() => import("./pages/portal/Billing"));
+const Support = lazy(() => import("./pages/portal/Support"));
+const UseCases = lazy(() => import("./pages/UseCases"));
+const Industries = lazy(() => import("./pages/Industries"));
+const CaseStudies = lazy(() => import("./pages/CaseStudies"));
+const UseCaseDetail = lazy(() => import("./pages/UseCaseDetail"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const Contact = lazy(() => import("./pages/Contact"));
+const VerticalPage = lazy(() => import("./pages/VerticalPage"));
+const StateVerticalPage = lazy(() => import("./pages/StateVerticalPage"));
+const ComparisonPage = lazy(() => import("./pages/ComparisonPage"));
+const ResourcePage = lazy(() => import("./pages/ResourcePage"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
@@ -61,61 +68,62 @@ const App = () => (
             <Toaster />
             <Sonner />
           <BrowserRouter>
-            <Routes>
-              {/* Static routes first - these take priority */}
-              <Route path="/" element={<Index />} />
-              <Route path="/home-test" element={<HomeTest />} />
-              <Route path="/demo" element={<Demo />} />
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/roi-calculator" element={<ROICalculator />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/use-cases" element={<UseCases />} />
-              <Route path="/use-cases/:slug" element={<UseCaseDetail />} />
-              <Route path="/industries" element={<Industries />} />
-              <Route path="/case-studies" element={<CaseStudies />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/jobs" element={<Jobs />} />
-              <Route path="/jobs/:jobId/apply" element={<ApplyJob />} />
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route
-                path="/admin/applications"
-                element={
-                  <ProtectedAdminRoute>
-                    <ApplicationDashboard />
-                  </ProtectedAdminRoute>
-                }
-              />
-              <Route path="/trial-builder" element={<TrialBuilder />} />
-              <Route path="/trial/start" element={<TrialStart />} />
-              
-              {/* Portal routes - protected */}
-              <Route path="/portal" element={<PortalPage><Dashboard /></PortalPage>} />
-              <Route path="/portal/voice-agent" element={<PortalPage><VoiceAgent /></PortalPage>} />
-              <Route path="/portal/missed-calls" element={<PortalPage><MissedCalls /></PortalPage>} />
-              <Route path="/portal/leads" element={<PortalPage><Leads /></PortalPage>} />
-              <Route path="/portal/bookings" element={<PortalPage><Bookings /></PortalPage>} />
-              <Route path="/portal/automations" element={<PortalPage><Automations /></PortalPage>} />
-              <Route path="/portal/integrations" element={<PortalPage><Integrations /></PortalPage>} />
-              <Route path="/portal/billing" element={<PortalPage><Billing /></PortalPage>} />
-              <Route path="/portal/support" element={<PortalPage><Support /></PortalPage>} />
-              
-              {/* Comparison Pages - specific pattern before dynamic */}
-              <Route path="/vs-:slug" element={<ComparisonPage />} />
-              
-              {/* Resource Pages */}
-              <Route path="/resources/:slug" element={<ResourcePage />} />
-              
-              {/* Dynamic SEO pages - vertical pillar pages with state variations */}
-              <Route path="/:vertical/:state" element={<StateVerticalPage />} />
-              
-              {/* Single segment dynamic routes - vertical pages first, then industry pages as fallback */}
-              <Route path="/:slug" element={<VerticalPage />} />
-              
-              {/* 404 fallback */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <Suspense fallback={<div className="min-h-screen bg-background" />}>
+              <Routes>
+                {/* Static routes first - these take priority */}
+                <Route path="/" element={<Index />} />
+                <Route path="/home-test" element={<HomeTest />} />
+                <Route path="/demo" element={<Demo />} />
+                <Route path="/how-it-works" element={<HowItWorksPage />} />
+                <Route path="/missed-call-recovery" element={<MissedCallRecovery />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/pricing" element={<Pricing />} />
+                <Route path="/roi-calculator" element={<ROICalculator />} />
+                <Route path="/tools/missed-call-roi-calculator" element={<MissedCallRoiCalculator />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/use-cases" element={<UseCases />} />
+                <Route path="/use-cases/:slug" element={<UseCaseDetail />} />
+                <Route path="/industries" element={<Industries />} />
+                <Route path="/case-studies" element={<CaseStudies />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/trial-builder" element={<TrialBuilder />} />
+                <Route path="/trial/start" element={<TrialStart />} />
+
+                {/* Portal routes - protected */}
+                <Route path="/portal" element={<PortalPage><Dashboard /></PortalPage>} />
+                <Route path="/portal/voice-agent" element={<PortalPage><VoiceAgent /></PortalPage>} />
+                <Route path="/portal/missed-calls" element={<PortalPage><MissedCalls /></PortalPage>} />
+                <Route path="/portal/leads" element={<PortalPage><Leads /></PortalPage>} />
+                <Route path="/portal/bookings" element={<PortalPage><Bookings /></PortalPage>} />
+                <Route path="/portal/automations" element={<PortalPage><Automations /></PortalPage>} />
+                <Route path="/portal/integrations" element={<PortalPage><Integrations /></PortalPage>} />
+                <Route path="/portal/billing" element={<PortalPage><Billing /></PortalPage>} />
+                <Route path="/portal/support" element={<PortalPage><Support /></PortalPage>} />
+
+                {/* Comparison Pages - specific pattern before dynamic */}
+                <Route path="/vs/:slug" element={<ComparisonPage />} />
+                <Route path="/compare/:slug" element={<ComparePage />} />
+                <Route path="/alternatives/:slug" element={<AlternativePage />} />
+
+                {/* Industry AI receptionist pages */}
+                <Route path="/industries/:slug" element={<IndustryReceptionistPage />} />
+
+                {/* Resource Pages */}
+                <Route path="/resources/:slug" element={<ResourcePage />} />
+
+                {/* Dynamic SEO pages - vertical pillar pages with state variations */}
+                <Route path="/:vertical/:state" element={<StateVerticalPage />} />
+
+                {/* Single segment dynamic routes - vertical pages first, then industry pages as fallback */}
+                <Route path="/:slug" element={<VerticalPage />} />
+
+                {/* 404 fallback */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
           </BrowserRouter>
         </TooltipProvider>
         </AdminAuthProvider>

@@ -1,5 +1,5 @@
 import { useParams, Navigate } from "react-router-dom";
-import { verticalsData } from "@/data/seoData";
+import { verticalBySlug } from "@/data/seoData";
 import { generateFaqSchema, generateSoftwareApplicationSchema, generateBreadcrumbSchema } from "@/lib/schemaHelpers";
 import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
@@ -28,8 +28,8 @@ export default function VerticalPage() {
     return <IndustryPage />;
   }
   
-  // Check for vertical data
-  const data = slug ? verticalsData[slug as keyof typeof verticalsData] : null;
+  // Check for vertical data (keyed by public URL slug, e.g. "hvac-ai-voice-agents")
+  const data = slug ? verticalBySlug[slug] : null;
 
   if (!data) {
     return <Navigate to="/404" replace />;

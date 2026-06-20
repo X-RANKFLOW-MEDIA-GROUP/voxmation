@@ -26,26 +26,29 @@ const CountUp = ({ target, suffix = "" }: { target: number; suffix?: string }) =
 };
 
 const stats = [
-  { 
-    icon: PhoneOff, 
-    value: 67, 
-    suffix: "%", 
-    label: "of callers hang up when they hit voicemail",
-    detail: "Every missed call = lost revenue"
+  {
+    icon: PhoneOff,
+    value: 82,
+    suffix: "%",
+    label: "of callers won't leave a voicemail — they call a competitor instead",
+    detail: "Every missed call = lost revenue",
+    source: { name: "Nextiva", url: "https://www.nextiva.com/blog/whats-the-cost-of-missed-calls.html" },
   },
-  { 
-    icon: Clock, 
-    value: 80, 
-    suffix: "%", 
-    label: "drop in conversion after 5 minutes of wait time",
-    detail: "Speed-to-lead wins every time"
+  {
+    icon: Clock,
+    value: 21,
+    suffix: "×",
+    label: "more likely to qualify a lead when you respond within 5 minutes",
+    detail: "Speed-to-lead wins every time",
+    source: { name: "Harvard Business Review", url: "https://hbr.org/2011/03/the-short-life-of-online-sales-leads" },
   },
-  { 
-    icon: MessageSquareX, 
-    value: 48, 
-    suffix: "%", 
-    label: "of home service leads never get a follow-up",
-    detail: "No follow-up = no booked job"
+  {
+    icon: MessageSquareX,
+    value: 48,
+    suffix: "%",
+    label: "of salespeople never make a single follow-up attempt",
+    detail: "No follow-up = no booked job",
+    source: { name: "Invesp", url: "https://www.invespcro.com/blog/sale-follow-ups/" },
   },
 ];
 
@@ -96,6 +99,14 @@ const ProblemSection = () => {
                   <CountUp target={s.value} suffix={s.suffix} />
                 </p>
                 <p className="text-silver text-base leading-relaxed">{s.label}</p>
+                <a
+                  href={s.source.url}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="inline-block mt-3 text-[10px] font-mono uppercase tracking-wider text-silver/50 hover:text-warning/70 transition-colors"
+                >
+                  Source: {s.source.name}
+                </a>
               </motion.div>
             </Reveal>
           ))}

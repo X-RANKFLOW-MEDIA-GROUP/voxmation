@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
-import { verticalsData, statesData, stateIntros, complianceNotes } from "@/data/seoData";
+import { verticalBySlug, statesData, stateIntros, complianceNotes } from "@/data/seoData";
+import { generateFaqSchema, generateBreadcrumbSchema } from "@/lib/schemaHelpers";
 import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/FooterSection";
@@ -8,7 +9,7 @@ import { ArrowRight, ChevronLeft } from "lucide-react";
 export default function StateVerticalPage() {
   const { vertical, state } = useParams<{ vertical: string; state: string }>();
   
-  const verticalData = vertical ? verticalsData[vertical as keyof typeof verticalsData] : null;
+  const verticalData = vertical ? verticalBySlug[vertical] : null;
   const stateData = state ? statesData.find(s => s.slug === state) : null;
 
   if (!verticalData || !stateData) {
@@ -30,6 +31,14 @@ export default function StateVerticalPage() {
         description={`Voxmation AI voice agents for ${verticalData.name.toLowerCase()} contractors in ${stateData.name}. Answer every call 24/7 in ${stateData.name}.`}
         path={`/${verticalData.slug}/${state}`}
         type="website"
+        jsonLd={[
+          generateBreadcrumbSchema([
+            { name: "Home", item: "https://voxmation.com/" },
+            { name: verticalData.name, item: `https://voxmation.com/${verticalData.slug}` },
+            { name: stateData.name, item: `https://voxmation.com/${verticalData.slug}/${state}` },
+          ]),
+          generateFaqSchema(verticalData.faqItems),
+        ]}
       />
       <Navbar />
 

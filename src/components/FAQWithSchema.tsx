@@ -88,8 +88,8 @@ const FAQWithSchema = ({
         </div>
       </section>
 
-      {/* FAQ Schema for SEO */}
-      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      {/* FAQ Schema for SEO (dangerouslySetInnerHTML so JSON-LD isn't HTML-escaped during SSR) */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
     </>
   );
 };

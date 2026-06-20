@@ -27,7 +27,7 @@ const useCases = [
     icon: CalendarCheck,
     title: "Appointment Scheduling",
     description: "AI-powered booking that works with your calendar, reduces no-shows, and sends automated reminders.",
-    benefits: ["89% fewer no-shows", "Automated confirmations", "SMS reminders"],
+    benefits: ["Fewer no-shows", "Automated confirmations", "SMS reminders"],
   },
   {
     slug: "lead-qualification",

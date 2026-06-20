@@ -2,6 +2,13 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm ci --legacy-peer-deps",
+  "redirects": [
+    { "source": "/vs-smith-ai", "destination": "/compare/voxmation-vs-smith-ai", "permanent": true },
+    { "source": "/vs-synthflow", "destination": "/vs/synthflow", "permanent": true },
+    { "source": "/vs-dialora", "destination": "/vs/dialora", "permanent": true },
+    { "source": "/vs-aloware", "destination": "/vs/aloware", "permanent": true },
+    { "source": "/vs-retell-ai", "destination": "/vs/retell-ai", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
