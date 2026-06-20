@@ -36,8 +36,16 @@ import NotFound from "./pages/NotFound";
 
 import { blogPosts } from "./data/blogPosts";
 import { useCasesData } from "./data/useCases";
-import { comparisonsData, resourcesData } from "./data/seoData";
+import { comparisonsData, resourcesData, verticalBySlug } from "./data/seoData";
 import { industryReceptionists, compareData, alternativesData } from "./data/seoExpansion";
+
+// Vertical pillar + state-location coverage (mirrors sitemap.xml).
+const stateCoverage: Record<string, string[]> = {
+  "hvac-ai-voice-agents": ["texas", "california", "florida", "new-york", "pennsylvania", "illinois", "ohio", "michigan", "north-carolina", "georgia"],
+  "plumbing-phone-automation": ["texas", "california", "florida", "new-york"],
+  "electrical-call-booking": ["texas", "california", "florida"],
+  "roofing-lead-follow-up": ["texas", "florida"],
+};
 
 // Every indexable route to prerender. Dynamic slugs are derived from the same
 // data the pages render from, so this list stays in sync automatically.
@@ -61,8 +69,13 @@ export const prerenderUrls: string[] = [
   ...Object.keys(industryReceptionists).map((s) => `/industries/${s}`),
   ...Object.keys(compareData).map((s) => `/compare/${s}`),
   ...Object.keys(alternativesData).map((s) => `/alternatives/${s}`),
-  ...Object.keys(comparisonsData).map((s) => `/vs-${s}`),
+  ...Object.keys(comparisonsData).map((s) => `/vs/${s}`),
   ...Object.keys(resourcesData).map((s) => `/resources/${s}`),
+  // Vertical pillar pages + their state-location pages.
+  ...Object.keys(verticalBySlug).map((s) => `/${s}`),
+  ...Object.entries(stateCoverage).flatMap(([vertical, states]) =>
+    states.map((state) => `/${vertical}/${state}`)
+  ),
 ];
 
 const queryClient = new QueryClient();
@@ -86,7 +99,7 @@ function ServerRoutes() {
       <Route path="/case-studies" element={<CaseStudies />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/blog/:slug" element={<BlogPost />} />
-      <Route path="/vs-:slug" element={<ComparisonPage />} />
+      <Route path="/vs/:slug" element={<ComparisonPage />} />
       <Route path="/compare/:slug" element={<ComparePage />} />
       <Route path="/alternatives/:slug" element={<AlternativePage />} />
       <Route path="/industries/:slug" element={<IndustryReceptionistPage />} />

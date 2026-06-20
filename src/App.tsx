@@ -101,7 +101,7 @@ const App = () => (
                 <Route path="/portal/support" element={<PortalPage><Support /></PortalPage>} />
 
                 {/* Comparison Pages - specific pattern before dynamic */}
-                <Route path="/vs-:slug" element={<ComparisonPage />} />
+                <Route path="/vs/:slug" element={<ComparisonPage />} />
                 <Route path="/compare/:slug" element={<ComparePage />} />
                 <Route path="/alternatives/:slug" element={<AlternativePage />} />
 

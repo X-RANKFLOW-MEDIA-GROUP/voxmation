@@ -22,7 +22,7 @@ export default function ComparisonPage() {
       <SEOHead
         title={data.title}
         description={data.metaDescription}
-        path={`/${data.slug}`}
+        path={`/vs/${slug}`}
         type="website"
       />
       <Navbar />

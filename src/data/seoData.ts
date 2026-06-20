@@ -130,6 +130,12 @@ export const verticalsData: Record<string, Vertical> = {
   },
 };
 
+// Vertical pillar pages are keyed by short name above, but their public URL is
+// the `.slug` field (e.g. "hvac-ai-voice-agents"). Look up by URL slug.
+export const verticalBySlug: Record<string, Vertical> = Object.fromEntries(
+  Object.values(verticalsData).map((v) => [v.slug, v])
+);
+
 // State data
 export const statesData: StateData[] = [
   { slug: "texas", name: "Texas", code: "TX" },
@@ -145,23 +151,9 @@ export const statesData: StateData[] = [
 ];
 
 // Comparison data
+// Note: the Smith.ai comparison lives at /compare/voxmation-vs-smith-ai
+// (ComparePage) to avoid two competing pages for the same query.
 export const comparisonsData: Record<string, ComparisonData> = {
-  "smith-ai": {
-    slug: "vs-smith-ai",
-    competitor: "Smith AI",
-    title: "Voxmation vs Smith AI | AI Voice Agents Comparison",
-    h1: "Voxmation vs Smith AI: Which AI Voice Agent Wins?",
-    metaDescription: "Compare Voxmation and Smith AI for home service contractors. See pricing, features, and which platform is right for your HVAC, plumbing, or electrical business.",
-    about: "Smith AI is a popular AI phone answering system focused on service businesses. It offers basic call handling and lead qualification.",
-    bestFor: "Smith AI works well for simple call answering but has limited customization for complex workflows.",
-    whyVoxmation: [
-      "Deeper industry customization for HVAC, plumbing, electrical, and roofing contractors",
-      "Superior lead qualification with service-specific routing (emergency vs. maintenance)",
-      "Flexible pricing—pay only for what you use, no seat-based pricing",
-      "Direct CRM integration with ServiceTitan, Jobber, and 50+ platforms",
-      "AI learns from your call patterns and improves week-over-week",
-    ],
-  },
   "synthflow": {
     slug: "vs-synthflow",
     competitor: "SynthFlow",
