@@ -6,7 +6,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { AdminAuthProvider } from "@/contexts/AdminAuthContext";
 import ProtectedRoute from "@/components/portal/ProtectedRoute";
+import ProtectedAdminRoute from "@/components/admin/ProtectedAdminRoute";
 import PortalLayout from "@/components/portal/PortalLayout";
 // Homepage stays eager for fast first paint / LCP; everything else is
 // code-split so each route ships only the JS it needs.
@@ -61,9 +63,10 @@ const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
+        <AdminAuthProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
           <BrowserRouter>
             <Suspense fallback={<div className="min-h-screen bg-background" />}>
               <Routes>
@@ -123,6 +126,7 @@ const App = () => (
             </Suspense>
           </BrowserRouter>
         </TooltipProvider>
+        </AdminAuthProvider>
       </AuthProvider>
     </QueryClientProvider>
   </HelmetProvider>
