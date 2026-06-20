@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Droplets, Zap, Sparkles, Scale, Flame, Wrench, Users, Stethoscope, Briefcase } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { industryReceptionists } from "@/data/seoExpansion";
 
 const industries = [
   { slug: "ai-voice-agent-for-plumbers", icon: Droplets, name: "Plumbing", color: "from-blue-500/20 to-blue-600/10" },
@@ -112,6 +113,37 @@ const Industries = () => {
                     </Link>
                   </Button>
                 </motion.div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AI Receptionist by Industry - dedicated deep-dive pages */}
+      <section className="py-12 md:py-20 border-t border-border">
+        <div className="container mx-auto px-6">
+          <Reveal>
+            <h2 className="text-2xl md:text-4xl font-display font-bold text-silver-bright mb-3 tracking-[-0.02em] text-center">
+              AI Receptionist by Industry
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="text-silver text-base mb-10 text-center max-w-2xl mx-auto">
+              Deep-dive pages with industry-specific call flows, examples, and FAQs.
+            </p>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {Object.values(industryReceptionists).map((r, i) => (
+              <Reveal key={r.slug} delay={0.04 * i}>
+                <Link
+                  to={`/industries/${r.slug}`}
+                  className="surface-card rounded-xl p-5 flex items-center justify-between gap-2 hover:border-primary/20 transition-colors group"
+                >
+                  <span className="text-sm font-display font-semibold text-foreground">
+                    AI Receptionist for {r.industry}
+                  </span>
+                  <ArrowUpRight className="h-4 w-4 text-primary/70 group-hover:text-primary transition-colors shrink-0" />
+                </Link>
               </Reveal>
             ))}
           </div>

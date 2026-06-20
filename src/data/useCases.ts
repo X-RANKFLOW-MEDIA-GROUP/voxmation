@@ -138,14 +138,14 @@ export const useCasesData: Record<string, UseCase> = {
   },
   "appointment-scheduling": {
     slug: "appointment-scheduling",
-    title: "AI Appointment Scheduling | 89% Fewer No-Shows",
-    metaDescription: "AI appointment scheduling and booking system. 89% fewer no-shows with automated reminders. Integrates with your calendar and CRM.",
+    title: "AI Appointment Scheduling | Fewer No-Shows",
+    metaDescription: "AI appointment scheduling and booking system. Reduce no-shows with automated reminders. Integrates with your calendar and CRM.",
     h1: "Book More Appointments — and Actually Have Clients Show Up",
-    subheadline: "AI-powered booking that works with your calendar, reduces no-shows by 89%, and sends automated reminders.",
+    subheadline: "AI-powered booking that works with your calendar, helps reduce no-shows, and sends automated reminders.",
     icon: CalendarCheck,
     overview: "Booking appointments is one thing. Having clients actually show up is another. Voxmation's AI scheduling system books appointments, sends confirmations, triggers reminders, and reduces no-shows dramatically.",
     benefits: [
-      { title: "89% Fewer No-Shows", description: "Automated SMS confirmations and reminders eliminate forgotten appointments." },
+      { title: "Fewer No-Shows", description: "Automated SMS confirmations and reminders help cut down on forgotten appointments." },
       { title: "24/7 Booking", description: "Clients book anytime — evenings, weekends, holidays. Your office is never closed." },
       { title: "Smart Availability", description: "AI only books available slots. No double-bookings. No scheduling errors." },
       { title: "Instant Confirmation", description: "Clients receive confirmation immediately. Peace of mind for them, revenue certainty for you." },
@@ -169,13 +169,13 @@ export const useCasesData: Record<string, UseCase> = {
     faqs: [
       {
         q: "How much does no-show reduction save?",
-        a: "For a typical salon, 89% reduction in no-shows means 15-20 more clients per week showing up. That's real money.",
+        a: "Reducing no-shows means more booked clients actually show up each week. Estimate the impact using your own appointment volume and average ticket value.",
       },
     ],
     stats: [
-      { label: "No-Show Reduction", value: "89%" },
-      { label: "Avg Booking Accuracy", value: "99.2%" },
-      { label: "Customer Satisfaction", value: "4.8★" },
+      { label: "Automated Reminders", value: "24/7" },
+      { label: "Booking Availability", value: "Always" },
+      { label: "Confirmation Speed", value: "Instant" },
     ],
     cta: "Reduce no-shows. Increase revenue. Start free.",
   },

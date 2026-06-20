@@ -53,9 +53,9 @@ const UseCaseDetail = () => {
     applicationCategory: "ProductivityApplication",
     offers: {
       "@type": "Offer",
-      price: "299",
+      price: "297",
       priceCurrency: "USD",
-      url: "https://cal.com/voxmation/meeting",
+      url: "https://voxmation.com/pricing",
     },
   };
 

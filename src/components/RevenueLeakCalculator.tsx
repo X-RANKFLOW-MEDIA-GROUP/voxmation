@@ -17,7 +17,7 @@ const RevenueLeakCalculator = ({ title = "Revenue Leak Calculator", subtitle = "
 
   const monthlyMissedRevenue = (missedCalls[0] * avgJobValue[0] * (conversionRate[0] / 100));
   const yearlyMissedRevenue = monthlyMissedRevenue * 12;
-  const potentialGain = yearlyMissedRevenue - (monthlyMissedRevenue > 0 ? 299 * 12 : 0); // Assuming $299/month subscription
+  const potentialGain = yearlyMissedRevenue - (monthlyMissedRevenue > 0 ? 297 * 12 : 0); // Assuming $297/month subscription (Starter plan)
 
   return (
     <section className="py-20 md:py-28 relative">
@@ -154,8 +154,8 @@ const RevenueLeakCalculator = ({ title = "Revenue Leak Calculator", subtitle = "
                   transition={{ delay: 0.6 }}
                   className="text-center text-sm text-silver leading-relaxed pt-4"
                 >
-                  Voxmation covers that revenue leak for just{" "}
-                  <span className="font-semibold text-warning">$299/month</span>. Most home service businesses recover this investment within the first month.
+                  Voxmation helps you recover that revenue leak, with plans starting at{" "}
+                  <span className="font-semibold text-warning">$297/month</span>.
                 </motion.p>
               </div>
             </Card>

@@ -11,11 +11,11 @@ type NavLink = {
 };
 
 const navLinks: NavLink[] = [
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Services", href: "#services" },
-  { label: "Use Cases", href: "/use-cases", isRoute: true },
+  { label: "How It Works", href: "/how-it-works", isRoute: true },
+  { label: "Services", href: "/services", isRoute: true },
   { label: "Industries", href: "/industries", isRoute: true },
-  { label: "Case Studies", href: "/case-studies", isRoute: true },
+  { label: "Missed Call Recovery", href: "/missed-call-recovery", isRoute: true },
+  { label: "Use Cases", href: "/use-cases", isRoute: true },
   { label: "Blog", href: "/blog", isRoute: true },
   { label: "Pricing", href: "/pricing", isRoute: true },
   { label: "Demo", href: "/demo", isRoute: true },

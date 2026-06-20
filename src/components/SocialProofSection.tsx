@@ -1,49 +1,46 @@
 import Reveal from "@/components/Reveal";
 import { motion } from "framer-motion";
-import { Quote, Star, TrendingUp, Clock, PhoneCall } from "lucide-react";
+import { Quote, TrendingUp, Clock, PhoneCall } from "lucide-react";
 
+// Product capability highlights (not customer results). These describe what the
+// platform does, not unverified performance statistics.
 const metrics = [
-  { icon: TrendingUp, value: "+40%", label: "More Booked Jobs" },
-  { icon: Clock, value: "15+", label: "Hours/Week Saved" },
-  { icon: PhoneCall, value: "2,400+", label: "Calls Handled/Month" },
+  { icon: PhoneCall, value: "24/7", label: "Calls Answered" },
+  { icon: Clock, value: "<2s", label: "Response Time" },
+  { icon: TrendingUp, value: "100%", label: "Calls Captured" },
 ];
 
-const testimonials = [
+// Illustrative use cases by industry — not testimonials from named individuals.
+const highlights = [
   {
-    quote: "We were losing 40% of our after-hours calls. Now our AI answers every single one and books the job. Revenue is up 35% in 60 days.",
-    name: "Marcus D.",
-    role: "Owner",
-    company: "Premier Plumbing Co.",
+    tag: "Plumbing",
+    headline: "Answer every after-hours emergency",
+    detail: "A burst-pipe call at midnight is answered, triaged by urgency, and booked — instead of going to voicemail and a competitor.",
   },
   {
-    quote: "Our lead response time went from 4 hours to under 1 second. The ROI was insane from month one. Best investment we've made.",
-    name: "Sarah K.",
-    role: "CEO",
-    company: "Comfort Zone HVAC",
+    tag: "HVAC",
+    headline: "Capture peak-season demand",
+    detail: "When a heat wave spikes call volume, the AI answers unlimited concurrent calls so no service request is missed.",
   },
   {
-    quote: "Voxmation replaced our answering service and it's not even close. The AI qualifies leads better than our $15/hr receptionist did.",
-    name: "James R.",
-    role: "Owner",
-    company: "R&R Electrical Services",
+    tag: "Electrical",
+    headline: "Qualify leads instantly",
+    detail: "The AI screens safety-critical calls, scores urgency, and routes the right leads to your team in seconds.",
   },
   {
-    quote: "We went from missing 60% of storm-season calls to capturing every single one. Booked 312% more inspections last quarter.",
-    name: "Mike T.",
-    role: "Operations Manager",
-    company: "StormShield Roofing",
+    tag: "Roofing",
+    headline: "Survive the storm surge",
+    detail: "After a hailstorm, every inbound lead is captured, qualified for insurance vs. retail, and booked for an inspection.",
   },
   {
-    quote: "No-shows dropped by 89% after we deployed the AI reminder system. Patients love it. Staff loves it. Revenue loves it.",
-    name: "Dr. Patel",
-    role: "Practice Owner",
-    company: "Bright Smile Dental",
+    tag: "Medical Spa",
+    headline: "Reduce no-shows",
+    detail: "Automated confirmations and reminder sequences help keep your calendar full and reduce missed appointments.",
   },
   {
-    quote: "We signed 3x more cases last quarter because Voxmation responds to inquiries instantly. First to respond wins in legal.",
-    name: "Chris W.",
-    role: "Managing Partner",
-    company: "Westbrook Law Group",
+    tag: "Legal Intake",
+    headline: "Be first to respond",
+    detail: "Prospective-client calls are answered and qualified 24/7, so your firm responds before the competition.",
   },
 ];
 
@@ -55,7 +52,7 @@ const SocialProofSection = () => {
       <div className="absolute inset-0 gradient-mesh pointer-events-none opacity-40" />
 
       <div className="container mx-auto px-6 relative z-10">
-        {/* Metrics highlight */}
+        {/* Capability highlights */}
         <div className="grid md:grid-cols-3 gap-6 mb-20 max-w-4xl mx-auto">
           {metrics.map((m, i) => (
             <Reveal key={m.label} delay={0.1 * i} scale>
@@ -77,49 +74,42 @@ const SocialProofSection = () => {
         <div className="text-center mb-16">
           <Reveal>
             <span className="text-xs tracking-[0.15em] uppercase text-primary font-mono block mb-4">
-              Real Results
+              Use Cases
             </span>
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-silver-bright tracking-[-0.02em]">
-              What Our Clients Say
+              What VOXmatiON Delivers
             </h2>
           </Reveal>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-20">
-          {testimonials.map((t, i) => (
-            <Reveal key={t.name} delay={0.08 * i} scale>
+          {highlights.map((h, i) => (
+            <Reveal key={h.headline} delay={0.08 * i} scale>
               <motion.div
                 whileHover={{ y: -4, transition: { duration: 0.4 } }}
                 className="surface-card rounded-2xl p-7 h-full relative overflow-hidden group hover:border-primary/15 transition-all duration-500"
               >
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                <div className="flex gap-1 mb-5">
-                  {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="h-3 w-3 text-warning fill-warning" />
-                  ))}
-                </div>
+                <p className="text-[10px] text-primary/70 font-mono uppercase tracking-wider mb-4">{h.tag}</p>
 
                 <Quote className="h-4 w-4 text-primary/20 mb-3" />
 
-                <p className="text-sm text-foreground font-light leading-relaxed mb-6 font-display">
-                  "{t.quote}"
+                <p className="text-base text-foreground font-light leading-relaxed mb-4 font-display">
+                  {h.headline}
                 </p>
 
                 <div className="border-t border-border/50 pt-4 mt-auto">
-                  <p className="text-xs text-silver-bright font-mono tracking-wide">{t.name}</p>
-                  <p className="text-[10px] text-silver font-mono mt-0.5">
-                    {t.role} · {t.company}
-                  </p>
+                  <p className="text-xs text-silver leading-relaxed">{h.detail}</p>
                 </div>
               </motion.div>
             </Reveal>
           ))}
         </div>
 
-        {/* Logo ticker */}
+        {/* Integration logo ticker */}
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-background to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-background to-transparent z-10" />

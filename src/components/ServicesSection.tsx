@@ -31,7 +31,7 @@ const services = [
   {
     icon: CalendarCheck,
     title: "Appointment Booking",
-    desc: "AI-powered scheduling that books directly into your calendar. Sends confirmations, reminders, and reduces no-shows by up to 89%.",
+    desc: "AI-powered scheduling that books directly into your calendar. Sends confirmations and reminders to help reduce no-shows.",
   },
 ];
 

@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <!-- Without JS, reveal-on-scroll content is prerendered at opacity:0; force it visible. -->
+    <noscript><style>[style*="opacity:0"]{opacity:1!important;transform:none!important}</style></noscript>
     <meta name="theme-color" content="#0a0a0a" />
     <meta name="color-scheme" content="dark" />
     <meta name="format-detection" content="telephone=yes" />
@@ -51,77 +53,99 @@
     <meta name="twitter:description" content="Voxmation deploys AI Voice Agents that answer every call, follow up with every lead, and book appointments 24/7 for HVAC, plumbing, electrical, and home service businesses." />
     <meta name="twitter:image" content="https://voxmation.com/og-image.png" />
 
-    <!-- Organization Schema -->
+    <!-- Consolidated @graph: Organization + WebSite + SoftwareApplication
+         (entity disambiguation + NAP consistency). No AggregateRating is emitted
+         here because reviews are not yet verifiable; add only when eligible. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Voxmation",
-      "url": "https://voxmation.com",
-      "logo": "https://voxmation.com/favicon.ico",
-      "description": "AI Voice Agents & Automation for Home Service Businesses",
-      "sameAs": [
-        "https://x.com/voxmation",
-        "https://instagram.com/voxmation",
-        "https://facebook.com/voxmation"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "sales",
-        "url": "https://cal.com/voxmation/meeting"
-      }
-    }
-    </script>
-
-    <!-- SoftwareApplication Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Voxmation",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web",
-      "url": "https://voxmation.com",
-      "description": "AI-powered voice agents for home service businesses. 24/7 call answering, lead qualification, and automated appointment booking.",
-      "offers": {
-        "@type": "Offer",
-        "price": "297",
-        "priceCurrency": "USD",
-        "priceSpecification": {
-          "@type": "UnitPriceSpecification",
-          "price": "297",
-          "priceCurrency": "USD",
-          "billingDuration": "P1M"
-        }
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "87"
-      }
-    }
-    </script>
-
-    <!-- WebSite Schema for Sitelinks Search Box -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Voxmation",
-      "url": "https://voxmation.com",
-      "description": "AI Voice Agents & Automation for Home Service Businesses",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Voxmation"
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://voxmation.com/blog?q={search_term_string}"
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://voxmation.com/#organization",
+          "name": "VOXmatiON",
+          "legalName": "Voxmation LLC",
+          "alternateName": ["Voxmation", "VOXmation", "VOXmatiON AI Receptionist"],
+          "url": "https://voxmation.com/",
+          "logo": "https://voxmation.com/Logo.PNG",
+          "image": "https://voxmation.com/og-image.png",
+          "description": "VOXmatiON provides AI voice automation, AI receptionist, missed call recovery, lead qualification, call routing, CRM automation, and follow up automation for service businesses.",
+          "disambiguatingDescription": "VOXmatiON (voxmation.com) is a US-based AI receptionist and missed-call-recovery platform for service businesses. It is not affiliated with Voxme inventory software, Voxmotion Agency, or VoxMachine.",
+          "telephone": "+1-844-687-7999",
+          "email": "sales@voxmation.com",
+          "areaServed": "US",
+          "knowsAbout": [
+            "AI Receptionist",
+            "Voice Automation",
+            "Missed Call Recovery",
+            "Missed Call Text-Back",
+            "Lead Qualification",
+            "Call Routing",
+            "CRM Automation"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "US"
+          },
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "sales",
+              "telephone": "+1-844-687-7999",
+              "email": "sales@voxmation.com",
+              "areaServed": "US",
+              "availableLanguage": ["English"]
+            },
+            {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "telephone": "+1-844-687-7999",
+              "email": "support@voxmation.com",
+              "areaServed": "US",
+              "availableLanguage": ["English"]
+            }
+          ],
+          "sameAs": [
+            "https://instagram.com/voxmation",
+            "https://facebook.com/voxmation",
+            "https://linkedin.com/company/voxmation",
+            "https://tiktok.com/@voxmation",
+            "https://youtube.com/@voxmation",
+            "https://x.com/voxmation"
+          ]
         },
-        "query-input": "required name=search_term_string"
-      }
+        {
+          "@type": "WebSite",
+          "@id": "https://voxmation.com/#website",
+          "url": "https://voxmation.com/",
+          "name": "VOXmatiON",
+          "description": "AI receptionist, missed call recovery, and voice automation for service businesses.",
+          "publisher": { "@id": "https://voxmation.com/#organization" },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://voxmation.com/blog?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://voxmation.com/#software",
+          "name": "VOXmatiON AI Receptionist",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "description": "AI receptionist and missed call recovery software for service businesses.",
+          "provider": { "@id": "https://voxmation.com/#organization" },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://voxmation.com/pricing"
+          }
+        }
+      ]
     }
     </script>
 

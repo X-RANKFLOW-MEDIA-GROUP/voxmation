@@ -48,19 +48,33 @@ const SEOHead = ({
   const orgSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${BASE_URL}/#organization`,
     name: SITE_NAME,
+    legalName: "Voxmation LLC",
+    alternateName: ["VOXmatiON", "Voxmation AI", "Voxmation AI Receptionist"],
     url: BASE_URL,
-    logo: `${BASE_URL}/favicon.ico`,
+    logo: `${BASE_URL}/Logo.PNG`,
     description: "AI Voice Agents & Automation for Home Service Businesses",
+    disambiguatingDescription:
+      "Voxmation (voxmation.com) is a US-based AI phone answering and missed-call recovery platform for home service contractors. It is not affiliated with Voxme inventory software, Voxmotion Agency, or VoxMachine.",
     foundingDate: "2023",
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "sales",
-      telephone: "+1-844-687-7999",
-      email: "support@voxmation.com",
-      url: "https://cal.com/voxmation/meeting",
-      availableLanguage: ["English"],
-    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        telephone: "+1-844-687-7999",
+        email: "sales@voxmation.com",
+        url: "https://cal.com/voxmation/meeting",
+        availableLanguage: ["English"],
+      },
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        telephone: "+1-844-687-7999",
+        email: "support@voxmation.com",
+        availableLanguage: ["English"],
+      },
+    ],
     sameAs: [
       "https://x.com/voxmation",
       "https://instagram.com/voxmation",
