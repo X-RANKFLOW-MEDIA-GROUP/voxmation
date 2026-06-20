@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { Loader2, ArrowRight } from "lucide-react";
+import { createTrial } from "@/lib/trial-service";
 
 const leadSchema = z.object({
   full_name: z.string().trim().min(1, "Full name is required").max(100),
@@ -26,7 +26,7 @@ interface LeadCaptureDialogProps {
   pageSource?: string;
 }
 
-const industries = ["HVAC", "Plumbing", "Electrical", "Cleaning", "Landscaping", "Roofing", "Pest Control", "Other"];
+const industries = ["HVAC", "Plumbing", "Electrical", "Roofing", "Landscaping", "Cleaning", "Pest Control", "Painting", "Carpentry", "Appliance Repair", "Locksmith", "Tree Service", "Snow Removal", "Garage Doors", "Handyman", "Other"];
 const callVolumes = ["Under 100", "100–300", "300–500", "500+"];
 
 const LeadCaptureDialog = ({ open, onOpenChange, pageSource = "website" }: LeadCaptureDialogProps) => {
@@ -62,28 +62,34 @@ const LeadCaptureDialog = ({ open, onOpenChange, pageSource = "website" }: LeadC
     }
 
     setLoading(true);
-    const { error } = await supabase.from("website_leads").insert([{
-      full_name: result.data.full_name,
-      business_name: result.data.business_name,
-      email: result.data.email,
-      phone: result.data.phone,
-      industry: result.data.industry || null,
-      monthly_call_volume: result.data.monthly_call_volume || null,
-      page_source: pageSource,
-    }]);
-    setLoading(false);
+    try {
+      await createTrial({
+        email: result.data.email,
+        businessName: result.data.business_name,
+        industry: result.data.industry,
+        fullName: result.data.full_name,
+        phone: result.data.phone,
+      });
 
-    if (error) {
-      toast({ title: "Something went wrong", description: "Please try again or email us directly.", variant: "destructive" });
-      return;
+      toast({
+        title: "🎉 Trial Activated!",
+        description: "Check your email for your API key. You have 7 days of free access with full features!",
+      });
+      onOpenChange(false);
+      setForm({ full_name: "", business_name: "", email: "", phone: "", industry: "", monthly_call_volume: "" });
+
+      // Open Cal.com for scheduling
+      window.open("https://cal.com/voxmation/meeting", "_blank", "noopener,noreferrer");
+    } catch (error) {
+      console.error("Trial creation error:", error);
+      toast({
+        title: "Error Creating Trial",
+        description: "Please try again or contact us for support.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
-
-    toast({ title: "Thanks! We'll be in touch within 24 hours.", description: "You can also schedule a time right now." });
-    onOpenChange(false);
-    setForm({ full_name: "", business_name: "", email: "", phone: "", industry: "", monthly_call_volume: "" });
-
-    // Open Cal.com for immediate scheduling
-    window.open("https://cal.com/voxmation/meeting", "_blank", "noopener,noreferrer");
   };
 
   return (

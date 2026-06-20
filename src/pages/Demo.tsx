@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Send, ArrowUpRight, Volume2, Mic, Bot, User, Headphones, CircleUser, CheckCircle2, RotateCcw, Thermometer, Wrench, Zap, Home, TreePine, SprayCan, AlertTriangle } from "lucide-react";
+import { Send, ArrowUpRight, Volume2, Mic, Bot, User, Headphones, CircleUser, CheckCircle2, RotateCcw, Thermometer, Wrench, Zap, Home, TreePine, SprayCan, AlertTriangle, Bug, Palette, Hammer, Settings, Lock, Trees, Snowflake, DoorOpen, MoreHorizontal } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import DemoHero from "@/components/demo/DemoHero";
@@ -33,6 +33,16 @@ const industries: { id: string; Icon: LucideIcon; label: string }[] = [
   { id: "roofing", Icon: Home, label: "Roofing" },
   { id: "landscaping", Icon: TreePine, label: "Landscaping" },
   { id: "cleaning", Icon: SprayCan, label: "Cleaning" },
+  { id: "pest_control", Icon: Bug, label: "Pest Control" },
+  { id: "painting", Icon: Palette, label: "Painting" },
+  { id: "carpentry", Icon: Hammer, label: "Carpentry" },
+  { id: "appliance_repair", Icon: Settings, label: "Appliance Repair" },
+  { id: "locksmith", Icon: Lock, label: "Locksmith" },
+  { id: "tree_service", Icon: Trees, label: "Tree Service" },
+  { id: "snow_removal", Icon: Snowflake, label: "Snow Removal" },
+  { id: "garage_doors", Icon: DoorOpen, label: "Garage Doors" },
+  { id: "handyman", Icon: Hammer, label: "Handyman" },
+  { id: "other", Icon: MoreHorizontal, label: "Other" },
 ];
 
 const voices: { id: string; Icon: LucideIcon; name: string; desc: string }[] = [
@@ -97,6 +107,96 @@ const conversations: Record<string, ChatMessage[]> = {
     { role: "bot", text: "For a 2bed/1bath move-out deep clean, the price is $220. I can schedule Monday at 9AM. Does that work?" },
     { role: "user", text: "Monday works. Let's do it." },
     { role: "bot", text: "You're booked for Monday at 9AM! Checklist and confirmation coming via text. Have a great day!" },
+  ],
+  pest_control: [
+    { role: "bot", text: "Hello! Thanks for calling Safe Guard Pest Control. I'm Vox. What's bothering you today?" },
+    { role: "user", text: "I've been seeing roaches in my kitchen lately." },
+    { role: "bot", text: "I'm sorry to hear that. We can help! Are you a renter or homeowner?" },
+    { role: "user", text: "I'm renting." },
+    { role: "bot", text: "We offer a comprehensive treatment. We can inspect tomorrow at 10AM or Thursday at 2PM. Which works?" },
+    { role: "user", text: "Tomorrow at 10AM is good." },
+    { role: "bot", text: "Perfect! Inspection scheduled for tomorrow at 10AM. Confirmation text coming shortly. We'll get this resolved quickly!" },
+  ],
+  painting: [
+    { role: "bot", text: "Hi! Welcome to Premier Painters. I'm Vox. How can I help with your painting needs?" },
+    { role: "user", text: "I want to repaint my living room and bedroom." },
+    { role: "bot", text: "Great! How many rooms total, and do you have a color in mind?" },
+    { role: "user", text: "Just those 2 rooms, and I'm thinking a light gray." },
+    { role: "bot", text: "Light gray is beautiful. I can schedule a free quote visit this week. Are you available Saturday at 2PM?" },
+    { role: "user", text: "Yes, Saturday at 2PM works perfectly." },
+    { role: "bot", text: "Excellent! Appointment confirmed for Saturday at 2PM. Our painter will bring color samples. See you then!" },
+  ],
+  carpentry: [
+    { role: "bot", text: "Hello! Thanks for calling Master Carpentry. I'm Vox. What project are we discussing?" },
+    { role: "user", text: "I need new shelving units built in my garage." },
+    { role: "bot", text: "Shelving is one of our specialties! How much wall space are we talking about?" },
+    { role: "user", text: "About 12 feet of wall space." },
+    { role: "bot", text: "Perfect. I can schedule a free consultation to discuss materials and design. Tuesday at 4PM?" },
+    { role: "user", text: "Tuesday works for me." },
+    { role: "bot", text: "Great! Consultation booked for Tuesday at 4PM. Bring any photos or ideas you have. See you soon!" },
+  ],
+  appliance_repair: [
+    { role: "bot", text: "Hi! Thanks for calling Quick Fix Appliances. I'm Vox. What appliance needs repair?" },
+    { role: "user", text: "My washing machine won't drain properly." },
+    { role: "bot", text: "That's a common issue we fix regularly. Is it a front-loader or top-loader?" },
+    { role: "user", text: "It's a front-loader." },
+    { role: "bot", text: "We can send a technician tomorrow between 10AM and 2PM, or Thursday morning. Which works?" },
+    { role: "user", text: "Tomorrow afternoon would be great." },
+    { role: "bot", text: "You're all set for tomorrow between 10AM and 2PM. We'll text you 30 minutes before arrival. Thanks!" },
+  ],
+  locksmith: [
+    { role: "bot", text: "Hello! You've reached Premier Locksmith Services. I'm Vox. How can I help?" },
+    { role: "user", text: "I lost my house keys and I'm locked out." },
+    { role: "bot", text: "I can help with that immediately. Are you currently at the property?" },
+    { role: "user", text: "Yes, I'm at the front door." },
+    { role: "bot", text: "Great! Our technician is 15 minutes away. They'll have you inside within the hour. Confirmation text coming now." },
+    { role: "user", text: "Thank you, I appreciate the fast service." },
+    { role: "bot", text: "You're welcome! We specialize in quick responses. See you shortly!" },
+  ],
+  tree_service: [
+    { role: "bot", text: "Hi! Thanks for calling Green Tree Services. I'm Vox. What can we help you with?" },
+    { role: "user", text: "I have a large oak tree that needs trimming." },
+    { role: "bot", text: "Tree trimming is perfect for late fall! Is the tree healthy or showing signs of disease?" },
+    { role: "user", text: "It looks healthy, just overgrown." },
+    { role: "bot", text: "Excellent! I can schedule a free inspection this Friday at 10AM. Does that work for you?" },
+    { role: "user", text: "Friday morning is perfect." },
+    { role: "bot", text: "Inspection booked for Friday at 10AM! Our arborist will give you a detailed estimate. See you then!" },
+  ],
+  snow_removal: [
+    { role: "bot", text: "Hello! Welcome to Snow Clear Services. I'm Vox. Are you ready for winter?" },
+    { role: "user", text: "Yes! I need snow removal for my driveway and sidewalk." },
+    { role: "bot", text: "Perfect! Do you want per-service billing or a seasonal contract?" },
+    { role: "user", text: "Seasonal contract would be better." },
+    { role: "bot", text: "Great choice! Our seasonal plans start at $300. I can send you details and schedule a walkthrough tomorrow." },
+    { role: "user", text: "That sounds good." },
+    { role: "bot", text: "Excellent! Contract details and walkthrough scheduled. You're all set for winter now!" },
+  ],
+  garage_doors: [
+    { role: "bot", text: "Hi! Thanks for calling Garage Door Pros. I'm Vox. What's the issue?" },
+    { role: "user", text: "My garage door opener is making a strange noise." },
+    { role: "bot", text: "That could be a motor or spring issue. Is the door still opening and closing?" },
+    { role: "user", text: "Yes, it works fine, just sounds weird." },
+    { role: "bot", text: "Good. We can diagnose it quickly. We have same-day appointments available at 2PM or 5PM today." },
+    { role: "user", text: "2PM works for me." },
+    { role: "bot", text: "Appointment confirmed for 2PM today! Technician will bring common parts. See you soon!" },
+  ],
+  handyman: [
+    { role: "bot", text: "Hello! Welcome to All-Pro Handyman Services. I'm Vox. What needs fixing?" },
+    { role: "user", text: "I have several small repairs around my house." },
+    { role: "bot", text: "That's what we do best! How many projects are we talking about?" },
+    { role: "user", text: "Maybe 5 or 6 different things." },
+    { role: "bot", text: "No problem! We offer multi-task scheduling. I can book a consultation this Saturday at 10AM to see everything." },
+    { role: "user", text: "Saturday works great." },
+    { role: "bot", text: "Perfect! Consultation scheduled for Saturday at 10AM. We'll give you a full estimate. See you then!" },
+  ],
+  other: [
+    { role: "bot", text: "Hi there! Thanks for calling us. I'm Vox, your AI assistant. How can we help you today?" },
+    { role: "user", text: "I'm calling about a service inquiry." },
+    { role: "bot", text: "Absolutely, I'm here to help! Can you tell me a bit more about what you need?" },
+    { role: "user", text: "I need more information about your services and pricing." },
+    { role: "bot", text: "I'd be happy to help! Let me get some details from you and connect you with our team." },
+    { role: "user", text: "That sounds great." },
+    { role: "bot", text: "Perfect! A specialist will reach out within 2 hours with all the details. Thank you for contacting us!" },
   ],
 };
 
