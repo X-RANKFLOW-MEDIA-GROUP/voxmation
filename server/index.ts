@@ -9,6 +9,7 @@ import {
   getCandidateConfirmationEmail,
   getAdminNotificationEmail,
 } from "./email";
+import crmRoutes from "./routes/crm";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -266,6 +267,9 @@ app.get("/api/resumes/:filename", (req, res) => {
     res.status(500).json({ message: "Failed to download resume" });
   }
 });
+
+// CRM Routes (Multi-tenant)
+app.use("/api/crm", crmRoutes);
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
