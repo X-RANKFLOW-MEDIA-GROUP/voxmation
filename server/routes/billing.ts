@@ -548,4 +548,353 @@ router.get(
   }
 );
 
+// ============================================================================
+// ADMIN ENDPOINTS
+// ============================================================================
+
+/**
+ * GET /api/admin/subscriptions
+ * Get all subscriptions for the account (admin only)
+ * Query params: limit, offset, status, planId, currency
+ */
+router.get("/admin/subscriptions", requireRole("owner", "admin"), async (req: Request, res: Response) => {
+  try {
+    const accountId = req.accountId!;
+    const { limit = 25, offset = 0, status, planId, currency } = req.query;
+
+    let query = supabase
+      .from("subscriptions")
+      .select("*, subscription_plans(*)", { count: "exact" })
+      .eq("account_id", accountId)
+      .order("created_at", { ascending: false });
+
+    // Apply status filter if provided
+    if (status) {
+      query = query.eq("status", status);
+    }
+
+    // Apply plan filter if provided
+    if (planId) {
+      query = query.eq("plan_id", planId);
+    }
+
+    // Apply currency filter if provided
+    if (currency) {
+      query = query.eq("currency", currency.toString().toUpperCase());
+    }
+
+    const { data, count, error } = await query.range(
+      parseInt(offset as string),
+      parseInt(offset as string) + parseInt(limit as string) - 1
+    );
+
+    if (error) throw error;
+
+    // Transform subscription data
+    const transformedSubscriptions = (data || []).map((sub) => ({
+      id: sub.id,
+      stripeSubscriptionId: sub.stripe_subscription_id,
+      planId: sub.plan_id,
+      planName: sub.subscription_plans?.name,
+      status: sub.status,
+      currency: sub.currency,
+      billingCycle: sub.billing_cycle,
+      pricePerCycle: sub.price_per_cycle,
+      currentPeriodStart: sub.current_period_start,
+      currentPeriodEnd: sub.current_period_end,
+      trialStart: sub.trial_start,
+      trialEnd: sub.trial_end,
+      cancelAtPeriodEnd: sub.cancel_at_period_end,
+      canceledAt: sub.canceled_at,
+      cancellationReason: sub.cancellation_reason,
+      createdAt: sub.created_at,
+      updatedAt: sub.updated_at,
+    }));
+
+    res.json({
+      data: transformedSubscriptions,
+      total: count || 0,
+      pagination: {
+        limit: parseInt(limit as string),
+        offset: parseInt(offset as string),
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching admin subscriptions:", error);
+    res.status(500).json({ error: "Failed to fetch subscriptions" });
+  }
+});
+
+/**
+ * PATCH /api/admin/subscriptions/:id
+ * Change subscription plan (admin only)
+ * Body: { planId, billingCycle?, prorationBehavior? }
+ * prorationBehavior: 'create_prorations' | 'always_invoice' | 'none'
+ */
+router.patch(
+  "/admin/subscriptions/:id",
+  requireRole("owner", "admin"),
+  async (req: Request, res: Response) => {
+    try {
+      const accountId = req.accountId!;
+      const { id: subscriptionId } = req.params;
+      const { planId, billingCycle, prorationBehavior = "create_prorations" } = req.body;
+
+      if (!planId) {
+        return res.status(400).json({ error: "Plan ID is required" });
+      }
+
+      // Get current subscription
+      const { data: currentSub, error: subError } = await supabase
+        .from("subscriptions")
+        .select("*, subscription_plans(*)")
+        .eq("id", subscriptionId)
+        .eq("account_id", accountId)
+        .single();
+
+      if (subError || !currentSub) {
+        return res.status(404).json({ error: "Subscription not found" });
+      }
+
+      // Get new plan
+      const { data: newPlan, error: planError } = await supabase
+        .from("subscription_plans")
+        .select("*")
+        .eq("id", planId)
+        .eq("is_active", true)
+        .single();
+
+      if (planError || !newPlan) {
+        return res.status(404).json({ error: "Plan not found" });
+      }
+
+      // Determine billing cycle (use provided or current)
+      const cycle = (billingCycle || currentSub.billing_cycle) as "monthly" | "yearly";
+      const currency = currentSub.currency.toLowerCase();
+
+      // Get new price ID
+      const priceKey = `stripe_price_id_${cycle}_${currency}`;
+      const newPriceId = newPlan[priceKey];
+
+      if (!newPriceId) {
+        return res.status(400).json({
+          error: `Price not available for ${currency.toUpperCase()} ${cycle} billing`,
+        });
+      }
+
+      // Update subscription via Stripe
+      const stripe = await initializeStripe();
+      const updated = await stripe.subscriptions.update(
+        currentSub.stripe_subscription_id,
+        {
+          items: [
+            {
+              id: (
+                await stripe.subscriptions.retrieve(
+                  currentSub.stripe_subscription_id,
+                  {
+                    expand: ["items"],
+                  }
+                )
+              ).items.data[0].id,
+              price: newPriceId,
+            },
+          ],
+          proration_behavior: prorationBehavior as any,
+        }
+      );
+
+      // Update database
+      const { error: updateError } = await supabase
+        .from("subscriptions")
+        .update({
+          plan_id: planId,
+          billing_cycle: cycle,
+          price_per_cycle: newPlan[`price_${cycle}_${currency}`],
+          updated_at: new Date(),
+        })
+        .eq("id", subscriptionId)
+        .eq("account_id", accountId);
+
+      if (updateError) throw updateError;
+
+      // Record billing event
+      await supabase.from("billing_history").insert({
+        account_id: accountId,
+        subscription_id: subscriptionId,
+        event_type: "subscription_modified",
+        details: {
+          old_plan_id: currentSub.plan_id,
+          new_plan_id: planId,
+          old_plan_name: currentSub.subscription_plans?.name,
+          new_plan_name: newPlan.name,
+          billing_cycle: cycle,
+          proration_behavior: prorationBehavior,
+        },
+        amount: newPlan[`price_${cycle}_${currency}`],
+        currency: currentSub.currency,
+      });
+
+      res.json({
+        id: subscriptionId,
+        planId: planId,
+        planName: newPlan.name,
+        status: updated.status,
+        billingCycle: cycle,
+        pricePerCycle: newPlan[`price_${cycle}_${currency}`],
+        currentPeriodStart: new Date(updated.current_period_start! * 1000),
+        currentPeriodEnd: new Date(updated.current_period_end! * 1000),
+        prorationCredit: updated.discount || 0,
+      });
+    } catch (error) {
+      console.error("Error updating subscription:", error);
+      const message =
+        error instanceof Error ? error.message : "Failed to update subscription";
+      res.status(500).json({ error: message });
+    }
+  }
+);
+
+/**
+ * GET /api/admin/invoices
+ * Get all invoices for the account (admin only)
+ * Query params: limit, offset, status, currency, subscriptionId
+ */
+router.get("/admin/invoices", requireRole("owner", "admin"), async (req: Request, res: Response) => {
+  try {
+    const accountId = req.accountId!;
+    const { limit = 25, offset = 0, status, currency, subscriptionId } = req.query;
+
+    let query = supabase
+      .from("invoices")
+      .select("*, subscriptions(id, stripe_subscription_id)", { count: "exact" })
+      .eq("account_id", accountId)
+      .order("issue_date", { ascending: false });
+
+    // Apply status filter if provided
+    if (status) {
+      query = query.eq("status", status);
+    }
+
+    // Apply currency filter if provided
+    if (currency) {
+      query = query.eq("currency", currency.toString().toUpperCase());
+    }
+
+    // Apply subscription filter if provided
+    if (subscriptionId) {
+      query = query.eq("subscription_id", subscriptionId);
+    }
+
+    const { data, count, error } = await query.range(
+      parseInt(offset as string),
+      parseInt(offset as string) + parseInt(limit as string) - 1
+    );
+
+    if (error) throw error;
+
+    // Transform invoice data
+    const transformedInvoices = (data || []).map((invoice) => ({
+      id: invoice.id,
+      stripeInvoiceId: invoice.stripe_invoice_id,
+      invoiceNumber: invoice.invoice_number,
+      subscriptionId: invoice.subscription_id,
+      status: invoice.status,
+      currency: invoice.currency,
+      amountSubtotal: invoice.amount_subtotal,
+      amountTax: invoice.amount_tax,
+      amountTotal: invoice.amount_total,
+      amountPaid: invoice.amount_paid,
+      amountDue: invoice.amount_due,
+      amountRemaining: invoice.amount_remaining,
+      issueDate: invoice.issue_date,
+      dueDate: invoice.due_date,
+      paidDate: invoice.paid_date,
+      pdfUrl: invoice.pdf_url,
+      hostedInvoiceUrl: invoice.hosted_invoice_url,
+      lineItems: invoice.line_items || [],
+      customFields: invoice.custom_fields || {},
+      createdAt: invoice.created_at,
+      updatedAt: invoice.updated_at,
+    }));
+
+    res.json({
+      data: transformedInvoices,
+      total: count || 0,
+      pagination: {
+        limit: parseInt(limit as string),
+        offset: parseInt(offset as string),
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching admin invoices:", error);
+    res.status(500).json({ error: "Failed to fetch invoices" });
+  }
+});
+
+/**
+ * POST /api/admin/invoices/:id/resend
+ * Resend an invoice to the customer (admin only)
+ */
+router.post(
+  "/admin/invoices/:id/resend",
+  requireRole("owner", "admin"),
+  async (req: Request, res: Response) => {
+    try {
+      const accountId = req.accountId!;
+      const { id: invoiceId } = req.params;
+
+      // Get invoice
+      const { data: invoice, error: invoiceError } = await supabase
+        .from("invoices")
+        .select("*")
+        .eq("id", invoiceId)
+        .eq("account_id", accountId)
+        .single();
+
+      if (invoiceError || !invoice) {
+        return res.status(404).json({ error: "Invoice not found" });
+      }
+
+      if (!invoice.stripe_invoice_id) {
+        return res.status(400).json({ error: "Invoice is not linked to Stripe" });
+      }
+
+      // Send invoice via Stripe
+      const stripe = await initializeStripe();
+      await stripe.invoices.sendInvoice(invoice.stripe_invoice_id);
+
+      // Record billing event
+      await supabase.from("billing_history").insert({
+        account_id: accountId,
+        invoice_id: invoiceId,
+        event_type: "invoice_created",
+        details: {
+          action: "resend",
+          invoice_number: invoice.invoice_number,
+          stripe_invoice_id: invoice.stripe_invoice_id,
+        },
+        amount: invoice.amount_total,
+        currency: invoice.currency,
+      });
+
+      // Update invoice last_sent timestamp (if we add this field later)
+      // For now, just record the event
+
+      res.json({
+        id: invoiceId,
+        stripeInvoiceId: invoice.stripe_invoice_id,
+        invoiceNumber: invoice.invoice_number,
+        status: "sent",
+        message: "Invoice resent successfully",
+      });
+    } catch (error) {
+      console.error("Error resending invoice:", error);
+      const message =
+        error instanceof Error ? error.message : "Failed to resend invoice";
+      res.status(500).json({ error: message });
+    }
+  }
+);
+
 export default router;

@@ -4,19 +4,22 @@ import { useAuth } from "@/contexts/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard, Headphones, PhoneOff, Users, Calendar, Workflow,
-  Plug, CreditCard, LifeBuoy, LogOut, ChevronLeft, ChevronRight, Menu, X
+  Plug, CreditCard, LifeBuoy, LogOut, ChevronLeft, ChevronRight, Menu, X,
+  UsersRound, BarChart3
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet-async";
 
 const navItems = [
   { path: "/portal", icon: LayoutDashboard, label: "Dashboard" },
+  { path: "/portal/analytics", icon: BarChart3, label: "Analytics" },
   { path: "/portal/voice-agent", icon: Headphones, label: "Voice Agent" },
   { path: "/portal/missed-calls", icon: PhoneOff, label: "Missed Calls" },
   { path: "/portal/leads", icon: Users, label: "Leads" },
   { path: "/portal/bookings", icon: Calendar, label: "Bookings" },
   { path: "/portal/automations", icon: Workflow, label: "Automations" },
   { path: "/portal/integrations", icon: Plug, label: "Integrations" },
+  { path: "/portal/team-management", icon: UsersRound, label: "Team" },
   { path: "/portal/billing", icon: CreditCard, label: "Billing" },
   { path: "/portal/support", icon: LifeBuoy, label: "Support" },
 ];

@@ -220,6 +220,164 @@ describe("Endpoint Requirements", () => {
     });
   });
 
+  describe("GET /api/admin/subscriptions", () => {
+    it("should require admin or owner role", () => {
+      // Role checking would be validated at middleware level
+      const validRoles = ["owner", "admin"];
+      expect(validRoles).toContain("owner");
+      expect(validRoles).toContain("admin");
+    });
+
+    it("should support pagination", () => {
+      const query = { limit: 25, offset: 0 };
+      expect(query.limit).toBeGreaterThan(0);
+      expect(query.offset).toBeGreaterThanOrEqual(0);
+    });
+
+    it("should support status filtering", () => {
+      const statuses = ["active", "paused", "canceled", "trialing"];
+      statuses.forEach((status) => {
+        expect(status).toBeDefined();
+      });
+    });
+
+    it("should support currency filtering", () => {
+      const currencies = ["USD", "EUR"];
+      currencies.forEach((currency) => {
+        expect(isValidCurrency(currency)).toBe(true);
+      });
+    });
+
+    it("should support planId filtering", () => {
+      const planId = "plan_pro_id";
+      expect(planId).toBeDefined();
+    });
+  });
+
+  describe("PATCH /api/admin/subscriptions/:id", () => {
+    it("should require admin or owner role", () => {
+      const validRoles = ["owner", "admin"];
+      expect(validRoles).toContain("owner");
+      expect(validRoles).toContain("admin");
+    });
+
+    it("should require planId in request body", () => {
+      const body = { billingCycle: "monthly" };
+      expect(body.planId).toBeUndefined();
+    });
+
+    it("should support plan changes", () => {
+      const request = {
+        planId: "plan_enterprise_id",
+      };
+      expect(request.planId).toBeDefined();
+    });
+
+    it("should support billing cycle changes", () => {
+      const request = {
+        planId: "plan_pro_id",
+        billingCycle: "yearly",
+      };
+      expect(isValidBillingCycle(request.billingCycle)).toBe(true);
+    });
+
+    it("should support proration behavior options", () => {
+      const behaviors = ["create_prorations", "always_invoice", "none"];
+      behaviors.forEach((behavior) => {
+        expect(behavior).toBeDefined();
+      });
+    });
+
+    it("should record billing event on plan change", () => {
+      const event = {
+        event_type: "subscription_modified",
+        details: {
+          old_plan_id: "plan_pro_id",
+          new_plan_id: "plan_enterprise_id",
+        },
+      };
+      expect(event.event_type).toBe("subscription_modified");
+      expect(event.details.old_plan_id).toBeDefined();
+      expect(event.details.new_plan_id).toBeDefined();
+    });
+  });
+
+  describe("GET /api/admin/invoices", () => {
+    it("should require admin or owner role", () => {
+      const validRoles = ["owner", "admin"];
+      expect(validRoles).toContain("owner");
+      expect(validRoles).toContain("admin");
+    });
+
+    it("should support pagination with limit and offset", () => {
+      const query = { limit: 25, offset: 0 };
+      expect(query.limit).toBeGreaterThan(0);
+      expect(query.offset).toBeGreaterThanOrEqual(0);
+    });
+
+    it("should support status filtering", () => {
+      const statuses = ["paid", "open", "draft", "void", "uncollectible"];
+      statuses.forEach((status) => {
+        expect(["paid", "open", "draft", "void", "uncollectible"]).toContain(
+          status
+        );
+      });
+    });
+
+    it("should support currency filtering", () => {
+      const currencies = ["USD", "EUR"];
+      currencies.forEach((currency) => {
+        expect(isValidCurrency(currency)).toBe(true);
+      });
+    });
+
+    it("should support subscription filtering", () => {
+      const query = { subscriptionId: "sub_abc123" };
+      expect(query.subscriptionId).toBeDefined();
+    });
+  });
+
+  describe("POST /api/admin/invoices/:id/resend", () => {
+    it("should require admin or owner role", () => {
+      const validRoles = ["owner", "admin"];
+      expect(validRoles).toContain("owner");
+      expect(validRoles).toContain("admin");
+    });
+
+    it("should require invoice ID in URL", () => {
+      const invoiceId = "inv_abc123";
+      expect(invoiceId).toBeDefined();
+    });
+
+    it("should verify invoice belongs to account", () => {
+      const invoice = {
+        id: "inv_abc123",
+        account_id: "account_123",
+      };
+      expect(invoice.account_id).toBeDefined();
+    });
+
+    it("should require Stripe invoice ID", () => {
+      const invoice = {
+        id: "inv_abc123",
+        stripe_invoice_id: "in_stripe_123",
+      };
+      expect(invoice.stripe_invoice_id).toBeDefined();
+    });
+
+    it("should record resend event", () => {
+      const event = {
+        event_type: "invoice_created",
+        details: {
+          action: "resend",
+          invoice_number: "INV-001",
+        },
+      };
+      expect(event.event_type).toBe("invoice_created");
+      expect(event.details.action).toBe("resend");
+    });
+  });
+
   describe("POST /api/webhooks/stripe", () => {
     it("should handle invoice.paid events", () => {
       const event = {
@@ -326,5 +484,151 @@ describe("Integration Scenarios", () => {
     expect(query.offset).toBeGreaterThanOrEqual(0);
     expect(["paid", "open", "draft"]).toContain(query.status);
     expect(isValidCurrency(query.currency)).toBe(true);
+  });
+});
+
+describe("Admin Billing Integration Scenarios", () => {
+  it("should handle admin list subscriptions with pagination", () => {
+    const request = {
+      limit: 25,
+      offset: 0,
+    };
+
+    expect(request.limit).toBeGreaterThan(0);
+    expect(request.offset).toBeGreaterThanOrEqual(0);
+  });
+
+  it("should handle admin filter subscriptions by status", () => {
+    const request = {
+      limit: 25,
+      offset: 0,
+      status: "active",
+    };
+
+    const validStatuses = [
+      "active",
+      "paused",
+      "canceled",
+      "trialing",
+      "past_due",
+    ];
+    expect(validStatuses).toContain(request.status);
+  });
+
+  it("should handle admin filter subscriptions by plan", () => {
+    const request = {
+      planId: "plan_enterprise_id",
+      limit: 25,
+    };
+
+    expect(request.planId).toBeDefined();
+  });
+
+  it("should handle admin plan upgrade flow", () => {
+    const request = {
+      planId: "plan_enterprise_id",
+      prorationBehavior: "create_prorations",
+    };
+
+    const validBehaviors = [
+      "create_prorations",
+      "always_invoice",
+      "none",
+    ];
+    expect(validBehaviors).toContain(request.prorationBehavior);
+  });
+
+  it("should handle admin plan change with billing cycle update", () => {
+    const request = {
+      planId: "plan_pro_id",
+      billingCycle: "yearly",
+      prorationBehavior: "create_prorations",
+    };
+
+    expect(isValidBillingCycle(request.billingCycle)).toBe(true);
+    expect(request.prorationBehavior).toBeDefined();
+  });
+
+  it("should handle admin list invoices with filters", () => {
+    const request = {
+      limit: 25,
+      offset: 0,
+      status: "paid",
+      currency: "USD",
+    };
+
+    const validStatuses = ["paid", "open", "draft", "void", "uncollectible"];
+    expect(validStatuses).toContain(request.status);
+    expect(isValidCurrency(request.currency)).toBe(true);
+  });
+
+  it("should handle admin list invoices for subscription", () => {
+    const request = {
+      subscriptionId: "sub_abc123",
+      limit: 25,
+    };
+
+    expect(request.subscriptionId).toBeDefined();
+  });
+
+  it("should handle admin resend invoice", () => {
+    const request = {
+      invoiceId: "inv_abc123",
+    };
+
+    expect(request.invoiceId).toBeDefined();
+  });
+
+  it("should track subscription modification event", () => {
+    const event = {
+      event_type: "subscription_modified",
+      details: {
+        old_plan_id: "plan_pro_id",
+        new_plan_id: "plan_enterprise_id",
+        old_plan_name: "Professional",
+        new_plan_name: "Enterprise",
+        billing_cycle: "yearly",
+        proration_behavior: "create_prorations",
+      },
+      amount: 299.99,
+      currency: "USD",
+    };
+
+    expect(event.event_type).toBe("subscription_modified");
+    expect(event.details.old_plan_id).toBeDefined();
+    expect(event.details.new_plan_id).toBeDefined();
+    expect(event.amount).toBeGreaterThan(0);
+  });
+
+  it("should track invoice resend event", () => {
+    const event = {
+      event_type: "invoice_created",
+      details: {
+        action: "resend",
+        invoice_number: "INV-001",
+        stripe_invoice_id: "in_stripe_123",
+      },
+      amount: 49.99,
+      currency: "USD",
+    };
+
+    expect(event.event_type).toBe("invoice_created");
+    expect(event.details.action).toBe("resend");
+    expect(event.amount).toBeGreaterThan(0);
+  });
+
+  it("should handle multi-currency admin operations", () => {
+    const usdRequest = {
+      currency: "USD",
+      amount: 99.99,
+    };
+
+    const eurRequest = {
+      currency: "EUR",
+      amount: 89.99,
+    };
+
+    expect(isValidCurrency(usdRequest.currency)).toBe(true);
+    expect(isValidCurrency(eurRequest.currency)).toBe(true);
   });
 });

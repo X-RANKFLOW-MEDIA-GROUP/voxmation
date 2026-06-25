@@ -421,6 +421,274 @@ export const currencySupport = {
 };
 
 // =============================================================================
+// ADMIN BILLING ENDPOINTS
+// =============================================================================
+
+/**
+ * GET /api/admin/subscriptions
+ * Get all subscriptions for the account (admin only)
+ *
+ * Required headers:
+ * - Authorization: Bearer <token>
+ * - User must have 'owner' or 'admin' role
+ *
+ * Query parameters:
+ * - limit: number (default: 25) - Items per page
+ * - offset: number (default: 0) - Pagination offset
+ * - status: string (optional) - Filter by status: active, paused, canceled, trialing, etc.
+ * - planId: string (optional) - Filter by plan ID
+ * - currency: string (optional) - Filter by currency: USD, EUR
+ *
+ * Response:
+ * {
+ *   "data": [
+ *     {
+ *       "id": "sub_abc123",
+ *       "stripeSubscriptionId": "sub_stripe_123",
+ *       "planId": "plan_pro_id",
+ *       "planName": "Professional",
+ *       "status": "active",
+ *       "currency": "USD",
+ *       "billingCycle": "monthly",
+ *       "pricePerCycle": 49.99,
+ *       "currentPeriodStart": "2024-01-15",
+ *       "currentPeriodEnd": "2024-02-15",
+ *       "trialEnd": null,
+ *       "cancelAtPeriodEnd": false,
+ *       "createdAt": "2024-01-15T10:00:00Z",
+ *       "updatedAt": "2024-01-15T10:00:00Z"
+ *     }
+ *   ],
+ *   "total": 5,
+ *   "pagination": {
+ *     "limit": 25,
+ *     "offset": 0
+ *   }
+ * }
+ */
+
+export const getAdminSubscriptionsExample = {
+  method: "GET",
+  url: "/api/admin/subscriptions?limit=25&offset=0",
+  headers: {
+    "Authorization": "Bearer <your_admin_token>",
+  },
+};
+
+// Get active subscriptions
+export const getActiveSubscriptionsExample = {
+  method: "GET",
+  url: "/api/admin/subscriptions?status=active&limit=25",
+};
+
+// Get subscriptions for specific plan
+export const getSubscriptionsByPlanExample = {
+  method: "GET",
+  url: "/api/admin/subscriptions?planId=plan_pro_id&limit=25",
+};
+
+// Get EUR subscriptions
+export const getEURSubscriptionsExample = {
+  method: "GET",
+  url: "/api/admin/subscriptions?currency=EUR&limit=25",
+};
+
+/**
+ * PATCH /api/admin/subscriptions/:id
+ * Change subscription plan (admin only)
+ *
+ * Required headers:
+ * - Authorization: Bearer <token>
+ * - Content-Type: application/json
+ * - User must have 'owner' or 'admin' role
+ *
+ * URL parameters:
+ * - id: subscription ID
+ *
+ * Request body:
+ * {
+ *   "planId": "plan_enterprise_id",           // Required: new plan ID
+ *   "billingCycle": "yearly",                 // Optional: monthly or yearly (default: keep current)
+ *   "prorationBehavior": "create_prorations"  // Optional: create_prorations, always_invoice, or none
+ * }
+ *
+ * Response:
+ * {
+ *   "id": "sub_abc123",
+ *   "planId": "plan_enterprise_id",
+ *   "planName": "Enterprise",
+ *   "status": "active",
+ *   "billingCycle": "yearly",
+ *   "pricePerCycle": 299.99,
+ *   "currentPeriodStart": "2024-01-15T00:00:00Z",
+ *   "currentPeriodEnd": "2025-01-15T00:00:00Z",
+ *   "prorationCredit": 45.50
+ * }
+ */
+
+export const updateSubscriptionPlanExample = {
+  method: "PATCH",
+  url: "/api/admin/subscriptions/sub_abc123",
+  headers: {
+    "Authorization": "Bearer <your_admin_token>",
+    "Content-Type": "application/json",
+  },
+  body: {
+    planId: "plan_enterprise_id",
+    billingCycle: "yearly",
+    prorationBehavior: "create_prorations",
+  },
+};
+
+// Upgrade without proration
+export const upgradeSubscriptionExample = {
+  method: "PATCH",
+  url: "/api/admin/subscriptions/sub_abc123",
+  body: {
+    planId: "plan_enterprise_id",
+  },
+};
+
+// Change to monthly without changing plan
+export const changeToBillingCycleExample = {
+  method: "PATCH",
+  url: "/api/admin/subscriptions/sub_abc123",
+  body: {
+    planId: "plan_pro_id", // current plan
+    billingCycle: "monthly",
+    prorationBehavior: "none",
+  },
+};
+
+/**
+ * GET /api/admin/invoices
+ * Get all invoices for the account (admin only)
+ *
+ * Required headers:
+ * - Authorization: Bearer <token>
+ * - User must have 'owner' or 'admin' role
+ *
+ * Query parameters:
+ * - limit: number (default: 25) - Items per page
+ * - offset: number (default: 0) - Pagination offset
+ * - status: string (optional) - Filter by status: paid, open, draft, void, uncollectible
+ * - currency: string (optional) - Filter by currency: USD, EUR
+ * - subscriptionId: string (optional) - Filter by subscription ID
+ *
+ * Response:
+ * {
+ *   "data": [
+ *     {
+ *       "id": "inv_abc123",
+ *       "stripeInvoiceId": "in_stripe_123",
+ *       "invoiceNumber": "INV-001",
+ *       "subscriptionId": "sub_abc123",
+ *       "status": "paid",
+ *       "currency": "USD",
+ *       "amountSubtotal": 49.99,
+ *       "amountTax": 0,
+ *       "amountTotal": 49.99,
+ *       "amountPaid": 49.99,
+ *       "amountDue": 0,
+ *       "amountRemaining": 0,
+ *       "issueDate": "2024-01-15",
+ *       "dueDate": "2024-02-15",
+ *       "paidDate": "2024-01-15",
+ *       "pdfUrl": "https://invoice.pdf",
+ *       "hostedInvoiceUrl": "https://invoice.stripe.com",
+ *       "lineItems": [],
+ *       "createdAt": "2024-01-15T10:00:00Z"
+ *     }
+ *   ],
+ *   "total": 12,
+ *   "pagination": {
+ *     "limit": 25,
+ *     "offset": 0
+ *   }
+ * }
+ */
+
+export const getAdminInvoicesExample = {
+  method: "GET",
+  url: "/api/admin/invoices?limit=25&offset=0",
+  headers: {
+    "Authorization": "Bearer <your_admin_token>",
+  },
+};
+
+// Get paid invoices
+export const getPaidInvoicesByAdminExample = {
+  method: "GET",
+  url: "/api/admin/invoices?status=paid&limit=25",
+};
+
+// Get open invoices (awaiting payment)
+export const getOpenInvoicesByAdminExample = {
+  method: "GET",
+  url: "/api/admin/invoices?status=open&limit=25",
+};
+
+// Get invoices for specific subscription
+export const getSubscriptionInvoicesExample = {
+  method: "GET",
+  url: "/api/admin/invoices?subscriptionId=sub_abc123&limit=25",
+};
+
+/**
+ * POST /api/admin/invoices/:id/resend
+ * Resend an invoice to the customer (admin only)
+ *
+ * Required headers:
+ * - Authorization: Bearer <token>
+ * - User must have 'owner' or 'admin' role
+ *
+ * URL parameters:
+ * - id: invoice ID
+ *
+ * Request body: {} (empty)
+ *
+ * Response:
+ * {
+ *   "id": "inv_abc123",
+ *   "stripeInvoiceId": "in_stripe_123",
+ *   "invoiceNumber": "INV-001",
+ *   "status": "sent",
+ *   "message": "Invoice resent successfully"
+ * }
+ */
+
+export const resendInvoiceExample = {
+  method: "POST",
+  url: "/api/admin/invoices/inv_abc123/resend",
+  headers: {
+    "Authorization": "Bearer <your_admin_token>",
+    "Content-Type": "application/json",
+  },
+  body: {},
+};
+
+// =============================================================================
+// ADMIN ENDPOINTS ERROR HANDLING
+// =============================================================================
+
+export const adminErrorHandling = {
+  subscriptions_errors: {
+    "Insufficient permissions": "User must have 'owner' or 'admin' role",
+    "Subscription not found": "Invalid subscription ID or doesn't belong to account",
+    "Plan not found": "Plan ID is invalid or inactive",
+  },
+  plan_change_errors: {
+    "Plan ID is required": "Must provide planId in request body",
+    "Price not available": "Plan is missing price for the currency/billing cycle combination",
+    "Invalid subscription": "Cannot change plan for canceled subscriptions",
+  },
+  invoices_errors: {
+    "Invoice not found": "Invalid invoice ID or doesn't belong to account",
+    "Not linked to Stripe": "Invoice must be synced with Stripe before resending",
+  },
+};
+
+// =============================================================================
 // MIGRATION GUIDE FROM EXISTING ENDPOINTS
 // =============================================================================
 
@@ -450,4 +718,20 @@ export const migrationGuide = {
     "Support for webhook event deduplication",
     "Improved metadata extraction",
   ],
+
+  adminEndpoints: [
+    "GET /api/admin/subscriptions - List all account subscriptions with filtering",
+    "PATCH /api/admin/subscriptions/:id - Change subscription plan with proration options",
+    "GET /api/admin/invoices - List all account invoices with filtering",
+    "POST /api/admin/invoices/:id/resend - Resend invoice to customer",
+  ],
+
+  adminEndpointFeatures: {
+    authorization: "Owner or Admin role required",
+    multiCurrency: "USD and EUR support",
+    filtering: "Filter by status, plan, currency, subscription",
+    pagination: "Standard pagination with limit and offset",
+    prorating: "Flexible proration options when changing plans",
+    billing_events: "Automatic billing history tracking",
+  },
 };
