@@ -285,6 +285,7 @@ app.use("/api/branding", brandingRoutes);
 app.use("/api/billing", billingRoutes);
 app.use("/api/campaigns", campaignRoutes);
 app.use("/api/automations", automationRoutes);
+app.use("/api/webhooks", webhookRoutes);
 
 // Health check
 app.get("/health", (_req, res) => {
