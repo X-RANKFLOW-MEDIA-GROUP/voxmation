@@ -11,11 +11,13 @@ import {
 } from "./email";
 import crmRoutes from "./routes/crm";
 import authRoutes from "./routes/auth";
+import adminRoutes from "./routes/admin";
 import { whitelabelMiddleware } from "./middleware/whitelabel";
 import brandingRoutes from "./routes/branding";
 import billingRoutes from "./routes/billing";
 import campaignRoutes from "./routes/campaigns";
 import automationRoutes from "./routes/automations";
+import callRoutes from "./routes/calls";
 import webhookRoutes from "./routes/webhooks";
 
 const app = express();
@@ -280,11 +282,13 @@ app.get("/api/resumes/:filename", (req, res) => {
 
 // API Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/api/crm", crmRoutes);
 app.use("/api/branding", brandingRoutes);
 app.use("/api/billing", billingRoutes);
 app.use("/api/campaigns", campaignRoutes);
 app.use("/api/automations", automationRoutes);
+app.use("/api/calls", callRoutes);
 app.use("/api/webhooks", webhookRoutes);
 
 // Health check
