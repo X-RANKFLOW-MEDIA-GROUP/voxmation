@@ -10,6 +10,9 @@ import {
   getAdminNotificationEmail,
 } from "./email";
 import crmRoutes from "./routes/crm";
+import { whitelabelMiddleware } from "./middleware/whitelabel";
+import brandingRoutes from "./routes/branding";
+import billingRoutes from "./routes/billing";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -17,6 +20,9 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
+// White Label Middleware - Detect account by subdomain or custom domain
+app.use(whitelabelMiddleware);
 
 // Multer configuration for file uploads
 const uploadsDir = path.join(process.cwd(), "uploads");
@@ -268,9 +274,12 @@ app.get("/api/resumes/:filename", (req, res) => {
   }
 });
 
-// CRM Routes (Multi-tenant)
+// API Routes
 app.use("/api/crm", crmRoutes);
+app.use("/api/branding", brandingRoutes);
+app.use("/api/billing", billingRoutes);
 
+// Health check
 app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
 });
