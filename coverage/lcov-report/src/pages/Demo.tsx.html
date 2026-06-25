@@ -1,0 +1,2569 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/pages/Demo.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/pages</a> Demo.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/171</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/121</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/48</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/151</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a>
+<a name='L230'></a><a href='#L230'>230</a>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a>
+<a name='L284'></a><a href='#L284'>284</a>
+<a name='L285'></a><a href='#L285'>285</a>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a>
+<a name='L325'></a><a href='#L325'>325</a>
+<a name='L326'></a><a href='#L326'>326</a>
+<a name='L327'></a><a href='#L327'>327</a>
+<a name='L328'></a><a href='#L328'>328</a>
+<a name='L329'></a><a href='#L329'>329</a>
+<a name='L330'></a><a href='#L330'>330</a>
+<a name='L331'></a><a href='#L331'>331</a>
+<a name='L332'></a><a href='#L332'>332</a>
+<a name='L333'></a><a href='#L333'>333</a>
+<a name='L334'></a><a href='#L334'>334</a>
+<a name='L335'></a><a href='#L335'>335</a>
+<a name='L336'></a><a href='#L336'>336</a>
+<a name='L337'></a><a href='#L337'>337</a>
+<a name='L338'></a><a href='#L338'>338</a>
+<a name='L339'></a><a href='#L339'>339</a>
+<a name='L340'></a><a href='#L340'>340</a>
+<a name='L341'></a><a href='#L341'>341</a>
+<a name='L342'></a><a href='#L342'>342</a>
+<a name='L343'></a><a href='#L343'>343</a>
+<a name='L344'></a><a href='#L344'>344</a>
+<a name='L345'></a><a href='#L345'>345</a>
+<a name='L346'></a><a href='#L346'>346</a>
+<a name='L347'></a><a href='#L347'>347</a>
+<a name='L348'></a><a href='#L348'>348</a>
+<a name='L349'></a><a href='#L349'>349</a>
+<a name='L350'></a><a href='#L350'>350</a>
+<a name='L351'></a><a href='#L351'>351</a>
+<a name='L352'></a><a href='#L352'>352</a>
+<a name='L353'></a><a href='#L353'>353</a>
+<a name='L354'></a><a href='#L354'>354</a>
+<a name='L355'></a><a href='#L355'>355</a>
+<a name='L356'></a><a href='#L356'>356</a>
+<a name='L357'></a><a href='#L357'>357</a>
+<a name='L358'></a><a href='#L358'>358</a>
+<a name='L359'></a><a href='#L359'>359</a>
+<a name='L360'></a><a href='#L360'>360</a>
+<a name='L361'></a><a href='#L361'>361</a>
+<a name='L362'></a><a href='#L362'>362</a>
+<a name='L363'></a><a href='#L363'>363</a>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a>
+<a name='L368'></a><a href='#L368'>368</a>
+<a name='L369'></a><a href='#L369'>369</a>
+<a name='L370'></a><a href='#L370'>370</a>
+<a name='L371'></a><a href='#L371'>371</a>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a>
+<a name='L385'></a><a href='#L385'>385</a>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a>
+<a name='L389'></a><a href='#L389'>389</a>
+<a name='L390'></a><a href='#L390'>390</a>
+<a name='L391'></a><a href='#L391'>391</a>
+<a name='L392'></a><a href='#L392'>392</a>
+<a name='L393'></a><a href='#L393'>393</a>
+<a name='L394'></a><a href='#L394'>394</a>
+<a name='L395'></a><a href='#L395'>395</a>
+<a name='L396'></a><a href='#L396'>396</a>
+<a name='L397'></a><a href='#L397'>397</a>
+<a name='L398'></a><a href='#L398'>398</a>
+<a name='L399'></a><a href='#L399'>399</a>
+<a name='L400'></a><a href='#L400'>400</a>
+<a name='L401'></a><a href='#L401'>401</a>
+<a name='L402'></a><a href='#L402'>402</a>
+<a name='L403'></a><a href='#L403'>403</a>
+<a name='L404'></a><a href='#L404'>404</a>
+<a name='L405'></a><a href='#L405'>405</a>
+<a name='L406'></a><a href='#L406'>406</a>
+<a name='L407'></a><a href='#L407'>407</a>
+<a name='L408'></a><a href='#L408'>408</a>
+<a name='L409'></a><a href='#L409'>409</a>
+<a name='L410'></a><a href='#L410'>410</a>
+<a name='L411'></a><a href='#L411'>411</a>
+<a name='L412'></a><a href='#L412'>412</a>
+<a name='L413'></a><a href='#L413'>413</a>
+<a name='L414'></a><a href='#L414'>414</a>
+<a name='L415'></a><a href='#L415'>415</a>
+<a name='L416'></a><a href='#L416'>416</a>
+<a name='L417'></a><a href='#L417'>417</a>
+<a name='L418'></a><a href='#L418'>418</a>
+<a name='L419'></a><a href='#L419'>419</a>
+<a name='L420'></a><a href='#L420'>420</a>
+<a name='L421'></a><a href='#L421'>421</a>
+<a name='L422'></a><a href='#L422'>422</a>
+<a name='L423'></a><a href='#L423'>423</a>
+<a name='L424'></a><a href='#L424'>424</a>
+<a name='L425'></a><a href='#L425'>425</a>
+<a name='L426'></a><a href='#L426'>426</a>
+<a name='L427'></a><a href='#L427'>427</a>
+<a name='L428'></a><a href='#L428'>428</a>
+<a name='L429'></a><a href='#L429'>429</a>
+<a name='L430'></a><a href='#L430'>430</a>
+<a name='L431'></a><a href='#L431'>431</a>
+<a name='L432'></a><a href='#L432'>432</a>
+<a name='L433'></a><a href='#L433'>433</a>
+<a name='L434'></a><a href='#L434'>434</a>
+<a name='L435'></a><a href='#L435'>435</a>
+<a name='L436'></a><a href='#L436'>436</a>
+<a name='L437'></a><a href='#L437'>437</a>
+<a name='L438'></a><a href='#L438'>438</a>
+<a name='L439'></a><a href='#L439'>439</a>
+<a name='L440'></a><a href='#L440'>440</a>
+<a name='L441'></a><a href='#L441'>441</a>
+<a name='L442'></a><a href='#L442'>442</a>
+<a name='L443'></a><a href='#L443'>443</a>
+<a name='L444'></a><a href='#L444'>444</a>
+<a name='L445'></a><a href='#L445'>445</a>
+<a name='L446'></a><a href='#L446'>446</a>
+<a name='L447'></a><a href='#L447'>447</a>
+<a name='L448'></a><a href='#L448'>448</a>
+<a name='L449'></a><a href='#L449'>449</a>
+<a name='L450'></a><a href='#L450'>450</a>
+<a name='L451'></a><a href='#L451'>451</a>
+<a name='L452'></a><a href='#L452'>452</a>
+<a name='L453'></a><a href='#L453'>453</a>
+<a name='L454'></a><a href='#L454'>454</a>
+<a name='L455'></a><a href='#L455'>455</a>
+<a name='L456'></a><a href='#L456'>456</a>
+<a name='L457'></a><a href='#L457'>457</a>
+<a name='L458'></a><a href='#L458'>458</a>
+<a name='L459'></a><a href='#L459'>459</a>
+<a name='L460'></a><a href='#L460'>460</a>
+<a name='L461'></a><a href='#L461'>461</a>
+<a name='L462'></a><a href='#L462'>462</a>
+<a name='L463'></a><a href='#L463'>463</a>
+<a name='L464'></a><a href='#L464'>464</a>
+<a name='L465'></a><a href='#L465'>465</a>
+<a name='L466'></a><a href='#L466'>466</a>
+<a name='L467'></a><a href='#L467'>467</a>
+<a name='L468'></a><a href='#L468'>468</a>
+<a name='L469'></a><a href='#L469'>469</a>
+<a name='L470'></a><a href='#L470'>470</a>
+<a name='L471'></a><a href='#L471'>471</a>
+<a name='L472'></a><a href='#L472'>472</a>
+<a name='L473'></a><a href='#L473'>473</a>
+<a name='L474'></a><a href='#L474'>474</a>
+<a name='L475'></a><a href='#L475'>475</a>
+<a name='L476'></a><a href='#L476'>476</a>
+<a name='L477'></a><a href='#L477'>477</a>
+<a name='L478'></a><a href='#L478'>478</a>
+<a name='L479'></a><a href='#L479'>479</a>
+<a name='L480'></a><a href='#L480'>480</a>
+<a name='L481'></a><a href='#L481'>481</a>
+<a name='L482'></a><a href='#L482'>482</a>
+<a name='L483'></a><a href='#L483'>483</a>
+<a name='L484'></a><a href='#L484'>484</a>
+<a name='L485'></a><a href='#L485'>485</a>
+<a name='L486'></a><a href='#L486'>486</a>
+<a name='L487'></a><a href='#L487'>487</a>
+<a name='L488'></a><a href='#L488'>488</a>
+<a name='L489'></a><a href='#L489'>489</a>
+<a name='L490'></a><a href='#L490'>490</a>
+<a name='L491'></a><a href='#L491'>491</a>
+<a name='L492'></a><a href='#L492'>492</a>
+<a name='L493'></a><a href='#L493'>493</a>
+<a name='L494'></a><a href='#L494'>494</a>
+<a name='L495'></a><a href='#L495'>495</a>
+<a name='L496'></a><a href='#L496'>496</a>
+<a name='L497'></a><a href='#L497'>497</a>
+<a name='L498'></a><a href='#L498'>498</a>
+<a name='L499'></a><a href='#L499'>499</a>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a>
+<a name='L505'></a><a href='#L505'>505</a>
+<a name='L506'></a><a href='#L506'>506</a>
+<a name='L507'></a><a href='#L507'>507</a>
+<a name='L508'></a><a href='#L508'>508</a>
+<a name='L509'></a><a href='#L509'>509</a>
+<a name='L510'></a><a href='#L510'>510</a>
+<a name='L511'></a><a href='#L511'>511</a>
+<a name='L512'></a><a href='#L512'>512</a>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a>
+<a name='L515'></a><a href='#L515'>515</a>
+<a name='L516'></a><a href='#L516'>516</a>
+<a name='L517'></a><a href='#L517'>517</a>
+<a name='L518'></a><a href='#L518'>518</a>
+<a name='L519'></a><a href='#L519'>519</a>
+<a name='L520'></a><a href='#L520'>520</a>
+<a name='L521'></a><a href='#L521'>521</a>
+<a name='L522'></a><a href='#L522'>522</a>
+<a name='L523'></a><a href='#L523'>523</a>
+<a name='L524'></a><a href='#L524'>524</a>
+<a name='L525'></a><a href='#L525'>525</a>
+<a name='L526'></a><a href='#L526'>526</a>
+<a name='L527'></a><a href='#L527'>527</a>
+<a name='L528'></a><a href='#L528'>528</a>
+<a name='L529'></a><a href='#L529'>529</a>
+<a name='L530'></a><a href='#L530'>530</a>
+<a name='L531'></a><a href='#L531'>531</a>
+<a name='L532'></a><a href='#L532'>532</a>
+<a name='L533'></a><a href='#L533'>533</a>
+<a name='L534'></a><a href='#L534'>534</a>
+<a name='L535'></a><a href='#L535'>535</a>
+<a name='L536'></a><a href='#L536'>536</a>
+<a name='L537'></a><a href='#L537'>537</a>
+<a name='L538'></a><a href='#L538'>538</a>
+<a name='L539'></a><a href='#L539'>539</a>
+<a name='L540'></a><a href='#L540'>540</a>
+<a name='L541'></a><a href='#L541'>541</a>
+<a name='L542'></a><a href='#L542'>542</a>
+<a name='L543'></a><a href='#L543'>543</a>
+<a name='L544'></a><a href='#L544'>544</a>
+<a name='L545'></a><a href='#L545'>545</a>
+<a name='L546'></a><a href='#L546'>546</a>
+<a name='L547'></a><a href='#L547'>547</a>
+<a name='L548'></a><a href='#L548'>548</a>
+<a name='L549'></a><a href='#L549'>549</a>
+<a name='L550'></a><a href='#L550'>550</a>
+<a name='L551'></a><a href='#L551'>551</a>
+<a name='L552'></a><a href='#L552'>552</a>
+<a name='L553'></a><a href='#L553'>553</a>
+<a name='L554'></a><a href='#L554'>554</a>
+<a name='L555'></a><a href='#L555'>555</a>
+<a name='L556'></a><a href='#L556'>556</a>
+<a name='L557'></a><a href='#L557'>557</a>
+<a name='L558'></a><a href='#L558'>558</a>
+<a name='L559'></a><a href='#L559'>559</a>
+<a name='L560'></a><a href='#L560'>560</a>
+<a name='L561'></a><a href='#L561'>561</a>
+<a name='L562'></a><a href='#L562'>562</a>
+<a name='L563'></a><a href='#L563'>563</a>
+<a name='L564'></a><a href='#L564'>564</a>
+<a name='L565'></a><a href='#L565'>565</a>
+<a name='L566'></a><a href='#L566'>566</a>
+<a name='L567'></a><a href='#L567'>567</a>
+<a name='L568'></a><a href='#L568'>568</a>
+<a name='L569'></a><a href='#L569'>569</a>
+<a name='L570'></a><a href='#L570'>570</a>
+<a name='L571'></a><a href='#L571'>571</a>
+<a name='L572'></a><a href='#L572'>572</a>
+<a name='L573'></a><a href='#L573'>573</a>
+<a name='L574'></a><a href='#L574'>574</a>
+<a name='L575'></a><a href='#L575'>575</a>
+<a name='L576'></a><a href='#L576'>576</a>
+<a name='L577'></a><a href='#L577'>577</a>
+<a name='L578'></a><a href='#L578'>578</a>
+<a name='L579'></a><a href='#L579'>579</a>
+<a name='L580'></a><a href='#L580'>580</a>
+<a name='L581'></a><a href='#L581'>581</a>
+<a name='L582'></a><a href='#L582'>582</a>
+<a name='L583'></a><a href='#L583'>583</a>
+<a name='L584'></a><a href='#L584'>584</a>
+<a name='L585'></a><a href='#L585'>585</a>
+<a name='L586'></a><a href='#L586'>586</a>
+<a name='L587'></a><a href='#L587'>587</a>
+<a name='L588'></a><a href='#L588'>588</a>
+<a name='L589'></a><a href='#L589'>589</a>
+<a name='L590'></a><a href='#L590'>590</a>
+<a name='L591'></a><a href='#L591'>591</a>
+<a name='L592'></a><a href='#L592'>592</a>
+<a name='L593'></a><a href='#L593'>593</a>
+<a name='L594'></a><a href='#L594'>594</a>
+<a name='L595'></a><a href='#L595'>595</a>
+<a name='L596'></a><a href='#L596'>596</a>
+<a name='L597'></a><a href='#L597'>597</a>
+<a name='L598'></a><a href='#L598'>598</a>
+<a name='L599'></a><a href='#L599'>599</a>
+<a name='L600'></a><a href='#L600'>600</a>
+<a name='L601'></a><a href='#L601'>601</a>
+<a name='L602'></a><a href='#L602'>602</a>
+<a name='L603'></a><a href='#L603'>603</a>
+<a name='L604'></a><a href='#L604'>604</a>
+<a name='L605'></a><a href='#L605'>605</a>
+<a name='L606'></a><a href='#L606'>606</a>
+<a name='L607'></a><a href='#L607'>607</a>
+<a name='L608'></a><a href='#L608'>608</a>
+<a name='L609'></a><a href='#L609'>609</a>
+<a name='L610'></a><a href='#L610'>610</a>
+<a name='L611'></a><a href='#L611'>611</a>
+<a name='L612'></a><a href='#L612'>612</a>
+<a name='L613'></a><a href='#L613'>613</a>
+<a name='L614'></a><a href='#L614'>614</a>
+<a name='L615'></a><a href='#L615'>615</a>
+<a name='L616'></a><a href='#L616'>616</a>
+<a name='L617'></a><a href='#L617'>617</a>
+<a name='L618'></a><a href='#L618'>618</a>
+<a name='L619'></a><a href='#L619'>619</a>
+<a name='L620'></a><a href='#L620'>620</a>
+<a name='L621'></a><a href='#L621'>621</a>
+<a name='L622'></a><a href='#L622'>622</a>
+<a name='L623'></a><a href='#L623'>623</a>
+<a name='L624'></a><a href='#L624'>624</a>
+<a name='L625'></a><a href='#L625'>625</a>
+<a name='L626'></a><a href='#L626'>626</a>
+<a name='L627'></a><a href='#L627'>627</a>
+<a name='L628'></a><a href='#L628'>628</a>
+<a name='L629'></a><a href='#L629'>629</a>
+<a name='L630'></a><a href='#L630'>630</a>
+<a name='L631'></a><a href='#L631'>631</a>
+<a name='L632'></a><a href='#L632'>632</a>
+<a name='L633'></a><a href='#L633'>633</a>
+<a name='L634'></a><a href='#L634'>634</a>
+<a name='L635'></a><a href='#L635'>635</a>
+<a name='L636'></a><a href='#L636'>636</a>
+<a name='L637'></a><a href='#L637'>637</a>
+<a name='L638'></a><a href='#L638'>638</a>
+<a name='L639'></a><a href='#L639'>639</a>
+<a name='L640'></a><a href='#L640'>640</a>
+<a name='L641'></a><a href='#L641'>641</a>
+<a name='L642'></a><a href='#L642'>642</a>
+<a name='L643'></a><a href='#L643'>643</a>
+<a name='L644'></a><a href='#L644'>644</a>
+<a name='L645'></a><a href='#L645'>645</a>
+<a name='L646'></a><a href='#L646'>646</a>
+<a name='L647'></a><a href='#L647'>647</a>
+<a name='L648'></a><a href='#L648'>648</a>
+<a name='L649'></a><a href='#L649'>649</a>
+<a name='L650'></a><a href='#L650'>650</a>
+<a name='L651'></a><a href='#L651'>651</a>
+<a name='L652'></a><a href='#L652'>652</a>
+<a name='L653'></a><a href='#L653'>653</a>
+<a name='L654'></a><a href='#L654'>654</a>
+<a name='L655'></a><a href='#L655'>655</a>
+<a name='L656'></a><a href='#L656'>656</a>
+<a name='L657'></a><a href='#L657'>657</a>
+<a name='L658'></a><a href='#L658'>658</a>
+<a name='L659'></a><a href='#L659'>659</a>
+<a name='L660'></a><a href='#L660'>660</a>
+<a name='L661'></a><a href='#L661'>661</a>
+<a name='L662'></a><a href='#L662'>662</a>
+<a name='L663'></a><a href='#L663'>663</a>
+<a name='L664'></a><a href='#L664'>664</a>
+<a name='L665'></a><a href='#L665'>665</a>
+<a name='L666'></a><a href='#L666'>666</a>
+<a name='L667'></a><a href='#L667'>667</a>
+<a name='L668'></a><a href='#L668'>668</a>
+<a name='L669'></a><a href='#L669'>669</a>
+<a name='L670'></a><a href='#L670'>670</a>
+<a name='L671'></a><a href='#L671'>671</a>
+<a name='L672'></a><a href='#L672'>672</a>
+<a name='L673'></a><a href='#L673'>673</a>
+<a name='L674'></a><a href='#L674'>674</a>
+<a name='L675'></a><a href='#L675'>675</a>
+<a name='L676'></a><a href='#L676'>676</a>
+<a name='L677'></a><a href='#L677'>677</a>
+<a name='L678'></a><a href='#L678'>678</a>
+<a name='L679'></a><a href='#L679'>679</a>
+<a name='L680'></a><a href='#L680'>680</a>
+<a name='L681'></a><a href='#L681'>681</a>
+<a name='L682'></a><a href='#L682'>682</a>
+<a name='L683'></a><a href='#L683'>683</a>
+<a name='L684'></a><a href='#L684'>684</a>
+<a name='L685'></a><a href='#L685'>685</a>
+<a name='L686'></a><a href='#L686'>686</a>
+<a name='L687'></a><a href='#L687'>687</a>
+<a name='L688'></a><a href='#L688'>688</a>
+<a name='L689'></a><a href='#L689'>689</a>
+<a name='L690'></a><a href='#L690'>690</a>
+<a name='L691'></a><a href='#L691'>691</a>
+<a name='L692'></a><a href='#L692'>692</a>
+<a name='L693'></a><a href='#L693'>693</a>
+<a name='L694'></a><a href='#L694'>694</a>
+<a name='L695'></a><a href='#L695'>695</a>
+<a name='L696'></a><a href='#L696'>696</a>
+<a name='L697'></a><a href='#L697'>697</a>
+<a name='L698'></a><a href='#L698'>698</a>
+<a name='L699'></a><a href='#L699'>699</a>
+<a name='L700'></a><a href='#L700'>700</a>
+<a name='L701'></a><a href='#L701'>701</a>
+<a name='L702'></a><a href='#L702'>702</a>
+<a name='L703'></a><a href='#L703'>703</a>
+<a name='L704'></a><a href='#L704'>704</a>
+<a name='L705'></a><a href='#L705'>705</a>
+<a name='L706'></a><a href='#L706'>706</a>
+<a name='L707'></a><a href='#L707'>707</a>
+<a name='L708'></a><a href='#L708'>708</a>
+<a name='L709'></a><a href='#L709'>709</a>
+<a name='L710'></a><a href='#L710'>710</a>
+<a name='L711'></a><a href='#L711'>711</a>
+<a name='L712'></a><a href='#L712'>712</a>
+<a name='L713'></a><a href='#L713'>713</a>
+<a name='L714'></a><a href='#L714'>714</a>
+<a name='L715'></a><a href='#L715'>715</a>
+<a name='L716'></a><a href='#L716'>716</a>
+<a name='L717'></a><a href='#L717'>717</a>
+<a name='L718'></a><a href='#L718'>718</a>
+<a name='L719'></a><a href='#L719'>719</a>
+<a name='L720'></a><a href='#L720'>720</a>
+<a name='L721'></a><a href='#L721'>721</a>
+<a name='L722'></a><a href='#L722'>722</a>
+<a name='L723'></a><a href='#L723'>723</a>
+<a name='L724'></a><a href='#L724'>724</a>
+<a name='L725'></a><a href='#L725'>725</a>
+<a name='L726'></a><a href='#L726'>726</a>
+<a name='L727'></a><a href='#L727'>727</a>
+<a name='L728'></a><a href='#L728'>728</a>
+<a name='L729'></a><a href='#L729'>729</a>
+<a name='L730'></a><a href='#L730'>730</a>
+<a name='L731'></a><a href='#L731'>731</a>
+<a name='L732'></a><a href='#L732'>732</a>
+<a name='L733'></a><a href='#L733'>733</a>
+<a name='L734'></a><a href='#L734'>734</a>
+<a name='L735'></a><a href='#L735'>735</a>
+<a name='L736'></a><a href='#L736'>736</a>
+<a name='L737'></a><a href='#L737'>737</a>
+<a name='L738'></a><a href='#L738'>738</a>
+<a name='L739'></a><a href='#L739'>739</a>
+<a name='L740'></a><a href='#L740'>740</a>
+<a name='L741'></a><a href='#L741'>741</a>
+<a name='L742'></a><a href='#L742'>742</a>
+<a name='L743'></a><a href='#L743'>743</a>
+<a name='L744'></a><a href='#L744'>744</a>
+<a name='L745'></a><a href='#L745'>745</a>
+<a name='L746'></a><a href='#L746'>746</a>
+<a name='L747'></a><a href='#L747'>747</a>
+<a name='L748'></a><a href='#L748'>748</a>
+<a name='L749'></a><a href='#L749'>749</a>
+<a name='L750'></a><a href='#L750'>750</a>
+<a name='L751'></a><a href='#L751'>751</a>
+<a name='L752'></a><a href='#L752'>752</a>
+<a name='L753'></a><a href='#L753'>753</a>
+<a name='L754'></a><a href='#L754'>754</a>
+<a name='L755'></a><a href='#L755'>755</a>
+<a name='L756'></a><a href='#L756'>756</a>
+<a name='L757'></a><a href='#L757'>757</a>
+<a name='L758'></a><a href='#L758'>758</a>
+<a name='L759'></a><a href='#L759'>759</a>
+<a name='L760'></a><a href='#L760'>760</a>
+<a name='L761'></a><a href='#L761'>761</a>
+<a name='L762'></a><a href='#L762'>762</a>
+<a name='L763'></a><a href='#L763'>763</a>
+<a name='L764'></a><a href='#L764'>764</a>
+<a name='L765'></a><a href='#L765'>765</a>
+<a name='L766'></a><a href='#L766'>766</a>
+<a name='L767'></a><a href='#L767'>767</a>
+<a name='L768'></a><a href='#L768'>768</a>
+<a name='L769'></a><a href='#L769'>769</a>
+<a name='L770'></a><a href='#L770'>770</a>
+<a name='L771'></a><a href='#L771'>771</a>
+<a name='L772'></a><a href='#L772'>772</a>
+<a name='L773'></a><a href='#L773'>773</a>
+<a name='L774'></a><a href='#L774'>774</a>
+<a name='L775'></a><a href='#L775'>775</a>
+<a name='L776'></a><a href='#L776'>776</a>
+<a name='L777'></a><a href='#L777'>777</a>
+<a name='L778'></a><a href='#L778'>778</a>
+<a name='L779'></a><a href='#L779'>779</a>
+<a name='L780'></a><a href='#L780'>780</a>
+<a name='L781'></a><a href='#L781'>781</a>
+<a name='L782'></a><a href='#L782'>782</a>
+<a name='L783'></a><a href='#L783'>783</a>
+<a name='L784'></a><a href='#L784'>784</a>
+<a name='L785'></a><a href='#L785'>785</a>
+<a name='L786'></a><a href='#L786'>786</a>
+<a name='L787'></a><a href='#L787'>787</a>
+<a name='L788'></a><a href='#L788'>788</a>
+<a name='L789'></a><a href='#L789'>789</a>
+<a name='L790'></a><a href='#L790'>790</a>
+<a name='L791'></a><a href='#L791'>791</a>
+<a name='L792'></a><a href='#L792'>792</a>
+<a name='L793'></a><a href='#L793'>793</a>
+<a name='L794'></a><a href='#L794'>794</a>
+<a name='L795'></a><a href='#L795'>795</a>
+<a name='L796'></a><a href='#L796'>796</a>
+<a name='L797'></a><a href='#L797'>797</a>
+<a name='L798'></a><a href='#L798'>798</a>
+<a name='L799'></a><a href='#L799'>799</a>
+<a name='L800'></a><a href='#L800'>800</a>
+<a name='L801'></a><a href='#L801'>801</a>
+<a name='L802'></a><a href='#L802'>802</a>
+<a name='L803'></a><a href='#L803'>803</a>
+<a name='L804'></a><a href='#L804'>804</a>
+<a name='L805'></a><a href='#L805'>805</a>
+<a name='L806'></a><a href='#L806'>806</a>
+<a name='L807'></a><a href='#L807'>807</a>
+<a name='L808'></a><a href='#L808'>808</a>
+<a name='L809'></a><a href='#L809'>809</a>
+<a name='L810'></a><a href='#L810'>810</a>
+<a name='L811'></a><a href='#L811'>811</a>
+<a name='L812'></a><a href='#L812'>812</a>
+<a name='L813'></a><a href='#L813'>813</a>
+<a name='L814'></a><a href='#L814'>814</a>
+<a name='L815'></a><a href='#L815'>815</a>
+<a name='L816'></a><a href='#L816'>816</a>
+<a name='L817'></a><a href='#L817'>817</a>
+<a name='L818'></a><a href='#L818'>818</a>
+<a name='L819'></a><a href='#L819'>819</a>
+<a name='L820'></a><a href='#L820'>820</a>
+<a name='L821'></a><a href='#L821'>821</a>
+<a name='L822'></a><a href='#L822'>822</a>
+<a name='L823'></a><a href='#L823'>823</a>
+<a name='L824'></a><a href='#L824'>824</a>
+<a name='L825'></a><a href='#L825'>825</a>
+<a name='L826'></a><a href='#L826'>826</a>
+<a name='L827'></a><a href='#L827'>827</a>
+<a name='L828'></a><a href='#L828'>828</a>
+<a name='L829'></a><a href='#L829'>829</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { useState, useEffect, useRef, useCallback } from "react";</span>
+<span class="cstat-no" title="statement not covered" >import { motion, AnimatePresence } from "framer-motion";</span>
+<span class="cstat-no" title="statement not covered" >import { Link } from "react-router-dom";</span>
+<span class="cstat-no" title="statement not covered" >import { Send, ArrowUpRight, Volume2, Mic, Bot, User, Headphones, CircleUser, CheckCircle2, RotateCcw, Thermometer, Wrench, Zap, Home, TreePine, SprayCan, AlertTriangle, Bug, Palette, Hammer, Settings, Lock, Trees, Snowflake, DoorOpen, MoreHorizontal } from "lucide-react";</span>
+import type { LucideIcon } from "lucide-react";
+<span class="cstat-no" title="statement not covered" >import SEOHead from "@/components/SEOHead";</span>
+<span class="cstat-no" title="statement not covered" >import DemoHero from "@/components/demo/DemoHero";</span>
+<span class="cstat-no" title="statement not covered" >import MissedCallDemo from "@/components/demo/MissedCallDemo";</span>
+<span class="cstat-no" title="statement not covered" >import DashboardMockup from "@/components/demo/DashboardMockup";</span>
+<span class="cstat-no" title="statement not covered" >import DemoBenefits from "@/components/demo/DemoBenefits";</span>
+<span class="cstat-no" title="statement not covered" >import VoiceDemonstration from "@/components/VoiceDemonstration";</span>
+&nbsp;
+/* ─── TYPES ─── */
+interface ChatMessage {
+  role: "bot" | "user";
+  text: string;
+}
+&nbsp;
+/* ─── VOICE ID MAPPING ─── */
+const voiceIdMap: Record&lt;string, string&gt; = <span class="cstat-no" title="statement not covered" >{</span>
+  rachel: "EXAVITQu4vr4xnSDxMaL", // Sarah
+  adam: "onwK4e9ZLuTAKqWW03F9",   // Daniel
+  josh: "TX3LPaxmHKxFdv7VOQHJ",   // Liam
+  bella: "XrExE9yKIg1WjnnlVkGX",  // Matilda
+  elli: "pFZP5JQG7iQjIQuC4Bku",   // Lily
+};
+&nbsp;
+/* ─── DATA ─── */
+const industries: { id: string; Icon: LucideIcon; label: string }[] = <span class="cstat-no" title="statement not covered" >[</span>
+  { id: "hvac", Icon: Thermometer, label: "HVAC &amp; AC" },
+  { id: "plumbing", Icon: Wrench, label: "Plumbing" },
+  { id: "electrical", Icon: Zap, label: "Electrical" },
+  { id: "roofing", Icon: Home, label: "Roofing" },
+  { id: "landscaping", Icon: TreePine, label: "Landscaping" },
+  { id: "cleaning", Icon: SprayCan, label: "Cleaning" },
+  { id: "pest_control", Icon: Bug, label: "Pest Control" },
+  { id: "painting", Icon: Palette, label: "Painting" },
+  { id: "carpentry", Icon: Hammer, label: "Carpentry" },
+  { id: "appliance_repair", Icon: Settings, label: "Appliance Repair" },
+  { id: "locksmith", Icon: Lock, label: "Locksmith" },
+  { id: "tree_service", Icon: Trees, label: "Tree Service" },
+  { id: "snow_removal", Icon: Snowflake, label: "Snow Removal" },
+  { id: "garage_doors", Icon: DoorOpen, label: "Garage Doors" },
+  { id: "handyman", Icon: Hammer, label: "Handyman" },
+  { id: "other", Icon: MoreHorizontal, label: "Other" },
+];
+&nbsp;
+const voices: { id: string; Icon: LucideIcon; name: string; desc: string }[] = <span class="cstat-no" title="statement not covered" >[</span>
+  { id: "rachel", Icon: CircleUser, name: "Rachel", desc: "Calm, professional" },
+  { id: "adam", Icon: User, name: "Adam", desc: "Deep, authoritative" },
+  { id: "josh", Icon: Headphones, name: "Josh", desc: "Friendly, young" },
+  { id: "bella", Icon: CircleUser, name: "Bella", desc: "Warm, soft" },
+  { id: "elli", Icon: Mic, name: "Elli", desc: "Energetic, bright" },
+];
+&nbsp;
+const conversations: Record&lt;string, ChatMessage[]&gt; = <span class="cstat-no" title="statement not covered" >{</span>
+  hvac: [
+    { role: "bot", text: "Hi, thanks for calling Comfort Zone HVAC! This is Vox, your AI assistant. How can I help you today?" },
+    { role: "user", text: "Hi, I need my AC fixed ASAP — it stopped working this morning." },
+    { role: "bot", text: "I understand, I can help! We have a technician available today at 2PM or 4PM in your area. Which works better for you?" },
+    { role: "user", text: "2PM works great." },
+    { role: "bot", text: "Perfect! I've booked your appointment for today at 2PM. You'll receive a confirmation text shortly. Is there anything else?" },
+    { role: "user", text: "No, that's all. Thanks!" },
+    { role: "bot", text: "Great, have a wonderful day! We'll see you at 2PM. Goodbye!" },
+  ],
+  plumbing: [
+    { role: "bot", text: "Hello! Thanks for calling Quick Fix Plumbing. I'm Vox, your AI assistant. What can I do for you?" },
+    { role: "user", text: "I have a burst pipe in my kitchen — water everywhere!" },
+    { role: "bot", text: "I'm sorry to hear that! Let me dispatch an emergency plumber right away. Can you confirm your address?" },
+    { role: "user", text: "123 Oak Street, Houston." },
+    { role: "bot", text: "Got it! A plumber is on the way and should arrive within 45 minutes. Please shut off the main water valve if you can." },
+    { role: "user", text: "Thank you so much!" },
+    { role: "bot", text: "You're welcome! Stay safe, help is on the way. Goodbye!" },
+  ],
+  electrical: [
+    { role: "bot", text: "Hi, you've reached Spark Electric! I'm Vox, your AI assistant. How can I assist you?" },
+    { role: "user", text: "I need a panel upgrade for my house." },
+    { role: "bot", text: "Sure! I can schedule an estimate visit. Is your home single or multi-story? And what's the current panel amperage?" },
+    { role: "user", text: "Single story, 100 amp panel." },
+    { role: "bot", text: "Perfect. I have an opening this Thursday at 10AM. Would that work?" },
+    { role: "user", text: "Yes, that works." },
+    { role: "bot", text: "You're all set for Thursday at 10AM! Confirmation text on the way. Have a great day!" },
+  ],
+  roofing: [
+    { role: "bot", text: "Thanks for calling Lone Star Roofing! I'm Vox. How can I help you today?" },
+    { role: "user", text: "We had a storm last night and I think my roof is damaged." },
+    { role: "bot", text: "I'm sorry about that. I can schedule a free inspection. Are you available tomorrow morning?" },
+    { role: "user", text: "Yes, anytime before noon." },
+    { role: "bot", text: "I've booked your free roof inspection for tomorrow at 9AM. Our inspector will document everything for your insurance claim." },
+    { role: "user", text: "Perfect, thanks." },
+    { role: "bot", text: "You're welcome! We'll take care of it. Have a good evening!" },
+  ],
+  landscaping: [
+    { role: "bot", text: "Hello! Green Valley Landscaping here. I'm Vox. What can I do for you?" },
+    { role: "user", text: "I need a quote for weekly lawn maintenance." },
+    { role: "bot", text: "Happy to help! Can you tell me the lot size and your address?" },
+    { role: "user", text: "About half an acre, 456 Elm Drive, Austin." },
+    { role: "bot", text: "Our weekly service starts at $65/week. I can schedule a site visit this Friday at 3PM for an exact quote. Would that work?" },
+    { role: "user", text: "Yes, let's do it." },
+    { role: "bot", text: "Booked! Confirmation text on its way. See you Friday!" },
+  ],
+  cleaning: [
+    { role: "bot", text: "Hi! Thanks for calling Shine Bright Cleaning. I'm Vox. How can I help?" },
+    { role: "user", text: "I need a deep cleaning for my apartment — moving out next week." },
+    { role: "bot", text: "We specialize in move-out cleanings! How many bedrooms and bathrooms?" },
+    { role: "user", text: "2 bedrooms, 1 bathroom." },
+    { role: "bot", text: "For a 2bed/1bath move-out deep clean, the price is $220. I can schedule Monday at 9AM. Does that work?" },
+    { role: "user", text: "Monday works. Let's do it." },
+    { role: "bot", text: "You're booked for Monday at 9AM! Checklist and confirmation coming via text. Have a great day!" },
+  ],
+  pest_control: [
+    { role: "bot", text: "Hello! Thanks for calling Safe Guard Pest Control. I'm Vox. What's bothering you today?" },
+    { role: "user", text: "I've been seeing roaches in my kitchen lately." },
+    { role: "bot", text: "I'm sorry to hear that. We can help! Are you a renter or homeowner?" },
+    { role: "user", text: "I'm renting." },
+    { role: "bot", text: "We offer a comprehensive treatment. We can inspect tomorrow at 10AM or Thursday at 2PM. Which works?" },
+    { role: "user", text: "Tomorrow at 10AM is good." },
+    { role: "bot", text: "Perfect! Inspection scheduled for tomorrow at 10AM. Confirmation text coming shortly. We'll get this resolved quickly!" },
+  ],
+  painting: [
+    { role: "bot", text: "Hi! Welcome to Premier Painters. I'm Vox. How can I help with your painting needs?" },
+    { role: "user", text: "I want to repaint my living room and bedroom." },
+    { role: "bot", text: "Great! How many rooms total, and do you have a color in mind?" },
+    { role: "user", text: "Just those 2 rooms, and I'm thinking a light gray." },
+    { role: "bot", text: "Light gray is beautiful. I can schedule a free quote visit this week. Are you available Saturday at 2PM?" },
+    { role: "user", text: "Yes, Saturday at 2PM works perfectly." },
+    { role: "bot", text: "Excellent! Appointment confirmed for Saturday at 2PM. Our painter will bring color samples. See you then!" },
+  ],
+  carpentry: [
+    { role: "bot", text: "Hello! Thanks for calling Master Carpentry. I'm Vox. What project are we discussing?" },
+    { role: "user", text: "I need new shelving units built in my garage." },
+    { role: "bot", text: "Shelving is one of our specialties! How much wall space are we talking about?" },
+    { role: "user", text: "About 12 feet of wall space." },
+    { role: "bot", text: "Perfect. I can schedule a free consultation to discuss materials and design. Tuesday at 4PM?" },
+    { role: "user", text: "Tuesday works for me." },
+    { role: "bot", text: "Great! Consultation booked for Tuesday at 4PM. Bring any photos or ideas you have. See you soon!" },
+  ],
+  appliance_repair: [
+    { role: "bot", text: "Hi! Thanks for calling Quick Fix Appliances. I'm Vox. What appliance needs repair?" },
+    { role: "user", text: "My washing machine won't drain properly." },
+    { role: "bot", text: "That's a common issue we fix regularly. Is it a front-loader or top-loader?" },
+    { role: "user", text: "It's a front-loader." },
+    { role: "bot", text: "We can send a technician tomorrow between 10AM and 2PM, or Thursday morning. Which works?" },
+    { role: "user", text: "Tomorrow afternoon would be great." },
+    { role: "bot", text: "You're all set for tomorrow between 10AM and 2PM. We'll text you 30 minutes before arrival. Thanks!" },
+  ],
+  locksmith: [
+    { role: "bot", text: "Hello! You've reached Premier Locksmith Services. I'm Vox. How can I help?" },
+    { role: "user", text: "I lost my house keys and I'm locked out." },
+    { role: "bot", text: "I can help with that immediately. Are you currently at the property?" },
+    { role: "user", text: "Yes, I'm at the front door." },
+    { role: "bot", text: "Great! Our technician is 15 minutes away. They'll have you inside within the hour. Confirmation text coming now." },
+    { role: "user", text: "Thank you, I appreciate the fast service." },
+    { role: "bot", text: "You're welcome! We specialize in quick responses. See you shortly!" },
+  ],
+  tree_service: [
+    { role: "bot", text: "Hi! Thanks for calling Green Tree Services. I'm Vox. What can we help you with?" },
+    { role: "user", text: "I have a large oak tree that needs trimming." },
+    { role: "bot", text: "Tree trimming is perfect for late fall! Is the tree healthy or showing signs of disease?" },
+    { role: "user", text: "It looks healthy, just overgrown." },
+    { role: "bot", text: "Excellent! I can schedule a free inspection this Friday at 10AM. Does that work for you?" },
+    { role: "user", text: "Friday morning is perfect." },
+    { role: "bot", text: "Inspection booked for Friday at 10AM! Our arborist will give you a detailed estimate. See you then!" },
+  ],
+  snow_removal: [
+    { role: "bot", text: "Hello! Welcome to Snow Clear Services. I'm Vox. Are you ready for winter?" },
+    { role: "user", text: "Yes! I need snow removal for my driveway and sidewalk." },
+    { role: "bot", text: "Perfect! Do you want per-service billing or a seasonal contract?" },
+    { role: "user", text: "Seasonal contract would be better." },
+    { role: "bot", text: "Great choice! Our seasonal plans start at $300. I can send you details and schedule a walkthrough tomorrow." },
+    { role: "user", text: "That sounds good." },
+    { role: "bot", text: "Excellent! Contract details and walkthrough scheduled. You're all set for winter now!" },
+  ],
+  garage_doors: [
+    { role: "bot", text: "Hi! Thanks for calling Garage Door Pros. I'm Vox. What's the issue?" },
+    { role: "user", text: "My garage door opener is making a strange noise." },
+    { role: "bot", text: "That could be a motor or spring issue. Is the door still opening and closing?" },
+    { role: "user", text: "Yes, it works fine, just sounds weird." },
+    { role: "bot", text: "Good. We can diagnose it quickly. We have same-day appointments available at 2PM or 5PM today." },
+    { role: "user", text: "2PM works for me." },
+    { role: "bot", text: "Appointment confirmed for 2PM today! Technician will bring common parts. See you soon!" },
+  ],
+  handyman: [
+    { role: "bot", text: "Hello! Welcome to All-Pro Handyman Services. I'm Vox. What needs fixing?" },
+    { role: "user", text: "I have several small repairs around my house." },
+    { role: "bot", text: "That's what we do best! How many projects are we talking about?" },
+    { role: "user", text: "Maybe 5 or 6 different things." },
+    { role: "bot", text: "No problem! We offer multi-task scheduling. I can book a consultation this Saturday at 10AM to see everything." },
+    { role: "user", text: "Saturday works great." },
+    { role: "bot", text: "Perfect! Consultation scheduled for Saturday at 10AM. We'll give you a full estimate. See you then!" },
+  ],
+  other: [
+    { role: "bot", text: "Hi there! Thanks for calling us. I'm Vox, your AI assistant. How can we help you today?" },
+    { role: "user", text: "I'm calling about a service inquiry." },
+    { role: "bot", text: "Absolutely, I'm here to help! Can you tell me a bit more about what you need?" },
+    { role: "user", text: "I need more information about your services and pricing." },
+    { role: "bot", text: "I'd be happy to help! Let me get some details from you and connect you with our team." },
+    { role: "user", text: "That sounds great." },
+    { role: "bot", text: "Perfect! A specialist will reach out within 2 hours with all the details. Thank you for contacting us!" },
+  ],
+};
+&nbsp;
+/* ─── TTS FUNCTION ─── */
+async function <span class="fstat-no" title="function not covered" >speakText(</span>text: string, voiceId: string): Promise&lt;HTMLAudioElement | null&gt; {
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const response = <span class="cstat-no" title="statement not covered" >await fetch(`/api/tts`, {</span>
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text, voiceId }),
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (!response.ok) {</span>
+<span class="cstat-no" title="statement not covered" >      console.error("TTS failed:", response.status);</span>
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+&nbsp;
+    const audioBlob = <span class="cstat-no" title="statement not covered" >await response.blob();</span>
+    const audioUrl = <span class="cstat-no" title="statement not covered" >URL.createObjectURL(audioBlob);</span>
+    const audio = <span class="cstat-no" title="statement not covered" >new Audio(audioUrl);</span>
+<span class="cstat-no" title="statement not covered" >    await audio.play();</span>
+<span class="cstat-no" title="statement not covered" >    return audio;</span>
+  } catch (err) {
+<span class="cstat-no" title="statement not covered" >    console.error("TTS error:", err);</span>
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  }
+}
+&nbsp;
+/* ─── AUDIO VISUALIZER BARS ─── */
+const VisualizerBars = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> active, color = <span class="branch-0 cbranch-no" title="branch not covered" >"bg-foreground/20" </span>}: { active: boolean; color?: string }) =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >  &lt;div className="flex items-center gap-[2px] h-8"&gt;</span>
+    {Array.from({ length: 32 }).map(<span class="fstat-no" title="function not covered" >(_</span>, i) =&gt; (
+<span class="cstat-no" title="statement not covered" >      &lt;motion.div</span>
+        key={i}
+        className={`w-[2px] rounded-full ${color}`}
+        animate={active ? {
+          height: [3, Math.sin(i * 0.4) * 18 + Math.random() * 12 + 6, 3],
+        } : { height: 3 }}
+        transition={active ? {
+          duration: 0.6 + Math.random() * 0.4,
+          repeat: Infinity,
+          delay: i * 0.03,
+          ease: "easeInOut",
+        } : { duration: 0.3 }}
+      /&gt;
+    ))}
+  &lt;/div&gt;
+);
+&nbsp;
+/* ─── MAIN DEMO PAGE ─── */
+const Demo = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+&nbsp;
+  const [step, setStep] = <span class="cstat-no" title="statement not covered" >useState(1);</span>
+  const [selectedIndustry, setSelectedIndustry] = <span class="cstat-no" title="statement not covered" >useState&lt;string | null&gt;(null);</span>
+  const [selectedVoice, setSelectedVoice] = <span class="cstat-no" title="statement not covered" >useState("rachel");</span>
+  const [userName, setUserName] = <span class="cstat-no" title="statement not covered" >useState("");</span>
+&nbsp;
+  // Step 2 state
+  const [messages, setMessages] = <span class="cstat-no" title="statement not covered" >useState&lt;ChatMessage[]&gt;([]);</span>
+  const [timer, setTimer] = <span class="cstat-no" title="statement not covered" >useState(0);</span>
+  const [isTyping, setIsTyping] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+  const [agentSpeaking, setAgentSpeaking] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+  const [convoIndex, setConvoIndex] = <span class="cstat-no" title="statement not covered" >useState(0);</span>
+  const [textInput, setTextInput] = <span class="cstat-no" title="statement not covered" >useState("");</span>
+  const [callActive, setCallActive] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+  const [liveTranscript, setLiveTranscript] = <span class="cstat-no" title="statement not covered" >useState("");</span>
+  const [ttsError, setTtsError] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+  const chatRef = <span class="cstat-no" title="statement not covered" >useRef&lt;HTMLDivElement&gt;(null);</span>
+  const timerRef = <span class="cstat-no" title="statement not covered" >useRef&lt;ReturnType&lt;typeof setInterval&gt; | null&gt;(null);</span>
+  const currentAudioRef = <span class="cstat-no" title="statement not covered" >useRef&lt;HTMLAudioElement | null&gt;(null);</span>
+&nbsp;
+  const getElevenLabsVoiceId = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return voiceIdMap[selectedVoice] || voiceIdMap.rachel;</span>
+  }, [selectedVoice]);
+&nbsp;
+  const startCall = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!selectedIndustry) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >    setStep(2);</span>
+<span class="cstat-no" title="statement not covered" >    setMessages([]);</span>
+<span class="cstat-no" title="statement not covered" >    setConvoIndex(0);</span>
+<span class="cstat-no" title="statement not covered" >    setTimer(0);</span>
+<span class="cstat-no" title="statement not covered" >    setCallActive(true);</span>
+<span class="cstat-no" title="statement not covered" >    setTtsError(false);</span>
+  }, [selectedIndustry]);
+&nbsp;
+  // Timer
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (callActive) {</span>
+<span class="cstat-no" title="statement not covered" >      timerRef.current = setInterval(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setTimer(<span class="fstat-no" title="function not covered" >(t</span>) =&gt; <span class="cstat-no" title="statement not covered" >t + 1)</span>,</span> 1000);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >() =</span>&gt; { <span class="cstat-no" title="statement not covered" >if (timerRef.current) <span class="cstat-no" title="statement not covered" >clearInterval(timerRef.current); </span></span>};</span>
+  }, [callActive]);
+&nbsp;
+  // Auto-play conversation with real TTS
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!callActive || !selectedIndustry) <span class="cstat-no" title="statement not covered" >return;</span></span>
+    const convo = <span class="cstat-no" title="statement not covered" >conversations[selectedIndustry];</span>
+<span class="cstat-no" title="statement not covered" >    if (!convo || convoIndex &gt;= convo.length) {</span>
+<span class="cstat-no" title="statement not covered" >      setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        setCallActive(false);</span>
+<span class="cstat-no" title="statement not covered" >        if (timerRef.current) <span class="cstat-no" title="statement not covered" >clearInterval(timerRef.current);</span></span>
+<span class="cstat-no" title="statement not covered" >        setStep(3);</span>
+      }, 2000);
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+    const msg = <span class="cstat-no" title="statement not covered" >convo[convoIndex];</span>
+    const delay = <span class="cstat-no" title="statement not covered" >convoIndex === 0 ? 1500 : 2200 + Math.random() * 1000;</span>
+&nbsp;
+    const timeout = <span class="cstat-no" title="statement not covered" >setTimeout(<span class="fstat-no" title="function not covered" >async () =</span>&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span></span>
+<span class="cstat-no" title="statement not covered" >      if (msg.role === "bot") {</span>
+        // Show typing
+<span class="cstat-no" title="statement not covered" >        setIsTyping(true);</span>
+<span class="cstat-no" title="statement not covered" >        setLiveTranscript(msg.text);</span>
+&nbsp;
+        // Start TTS fetch while "typing"
+        const voiceId = <span class="cstat-no" title="statement not covered" >getElevenLabsVoiceId();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        setTimeout(<span class="fstat-no" title="function not covered" >async () =</span>&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span></span>
+<span class="cstat-no" title="statement not covered" >          setIsTyping(false);</span>
+<span class="cstat-no" title="statement not covered" >          setAgentSpeaking(true);</span>
+<span class="cstat-no" title="statement not covered" >          setMessages(<span class="fstat-no" title="function not covered" >(p</span>rev) =&gt; <span class="cstat-no" title="statement not covered" >[...prev, msg])</span>;</span>
+&nbsp;
+          // Play real TTS audio
+          const audio = <span class="cstat-no" title="statement not covered" >await speakText(msg.text, voiceId);</span>
+<span class="cstat-no" title="statement not covered" >          if (audio) {</span>
+<span class="cstat-no" title="statement not covered" >            currentAudioRef.current = audio;</span>
+<span class="cstat-no" title="statement not covered" >            audio.onended = <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >              setAgentSpeaking(false);</span>
+<span class="cstat-no" title="statement not covered" >              setLiveTranscript("");</span>
+<span class="cstat-no" title="statement not covered" >              currentAudioRef.current = null;</span>
+<span class="cstat-no" title="statement not covered" >              setConvoIndex(<span class="fstat-no" title="function not covered" >(i</span>) =&gt; <span class="cstat-no" title="statement not covered" >i + 1)</span>;</span>
+            };
+<span class="cstat-no" title="statement not covered" >            audio.onerror = <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >              setAgentSpeaking(false);</span>
+<span class="cstat-no" title="statement not covered" >              setLiveTranscript("");</span>
+<span class="cstat-no" title="statement not covered" >              setTtsError(true);</span>
+<span class="cstat-no" title="statement not covered" >              currentAudioRef.current = null;</span>
+              // Fallback: continue after timeout
+<span class="cstat-no" title="statement not covered" >              setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setConvoIndex(<span class="fstat-no" title="function not covered" >(i</span>) =&gt; <span class="cstat-no" title="statement not covered" >i + 1)</span>,</span> 1500);</span>
+            };
+          } else {
+            // TTS failed — fallback to timed simulation
+<span class="cstat-no" title="statement not covered" >            setTtsError(true);</span>
+<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >              setAgentSpeaking(false);</span>
+<span class="cstat-no" title="statement not covered" >              setLiveTranscript("");</span>
+<span class="cstat-no" title="statement not covered" >              setConvoIndex(<span class="fstat-no" title="function not covered" >(i</span>) =&gt; <span class="cstat-no" title="statement not covered" >i + 1)</span>;</span>
+            }, 2000);
+          }
+        }, 1200);
+      } else {
+<span class="cstat-no" title="statement not covered" >        setLiveTranscript(msg.text);</span>
+<span class="cstat-no" title="statement not covered" >        setMessages(<span class="fstat-no" title="function not covered" >(p</span>rev) =&gt; <span class="cstat-no" title="statement not covered" >[...prev, msg])</span>;</span>
+<span class="cstat-no" title="statement not covered" >        setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          setLiveTranscript("");</span>
+<span class="cstat-no" title="statement not covered" >          setConvoIndex(<span class="fstat-no" title="function not covered" >(i</span>) =&gt; <span class="cstat-no" title="statement not covered" >i + 1)</span>;</span>
+        }, 1200);
+      }
+    }, delay);
+<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >clearTimeout(timeout);</span></span>
+  }, [callActive, convoIndex, selectedIndustry, getElevenLabsVoiceId]);
+&nbsp;
+  // Scroll chat
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (chatRef.current) <span class="cstat-no" title="statement not covered" >chatRef.current.scrollTop = chatRef.current.scrollHeight;</span></span>
+  }, [messages, isTyping]);
+&nbsp;
+  // Cleanup audio on unmount
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (currentAudioRef.current) {</span>
+<span class="cstat-no" title="statement not covered" >        currentAudioRef.current.pause();</span>
+<span class="cstat-no" title="statement not covered" >        currentAudioRef.current = null;</span>
+      }
+    };
+  }, []);
+&nbsp;
+  const formatTime = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>: number) =&gt;</span>
+<span class="cstat-no" title="statement not covered" >    `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;</span>
+&nbsp;
+  const handleSendText = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!textInput.trim() || !callActive) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >    setMessages(<span class="fstat-no" title="function not covered" >(p</span>rev) =&gt; <span class="cstat-no" title="statement not covered" >[...prev, { role: "user", text: textInput.trim() }])</span>;</span>
+<span class="cstat-no" title="statement not covered" >    setTextInput("");</span>
+  };
+&nbsp;
+  const sentiment = <span class="cstat-no" title="statement not covered" >messages.length &gt; 4 ? "Positive" : messages.length &gt; 2 ? "Neutral" : "—";</span>
+  const leadScore = <span class="cstat-no" title="statement not covered" >messages.length &gt; 4 ? "Hot" : messages.length &gt; 2 ? "Warm" : "—";</span>
+  const intent = <span class="cstat-no" title="statement not covered" >messages.length &gt; 2 ? "Booking" : "—";</span>
+&nbsp;
+  const resetAll = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (currentAudioRef.current) {</span>
+<span class="cstat-no" title="statement not covered" >      currentAudioRef.current.pause();</span>
+<span class="cstat-no" title="statement not covered" >      currentAudioRef.current = null;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    setStep(1);</span>
+<span class="cstat-no" title="statement not covered" >    setMessages([]);</span>
+<span class="cstat-no" title="statement not covered" >    setTimer(0);</span>
+<span class="cstat-no" title="statement not covered" >    setSelectedIndustry(null);</span>
+<span class="cstat-no" title="statement not covered" >    setUserName("");</span>
+<span class="cstat-no" title="statement not covered" >    setConvoIndex(0);</span>
+<span class="cstat-no" title="statement not covered" >    setCallActive(false);</span>
+<span class="cstat-no" title="statement not covered" >    setLiveTranscript("");</span>
+<span class="cstat-no" title="statement not covered" >    setAgentSpeaking(false);</span>
+<span class="cstat-no" title="statement not covered" >    setIsTyping(false);</span>
+<span class="cstat-no" title="statement not covered" >    setTtsError(false);</span>
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;div className="min-h-screen bg-background relative"&gt;
+      &lt;SEOHead
+        title="Live Voice AI Demo — Hear Your AI Agent in Action"
+        description="Try Voxmation's AI voice agent live. Pick an industry, choose a voice, and hear how your AI answers calls, qualifies leads, and books appointments automatically."
+        path="/demo"
+      /&gt;
+      {/* Ambient radial glow */}
+      &lt;div className="fixed inset-0 pointer-events-none z-0"&gt;
+        &lt;div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_40%_at_50%_-10%,hsl(0_0%_100%/0.03),transparent)]" /&gt;
+      &lt;/div&gt;
+&nbsp;
+      {/* ─── NAV ─── */}
+      &lt;nav className="fixed top-0 left-0 right-0 z-50 px-5 sm:px-9 py-4 flex items-center justify-between bg-background/90 backdrop-blur-2xl border-b border-border"&gt;
+        &lt;Link to="/" className="font-display font-extrabold text-lg tracking-tight text-foreground flex items-center gap-2.5"&gt;
+          &lt;span className="w-[7px] h-[7px] rounded-full bg-foreground shadow-[0_0_10px_hsl(0_0%_100%/0.4)] animate-pulse" /&gt;
+          Voxmation
+        &lt;/Link&gt;
+&nbsp;
+        &lt;div className="flex items-center gap-4"&gt;
+          &lt;div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full border border-border/60 bg-card/40"&gt;
+            &lt;Volume2 className="w-3 h-3 text-muted-foreground" /&gt;
+            &lt;span className="font-mono text-[0.62rem] tracking-wider text-muted-foreground uppercase"&gt;ElevenLabs TTS&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;Link to="/" className="text-xs font-mono tracking-wider text-muted-foreground hover:text-foreground transition-colors uppercase"&gt;
+            ← Back
+          &lt;/Link&gt;
+        &lt;/div&gt;
+      &lt;/nav&gt;
+&nbsp;
+      {/* ─── HERO SECTION ─── */}
+      &lt;div className="pt-16"&gt;
+        &lt;DemoHero /&gt;
+      &lt;/div&gt;
+&nbsp;
+      {/* ─── VOICE AI DEMO ─── */}
+      &lt;div id="voice-demo" className="relative z-10 border-t border-border py-12 px-5 flex flex-col items-center"&gt;
+        &lt;AnimatePresence mode="wait"&gt;
+&nbsp;
+          {/* ═══════════════ STEP 1: CONFIGURE ═══════════════ */}
+          {step === 1 &amp;&amp; (
+            &lt;motion.div
+              key="s1"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full max-w-[640px] flex flex-col items-center text-center"
+            &gt;
+              {/* Eyebrow */}
+              &lt;p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-muted-foreground mb-6 flex items-center gap-3"&gt;
+                &lt;span className="h-px w-6 bg-foreground/15" /&gt;
+                Voice AI Demo
+                &lt;span className="h-px w-6 bg-foreground/15" /&gt;
+              &lt;/p&gt;
+&nbsp;
+              &lt;h1 className="font-display font-extrabold text-[clamp(2rem,5vw,3.4rem)] leading-[1.02] tracking-[-0.04em] text-foreground mb-3"&gt;
+                Hear your{" "}
+                &lt;span className="bg-gradient-to-r from-foreground to-foreground/50 bg-clip-text text-transparent"&gt;
+                  AI Agent
+                &lt;/span&gt;{" "}
+                speak.
+              &lt;/h1&gt;
+&nbsp;
+              &lt;p className="text-muted-foreground text-[0.95rem] mb-10 leading-relaxed max-w-md font-light"&gt;
+                Ultra-realistic voice powered by ElevenLabs. Pick a voice, choose your industry, and listen to your agent in action.
+              &lt;/p&gt;
+&nbsp;
+              {/* ── Voice Picker ── */}
+              &lt;div className="w-full surface-card rounded-2xl p-6 mb-6 text-left relative overflow-hidden"&gt;
+                &lt;div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" /&gt;
+                &lt;p className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground mb-4 flex items-center gap-2"&gt;
+                  &lt;Volume2 className="w-3.5 h-3.5" /&gt;
+                  Select Agent Voice — ElevenLabs
+                &lt;/p&gt;
+                &lt;div className="grid grid-cols-3 sm:grid-cols-5 gap-2"&gt;
+                  {voices.map(<span class="fstat-no" title="function not covered" >(v</span>) =&gt; (
+<span class="cstat-no" title="statement not covered" >                    &lt;button</span>
+                      key={v.id}
+                      onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setSelectedVoice(v.id)}</span>
+                      className={`flex flex-col items-center gap-1.5 rounded-xl p-3 border transition-all duration-200 ${
+                        selectedVoice === v.id
+                          ? "border-foreground/25 bg-foreground/[0.05] shadow-[0_0_20px_hsl(0_0%_100%/0.04)]"
+                          : "border-border bg-background/40 hover:border-foreground/10"
+                      }`}
+                    &gt;
+                      &lt;v.Icon className="w-5 h-5 text-foreground/60" /&gt;
+                      &lt;span className="text-[0.72rem] font-semibold text-foreground"&gt;{v.name}&lt;/span&gt;
+                      &lt;span className="text-[0.6rem] text-muted-foreground text-center leading-tight"&gt;{v.desc}&lt;/span&gt;
+                    &lt;/button&gt;
+                  ))}
+                &lt;/div&gt;
+              &lt;/div&gt;
+&nbsp;
+              {/* ── Industry Picker ── */}
+              &lt;p className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground mb-3 self-start w-full"&gt;
+                Business Type
+              &lt;/p&gt;
+              &lt;div className="grid grid-cols-3 gap-2.5 w-full mb-6"&gt;
+                {industries.map(<span class="fstat-no" title="function not covered" >(i</span>nd) =&gt; (
+<span class="cstat-no" title="statement not covered" >                  &lt;button</span>
+                    key={ind.id}
+                    onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setSelectedIndustry(ind.id)}</span>
+                    className={`flex flex-col items-center gap-2 rounded-xl p-4 border transition-all duration-200 ${
+                      selectedIndustry === ind.id
+                        ? "border-foreground/25 bg-foreground/[0.05] shadow-[0_0_20px_hsl(0_0%_100%/0.04)]"
+                        : "border-border bg-card hover:border-foreground/10 hover:-translate-y-0.5"
+                    }`}
+                  &gt;
+                    &lt;ind.Icon className="w-6 h-6 text-foreground/50" /&gt;
+                    &lt;span className="text-[0.75rem] font-semibold text-foreground text-center leading-tight"&gt;{ind.label}&lt;/span&gt;
+                  &lt;/button&gt;
+                ))}
+              &lt;/div&gt;
+&nbsp;
+              {/* ── Name Input ── */}
+              &lt;p className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted-foreground mb-2.5 self-start w-full"&gt;
+                Your Name (you'll play the customer)
+              &lt;/p&gt;
+              &lt;input
+                type="text"
+                placeholder="e.g. John"
+                value={userName}
+                onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setUserName(e.target.value)}</span>
+                className="w-full bg-card border border-border text-foreground rounded-xl px-4 py-3 text-sm outline-none focus:border-foreground/20 transition-colors mb-6 placeholder:text-muted-foreground font-mono"
+              /&gt;
+&nbsp;
+              {/* ── Start Button ── */}
+              &lt;button
+                onClick={startCall}
+                disabled={!selectedIndustry}
+                className="w-full bg-foreground text-background font-display font-bold rounded-xl py-4 px-7 text-base flex items-center justify-center gap-2.5 shadow-[0_0_40px_hsl(0_0%_100%/0.08)] hover:-translate-y-0.5 hover:shadow-[0_0_60px_hsl(0_0%_100%/0.12)] transition-all disabled:opacity-20 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
+              &gt;
+                &lt;Mic className="w-5 h-5" /&gt;
+                Start Voice Call
+              &lt;/button&gt;
+            &lt;/motion.div&gt;
+          )}
+&nbsp;
+          {/* ═══════════════ STEP 2: LIVE CALL ═══════════════ */}
+          {step === 2 &amp;&amp; (
+            &lt;motion.div
+              key="s2"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full max-w-[720px] flex flex-col items-center"
+            &gt;
+              {/* Call Bar */}
+              &lt;div className="w-full bg-card border border-border border-b-0 rounded-t-2xl px-5 py-3.5 flex items-center justify-between"&gt;
+                &lt;div className="flex items-center gap-1.5 bg-foreground/5 border border-foreground/10 rounded-full px-3 py-1"&gt;
+                  &lt;span className="w-1.5 h-1.5 rounded-full bg-foreground animate-pulse" /&gt;
+                  &lt;span className="font-mono text-[0.62rem] text-foreground/60 tracking-widest uppercase"&gt;Live Call&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;span className="font-mono text-sm text-muted-foreground tracking-[0.15em]"&gt;{formatTime(timer)}&lt;/span&gt;
+                &lt;div className="flex items-center gap-2.5"&gt;
+                  &lt;div className="w-8 h-8 rounded-full bg-gradient-to-br from-foreground/10 to-foreground/5 border border-foreground/15 flex items-center justify-center"&gt;
+                    &lt;Bot className="w-4 h-4 text-foreground/50" /&gt;
+                  &lt;/div&gt;
+                  &lt;div&gt;
+                    &lt;p className="text-xs font-semibold text-foreground"&gt;Vox Agent&lt;/p&gt;
+                    &lt;p className="font-mono text-[0.58rem] text-muted-foreground"&gt;ElevenLabs&lt;/p&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+&nbsp;
+              {/* ── Orbs Area ── */}
+              &lt;div className="w-full bg-card/30 border-x border-border px-6 py-10 flex items-center justify-center gap-14 min-h-[200px]"&gt;
+                {/* Agent Orb */}
+                &lt;div className="flex flex-col items-center gap-4"&gt;
+                  &lt;motion.div
+                    animate={agentSpeaking ? {
+                      boxShadow: [
+                        "0 0 20px hsl(0 0% 100% / 0.06), 0 0 0 0px hsl(0 0% 100% / 0.1)",
+                        "0 0 50px hsl(0 0% 100% / 0.15), 0 0 0 20px hsl(0 0% 100% / 0)",
+                        "0 0 20px hsl(0 0% 100% / 0.06), 0 0 0 0px hsl(0 0% 100% / 0.1)",
+                      ],
+                      scale: [1, 1.06, 1],
+                    } : {}}
+                    transition={agentSpeaking ? { duration: 1, repeat: Infinity, ease: "easeInOut" } : {}}
+                    className="w-[92px] h-[92px] rounded-full flex items-center justify-center border border-foreground/15 bg-[radial-gradient(circle,hsl(0_0%_100%/0.08),hsl(0_0%_100%/0.02))] shadow-[0_0_30px_hsl(0_0%_100%/0.04)]"
+                  &gt;
+                    &lt;Bot className="w-8 h-8 text-foreground/40" /&gt;
+                  &lt;/motion.div&gt;
+                  &lt;span className="font-mono text-[0.6rem] tracking-[0.12em] uppercase text-foreground/50"&gt;Vox Agent&lt;/span&gt;
+                  &lt;span className="text-[0.72rem] text-muted-foreground min-h-[18px]"&gt;
+                    {agentSpeaking ? "Speaking..." : isTyping ? "Thinking..." : "Listening"}
+                  &lt;/span&gt;
+                &lt;/div&gt;
+&nbsp;
+                &lt;span className="font-display font-extrabold text-lg text-foreground/10 tracking-wider select-none"&gt;VS&lt;/span&gt;
+&nbsp;
+                {/* User Orb */}
+                &lt;div className="flex flex-col items-center gap-4"&gt;
+                  &lt;div className="w-[92px] h-[92px] rounded-full flex items-center justify-center border border-foreground/10 bg-[radial-gradient(circle,hsl(0_0%_100%/0.04),transparent)] shadow-[0_0_20px_hsl(0_0%_100%/0.02)]"&gt;
+                    &lt;Mic className="w-8 h-8 text-foreground/30" /&gt;
+                  &lt;/div&gt;
+                  &lt;span className="font-mono text-[0.6rem] tracking-[0.12em] uppercase text-foreground/50"&gt;You&lt;/span&gt;
+                  &lt;span className="text-[0.72rem] text-muted-foreground"&gt;{userName || "Customer"}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+&nbsp;
+              {/* ── Audio Visualizer ── */}
+              &lt;div className="w-full bg-background/60 border-x border-border px-5 py-3 flex items-center gap-4"&gt;
+                &lt;span className="font-mono text-[0.58rem] text-muted-foreground tracking-wider uppercase shrink-0 flex items-center gap-1.5"&gt;
+                  &lt;Volume2 className="w-3 h-3" /&gt;
+                  {agentSpeaking ? "ELEVENLABS" : "IDLE"}
+                &lt;/span&gt;
+                &lt;div className="flex-1"&gt;
+                  &lt;VisualizerBars active={agentSpeaking} color="bg-foreground/15" /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+&nbsp;
+              {/* ── Live Transcript ── */}
+              &lt;div className="w-full bg-background/40 border-x border-border px-5 py-2.5 min-h-[34px] flex items-center"&gt;
+                &lt;p className={`font-mono text-[0.7rem] italic transition-colors duration-300 ${liveTranscript ? "text-foreground/60" : "text-muted-foreground/60"}`}&gt;
+                  {liveTranscript ? liveTranscript : "Live transcript will appear here..."}
+                &lt;/p&gt;
+              &lt;/div&gt;
+&nbsp;
+              {/* ── TTS Error Banner ── */}
+              {ttsError &amp;&amp; (
+                &lt;div className="w-full border-x border-border px-5 py-2"&gt;
+                  &lt;div className="bg-destructive/10 border border-destructive/20 rounded-lg px-3 py-2 text-[0.78rem] text-destructive flex items-center gap-2"&gt;
+                    &lt;AlertTriangle className="h-3.5 w-3.5 shrink-0" /&gt;
+                    TTS unavailable — falling back to text-only mode
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              )}
+&nbsp;
+              {/* ── Chat ── */}
+              &lt;div
+                ref={chatRef}
+                className="w-full bg-card/30 border-x border-border px-5 py-5 max-h-[260px] overflow-y-auto flex flex-col gap-3"
+                style={{ scrollbarWidth: "thin" }}
+              &gt;
+                {messages.map(<span class="fstat-no" title="function not covered" >(m</span>sg, i) =&gt; <span class="cstat-no" title="statement not covered" >(</span>
+                  &lt;motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 7 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={`flex gap-2 items-end ${msg.role === "user" ? "flex-row-reverse" : ""}`}
+                  &gt;
+                    &lt;div className={`w-[26px] h-[26px] rounded-full shrink-0 flex items-center justify-center text-xs ${
+                      msg.role === "bot"
+                        ? "bg-gradient-to-br from-foreground/8 to-foreground/3 border border-foreground/10"
+                        : "bg-foreground/5 border border-border font-display font-bold text-foreground/40 text-[0.6rem]"
+                    }`}&gt;
+                      {msg.role === "bot" ? &lt;Bot className="w-3 h-3 text-foreground/40" /&gt; : (userName?.[0]?.toUpperCase() || "U")}
+                    &lt;/div&gt;
+                    &lt;div className={`max-w-[72%] px-3.5 py-2.5 rounded-xl text-[0.85rem] leading-relaxed ${
+                      msg.role === "bot"
+                        ? "bg-card border border-border rounded-bl-sm text-foreground/80"
+                        : "bg-foreground text-background rounded-br-sm font-medium"
+                    }`}&gt;
+                      {msg.text}
+                    &lt;/div&gt;
+                  &lt;/motion.div&gt;
+                ))}
+                {isTyping &amp;&amp; (
+                  &lt;div className="flex gap-2 items-end"&gt;
+                    &lt;div className="w-[26px] h-[26px] rounded-full bg-gradient-to-br from-foreground/8 to-foreground/3 border border-foreground/10 flex items-center justify-center"&gt;&lt;Bot className="w-3 h-3 text-foreground/40" /&gt;&lt;/div&gt;
+                    &lt;div className="bg-card border border-border px-3.5 py-3 rounded-xl rounded-bl-sm flex gap-1.5 items-center"&gt;
+                      {[0, 1, 2].map(<span class="fstat-no" title="function not covered" >(d</span>) =&gt; (
+<span class="cstat-no" title="statement not covered" >                        &lt;motion.span</span>
+                          key={d}
+                          className="w-1.5 h-1.5 bg-muted-foreground/50 rounded-full"
+                          animate={{ y: [0, -5, 0], opacity: [0.3, 1, 0.3] }}
+                          transition={{ duration: 1.2, repeat: Infinity, delay: d * 0.18 }}
+                        /&gt;
+                      ))}
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                )}
+              &lt;/div&gt;
+&nbsp;
+              {/* ── Text Input ── */}
+              &lt;div className="w-full bg-card border border-border border-t-0 rounded-b-2xl px-4 py-3 flex items-center gap-2.5"&gt;
+                &lt;input
+                  type="text"
+                  placeholder="Type a message (or just watch)..."
+                  value={textInput}
+                  onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setTextInput(e.target.value)}</span>
+                  onKeyDown={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >e.key === "Enter" &amp;&amp; handleSendText()}</span>
+                  disabled={!callActive}
+                  className="flex-1 bg-background/60 border border-border text-foreground rounded-lg px-3.5 py-2 text-sm outline-none focus:border-foreground/15 transition-colors placeholder:text-muted-foreground font-mono disabled:opacity-30 disabled:cursor-not-allowed"
+                /&gt;
+                &lt;button
+                  onClick={handleSendText}
+                  disabled={!callActive || !textInput.trim()}
+                  className="bg-foreground text-background rounded-lg px-4 py-2 transition-opacity hover:opacity-80 disabled:opacity-15 disabled:cursor-not-allowed"
+                &gt;
+                  &lt;Send className="w-4 h-4" /&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+&nbsp;
+              {/* ── Metrics ── */}
+              &lt;div className="w-full grid grid-cols-4 gap-2 mt-3"&gt;
+                {[
+                  { label: "Sentiment", value: sentiment },
+                  { label: "Lead Score", value: leadScore },
+                  { label: "Intent", value: intent },
+                  { label: "TTS", value: ttsError ? "Fallback" : "ElevenLabs" },
+                ].map(<span class="fstat-no" title="function not covered" >(m</span>) =&gt; (
+<span class="cstat-no" title="statement not covered" >                  &lt;div key={m.label} c</span>lassName="surface-card rounded-xl px-3 py-3"&gt;
+                    &lt;p className="font-mono text-[0.55rem] text-muted-foreground uppercase tracking-[0.12em] mb-1"&gt;{m.label}&lt;/p&gt;
+                    &lt;p className="font-display font-bold text-sm text-foreground"&gt;{m.value}&lt;/p&gt;
+                  &lt;/div&gt;
+                ))}
+              &lt;/div&gt;
+&nbsp;
+              {/* Hint */}
+              &lt;p className="text-[0.72rem] text-muted-foreground mt-3 text-center font-mono"&gt;
+                🔊 Agent is speaking with ElevenLabs voice — listen!
+              &lt;/p&gt;
+            &lt;/motion.div&gt;
+          )}
+&nbsp;
+          {/* ═══════════════ STEP 3: COMPLETED ═══════════════ */}
+          {step === 3 &amp;&amp; (
+            &lt;motion.div
+              key="s3"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full max-w-[520px] text-center flex flex-col items-center"
+            &gt;
+              &lt;motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.15 }}
+                className="w-[80px] h-[80px] rounded-full bg-foreground/5 border border-foreground/15 flex items-center justify-center shadow-[0_0_50px_hsl(0_0%_100%/0.06)] mb-7"
+              &gt;
+                &lt;CheckCircle2 className="w-8 h-8 text-foreground/60" /&gt;
+              &lt;/motion.div&gt;
+&nbsp;
+              &lt;h2 className="font-display font-extrabold text-[2.2rem] tracking-[-0.04em] text-foreground mb-3"&gt;
+                Call Completed.
+              &lt;/h2&gt;
+              &lt;p className="text-muted-foreground text-[0.93rem] leading-relaxed mb-8 font-light max-w-md"&gt;
+                The agent conducted the entire conversation with realistic ElevenLabs voice — qualified the lead, built rapport, and booked the service with zero human involvement.
+              &lt;/p&gt;
+&nbsp;
+              {/* Summary Card */}
+              &lt;div className="surface-card rounded-2xl p-6 w-full mb-6 text-left relative overflow-hidden"&gt;
+                &lt;div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" /&gt;
+                &lt;p className="font-mono text-[0.58rem] tracking-[0.16em] text-muted-foreground uppercase mb-4 flex items-center gap-2"&gt;
+                  &lt;CheckCircle2 className="w-3.5 h-3.5" /&gt; Call Summary
+                &lt;/p&gt;
+                {[
+                  { k: "Lead", v: userName || "Customer" },
+                  { k: "Industry", v: industries.find(<span class="fstat-no" title="function not covered" >(i</span>) =&gt; <span class="cstat-no" title="statement not covered" >i.id === selectedIndustry)</span>?.label || "—" },
+                  { k: "Messages", v: String(messages.length) },
+                  { k: "Duration", v: formatTime(timer) },
+                  { k: "Voice", v: voices.find(<span class="fstat-no" title="function not covered" >v </span>=&gt; <span class="cstat-no" title="statement not covered" >v.id === selectedVoice)</span>?.name || "—" },
+                  { k: "TTS", v: "ElevenLabs" },
+                  { k: "Result", v: "Demo Completed", highlight: true },
+                ].map(<span class="fstat-no" title="function not covered" >(r</span>) =&gt; (
+<span class="cstat-no" title="statement not covered" >                  &lt;div key={r.k} c</span>lassName="flex justify-between py-2.5 border-b border-border last:border-0 text-[0.84rem]"&gt;
+                    &lt;span className="text-muted-foreground"&gt;{r.k}&lt;/span&gt;
+                    &lt;span className={`font-medium ${r.highlight ? "text-foreground" : "text-foreground/80"}`}&gt;{r.v}&lt;/span&gt;
+                  &lt;/div&gt;
+                ))}
+              &lt;/div&gt;
+&nbsp;
+              {/* CTAs */}
+              &lt;div className="flex gap-3 w-full"&gt;
+                &lt;a
+                  href="https://cal.com/voxmation/meeting"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-foreground text-background font-display font-bold rounded-xl py-3.5 px-5 text-sm text-center hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 shadow-[0_0_30px_hsl(0_0%_100%/0.06)]"
+                &gt;
+                  Get My AI Agent
+                  &lt;ArrowUpRight className="w-4 h-4" /&gt;
+                &lt;/a&gt;
+                &lt;button
+                  onClick={resetAll}
+                  className="flex-1 bg-transparent text-foreground/70 border border-border font-display font-semibold rounded-xl py-3.5 px-5 text-sm hover:border-foreground/15 hover:text-foreground transition-all flex items-center justify-center gap-2"
+                &gt;
+                  &lt;RotateCcw className="w-3.5 h-3.5" /&gt;
+                  Try Again
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/motion.div&gt;
+          )}
+        &lt;/AnimatePresence&gt;
+      &lt;/div&gt;
+&nbsp;
+      {/* ─── ADDITIONAL SECTIONS ─── */}
+      &lt;div className="relative z-10 border-t border-border"&gt;
+        &lt;MissedCallDemo /&gt;
+      &lt;/div&gt;
+&nbsp;
+      &lt;div className="relative z-10 border-t border-border"&gt;
+        &lt;section className="container mx-auto px-6 py-24 md:py-32"&gt;
+          &lt;VoiceDemonstration
+            title="Experience Our AI Voice Firsthand"
+            subtitle="Listen to realistic voice samples across different profiles. Each voice is powered by ElevenLabs TTS and can be customized for your needs."
+            showVisualizer={true}
+          /&gt;
+        &lt;/section&gt;
+      &lt;/div&gt;
+&nbsp;
+      &lt;div className="relative z-10 border-t border-border bg-card/20"&gt;
+        &lt;DashboardMockup /&gt;
+      &lt;/div&gt;
+&nbsp;
+      &lt;div className="relative z-10 border-t border-border"&gt;
+        &lt;DemoBenefits /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >export default Demo;</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-06-25T04:19:53.875Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

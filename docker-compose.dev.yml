@@ -1,0 +1,165 @@
+# Development-specific docker-compose overrides
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+version: '3.9'
+
+services:
+  backend:
+    build:
+      target: development
+    restart: no
+    env_file:
+      - .env.local
+    environment:
+      NODE_ENV: development
+      DEBUG: "true"
+      LOG_LEVEL: debug
+
+    # Volume mounts for hot reload
+    volumes:
+      - .:/app
+      - node_modules_backend:/app/node_modules
+
+    # Resource allocation for dev (less strict)
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4G
+
+    # Watch file changes
+    stdin_open: true
+    tty: true
+
+  frontend:
+    build:
+      target: development
+    restart: no
+    env_file:
+      - .env.local
+    environment:
+      NODE_ENV: development
+      DEBUG: "true"
+      VITE_DEV_SERVER_URL: http://localhost:5000
+
+    # Volume mounts for hot reload
+    volumes:
+      - .:/app
+      - node_modules_frontend:/app/node_modules
+
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4G
+
+    stdin_open: true
+    tty: true
+
+  postgres:
+    restart: unless-stopped
+    environment:
+      # Lower performance settings for dev
+      POSTGRES_INITDB_ARGS: ""
+
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+      - ./supabase/migrations:/docker-entrypoint-initdb.d:ro
+
+    # Expose for easy access from host
+    ports:
+      - "5432:5432"
+
+  redis:
+    restart: unless-stopped
+    command: redis-server --appendonly no
+
+    volumes:
+      - redis_data_dev:/data
+
+    # Expose for easy access from host
+    ports:
+      - "6379:6379"
+
+  # =====================================================================
+  # PG_ADMIN - PostgreSQL Web UI (Development Only)
+  # =====================================================================
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: voxmation-pgadmin
+    restart: unless-stopped
+    ports:
+      - "5050:80"
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@voxmation.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_ENHANCED_MONITORING_ENABLED: "true"
+
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+    networks:
+      - voxmation-network
+
+    depends_on:
+      - postgres
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # =====================================================================
+  # REDIS COMMANDER - Redis Web UI (Development Only)
+  # =====================================================================
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: voxmation-redis-commander
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+
+    environment:
+      REDIS_HOSTS: local:redis:6379
+
+    networks:
+      - voxmation-network
+
+    depends_on:
+      - redis
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # =====================================================================
+  # MAILHOG - Email Testing (Development Only)
+  # =====================================================================
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: voxmation-mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Web UI
+
+    networks:
+      - voxmation-network
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_data_dev:
+    driver: local
+  redis_data_dev:
+    driver: local
+  pgadmin_data:
+    driver: local

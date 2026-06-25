@@ -1,0 +1,1501 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/data/seoExpansion.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/data</a> seoExpansion.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/5</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/5</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a>
+<a name='L230'></a><a href='#L230'>230</a>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a>
+<a name='L284'></a><a href='#L284'>284</a>
+<a name='L285'></a><a href='#L285'>285</a>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a>
+<a name='L325'></a><a href='#L325'>325</a>
+<a name='L326'></a><a href='#L326'>326</a>
+<a name='L327'></a><a href='#L327'>327</a>
+<a name='L328'></a><a href='#L328'>328</a>
+<a name='L329'></a><a href='#L329'>329</a>
+<a name='L330'></a><a href='#L330'>330</a>
+<a name='L331'></a><a href='#L331'>331</a>
+<a name='L332'></a><a href='#L332'>332</a>
+<a name='L333'></a><a href='#L333'>333</a>
+<a name='L334'></a><a href='#L334'>334</a>
+<a name='L335'></a><a href='#L335'>335</a>
+<a name='L336'></a><a href='#L336'>336</a>
+<a name='L337'></a><a href='#L337'>337</a>
+<a name='L338'></a><a href='#L338'>338</a>
+<a name='L339'></a><a href='#L339'>339</a>
+<a name='L340'></a><a href='#L340'>340</a>
+<a name='L341'></a><a href='#L341'>341</a>
+<a name='L342'></a><a href='#L342'>342</a>
+<a name='L343'></a><a href='#L343'>343</a>
+<a name='L344'></a><a href='#L344'>344</a>
+<a name='L345'></a><a href='#L345'>345</a>
+<a name='L346'></a><a href='#L346'>346</a>
+<a name='L347'></a><a href='#L347'>347</a>
+<a name='L348'></a><a href='#L348'>348</a>
+<a name='L349'></a><a href='#L349'>349</a>
+<a name='L350'></a><a href='#L350'>350</a>
+<a name='L351'></a><a href='#L351'>351</a>
+<a name='L352'></a><a href='#L352'>352</a>
+<a name='L353'></a><a href='#L353'>353</a>
+<a name='L354'></a><a href='#L354'>354</a>
+<a name='L355'></a><a href='#L355'>355</a>
+<a name='L356'></a><a href='#L356'>356</a>
+<a name='L357'></a><a href='#L357'>357</a>
+<a name='L358'></a><a href='#L358'>358</a>
+<a name='L359'></a><a href='#L359'>359</a>
+<a name='L360'></a><a href='#L360'>360</a>
+<a name='L361'></a><a href='#L361'>361</a>
+<a name='L362'></a><a href='#L362'>362</a>
+<a name='L363'></a><a href='#L363'>363</a>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a>
+<a name='L368'></a><a href='#L368'>368</a>
+<a name='L369'></a><a href='#L369'>369</a>
+<a name='L370'></a><a href='#L370'>370</a>
+<a name='L371'></a><a href='#L371'>371</a>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a>
+<a name='L385'></a><a href='#L385'>385</a>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a>
+<a name='L389'></a><a href='#L389'>389</a>
+<a name='L390'></a><a href='#L390'>390</a>
+<a name='L391'></a><a href='#L391'>391</a>
+<a name='L392'></a><a href='#L392'>392</a>
+<a name='L393'></a><a href='#L393'>393</a>
+<a name='L394'></a><a href='#L394'>394</a>
+<a name='L395'></a><a href='#L395'>395</a>
+<a name='L396'></a><a href='#L396'>396</a>
+<a name='L397'></a><a href='#L397'>397</a>
+<a name='L398'></a><a href='#L398'>398</a>
+<a name='L399'></a><a href='#L399'>399</a>
+<a name='L400'></a><a href='#L400'>400</a>
+<a name='L401'></a><a href='#L401'>401</a>
+<a name='L402'></a><a href='#L402'>402</a>
+<a name='L403'></a><a href='#L403'>403</a>
+<a name='L404'></a><a href='#L404'>404</a>
+<a name='L405'></a><a href='#L405'>405</a>
+<a name='L406'></a><a href='#L406'>406</a>
+<a name='L407'></a><a href='#L407'>407</a>
+<a name='L408'></a><a href='#L408'>408</a>
+<a name='L409'></a><a href='#L409'>409</a>
+<a name='L410'></a><a href='#L410'>410</a>
+<a name='L411'></a><a href='#L411'>411</a>
+<a name='L412'></a><a href='#L412'>412</a>
+<a name='L413'></a><a href='#L413'>413</a>
+<a name='L414'></a><a href='#L414'>414</a>
+<a name='L415'></a><a href='#L415'>415</a>
+<a name='L416'></a><a href='#L416'>416</a>
+<a name='L417'></a><a href='#L417'>417</a>
+<a name='L418'></a><a href='#L418'>418</a>
+<a name='L419'></a><a href='#L419'>419</a>
+<a name='L420'></a><a href='#L420'>420</a>
+<a name='L421'></a><a href='#L421'>421</a>
+<a name='L422'></a><a href='#L422'>422</a>
+<a name='L423'></a><a href='#L423'>423</a>
+<a name='L424'></a><a href='#L424'>424</a>
+<a name='L425'></a><a href='#L425'>425</a>
+<a name='L426'></a><a href='#L426'>426</a>
+<a name='L427'></a><a href='#L427'>427</a>
+<a name='L428'></a><a href='#L428'>428</a>
+<a name='L429'></a><a href='#L429'>429</a>
+<a name='L430'></a><a href='#L430'>430</a>
+<a name='L431'></a><a href='#L431'>431</a>
+<a name='L432'></a><a href='#L432'>432</a>
+<a name='L433'></a><a href='#L433'>433</a>
+<a name='L434'></a><a href='#L434'>434</a>
+<a name='L435'></a><a href='#L435'>435</a>
+<a name='L436'></a><a href='#L436'>436</a>
+<a name='L437'></a><a href='#L437'>437</a>
+<a name='L438'></a><a href='#L438'>438</a>
+<a name='L439'></a><a href='#L439'>439</a>
+<a name='L440'></a><a href='#L440'>440</a>
+<a name='L441'></a><a href='#L441'>441</a>
+<a name='L442'></a><a href='#L442'>442</a>
+<a name='L443'></a><a href='#L443'>443</a>
+<a name='L444'></a><a href='#L444'>444</a>
+<a name='L445'></a><a href='#L445'>445</a>
+<a name='L446'></a><a href='#L446'>446</a>
+<a name='L447'></a><a href='#L447'>447</a>
+<a name='L448'></a><a href='#L448'>448</a>
+<a name='L449'></a><a href='#L449'>449</a>
+<a name='L450'></a><a href='#L450'>450</a>
+<a name='L451'></a><a href='#L451'>451</a>
+<a name='L452'></a><a href='#L452'>452</a>
+<a name='L453'></a><a href='#L453'>453</a>
+<a name='L454'></a><a href='#L454'>454</a>
+<a name='L455'></a><a href='#L455'>455</a>
+<a name='L456'></a><a href='#L456'>456</a>
+<a name='L457'></a><a href='#L457'>457</a>
+<a name='L458'></a><a href='#L458'>458</a>
+<a name='L459'></a><a href='#L459'>459</a>
+<a name='L460'></a><a href='#L460'>460</a>
+<a name='L461'></a><a href='#L461'>461</a>
+<a name='L462'></a><a href='#L462'>462</a>
+<a name='L463'></a><a href='#L463'>463</a>
+<a name='L464'></a><a href='#L464'>464</a>
+<a name='L465'></a><a href='#L465'>465</a>
+<a name='L466'></a><a href='#L466'>466</a>
+<a name='L467'></a><a href='#L467'>467</a>
+<a name='L468'></a><a href='#L468'>468</a>
+<a name='L469'></a><a href='#L469'>469</a>
+<a name='L470'></a><a href='#L470'>470</a>
+<a name='L471'></a><a href='#L471'>471</a>
+<a name='L472'></a><a href='#L472'>472</a>
+<a name='L473'></a><a href='#L473'>473</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SEO expansion data: industry AI-receptionist pages, competitor comparisons,
+// and alternatives pages. Built to match the 30-day SEO plan URL structure.
+//
+// SAFETY RULE: No invented reviews, metrics, clients, or competitor pricing.
+// Competitor positioning is generic and must be verified against the
+// competitor's official site on the day of publication (see DISCLAIMER).
+&nbsp;
+export const <span class="cstat-no" title="statement not covered" >COMPARE_DISCLAIMER =</span>
+  "Pricing and features may change. This comparison reflects publicly available information and should be verified on each provider's official website before making a decision.";
+&nbsp;
+export const <span class="cstat-no" title="statement not covered" >LAST_UPDATED = "2026-06-07";</span>
+&nbsp;
+export interface IndustryReceptionist {
+  slug: string; // e.g. "hvac-ai-receptionist"
+  industry: string; // e.g. "HVAC"
+  title: string;
+  metaDescription: string;
+  intro: string;
+  whyLoseLeads: string;
+  callTypes: { name: string; description: string }[];
+  exampleCall: string;
+  faqs: { q: string; a: string }[];
+}
+&nbsp;
+export const <span class="cstat-no" title="statement not covered" >industryReceptionists: Record&lt;string, IndustryReceptionist&gt; = {</span>
+  "hvac-ai-receptionist": {
+    slug: "hvac-ai-receptionist",
+    industry: "HVAC",
+    title: "AI Receptionist for HVAC Companies | VOXmatiON",
+    metaDescription:
+      "VOXmatiON answers, qualifies, and routes every HVAC call 24/7 — recovering missed calls, booking emergency service, and syncing to your CRM. Book a demo.",
+    intro:
+      "VOXmatiON is an AI receptionist built for HVAC companies. It answers every call on the first ring, qualifies the caller, routes emergencies to the right tech, and recovers missed calls with instant SMS textback — so no service request slips away.",
+    whyLoseLeads:
+      "HVAC demand spikes during heat waves and cold snaps, exactly when your phones are busiest and your techs are in the field. Calls that hit voicemail during peak season are often gone for good — the homeowner simply dials the next contractor. After-hours and overflow calls are the single biggest source of lost HVAC revenue.",
+    callTypes: [
+      { name: "Emergency calls", description: "No heat or no cooling, gas smell, or water leaks — triaged by urgency and routed to on-call techs immediately." },
+      { name: "New customer inquiries", description: "Captures name, address, system type, and issue, then books or routes the lead to your CRM." },
+      { name: "Appointment requests", description: "Books maintenance, tune-ups, and installs directly onto your calendar." },
+      { name: "Pricing questions", description: "Answers common pricing and financing questions using your approved scripts." },
+      { name: "After hours calls", description: "Covers nights, weekends, and holidays with 24/7 answering and missed-call recovery." },
+    ],
+    exampleCall:
+      'Caller: "My AC stopped working and it\'s 95 degrees inside." VOXmatiON: "I\'m sorry to hear that — let\'s get you on the schedule fast. Can I confirm your address and whether anyone in the home is elderly or has health concerns?" The AI flags the call as urgent, books the earliest slot, and texts the homeowner a confirmation while pushing the lead to your CRM.',
+    faqs: [
+      { q: "Can VOXmatiON handle HVAC emergency calls after hours?", a: "Yes. VOXmatiON answers 24/7, triages no-heat/no-cool emergencies by urgency, and routes them to your on-call technician while logging everything in your CRM." },
+      { q: "Does it integrate with HVAC scheduling software?", a: "VOXmatiON connects with common field-service and CRM tools so booked jobs and qualified leads flow into the system your team already uses." },
+      { q: "What happens to calls I currently miss?", a: "Every missed or unanswered call triggers an instant SMS textback, so the homeowner gets a response in seconds instead of calling a competitor." },
+      { q: "How long does setup take?", a: "Most HVAC businesses are live within 7–14 days, including script training, call-flow setup, and CRM connection." },
+    ],
+  },
+  "plumbing-ai-receptionist": {
+    slug: "plumbing-ai-receptionist",
+    industry: "Plumbing",
+    title: "AI Receptionist for Plumbers | VOXmatiON",
+    metaDescription:
+      "VOXmatiON answers every plumbing call 24/7, qualifies emergencies, books jobs, and recovers missed calls with SMS textback. Built for plumbers. Book a demo.",
+    intro:
+      "VOXmatiON is an AI receptionist for plumbing companies. It answers burst-pipe emergencies at 2am, qualifies routine service calls, books appointments, and recovers every missed call so your pipeline stays full.",
+    whyLoseLeads:
+      "Plumbing emergencies don't wait for business hours. A homeowner with a flooding basement will call three plumbers in five minutes — whoever answers first wins the job. Every call that reaches voicemail is revenue handed to a competitor.",
+    callTypes: [
+      { name: "Emergency calls", description: "Burst pipes, sewage backups, and no-water situations triaged and dispatched fast." },
+      { name: "New customer inquiries", description: "Captures the problem, location, and urgency, then routes or books the lead." },
+      { name: "Appointment requests", description: "Books drain cleaning, water-heater, and repair appointments on your calendar." },
+      { name: "Pricing questions", description: "Handles common service-call and diagnostic pricing questions from your scripts." },
+      { name: "After hours calls", description: "24/7 coverage for nights and weekends when emergencies spike." },
+    ],
+    exampleCall:
+      'Caller: "Water is pouring out from under my sink." VOXmatiON: "Let\'s stop that fast. Can you locate the shut-off valve while I get a plumber to you? What\'s the service address?" The AI marks the call urgent, books the next available slot, and texts a confirmation.',
+    faqs: [
+      { q: "Can VOXmatiON triage plumbing emergencies?", a: "Yes. It asks about water source, severity, and location to prioritize true emergencies and route them to your team immediately." },
+      { q: "Will it recover calls I miss while on a job?", a: "Yes. Any unanswered call gets an instant SMS textback and AI follow-up so the lead doesn't go cold." },
+      { q: "Does it book directly into my calendar?", a: "Qualified appointments are booked onto your calendar and synced to your CRM automatically." },
+      { q: "How fast can we go live?", a: "Typically 7–14 days, including call-script training and integration setup." },
+    ],
+  },
+  "roofing-ai-receptionist": {
+    slug: "roofing-ai-receptionist",
+    industry: "Roofing",
+    title: "AI Receptionist for Roofing Companies | VOXmatiON",
+    metaDescription:
+      "VOXmatiON answers roofing calls 24/7, qualifies storm and repair leads, books inspections, and recovers missed calls with SMS textback. Book a demo.",
+    intro:
+      "VOXmatiON is an AI receptionist for roofing companies. During storm season it captures every inbound lead, qualifies repair vs. replacement, books inspections, and recovers missed calls so your crews stay booked.",
+    whyLoseLeads:
+      "Roofing demand is spiky and storm-driven. When a hailstorm hits, call volume can 10x overnight — far more than your office can answer. Missed storm calls are high-value leads lost to whichever competitor picked up the phone.",
+    callTypes: [
+      { name: "Emergency calls", description: "Active leaks and storm damage triaged and routed for fast inspection." },
+      { name: "New customer inquiries", description: "Captures roof type, issue, and insurance status, then routes the lead." },
+      { name: "Appointment requests", description: "Books free inspections and estimate visits on your calendar." },
+      { name: "Pricing questions", description: "Answers common inspection and financing questions from your scripts." },
+      { name: "After hours calls", description: "24/7 capture during and after major storm events." },
+    ],
+    exampleCall:
+      'Caller: "We had hail last night and I see shingles in the yard." VOXmatiON: "Let\'s get an inspector out to assess the damage. Do you plan to file an insurance claim? What\'s the property address?" The AI books a free inspection and logs the insurance details to your CRM.',
+    faqs: [
+      { q: "Can VOXmatiON handle storm-season call surges?", a: "Yes. It answers unlimited concurrent calls, so a sudden 10x surge after a storm never sends leads to voicemail." },
+      { q: "Does it qualify insurance vs. retail jobs?", a: "It can ask your qualifying questions, including insurance-claim status, and route leads accordingly." },
+      { q: "Will it book inspections automatically?", a: "Yes. Qualified leads are booked for inspection and synced to your CRM." },
+      { q: "How long is setup?", a: "Most roofing companies are live in 7–14 days." },
+    ],
+  },
+  "electrical-ai-receptionist": {
+    slug: "electrical-ai-receptionist",
+    industry: "Electrical",
+    title: "AI Receptionist for Electricians | VOXmatiON",
+    metaDescription:
+      "VOXmatiON answers every electrical call 24/7, qualifies hazards, books service, and recovers missed calls with SMS textback. Built for electricians. Book a demo.",
+    intro:
+      "VOXmatiON is an AI receptionist for electrical contractors. It answers safety-critical calls instantly, qualifies hazards, books service appointments, and recovers missed calls so no job is lost.",
+    whyLoseLeads:
+      "Electrical issues often feel urgent and unsafe to homeowners — sparking outlets, power loss, burning smells. They want an answer now. If your office is busy or closed, that anxious caller will quickly find an electrician who picks up.",
+    callTypes: [
+      { name: "Emergency calls", description: "Sparking, burning smell, or full power loss triaged and routed urgently." },
+      { name: "New customer inquiries", description: "Captures the issue, panel/age details, and location, then routes the lead." },
+      { name: "Appointment requests", description: "Books panel upgrades, installs, and repairs on your calendar." },
+      { name: "Pricing questions", description: "Handles common diagnostic and service pricing questions from your scripts." },
+      { name: "After hours calls", description: "24/7 coverage for urgent electrical concerns." },
+    ],
+    exampleCall:
+      'Caller: "An outlet is sparking and I smell something burning." VOXmatiON: "For your safety, please stop using that outlet and switch off the breaker if you can. I\'m getting an electrician scheduled right away — what\'s the address?" The AI flags it urgent, books service, and texts a confirmation.',
+    faqs: [
+      { q: "Can VOXmatiON identify electrical emergencies?", a: "Yes. It asks safety-screening questions and prioritizes hazards like sparking, burning smells, and power loss for immediate routing." },
+      { q: "Does it integrate with my scheduling and CRM?", a: "Yes. Qualified leads and booked jobs sync into the tools your team already uses." },
+      { q: "What about calls I miss in the field?", a: "Every missed call triggers instant SMS textback plus AI follow-up." },
+      { q: "How quickly can we launch?", a: "Typically 7–14 days including script and integration setup." },
+    ],
+  },
+  "garage-door-ai-receptionist": {
+    slug: "garage-door-ai-receptionist",
+    industry: "Garage Door",
+    title: "AI Receptionist for Garage Door Companies | VOXmatiON",
+    metaDescription:
+      "VOXmatiON answers garage door service calls 24/7, qualifies repairs, books appointments, and recovers missed calls with SMS textback. Book a demo.",
+    intro:
+      "VOXmatiON is an AI receptionist for garage door companies. It answers broken-spring and stuck-door calls instantly, qualifies the job, books service, and recovers missed calls so your techs stay busy.",
+    whyLoseLeads:
+      "A stuck garage door means a homeowner can't get their car out — they need same-day service and will call until someone answers. Missed calls during busy hours are same-day jobs lost to a faster-answering competitor.",
+    callTypes: [
+      { name: "Emergency calls", description: "Broken springs, off-track doors, and security concerns routed for same-day service." },
+      { name: "New customer inquiries", description: "Captures door type, issue, and location, then routes or books the lead." },
+      { name: "Appointment requests", description: "Books repairs, openers, and new-door installs on your calendar." },
+      { name: "Pricing questions", description: "Answers common repair and install pricing questions from your scripts." },
+      { name: "After hours calls", description: "24/7 coverage so urgent jobs are never missed." },
+    ],
+    exampleCall:
+      'Caller: "My garage door won\'t open and my car is stuck inside." VOXmatiON: "Let\'s get a technician out to you today. Is the door fully off track or is it a broken spring? What\'s the address?" The AI books same-day service and texts a confirmation.',
+    faqs: [
+      { q: "Can VOXmatiON book same-day garage door service?", a: "Yes. It qualifies the issue and books the earliest available slot, then confirms by SMS." },
+      { q: "Does it recover missed calls?", a: "Yes. Unanswered calls get instant SMS textback and AI follow-up." },
+      { q: "Will leads sync to my CRM?", a: "Qualified leads and booked jobs are pushed to your CRM automatically." },
+      { q: "How long does onboarding take?", a: "Most companies are live within 7–14 days." },
+    ],
+  },
+  "legal-intake-ai-receptionist": {
+    slug: "legal-intake-ai-receptionist",
+    industry: "Legal Intake",
+    title: "AI Intake Receptionist for Law Firms | VOXmatiON",
+    metaDescription:
+      "VOXmatiON answers and qualifies legal intake calls 24/7, captures case details, routes to your team, and recovers missed calls with SMS textback. Book a demo.",
+    intro:
+      "VOXmatiON is an AI intake receptionist for law firms. It answers every prospective-client call, runs your intake questions, captures case details, and recovers missed calls — so first-to-respond firms sign more cases.",
+    whyLoseLeads:
+      "In legal, the first firm to respond usually signs the client. Prospective clients in distress call several firms in a row. A missed or slow-answered intake call is a signed case lost to a competitor who picked up.",
+    callTypes: [
+      { name: "Emergency calls", description: "Time-sensitive matters captured and routed to the on-call attorney." },
+      { name: "New customer inquiries", description: "Runs your intake script to capture case type, key facts, and contact details." },
+      { name: "Appointment requests", description: "Books consultations directly onto your calendar." },
+      { name: "Pricing questions", description: "Handles common consultation and fee questions from your approved scripts." },
+      { name: "After hours calls", description: "24/7 intake so leads are captured nights and weekends." },
+    ],
+    exampleCall:
+      'Caller: "I was in a car accident and need a lawyer." VOXmatiON: "I\'m sorry that happened. Let me take a few details so an attorney can follow up quickly — when did the accident occur, and were you injured?" The AI captures structured intake data, books a consultation, and routes the lead.',
+    faqs: [
+      { q: "Can VOXmatiON run our custom intake questions?", a: "Yes. It follows your approved intake script to capture structured case details and route qualified leads to your team." },
+      { q: "Is it good for after-hours intake?", a: "Yes. It answers 24/7, so urgent intake calls are captured even outside office hours." },
+      { q: "Does it recover missed intake calls?", a: "Every missed call triggers instant SMS textback and AI follow-up to keep the prospect engaged." },
+      { q: "How fast can we onboard?", a: "Typically 7–14 days including intake-script and CRM setup." },
+    ],
+  },
+  "medical-spa-ai-receptionist": {
+    slug: "medical-spa-ai-receptionist",
+    industry: "Medical Spa",
+    title: "AI Receptionist for Medical Spas | VOXmatiON",
+    metaDescription:
+      "VOXmatiON answers med spa calls 24/7, books treatments and consultations, reduces no-shows, and recovers missed calls with SMS textback. Book a demo.",
+    intro:
+      "VOXmatiON is an AI receptionist for medical spas. It answers booking and treatment-inquiry calls, schedules consultations, sends reminders to reduce no-shows, and recovers missed calls so your chairs stay full.",
+    whyLoseLeads:
+      "Med spa clients often call during their lunch break or after work — exactly when your front desk is busy with in-room clients. Calls that go to voicemail rarely call back; they book elsewhere. No-shows further drain revenue.",
+    callTypes: [
+      { name: "Emergency calls", description: "Post-treatment concerns captured and routed to the right staff member." },
+      { name: "New customer inquiries", description: "Answers treatment questions and captures new-client details from your scripts." },
+      { name: "Appointment requests", description: "Books consultations and treatments directly onto your calendar." },
+      { name: "Pricing questions", description: "Handles common treatment and package pricing questions from your approved scripts." },
+      { name: "After hours calls", description: "24/7 booking capture plus reminders to reduce no-shows." },
+    ],
+    exampleCall:
+      'Caller: "Do you offer Botox, and can I book a consult this week?" VOXmatiON: "Yes — I can book your consultation now. Are mornings or afternoons better for you?" The AI books the consult, sends a reminder, and logs the new client to your CRM.',
+    faqs: [
+      { q: "Can VOXmatiON book med spa appointments?", a: "Yes. It answers treatment questions from your scripts and books consultations and services on your calendar." },
+      { q: "Does it help reduce no-shows?", a: "Yes. Automated SMS reminders and follow-ups help reduce no-shows and fill cancellations." },
+      { q: "Will it recover missed calls?", a: "Every missed call gets instant SMS textback so prospective clients don't book elsewhere." },
+      { q: "How long is setup?", a: "Most med spas are live in 7–14 days." },
+    ],
+  },
+  "real-estate-ai-receptionist": {
+    slug: "real-estate-ai-receptionist",
+    industry: "Real Estate",
+    title: "AI Receptionist for Real Estate | VOXmatiON",
+    metaDescription:
+      "VOXmatiON answers real estate calls 24/7, qualifies buyer and seller leads, books showings, and recovers missed calls with SMS textback. Book a demo.",
+    intro:
+      "VOXmatiON is an AI receptionist for real estate teams. It answers buyer and seller inquiries instantly, qualifies leads, books showings and consultations, and recovers missed calls so no opportunity is lost.",
+    whyLoseLeads:
+      "Real estate leads expect instant responses — a buyer who calls about a listing wants to talk now. Agents are constantly in showings and meetings, so inbound calls go unanswered and hot leads cool off within minutes.",
+    callTypes: [
+      { name: "Emergency calls", description: "Time-sensitive offer and closing questions routed to the right agent." },
+      { name: "New customer inquiries", description: "Qualifies buyer/seller intent, budget, and timeline from your scripts." },
+      { name: "Appointment requests", description: "Books showings and listing consultations on your calendar." },
+      { name: "Pricing questions", description: "Handles common commission and valuation questions from your approved scripts." },
+      { name: "After hours calls", description: "24/7 lead capture for evening and weekend inquiries." },
+    ],
+    exampleCall:
+      'Caller: "I saw your listing on Maple Street — is it still available?" VOXmatiON: "It is! Are you looking to schedule a showing? And are you currently working with an agent?" The AI qualifies the lead and books a showing, syncing details to your CRM.',
+    faqs: [
+      { q: "Can VOXmatiON qualify real estate leads?", a: "Yes. It runs your qualifying questions on intent, budget, and timeline, then routes or books the lead." },
+      { q: "Does it book showings?", a: "Yes. Qualified leads are booked for showings or consultations and synced to your CRM." },
+      { q: "Will it recover missed calls?", a: "Every missed call triggers instant SMS textback so hot leads stay engaged." },
+      { q: "How fast can we go live?", a: "Typically 7–14 days including script and CRM setup." },
+    ],
+  },
+};
+&nbsp;
+export interface CompareEntry {
+  slug: string; // e.g. "voxmation-vs-agentzap"
+  competitor: string;
+  title: string;
+  metaDescription: string;
+  verdict: string;
+  about: string; // generic, public-info-based, verify on publish
+  voxmationStrengths: string[];
+  competitorStrengths: string[];
+  bestForVoxmation: string;
+  bestForCompetitor: string;
+  faqs: { q: string; a: string }[];
+}
+&nbsp;
+export const <span class="cstat-no" title="statement not covered" >compareData: Record&lt;string, CompareEntry&gt; = {</span>
+  "voxmation-vs-agentzap": {
+    slug: "voxmation-vs-agentzap",
+    competitor: "AgentZap",
+    title: "VOXmatiON vs AgentZap: Which AI Receptionist Is Better for Service Businesses?",
+    metaDescription:
+      "VOXmatiON vs AgentZap compared for service businesses: AI receptionist, missed call recovery, lead qualification, CRM automation, and best-fit guidance.",
+    verdict:
+      "Both are AI receptionist platforms. VOXmatiON is positioned around fast call answering, missed-call recovery, lead qualification, and CRM/follow-up automation purpose-built for local service businesses. AgentZap is an AI receptionist known for a broad integrations catalog and direct calendar scheduling. Choose based on whether you prioritize end-to-end missed-call recovery and service-business fit or the breadth of the integration library.",
+    about:
+      "AgentZap is an AI receptionist platform marketed to service businesses, with an emphasis on integrations and appointment scheduling. Verify current capabilities and pricing on AgentZap's official website before deciding.",
+    voxmationStrengths: [
+      "Missed call recovery with instant SMS textback as a core workflow",
+      "Lead qualification and call routing tuned for local service businesses",
+      "CRM automation and SMS follow-up out of the box",
+      "White-label option for agencies and resellers",
+    ],
+    competitorStrengths: [
+      "Large catalog of third-party integrations (verify current count on their site)",
+      "Direct calendar scheduling",
+      "Established presence in the AI receptionist category",
+    ],
+    bestForVoxmation:
+      "Local service businesses (HVAC, plumbing, roofing, electrical, legal intake, med spa, real estate) that want fast answering, missed-call recovery, and automated follow-up.",
+    bestForCompetitor:
+      "Teams whose top priority is a specific integration from a large catalog or a particular scheduling workflow.",
+    faqs: [
+      { q: "Is VOXmatiON or AgentZap better for missed call recovery?", a: "VOXmatiON treats missed-call recovery and SMS textback as a core workflow. Confirm AgentZap's current missed-call features on their official site." },
+      { q: "Do both integrate with CRMs?", a: "Both market CRM and tool integrations. The specific integrations and counts change over time, so verify the current list for your CRM on each provider's website." },
+      { q: "Which is better for local service businesses?", a: "VOXmatiON is purpose-built for local service verticals with industry-specific call flows and routing." },
+    ],
+  },
+  "voxmation-vs-goodcall": {
+    slug: "voxmation-vs-goodcall",
+    competitor: "Goodcall",
+    title: "VOXmatiON vs Goodcall: Which AI Receptionist Is Better for Service Businesses?",
+    metaDescription:
+      "VOXmatiON vs Goodcall compared: AI receptionist, missed call recovery, lead qualification, CRM automation, and which fits your service business best.",
+    verdict:
+      "VOXmatiON focuses on missed-call recovery, lead qualification, CRM automation, and SMS follow-up for service businesses. Goodcall is an AI phone agent often associated with local businesses and Google Business Profile workflows. Pick VOXmatiON if end-to-end lead capture and follow-up matter most; consider Goodcall if you want a simple local-business phone agent.",
+    about:
+      "Goodcall is an AI phone agent marketed to local and small businesses. Verify current features and pricing on Goodcall's official website before deciding.",
+    voxmationStrengths: [
+      "Missed call recovery with instant SMS textback",
+      "Industry-specific lead qualification and routing",
+      "CRM automation and automated SMS follow-up",
+      "White-label option for agencies",
+    ],
+    competitorStrengths: [
+      "Simple setup aimed at small local businesses",
+      "Local-business and Google Business Profile oriented workflows (verify on their site)",
+      "Established small-business presence",
+    ],
+    bestForVoxmation:
+      "Service businesses that need lead qualification, routing, missed-call recovery, and CRM/follow-up automation working together.",
+    bestForCompetitor:
+      "Very small local businesses wanting a basic AI phone agent with minimal setup.",
+    faqs: [
+      { q: "Does VOXmatiON do more than answer calls?", a: "Yes. Beyond answering, it qualifies leads, routes them, recovers missed calls, and automates CRM and SMS follow-up." },
+      { q: "Which is better for follow-up automation?", a: "VOXmatiON includes SMS follow-up and CRM automation as core features. Verify Goodcall's current follow-up capabilities on their site." },
+      { q: "Can I see it on my own calls?", a: "Yes — book a VOXmatiON demo to see answering, qualification, and routing on a live call." },
+    ],
+  },
+  "voxmation-vs-smith-ai": {
+    slug: "voxmation-vs-smith-ai",
+    competitor: "Smith.ai",
+    title: "VOXmatiON vs Smith.ai: Which AI Receptionist Is Better for Service Businesses?",
+    metaDescription:
+      "VOXmatiON vs Smith.ai compared: AI receptionist vs human-hybrid answering, missed call recovery, lead qualification, pricing model, and best fit.",
+    verdict:
+      "VOXmatiON is a pure-AI receptionist focused on fast answering, missed-call recovery, and automation at predictable cost. Smith.ai is known for a human + AI hybrid answering service. Choose VOXmatiON for fast, automated, predictable-cost call handling; consider Smith.ai if you specifically want human agents for complex triage.",
+    about:
+      "Smith.ai is a virtual receptionist and answering service known for combining human agents with AI. Verify current plans and pricing on Smith.ai's official website before deciding.",
+    voxmationStrengths: [
+      "Pure-AI answering with fast, consistent response",
+      "Missed call recovery with instant SMS textback",
+      "Predictable pricing without per-human-call premiums",
+      "CRM automation, lead qualification, and SMS follow-up built in",
+    ],
+    competitorStrengths: [
+      "Human agents available for complex or sensitive triage",
+      "Established answering-service brand",
+      "Hybrid human + AI model",
+    ],
+    bestForVoxmation:
+      "Service businesses that want fast, automated, predictable-cost answering with missed-call recovery and follow-up.",
+    bestForCompetitor:
+      "Businesses that specifically need human receptionists for nuanced or sensitive conversations.",
+    faqs: [
+      { q: "Is VOXmatiON cheaper than a human answering service?", a: "VOXmatiON uses predictable AI-based pricing without per-human-call premiums. Compare against Smith.ai's current pricing on their official site for your call volume." },
+      { q: "Does VOXmatiON use human agents?", a: "VOXmatiON is a pure-AI receptionist. If you require human agents for certain calls, factor that into your decision." },
+      { q: "Which handles after-hours better?", a: "VOXmatiON answers 24/7 with consistent automated handling and missed-call recovery." },
+    ],
+  },
+  "voxmation-vs-nextphone": {
+    slug: "voxmation-vs-nextphone",
+    competitor: "NextPhone",
+    title: "VOXmatiON vs NextPhone: Which AI Receptionist Is Better for Service Businesses?",
+    metaDescription:
+      "VOXmatiON vs NextPhone compared: AI receptionist, missed call recovery, lead qualification, pricing model, and which fits your service business best.",
+    verdict:
+      "VOXmatiON emphasizes missed-call recovery, lead qualification, routing, and CRM/follow-up automation with flexible plans. NextPhone is an AI phone solution for field-service businesses. Choose VOXmatiON for flexible, automation-first lead capture; consider NextPhone if its specific plan structure fits your field-service workflow.",
+    about:
+      "NextPhone is an AI phone/answering solution marketed to service and field businesses. Verify current features and pricing on NextPhone's official website before deciding.",
+    voxmationStrengths: [
+      "Missed call recovery with instant SMS textback",
+      "Flexible plans that scale with call volume",
+      "Lead qualification, routing, and CRM automation",
+      "White-label option for agencies and resellers",
+    ],
+    competitorStrengths: [
+      "Field-service focus",
+      "Flat-rate plan structure (verify current pricing on their site)",
+      "Keyword/emergency routing features (verify on their site)",
+    ],
+    bestForVoxmation:
+      "Service businesses that want automation-first lead capture, recovery, and follow-up with plans that scale to their volume.",
+    bestForCompetitor:
+      "Field-service teams whose volume and workflow fit NextPhone's specific plan structure.",
+    faqs: [
+      { q: "How does pricing compare?", a: "Plan structures differ and change over time. Compare VOXmatiON's volume-based plans against NextPhone's current pricing on their official site for your call volume." },
+      { q: "Which is better for missed calls?", a: "VOXmatiON makes missed-call recovery and SMS textback a core workflow. Verify NextPhone's current capabilities on their site." },
+      { q: "Can I try VOXmatiON on my calls?", a: "Yes — book a demo to see it answer, qualify, and route a live call." },
+    ],
+  },
+};
+&nbsp;
+export interface AlternativeEntry {
+  slug: string;
+  heading: string;
+  title: string;
+  metaDescription: string;
+  intro: string;
+  reasons: string[];
+  faqs: { q: string; a: string }[];
+}
+&nbsp;
+export const <span class="cstat-no" title="statement not covered" >alternativesData: Record&lt;string, AlternativeEntry&gt; = {</span>
+  "agentzap": {
+    slug: "agentzap",
+    heading: "AgentZap Alternative",
+    title: "Best AgentZap Alternative for Service Businesses | VOXmatiON",
+    metaDescription:
+      "Looking for an AgentZap alternative? VOXmatiON delivers AI receptionist, missed call recovery, lead qualification, and CRM automation for service businesses.",
+    intro:
+      "If you're evaluating AgentZap, VOXmatiON is a strong alternative for local service businesses that want missed-call recovery, lead qualification, and CRM/follow-up automation working together. Always verify current AgentZap features and pricing on their official website.",
+    reasons: [
+      "Missed call recovery with instant SMS textback as a core workflow",
+      "Industry-specific call flows for HVAC, plumbing, roofing, electrical, legal intake, med spa, and real estate",
+      "CRM automation and automated SMS follow-up built in",
+      "White-label option for agencies and resellers",
+      "Predictable, volume-based plans",
+    ],
+    faqs: [
+      { q: "Why choose VOXmatiON over AgentZap?", a: "VOXmatiON is purpose-built for local service businesses with missed-call recovery, qualification, routing, and follow-up automation. Compare current features on each official site." },
+      { q: "Does VOXmatiON integrate with my CRM?", a: "Yes. Qualified leads and booked jobs sync to common CRM and scheduling tools." },
+      { q: "How do I evaluate both fairly?", a: "Book a VOXmatiON demo and compare it against AgentZap's current capabilities listed on their website." },
+    ],
+  },
+  "goodcall": {
+    slug: "goodcall",
+    heading: "Goodcall Alternative",
+    title: "Best Goodcall Alternative for Service Businesses | VOXmatiON",
+    metaDescription:
+      "Looking for a Goodcall alternative? VOXmatiON offers AI receptionist, missed call recovery, lead qualification, routing, and CRM automation for service businesses.",
+    intro:
+      "If you're comparing Goodcall, VOXmatiON is a strong alternative for service businesses that need more than basic answering — lead qualification, routing, missed-call recovery, and CRM/follow-up automation. Verify current Goodcall features and pricing on their official website.",
+    reasons: [
+      "End-to-end lead capture: answer, qualify, route, recover, and follow up",
+      "Missed call recovery with instant SMS textback",
+      "Industry-specific call handling for service verticals",
+      "CRM automation and SMS follow-up included",
+      "White-label option for agencies",
+    ],
+    faqs: [
+      { q: "Why choose VOXmatiON over Goodcall?", a: "VOXmatiON goes beyond answering with qualification, routing, missed-call recovery, and follow-up automation built for service businesses." },
+      { q: "Is it hard to set up?", a: "Most businesses are live within 7–14 days, including script training and CRM connection." },
+      { q: "Can I see it work first?", a: "Yes — book a demo to see it on a live call before deciding." },
+    ],
+  },
+  "smith-ai": {
+    slug: "smith-ai",
+    heading: "Smith.ai Alternative",
+    title: "Best Smith.ai Alternative for Service Businesses | VOXmatiON",
+    metaDescription:
+      "Looking for a Smith.ai alternative? VOXmatiON is a pure-AI receptionist with missed call recovery, lead qualification, and predictable pricing for service businesses.",
+    intro:
+      "If you're weighing Smith.ai's human-hybrid answering service, VOXmatiON is a pure-AI alternative offering fast, automated answering, missed-call recovery, and predictable pricing without per-human-call premiums. Verify Smith.ai's current plans on their official website.",
+    reasons: [
+      "Pure-AI answering with fast, consistent response 24/7",
+      "Missed call recovery with instant SMS textback",
+      "Predictable pricing without per-human-call premiums",
+      "Lead qualification, routing, and CRM automation built in",
+      "White-label option for agencies",
+    ],
+    faqs: [
+      { q: "Why choose VOXmatiON over Smith.ai?", a: "If you want fast, automated, predictable-cost answering with missed-call recovery and follow-up, VOXmatiON fits. If you specifically need human agents, factor that in." },
+      { q: "Is VOXmatiON available 24/7?", a: "Yes. It answers around the clock with consistent automated handling." },
+      { q: "How does pricing compare?", a: "VOXmatiON uses volume-based AI pricing. Compare against Smith.ai's current pricing on their official site for your call volume." },
+    ],
+  },
+  "ai-receptionist-services": {
+    slug: "ai-receptionist-services",
+    heading: "AI Receptionist Services",
+    title: "Best AI Receptionist Services for Service Businesses | VOXmatiON",
+    metaDescription:
+      "Comparing AI receptionist services? See what to look for — missed call recovery, lead qualification, routing, and CRM automation — and how VOXmatiON fits.",
+    intro:
+      "There are many AI receptionist services available. For local service businesses, the most important capabilities are fast answering, missed-call recovery, lead qualification, call routing, and CRM/follow-up automation. VOXmatiON is built around exactly these workflows. Always verify each provider's current features and pricing on their official website.",
+    reasons: [
+      "Answer every call fast, 24/7",
+      "Recover missed calls with instant SMS textback",
+      "Qualify and route leads by urgency and type",
+      "Automate CRM updates and SMS follow-up",
+      "White-label option for agencies and resellers",
+    ],
+    faqs: [
+      { q: "What should I look for in an AI receptionist service?", a: "Prioritize missed-call recovery, lead qualification, routing, CRM automation, and follow-up — not just basic answering." },
+      { q: "How is VOXmatiON different?", a: "It combines answering, qualification, routing, missed-call recovery, and follow-up automation in one platform built for service businesses." },
+      { q: "How do I compare options?", a: "Book a VOXmatiON demo and compare it against other services' current capabilities listed on their official sites." },
+    ],
+  },
+};
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-06-25T04:19:53.875Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

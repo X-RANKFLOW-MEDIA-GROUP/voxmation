@@ -1,0 +1,301 @@
+# =====================================================================
+# DETAILED DOCKERIGNORE DOCUMENTATION
+# =====================================================================
+# This file explains each exclusion category
+
+# Version Control Files
+# Prevents .git, .gitignore, etc. from being copied
+# Reduces image size and prevents sensitive information exposure
+.git
+.gitignore
+.gitattributes
+.gitkeep
+
+# =====================================================================
+# Node.js & Package Management
+# =====================================================================
+# node_modules will be reinstalled in container for consistency
+# npm/yarn/pnpm lock files will be used fresh
+# Debug logs can be excluded
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+pnpm-lock.yaml.bak
+lerna-debug.log*
+
+# Temporary lock file backups
+package-lock.json.bak
+yarn.lock.bak
+
+# =====================================================================
+# Build Artifacts
+# =====================================================================
+# These will be rebuilt in container to ensure correct build
+dist/
+dist-ssr/
+build/
+out/
+.next/
+
+# =====================================================================
+# Development & IDE Files
+# =====================================================================
+# Editor configurations that aren't needed at runtime
+# Development-only tools and configurations
+
+.vscode/
+.idea/
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Text editor backups and temp files
+*.swp
+*.swo
+*.swn
+*.sw?
+*.sublime-project
+*.sublime-workspace
+
+# =====================================================================
+# Environment & Configuration
+# =====================================================================
+# Local environment overrides should NOT be in image
+# These contain secrets and local-only settings
+
+.env.local
+.env.*.local
+.env.development
+.env.test
+
+# Temporary and example files
+.env.example
+.env.development
+.env.test
+.editorconfig
+.prettierrc*
+.eslintrc*
+
+# =====================================================================
+# Development & Test Files
+# =====================================================================
+# Testing infrastructure and coverage reports
+# Not needed at runtime
+
+test/
+tests/
+__tests__/
+coverage/
+.nyc_output/
+*.test.ts
+*.test.tsx
+*.test.js
+*.test.jsx
+*.spec.ts
+*.spec.tsx
+*.spec.js
+*.spec.jsx
+vitest.config.ts
+jest.config.ts
+.mocharc.json
+
+# =====================================================================
+# CI/CD Configuration
+# =====================================================================
+# GitHub Actions, GitLab CI, Travis, Jenkins config
+# Not needed in container runtime
+
+.github/
+.gitlab-ci.yml
+.circleci/
+.travis.yml
+jenkins/
+Jenkinsfile
+.github/workflows/
+
+# =====================================================================
+# Docker Files
+# =====================================================================
+# Prevent Docker files from being copied into image
+Dockerfile
+Dockerfile.*
+.dockerignore
+docker-compose*.yml
+docker-compose*.yaml
+
+# =====================================================================
+# Database Files
+# =====================================================================
+# Local development database files
+# Volume mounts will provide persistent storage
+
+.db
+*.db
+*.sqlite
+*.sqlite3
+postgres_data/
+redis_data/
+
+# Database backups in root
+*.sql
+*.sql.gz
+
+# =====================================================================
+# Logs
+# =====================================================================
+# Log files accumulate and bloat image size
+
+logs/
+*.log
+npm-debug.log
+pnpm-debug.log
+yarn-error.log
+debug.log
+
+# =====================================================================
+# Cache Directories
+# =====================================================================
+# Build caches and temporary directories
+.cache/
+.tmp/
+.temp/
+.turbo/
+.eslintcache
+.stylelintcache
+
+# Optional npm cache directory
+.npm/
+
+# =====================================================================
+# Package Manager Directories
+# =====================================================================
+# Temporary package manager files
+
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# =====================================================================
+# Documentation
+# =====================================================================
+# Markdown documentation is useful for development
+# but not needed at runtime
+
+README.md
+CHANGELOG.md
+CONTRIBUTING.md
+LICENSE
+docs/
+*.md
+ADMIN_*.md
+AUTOMATIONS_*.md
+BILLING_*.md
+SETUP_*.md
+ARCHITECTURE_*.md
+
+# =====================================================================
+# SSL/TLS Certificates
+# =====================================================================
+# Keep development certs out, use volume mount instead
+*.pem
+*.crt
+*.key
+
+# Except when you want to include them
+# !ssl/certs/
+
+# =====================================================================
+# Temporary Files
+# =====================================================================
+# OS and temporary files
+
+Thumbs.db
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+*.orig
+.env.production.local
+.NOTES
+.todo
+todo.txt
+
+# =====================================================================
+# Large Files
+# =====================================================================
+# Archives and large files
+*.tar
+*.tar.gz
+*.zip
+*.rar
+*.iso
+*.bin
+
+# =====================================================================
+# IDE Configuration
+# =====================================================================
+# IDE settings that are workspace-specific
+*.iml
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# =====================================================================
+# VSCode/IntelliJ Files
+# =====================================================================
+# Exclude workspace and extension files
+.vscode/*
+!.vscode/extensions.json
+.idea/*
+!.idea/.gitkeep
+
+# =====================================================================
+# Node REPL History
+# =====================================================================
+.node_repl_history
+
+# =====================================================================
+# Misc Development
+# =====================================================================
+# Development-specific miscellaneous files
+.parcelcache
+.pnp
+.pnp.js
+.tsbuildinfo
+tsconfig*.json.bak
+
+# =====================================================================
+# Why These Exclusions Matter
+# =====================================================================
+# 1. Size Reduction
+#    - Node modules reinstalled = ~350MB
+#    - Logs and cache = ~50MB+
+#    - Git history = ~50-100MB+
+#    - Total reduction: ~500MB-1GB per image
+#
+# 2. Security
+#    - Prevents .env files with secrets in image
+#    - Excludes .git with full repo history
+#    - Removes temporary files that may contain data
+#
+# 3. Build Efficiency
+#    - Allows Docker to use smaller cache layers
+#    - Faster build times
+#    - Reduces context transfer to Docker daemon
+#
+# 4. Runtime Consistency
+#    - Fresh npm install ensures correct versions
+#    - Prevents stale development files in production
+#    - Build artifacts rebuilt with correct environment
+#
+# =====================================================================

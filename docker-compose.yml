@@ -1,0 +1,317 @@
+version: '3.9'
+
+services:
+  # =====================================================================
+  # BACKEND SERVICE - Express API Server
+  # =====================================================================
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ${DOCKER_TARGET:-production}
+      cache_from:
+        - backend:latest
+        - dependencies:latest
+    container_name: voxmation-backend
+    restart: ${RESTART_POLICY:-unless-stopped}
+    ports:
+      - "${BACKEND_PORT:-3001}:3001"
+    environment:
+      # Core Configuration
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 3001
+
+      # API URLs
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:3001}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5000}
+
+      # Supabase
+      VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+      VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+
+      # Email Service
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-noreply@voxmation.com}
+
+      # Voice Service
+      ELEVENLABS_API_KEY: ${ELEVENLABS_API_KEY}
+
+      # Payment Processing
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_PUBLISHABLE_KEY: ${STRIPE_PUBLISHABLE_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+
+      # SMS Service
+      TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN}
+      TWILIO_PHONE_NUMBER: ${TWILIO_PHONE_NUMBER}
+
+      # Analytics (Optional)
+      VITE_SEGMENT_WRITE_KEY: ${VITE_SEGMENT_WRITE_KEY:-}
+
+      # Development/Debug
+      DEBUG: ${DEBUG:-false}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+
+    volumes:
+      # Persistent uploads directory
+      - uploads:/app/uploads
+      # Node modules to avoid duplication
+      - node_modules_backend:/app/node_modules
+
+    networks:
+      - voxmation-network
+
+    depends_on:
+      - postgres
+      - redis
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service=backend"
+
+  # =====================================================================
+  # FRONTEND SERVICE - Vite + Next.js Frontend
+  # =====================================================================
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ${DOCKER_TARGET:-production}
+      cache_from:
+        - frontend:latest
+        - builder:latest
+    container_name: voxmation-frontend
+    restart: ${RESTART_POLICY:-unless-stopped}
+    ports:
+      - "${FRONTEND_PORT:-5000}:5000"
+    environment:
+      # Core Configuration
+      NODE_ENV: ${NODE_ENV:-production}
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:3001}
+
+      # Supabase (Public Keys)
+      VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+      VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
+
+      # Analytics
+      VITE_SEGMENT_WRITE_KEY: ${VITE_SEGMENT_WRITE_KEY:-}
+
+      # Development
+      DEBUG: ${DEBUG:-false}
+
+    volumes:
+      - node_modules_frontend:/app/node_modules
+
+    networks:
+      - voxmation-network
+
+    depends_on:
+      - backend
+
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service=frontend"
+
+  # =====================================================================
+  # PostgreSQL DATABASE - Supabase Database
+  # =====================================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: voxmation-postgres
+    restart: ${RESTART_POLICY:-unless-stopped}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-voxmation}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_INITDB_ARGS: ${POSTGRES_INITDB_ARGS:-}
+
+    volumes:
+      # Data persistence
+      - postgres_data:/var/lib/postgresql/data
+      # Initialization scripts (if any)
+      - ./supabase/migrations:/docker-entrypoint-initdb.d:ro
+
+    networks:
+      - voxmation-network
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-voxmation}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service=database"
+
+    # Security: limit memory and CPU
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # =====================================================================
+  # REDIS CACHE - Session and Cache Storage
+  # =====================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: voxmation-redis
+    restart: ${RESTART_POLICY:-unless-stopped}
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    command: >
+      redis-server
+      --appendonly yes
+      --appendfsync everysec
+      --maxmemory 512mb
+      --maxmemory-policy allkeys-lru
+
+    volumes:
+      - redis_data:/data
+
+    networks:
+      - voxmation-network
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service=cache"
+
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+  # =====================================================================
+  # NGINX REVERSE PROXY - Load Balancer and SSL Termination
+  # =====================================================================
+  nginx:
+    image: nginx:alpine
+    container_name: voxmation-nginx
+    restart: ${RESTART_POLICY:-unless-stopped}
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl/certs:/etc/nginx/certs:ro
+      - ./ssl/conf.d:/etc/nginx/conf.d:ro
+      - nginx_cache:/var/cache/nginx
+
+    networks:
+      - voxmation-network
+
+    depends_on:
+      - frontend
+      - backend
+
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service=proxy"
+
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+
+# =====================================================================
+# VOLUMES - Persistent Storage
+# =====================================================================
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUMES_PATH:-./data}/postgres
+
+  redis_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUMES_PATH:-./data}/redis
+
+  uploads:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUMES_PATH:-./data}/uploads
+
+  node_modules_backend:
+    driver: local
+
+  node_modules_frontend:
+    driver: local
+
+  nginx_cache:
+    driver: local
+
+# =====================================================================
+# NETWORKS - Service Communication
+# =====================================================================
+networks:
+  voxmation-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

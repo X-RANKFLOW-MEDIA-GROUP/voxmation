@@ -1,0 +1,889 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/data/seoData.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/data</a> seoData.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/8</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/8</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a>
+<a name='L230'></a><a href='#L230'>230</a>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// Vertical industries data for SEO
+import type { ComponentType } from "react";
+&nbsp;
+export interface Vertical {
+  slug: string;
+  name: string;
+  title: string;
+  h1: string;
+  metaDescription: string;
+  subheadline: string;
+  problemTitle: string;
+  problemDescription: string;
+  useCases: string[];
+  benefits: { title: string; description: string }[];
+  complianceNote: string;
+  faqItems: { q: string; a: string }[];
+  icon?: ComponentType&lt;{ className?: string }&gt;;
+}
+&nbsp;
+export interface StateData {
+  slug: string;
+  name: string;
+  code: string;
+}
+&nbsp;
+export interface ComparisonData {
+  slug: string;
+  competitor: string;
+  title: string;
+  h1: string;
+  metaDescription: string;
+  about: string;
+  bestFor: string;
+  whyVoxmation: string[];
+}
+&nbsp;
+// Vertical pillar data
+export const <span class="cstat-no" title="statement not covered" >verticalsData: Record&lt;string, Vertical&gt; = {</span>
+  hvac: {
+    slug: "hvac-ai-voice-agents",
+    name: "HVAC",
+    title: "AI Voice Agents for HVAC Contractors | Voxmation",
+    h1: "AI Voice Agents for HVAC Contractors. Answer Every Call. 24/7.",
+    metaDescription: "AI voice agents for HVAC businesses. Answer every call, qualify leads, schedule appointments 24/7. Stop losing HVAC jobs to missed calls.",
+    subheadline: "HVAC contractors lose $10K+ per missed call. Voxmation's AI receptionist answers every call, qualifies leads, and books jobs—even while your team is on the road.",
+    problemTitle: "The HVAC Call Problem",
+    problemDescription: "HVAC emergency calls don't wait for business hours. When your team is busy or after-hours, missed calls mean lost jobs and lost revenue. A missed emergency call isn't just a lost customer—it's a lost $3K-$8K job.",
+    useCases: ["Emergency call coverage", "After-hours booking", "Lead qualification", "Appointment confirmation", "Service reminders"],
+    benefits: [
+      { title: "Never Miss an Emergency Call", description: "Your AI answers every HVAC emergency 24/7—even at 2am on a Sunday." },
+      { title: "Instant Lead Qualification", description: "AI qualifies by urgency (emergency vs. maintenance) and prioritizes hot leads." },
+      { title: "Direct Booking Integration", description: "Leads booked into your system automatically with customer confirmations sent instantly." },
+      { title: "Seasonal Scale", description: "Handle 10x call volume during summer/winter peaks without hiring staff." },
+    ],
+    complianceNote: "All HVAC contractors in the US can use Voxmation. No licensing restrictions on AI call handling for HVAC services.",
+    faqItems: [
+      { q: "Can the AI handle HVAC-specific questions?", a: "Yes. It can discuss common HVAC issues, emergency signs, pricing ranges, and schedule appointments based on your business rules." },
+      { q: "What if a customer has a technical HVAC question?", a: "The AI escalates complex questions to your team via SMS or transfers the call to a team member." },
+      { q: "Does it work with my scheduling software?", a: "Yes. Voxmation integrates with 50+ scheduling platforms including ServiceTitan, Jobber, HouseCall Pro, and Housecall." },
+    ],
+  },
+  plumbing: {
+    slug: "plumbing-phone-automation",
+    name: "Plumbing",
+    title: "Phone Automation for Plumbers | Voxmation",
+    h1: "Phone Automation for Plumbers. Answer. Qualify. Book. 24/7.",
+    metaDescription: "AI phone automation for plumbers. Answer every call 24/7, qualify emergencies, book appointments instantly. Recover lost plumbing jobs.",
+    subheadline: "A burst pipe at midnight doesn't care if your office is closed. Voxmation's AI answers your plumbing emergency calls, qualifies by urgency, and books jobs instantly.",
+    problemTitle: "The Plumber's Call Problem",
+    problemDescription: "Plumbing emergencies happen when you're not in the office. Missed emergency calls cost plumbers $2K-$5K per call. Without after-hours coverage, you're leaving money on the table.",
+    useCases: ["Burst pipe emergencies", "After-hours lead capture", "Service appointment booking", "Drain cleaning scheduling", "Routine maintenance calls"],
+    benefits: [
+      { title: "24/7 Emergency Coverage", description: "No more missed midnight burst-pipe calls. Your AI handles every plumbing emergency." },
+      { title: "Smart Lead Qualification", description: "AI identifies emergency plumbing calls vs. routine maintenance and prioritizes urgently." },
+      { title: "Instant Appointment Booking", description: "Customers book directly into your calendar with SMS confirmations sent automatically." },
+      { title: "Multi-Service Routing", description: "Different AI responses for drain cleaning, water heater, emergency, and maintenance calls." },
+    ],
+    complianceNote: "All US plumbers can use Voxmation. No licensing needed for AI phone handling.",
+    faqItems: [
+      { q: "Can the AI describe symptoms and diagnose plumbing issues?", a: "Yes. It can ask about water color, smell, location, and urgency to pre-qualify calls before routing to your team." },
+      { q: "How does it handle after-hours emergency bookings?", a: "Customers confirm an emergency booking time. Your team reviews and confirms or adjusts within 1 hour." },
+      { q: "Does it integrate with my plumbing software?", a: "Yes. Voxmation works with ServiceTitan, Jobber, Housecall Pro, and 50+ other platforms." },
+    ],
+  },
+  electrical: {
+    slug: "electrical-call-booking",
+    name: "Electrical",
+    title: "Call Booking System for Electricians | Voxmation",
+    h1: "AI Call Booking for Electricians. Every Call. Every Time.",
+    metaDescription: "AI call booking system for electrical contractors. Answer every call, qualify electrical jobs, book appointments 24/7. No missed calls.",
+    subheadline: "Electrical contractors often work on-site, far from the office. Voxmation's AI answers your calls, qualifies electrical jobs, and books appointments in real-time.",
+    problemTitle: "The Electrician's Booking Problem",
+    problemDescription: "Your electricians are on-site. Calls go to voicemail. Callers choose a competitor who answers. That lost call is a $500-$3K lost job.",
+    useCases: ["Residential electrical calls", "Commercial electrical bookings", "Emergency electrical service", "Maintenance call scheduling", "Follow-up calls"],
+    benefits: [
+      { title: "Always Available", description: "Whether your team is on a job or after-hours, every electrical call is answered professionally." },
+      { title: "Service-Specific Routing", description: "AI qualifies residential vs. commercial, emergency vs. maintenance, and routes accordingly." },
+      { title: "Instant Calendar Integration", description: "Appointments go straight into your system. No double-booking. No manual data entry." },
+      { title: "Reduce Response Time", description: "Prospects get instant booking confirmation instead of waiting for a callback." },
+    ],
+    complianceNote: "All US electricians can use Voxmation. No licensing restrictions apply.",
+    faqItems: [
+      { q: "Can the AI qualify electrical jobs by complexity?", a: "Yes. It asks about the scope (outlet replacement, panel upgrade, troubleshooting) to pre-qualify before your team calls back." },
+      { q: "Does it handle license plate or electrical code questions?", a: "It can provide general info, but complex technical questions are escalated to your team via a callback." },
+      { q: "Will it integrate with my electrical scheduling system?", a: "Yes. Voxmation integrates with ServiceTitan, Jobber, and 50+ electrical industry platforms." },
+    ],
+  },
+  roofing: {
+    slug: "roofing-lead-follow-up",
+    name: "Roofing",
+    title: "Lead Follow-Up for Roofers | Voxmation",
+    h1: "AI Lead Follow-Up for Roofers. Convert More Roof Leads.",
+    metaDescription: "AI lead follow-up system for roofing contractors. Automated appointment reminders, follow-up calls, and instant booking. Convert more roof jobs.",
+    subheadline: "Roofing leads are hot for 48 hours. After that, they shop competitors. Voxmation's AI follows up instantly, books appointments, and converts more roofing jobs.",
+    problemTitle: "The Roofing Follow-Up Problem",
+    problemDescription: "Roofing leads don't wait. They call 3-5 contractors. The fastest response wins the job. Your team's delays mean lost estimates and lost revenue.",
+    useCases: ["Same-day appointment booking", "Multi-contractor lead follow-up", "Hail damage follow-up calls", "Insurance claim assistance", "Estimate scheduling"],
+    benefits: [
+      { title: "Instant Response", description: "AI responds to roof inquiries within seconds—before competitors even wake up." },
+      { title: "Hail Event Automation", description: "AI auto-follows up on nearby hail events and books emergency roof inspections." },
+      { title: "Insurance Claim Assistance", description: "AI can gather insurance details and help document damage for faster claim processing." },
+      { title: "Same-Day Booking", description: "Roof estimates are booked the same day, increasing conversion and reducing lead decay." },
+    ],
+    complianceNote: "All US roofers can use Voxmation. Be aware: Some states have weather-related lead restrictions post-disaster—consult local regulations.",
+    faqItems: [
+      { q: "Can the AI gather insurance information for roof claims?", a: "Yes. It collects policy info, damage photos locations, and deductibles to prepare your team." },
+      { q: "How does hail event automation work?", a: "Voxmation monitors local weather. After hail events, it auto-calls nearby customers to offer inspections." },
+      { q: "Does it handle multi-quote comparisons?", a: "No. The AI focuses on booking inspections and estimates. Your team handles quote comparisons and sales." },
+    ],
+  },
+};
+&nbsp;
+// Vertical pillar pages are keyed by short name above, but their public URL is
+// the `.slug` field (e.g. "hvac-ai-voice-agents"). Look up by URL slug.
+export const <span class="cstat-no" title="statement not covered" >verticalBySlug: Record&lt;string, Vertical&gt; = Object.fromEntries(</span>
+  Object.values(verticalsData).map(<span class="fstat-no" title="function not covered" >(v</span>) =&gt; <span class="cstat-no" title="statement not covered" >[v.slug, v])</span>
+);
+&nbsp;
+// State data
+export const <span class="cstat-no" title="statement not covered" >statesData: StateData[] = [</span>
+  { slug: "texas", name: "Texas", code: "TX" },
+  { slug: "california", name: "California", code: "CA" },
+  { slug: "florida", name: "Florida", code: "FL" },
+  { slug: "new-york", name: "New York", code: "NY" },
+  { slug: "pennsylvania", name: "Pennsylvania", code: "PA" },
+  { slug: "illinois", name: "Illinois", code: "IL" },
+  { slug: "ohio", name: "Ohio", code: "OH" },
+  { slug: "michigan", name: "Michigan", code: "MI" },
+  { slug: "north-carolina", name: "North Carolina", code: "NC" },
+  { slug: "georgia", name: "Georgia", code: "GA" },
+];
+&nbsp;
+// Comparison data
+// Note: the Smith.ai comparison lives at /compare/voxmation-vs-smith-ai
+// (ComparePage) to avoid two competing pages for the same query.
+export const <span class="cstat-no" title="statement not covered" >comparisonsData: Record&lt;string, ComparisonData&gt; = {</span>
+  "synthflow": {
+    slug: "vs-synthflow",
+    competitor: "SynthFlow",
+    title: "Voxmation vs SynthFlow | AI Voice Agents",
+    h1: "Voxmation vs SynthFlow: Better AI for Contractors?",
+    metaDescription: "Compare Voxmation and SynthFlow for home service businesses. Pricing, features, and which platform works best for HVAC, plumbing, electrical contractors.",
+    about: "SynthFlow is a conversational AI platform that lets businesses build custom AI agents for various use cases.",
+    bestFor: "SynthFlow is better for enterprises building custom AI workflows. It requires significant setup and technical expertise.",
+    whyVoxmation: [
+      "Pre-built for home service contractors—no configuration required",
+      "Turns on in 24 hours, not 30 days",
+      "Industry-specific knowledge built-in (HVAC parts, plumbing codes, electrical standards)",
+      "Dedicated support from contractors who understand your business",
+      "Fixed pricing—no hidden setup or customization costs",
+    ],
+  },
+  "dialora": {
+    slug: "vs-dialora",
+    competitor: "Dialora",
+    title: "Voxmation vs Dialora | Home Service AI Comparison",
+    h1: "Voxmation vs Dialora: AI Voice Agents Compared",
+    metaDescription: "Voxmation vs Dialora for HVAC, plumbing, electrical contractors. Compare features, pricing, and support for AI call handling and booking.",
+    about: "Dialora is an AI voice agent platform offering call answering and lead qualification for service businesses.",
+    bestFor: "Dialora focuses on basic call answering with limited industry specialization.",
+    whyVoxmation: [
+      "Industry-specific AI training for HVAC, plumbing, electrical, roofing, and more",
+      "Smarter lead qualification—understands emergency vs. routine calls",
+      "Better integration with contractor tools (ServiceTitan, Jobber, HouseCall Pro)",
+      "More transparent pricing with no surprise fees",
+      "Faster deployment—24 hour setup vs. weeks of configuration",
+    ],
+  },
+  "aloware": {
+    slug: "vs-aloware",
+    competitor: "Aloware",
+    title: "Voxmation vs Aloware | Voice Agents for Contractors",
+    h1: "Voxmation vs Aloware: Which AI Wins for Home Services?",
+    metaDescription: "Compare Voxmation and Aloware for home service contractors. Features, pricing, and best for HVAC, plumbing, electrical businesses.",
+    about: "Aloware offers AI calling and SMS automation for sales teams and service businesses.",
+    bestFor: "Aloware is better for outbound calling and sales automation. Less focused on 24/7 inbound call handling.",
+    whyVoxmation: [
+      "Purpose-built for 24/7 inbound call answering—not outbound sales",
+      "Contractor-first design with HVAC, plumbing, electrical workflows built-in",
+      "Better emergency call handling and escalation",
+      "Simpler pricing model—no complex per-minute billing",
+      "Direct integration with scheduling software contractors already use",
+    ],
+  },
+  "retell-ai": {
+    slug: "vs-retell-ai",
+    competitor: "Retell AI",
+    title: "Voxmation vs Retell AI | Voice Agent Comparison",
+    h1: "Voxmation vs Retell AI: Who Wins for Contractors?",
+    metaDescription: "Voxmation vs Retell AI for HVAC, plumbing, electrical contractors. Compare pricing, features, and which platform is right for your business.",
+    about: "Retell AI is a flexible voice AI platform that lets businesses build custom voice agents for various applications.",
+    bestFor: "Retell AI works for technical teams building custom voice solutions. Requires developer expertise.",
+    whyVoxmation: [
+      "No developer needed—set up in 24 hours without coding",
+      "Pre-built for contractor use cases (HVAC, plumbing, electrical, roofing)",
+      "Better at understanding contractor-specific terminology and processes",
+      "Includes industry-standard integrations out-of-the-box",
+      "Dedicated contractor support—not generic technical support",
+    ],
+  },
+};
+&nbsp;
+// Resource pages
+export const <span class="cstat-no" title="statement not covered" >resourcesData = {</span>
+  "hvac-roi-calculator": {
+    slug: "hvac-roi-calculator",
+    title: "HVAC ROI Calculator | Voxmation",
+    h1: "Calculate Your HVAC AI ROI in 30 Seconds",
+    metaDescription: "Estimate how much money Voxmation's AI can help your HVAC business recover by answering missed calls, reducing no-shows, and improving lead follow-up.",
+    description: "See how much revenue your HVAC business could recover by implementing AI call handling and automated follow-up.",
+  },
+  "ai-voice-agent-compliance-home-service": {
+    slug: "ai-voice-agent-compliance-home-service",
+    title: "AI Voice Agent Compliance for Home Service Contractors",
+    h1: "AI Voice Agent Compliance: What Contractors Need to Know",
+    metaDescription: "Understand TCPA, state licensing, and compliance requirements for AI voice agents in HVAC, plumbing, electrical, and roofing businesses.",
+    description: "A comprehensive guide to compliance requirements, TCPA regulations, and legal considerations for using AI voice agents in home service businesses.",
+  },
+  "missed-call-recovery-strategy": {
+    slug: "missed-call-recovery-strategy",
+    title: "Missed Call Recovery Strategy for Home Service Businesses",
+    h1: "Missed Call Recovery: Stop Losing Revenue to Voicemail",
+    metaDescription: "Learn how to recover revenue lost to missed calls. Strategy guide for home service contractors using AI and automation.",
+    description: "A proven framework for capturing missed call leads, prioritizing them by urgency, and converting them into booked jobs.",
+  },
+};
+&nbsp;
+// State-specific copy blocks
+export const <span class="cstat-no" title="statement not covered" >stateIntros: Record&lt;string, string&gt; = {</span>
+  texas: "Texas contractors know the challenge: in the summer heat, emergency HVAC calls come in constantly. Missing even one call during peak season can cost thousands. Voxmation ensures no HVAC call goes unanswered, whether your team is on a job or after-hours.",
+  california: "California's competitive contractor market means fast response wins. Whether it's a burst pipe in San Francisco or an electrical issue in San Diego, Voxmation answers instantly and books jobs in real-time.",
+  florida: "Florida's humid climate means constant air conditioning emergencies. When a customer's AC fails in 95-degree heat, waiting for a callback isn't an option. Voxmation answers instantly.",
+  "new-york": "New York contractors work in a fast-paced market where response time matters. Voxmation ensures every call is answered professionally—in the middle of Manhattan or upstate.",
+  pennsylvania: "Pennsylvania winters mean urgent heating emergencies. Cold calls at 3am don't wait for business hours. Voxmation's AI answers every emergency call instantly.",
+  illinois: "Chicago and Illinois contractors deal with seasonal peaks in both heating and cooling. Voxmation scales your call capacity during peak season without hiring temporary staff.",
+  ohio: "Ohio contractors face intense competition and seasonal demand spikes. Voxmation ensures you capture every lead and respond faster than competitors.",
+  michigan: "Michigan winters are harsh. Heating emergencies don't wait. Voxmation answers every emergency call 24/7, even during the harshest weather.",
+  "north-carolina": "North Carolina's growing contractor market is competitive. Voxmation helps you respond faster, book more appointments, and outcompete local rivals.",
+  georgia: "Atlanta and Georgia contractors operate in a high-growth market with rising competition. Voxmation ensures you never lose a lead to slow response times.",
+};
+&nbsp;
+export const <span class="cstat-no" title="statement not covered" >complianceNotes: Record&lt;string, string&gt; = {</span>
+  california: "California contractors: TCPA compliance is strict here. Voxmation is fully TCPA compliant. Always get written customer consent before follow-up calls.",
+  texas: "Texas contractors: No state-specific licensing required for AI call handling. TCPA rules apply nationally.",
+  florida: "Florida contractors: No special state regulations for AI call handling. Standard TCPA compliance applies.",
+  "new-york": "New York contractors: NYC has consumer protection laws. Voxmation complies with all NY consumer protection regulations.",
+  pennsylvania: "Pennsylvania contractors: No special AI licensing requirements. TCPA federal rules apply.",
+};
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-06-25T04:19:53.875Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

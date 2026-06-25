@@ -4,6 +4,7 @@ import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 import path from "path";
+import * as Sentry from "@sentry/node";
 import {
   sendEmail,
   getCandidateConfirmationEmail,
@@ -19,9 +20,21 @@ import campaignRoutes from "./routes/campaigns";
 import automationRoutes from "./routes/automations";
 import callRoutes from "./routes/calls";
 import webhookRoutes from "./routes/webhooks";
+import { setupSwagger } from "./swagger-setup";
+
+// Initialize Sentry for server-side error tracking
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  environment: process.env.NODE_ENV || "development",
+  tracesSampleRate: process.env.NODE_ENV === "production" ? 0.1 : 1.0,
+  debug: process.env.NODE_ENV !== "production",
+});
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Attach Sentry request handler as early as possible
+app.use(Sentry.Handlers.requestHandler());
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
@@ -29,6 +42,9 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 // White Label Middleware - Detect account by subdomain or custom domain
 app.use(whitelabelMiddleware);
+
+// Setup Swagger/OpenAPI documentation
+setupSwagger(app);
 
 // Multer configuration for file uploads
 const uploadsDir = path.join(process.cwd(), "uploads");
@@ -294,6 +310,28 @@ app.use("/api/webhooks", webhookRoutes);
 // Health check
 app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
+});
+
+// Test endpoint to trigger Sentry error
+app.get("/api/test-error", (_req, res) => {
+  try {
+    throw new Error("This is a test error sent to Sentry");
+  } catch (error) {
+    Sentry.captureException(error);
+    res.status(500).json({ error: "Test error captured by Sentry" });
+  }
+});
+
+// Attach Sentry error handler after all middleware and routes
+app.use(Sentry.Handlers.errorHandler());
+
+// Global error handler (must be last)
+app.use((err: any, _req: any, res: any, _next: any) => {
+  console.error("Unhandled error:", err);
+  Sentry.captureException(err);
+  res.status(err.status || 500).json({
+    error: process.env.NODE_ENV === "production" ? "Internal server error" : err.message,
+  });
 });
 
 app.listen(PORT, () => {

@@ -1,0 +1,3650 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Voxmation API",
+    "description": "Comprehensive API documentation for Voxmation - Voice automation and campaign management platform",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Voxmation Support",
+      "email": "support@voxmation.com",
+      "url": "https://voxmation.com"
+    },
+    "license": {
+      "name": "proprietary",
+      "url": "https://voxmation.com/license"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001",
+      "description": "Development server"
+    },
+    {
+      "url": "https://api.voxmation.com",
+      "description": "Production server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT token obtained from /api/auth/login"
+      },
+      "ApiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "API key for programmatic access"
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error code or message"
+          },
+          "message": {
+            "type": "string",
+            "description": "Detailed error description"
+          }
+        },
+        "required": ["error"]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "User UUID"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User email address"
+          },
+          "user_metadata": {
+            "type": "object",
+            "description": "Additional user metadata"
+          }
+        },
+        "required": ["id", "email"]
+      },
+      "Contact": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Contact UUID"
+          },
+          "account_id": {
+            "type": "string",
+            "description": "Associated account ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Contact name"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Contact email"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Contact phone number"
+          },
+          "company": {
+            "type": "string",
+            "description": "Contact company name"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["web", "import", "api", "form"],
+            "description": "How contact was added"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Contact tags for organization"
+          },
+          "lead_score": {
+            "type": "number",
+            "description": "Lead score (0-100)"
+          },
+          "contact_type": {
+            "type": "string",
+            "enum": ["lead", "customer", "prospect"],
+            "description": "Type of contact"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Soft delete timestamp"
+          }
+        },
+        "required": ["id", "name", "email", "account_id"]
+      },
+      "Opportunity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Opportunity UUID"
+          },
+          "account_id": {
+            "type": "string",
+            "description": "Associated account ID"
+          },
+          "contact_id": {
+            "type": "string",
+            "description": "Associated contact ID"
+          },
+          "title": {
+            "type": "string",
+            "description": "Opportunity title"
+          },
+          "value": {
+            "type": "number",
+            "description": "Opportunity value in currency units"
+          },
+          "stage": {
+            "type": "string",
+            "enum": ["awareness", "consideration", "decision", "won", "lost"],
+            "description": "Sales stage"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["open", "closed"],
+            "description": "Opportunity status"
+          },
+          "probability": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Win probability percentage"
+          },
+          "expected_close_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Expected close date"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["id", "contact_id", "title", "stage"]
+      },
+      "EmailCampaign": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Campaign UUID"
+          },
+          "accountId": {
+            "type": "string",
+            "description": "Account ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Campaign name"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject line"
+          },
+          "htmlBody": {
+            "type": "string",
+            "description": "HTML email body"
+          },
+          "textBody": {
+            "type": "string",
+            "description": "Plain text email body"
+          },
+          "fromEmail": {
+            "type": "string",
+            "format": "email",
+            "description": "Sender email address"
+          },
+          "fromName": {
+            "type": "string",
+            "description": "Sender display name"
+          },
+          "recipients": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "variables": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": ["email", "name"]
+            },
+            "description": "Email recipients"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "scheduled", "sending", "sent", "paused"],
+            "description": "Campaign status"
+          },
+          "sendAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Scheduled send time"
+          },
+          "stats": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "number"
+              },
+              "sent": {
+                "type": "number"
+              },
+              "failed": {
+                "type": "number"
+              },
+              "pending": {
+                "type": "number"
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["id", "name", "subject", "htmlBody", "fromEmail", "recipients"]
+      },
+      "Automation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Automation UUID"
+          },
+          "account_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "description": "Automation name"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["drip", "trigger", "welcome", "abandoned_cart", "re_engagement", "custom"],
+            "description": "Automation type"
+          },
+          "trigger_type": {
+            "type": "string",
+            "description": "Trigger type (contact_tag, contact_property, etc.)"
+          },
+          "trigger_conditions": {
+            "type": "object",
+            "description": "Conditions that trigger the automation"
+          },
+          "workflow": {
+            "type": "array",
+            "description": "Workflow steps",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["send_email", "send_sms", "create_opportunity", "update_tag", "delay", "condition"]
+                },
+                "action": {
+                  "type": "object"
+                },
+                "order": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "active", "paused", "completed", "archived"]
+          },
+          "is_recurring": {
+            "type": "boolean"
+          },
+          "max_contacts_per_day": {
+            "type": "number"
+          },
+          "total_contacts": {
+            "type": "number"
+          },
+          "total_completed": {
+            "type": "number"
+          },
+          "total_failed": {
+            "type": "number"
+          },
+          "last_triggered_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["id", "name", "type", "trigger_type", "trigger_conditions", "workflow"]
+      },
+      "Call": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Call UUID"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "twilio_call_sid": {
+            "type": "string",
+            "description": "Twilio call SID"
+          },
+          "to": {
+            "type": "string",
+            "description": "Recipient phone number"
+          },
+          "from": {
+            "type": "string",
+            "description": "Caller phone number"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["queued", "ringing", "in-progress", "completed", "failed", "busy", "no-answer"],
+            "description": "Call status"
+          },
+          "duration": {
+            "type": "number",
+            "description": "Call duration in seconds"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "recordingSid": {
+            "type": "string",
+            "description": "Recording SID if call was recorded"
+          },
+          "transcriptId": {
+            "type": "string"
+          },
+          "transcript": {
+            "type": "string",
+            "description": "Call transcript (if available)"
+          },
+          "campaignId": {
+            "type": "string",
+            "description": "Associated campaign ID"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["id", "to", "from", "status"]
+      },
+      "Subscription": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "account_id": {
+            "type": "string"
+          },
+          "stripe_subscription_id": {
+            "type": "string"
+          },
+          "stripe_customer_id": {
+            "type": "string"
+          },
+          "plan": {
+            "type": "string",
+            "enum": ["free", "starter", "pro", "enterprise"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "past_due", "canceled", "unpaid"],
+            "description": "Subscription status"
+          },
+          "current_period_start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "current_period_end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "canceled_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Invoice": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "invoiceNumber": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "open", "paid", "void", "uncollectible"],
+            "description": "Invoice status"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Invoice amount in currency units"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code (USD, EUR, etc.)"
+          },
+          "issueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "paidDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "pdfUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "subscriptionId": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object"
+          }
+        }
+      },
+      "SubscriptionPlan": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "description": "Monthly price in cents"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "limits": {
+            "type": "object",
+            "properties": {
+              "contacts": {
+                "type": "number"
+              },
+              "campaigns": {
+                "type": "number"
+              },
+              "automations": {
+                "type": "number"
+              },
+              "api_calls_per_month": {
+                "type": "number"
+              }
+            }
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "display_order": {
+            "type": "number"
+          }
+        }
+      },
+      "Account": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["master", "sub"]
+          },
+          "plan": {
+            "type": "string",
+            "enum": ["free", "starter", "pro", "enterprise"]
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "parent_account_id": {
+            "type": "string"
+          },
+          "subdomain": {
+            "type": "string"
+          },
+          "custom_domain": {
+            "type": "string"
+          },
+          "branding": {
+            "type": "object"
+          },
+          "settings": {
+            "type": "object"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PaginatedResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array"
+          },
+          "total": {
+            "type": "number"
+          },
+          "page": {
+            "type": "number"
+          },
+          "limit": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "description": "Authenticate user with email and password to obtain JWT token",
+        "operationId": "loginUser",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "user@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "example": "SecurePassword123!"
+                  }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "JWT token for authentication"
+                    },
+                    "accessToken": {
+                      "type": "string",
+                      "description": "Supabase access token"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    "accountId": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "description": "Register a new user account",
+        "operationId": "registerUser",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "newuser@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "minLength": 6,
+                    "example": "SecurePassword123!"
+                  },
+                  "fullName": {
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "companyName": {
+                    "type": "string",
+                    "example": "Acme Corp"
+                  }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registration successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input or registration failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "description": "Logout user and invalidate token",
+        "operationId": "logoutUser",
+        "responses": {
+          "200": {
+            "description": "Logout successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Logout failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/refresh": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Refresh authentication token",
+        "description": "Refresh JWT token using refresh token",
+        "operationId": "refreshToken",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "refresh_token": {
+                    "type": "string",
+                    "description": "Refresh token from login response"
+                  }
+                },
+                "required": ["refresh_token"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token refreshed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "token": {
+                      "type": "string"
+                    },
+                    "accessToken": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing refresh token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid refresh token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/crm/contacts": {
+      "get": {
+        "tags": ["CRM"],
+        "summary": "List contacts",
+        "description": "Get all contacts for the account with optional filtering and pagination",
+        "operationId": "listContacts",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search by name, email, or phone",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "description": "Filter by contact source",
+            "schema": {
+              "type": "string",
+              "enum": ["web", "import", "api", "form"]
+            }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "description": "Filter by tag",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number (default 1)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Items per page (default 20)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of contacts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Contact"
+                      }
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "page": {
+                      "type": "number"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["CRM"],
+        "summary": "Create contact",
+        "description": "Create a new contact",
+        "operationId": "createContact",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "john@example.com"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "+1234567890"
+                  },
+                  "company": {
+                    "type": "string",
+                    "example": "Acme Corp"
+                  },
+                  "source": {
+                    "type": "string",
+                    "enum": ["web", "import", "api", "form"],
+                    "example": "api"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["vip", "sales"]
+                  }
+                },
+                "required": ["name", "email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Contact created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/crm/contacts/{id}": {
+      "get": {
+        "tags": ["CRM"],
+        "summary": "Get contact",
+        "description": "Get a specific contact by ID",
+        "operationId": "getContact",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Contact ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contact details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contact not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["CRM"],
+        "summary": "Update contact",
+        "description": "Update contact information",
+        "operationId": "updateContact",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Contact ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "company": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "lead_score": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contact updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contact not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["CRM"],
+        "summary": "Delete contact",
+        "description": "Delete a contact (soft delete)",
+        "operationId": "deleteContact",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Contact ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contact deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/crm/contacts/{id}/interactions": {
+      "get": {
+        "tags": ["CRM"],
+        "summary": "Get contact interactions",
+        "description": "Get all interactions for a specific contact",
+        "operationId": "getContactInteractions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Contact ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contact interactions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/crm/opportunities": {
+      "get": {
+        "tags": ["CRM"],
+        "summary": "List opportunities",
+        "description": "Get all opportunities with optional filtering",
+        "operationId": "listOpportunities",
+        "parameters": [
+          {
+            "name": "stage",
+            "in": "query",
+            "description": "Filter by stage",
+            "schema": {
+              "type": "string",
+              "enum": ["awareness", "consideration", "decision", "won", "lost"]
+            }
+          },
+          {
+            "name": "contact_id",
+            "in": "query",
+            "description": "Filter by contact ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of opportunities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["CRM"],
+        "summary": "Create opportunity",
+        "description": "Create a new sales opportunity",
+        "operationId": "createOpportunity",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contact_id": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "Enterprise Package Sale"
+                  },
+                  "value": {
+                    "type": "number",
+                    "example": 50000
+                  },
+                  "stage": {
+                    "type": "string",
+                    "enum": ["awareness", "consideration", "decision", "won", "lost"]
+                  },
+                  "expected_close_date": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                },
+                "required": ["contact_id", "title"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Opportunity created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Opportunity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/crm/opportunities/{id}/stage": {
+      "patch": {
+        "tags": ["CRM"],
+        "summary": "Update opportunity stage",
+        "description": "Move opportunity to different stage",
+        "operationId": "updateOpportunityStage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Opportunity ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "stage": {
+                    "type": "string",
+                    "enum": ["awareness", "consideration", "decision", "won", "lost"]
+                  }
+                },
+                "required": ["stage"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Opportunity updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Opportunity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Opportunity not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/campaigns/email": {
+      "get": {
+        "tags": ["Campaigns"],
+        "summary": "List email campaigns",
+        "description": "Get all email campaigns for the account",
+        "operationId": "listCampaigns",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status",
+            "schema": {
+              "type": "string",
+              "enum": ["draft", "scheduled", "sending", "sent", "paused"]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of campaigns",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/EmailCampaign"
+                      }
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "offset": {
+                      "type": "number"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Campaigns"],
+        "summary": "Create email campaign",
+        "description": "Create a new email campaign (requires admin or marketing role)",
+        "operationId": "createCampaign",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Q1 Marketing Push"
+                  },
+                  "subject": {
+                    "type": "string",
+                    "example": "Special Offer: 20% Off"
+                  },
+                  "htmlBody": {
+                    "type": "string",
+                    "description": "HTML content of email"
+                  },
+                  "textBody": {
+                    "type": "string",
+                    "description": "Plain text version of email"
+                  },
+                  "fromEmail": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "campaigns@voxmation.com"
+                  },
+                  "fromName": {
+                    "type": "string",
+                    "example": "Voxmation Team"
+                  },
+                  "recipients": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "format": "email"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "variables": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": ["email", "name"]
+                    },
+                    "minItems": 1
+                  },
+                  "sendAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Optional scheduled send time"
+                  }
+                },
+                "required": ["name", "subject", "htmlBody", "fromEmail", "recipients"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Campaign created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "campaignId": {
+                      "type": "string"
+                    },
+                    "campaign": {
+                      "$ref": "#/components/schemas/EmailCampaign"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/campaigns/email/{id}": {
+      "get": {
+        "tags": ["Campaigns"],
+        "summary": "Get campaign details",
+        "operationId": "getCampaign",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Campaign details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "campaign": {
+                      "$ref": "#/components/schemas/EmailCampaign"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Campaign not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Campaigns"],
+        "summary": "Update campaign",
+        "description": "Update campaign (draft only)",
+        "operationId": "updateCampaign",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "subject": {
+                    "type": "string"
+                  },
+                  "htmlBody": {
+                    "type": "string"
+                  },
+                  "textBody": {
+                    "type": "string"
+                  },
+                  "fromEmail": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "fromName": {
+                    "type": "string"
+                  },
+                  "recipients": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Campaign updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "campaign": {
+                      "$ref": "#/components/schemas/EmailCampaign"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input or campaign cannot be edited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Campaign not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Campaigns"],
+        "summary": "Delete campaign",
+        "description": "Delete campaign (draft or paused only, admin role required)",
+        "operationId": "deleteCampaign",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Campaign deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Campaign cannot be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Campaign not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/campaigns/email/{id}/send": {
+      "post": {
+        "tags": ["Campaigns"],
+        "summary": "Send campaign",
+        "description": "Send email campaign immediately or schedule it",
+        "operationId": "sendCampaign",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "immediate": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Send immediately or schedule"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Campaign sent or scheduled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "campaign": {
+                      "$ref": "#/components/schemas/EmailCampaign"
+                    },
+                    "queuedEmails": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Campaign cannot be sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Campaign not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/campaigns/email/{id}/pause": {
+      "post": {
+        "tags": ["Campaigns"],
+        "summary": "Pause campaign",
+        "description": "Pause a sending campaign",
+        "operationId": "pauseCampaign",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Campaign paused",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "campaign": {
+                      "$ref": "#/components/schemas/EmailCampaign"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Campaign cannot be paused",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Campaign not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/campaigns/email/{id}/stats": {
+      "get": {
+        "tags": ["Campaigns"],
+        "summary": "Get campaign statistics",
+        "description": "Get detailed statistics for a campaign",
+        "operationId": "getCampaignStats",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Campaign statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "stats": {
+                      "type": "object",
+                      "properties": {
+                        "campaignId": {
+                          "type": "string"
+                        },
+                        "campaignName": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "stats": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "number"
+                            },
+                            "sent": {
+                              "type": "number"
+                            },
+                            "failed": {
+                              "type": "number"
+                            },
+                            "pending": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "detailedStats": {
+                          "type": "object"
+                        },
+                        "recentQueued": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Campaign not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/campaigns/queue/status": {
+      "get": {
+        "tags": ["Campaigns"],
+        "summary": "Get email queue status",
+        "description": "Get email queue status (admin only)",
+        "operationId": "getQueueStatus",
+        "responses": {
+          "200": {
+            "description": "Queue status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "totalQueued": {
+                          "type": "number"
+                        },
+                        "totalSent": {
+                          "type": "number"
+                        },
+                        "totalFailed": {
+                          "type": "number"
+                        },
+                        "totalPending": {
+                          "type": "number"
+                        },
+                        "campaigns": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/automations": {
+      "get": {
+        "tags": ["Automations"],
+        "summary": "List automations",
+        "description": "Get all automations for the account",
+        "operationId": "listAutomations",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status",
+            "schema": {
+              "type": "string",
+              "enum": ["draft", "active", "paused", "completed", "archived"]
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by type",
+            "schema": {
+              "type": "string",
+              "enum": ["drip", "trigger", "welcome", "abandoned_cart", "re_engagement", "custom"]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of automations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Automations"],
+        "summary": "Create automation",
+        "description": "Create a new automation (requires admin or marketing role)",
+        "operationId": "createAutomation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Welcome Series"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": ["drip", "trigger", "welcome", "abandoned_cart", "re_engagement", "custom"]
+                  },
+                  "trigger_type": {
+                    "type": "string",
+                    "example": "contact_created"
+                  },
+                  "trigger_conditions": {
+                    "type": "object",
+                    "description": "Conditions that trigger the automation"
+                  },
+                  "workflow": {
+                    "type": "array",
+                    "description": "Array of workflow steps",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": ["send_email", "send_sms", "create_opportunity", "update_tag", "delay", "condition"]
+                        },
+                        "action": {
+                          "type": "object"
+                        },
+                        "order": {
+                          "type": "number"
+                        }
+                      },
+                      "required": ["type", "action", "order"]
+                    },
+                    "minItems": 1
+                  },
+                  "is_recurring": {
+                    "type": "boolean"
+                  },
+                  "max_contacts_per_day": {
+                    "type": "number"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": ["name", "type", "trigger_type", "trigger_conditions", "workflow"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Automation created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Automation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/automations/{id}": {
+      "get": {
+        "tags": ["Automations"],
+        "summary": "Get automation details",
+        "operationId": "getAutomation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Automation details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Automation"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Automation not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Automations"],
+        "summary": "Update automation",
+        "operationId": "updateAutomation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "trigger_conditions": {
+                    "type": "object"
+                  },
+                  "workflow": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "is_recurring": {
+                    "type": "boolean"
+                  },
+                  "max_contacts_per_day": {
+                    "type": "number"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Automation updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Automation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Automation not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Automations"],
+        "summary": "Delete automation",
+        "description": "Delete automation (admin role required)",
+        "operationId": "deleteAutomation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Automation deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/automations/{id}/activate": {
+      "post": {
+        "tags": ["Automations"],
+        "summary": "Activate automation",
+        "operationId": "activateAutomation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Automation activated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Automation"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Automation not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/automations/{id}/pause": {
+      "post": {
+        "tags": ["Automations"],
+        "summary": "Pause automation",
+        "operationId": "pauseAutomation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Automation paused",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Automation"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Automation not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/automations/{id}/test": {
+      "post": {
+        "tags": ["Automations"],
+        "summary": "Test automation",
+        "description": "Test automation with a specific contact",
+        "operationId": "testAutomation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contactId": {
+                    "type": "string"
+                  }
+                },
+                "required": ["contactId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Automation test executed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "execution": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input or test failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/automations/{id}/executions": {
+      "get": {
+        "tags": ["Automations"],
+        "summary": "Get automation executions",
+        "description": "Get execution history for an automation",
+        "operationId": "getAutomationExecutions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Execution history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/calls": {
+      "get": {
+        "tags": ["Calls"],
+        "summary": "List calls",
+        "description": "Get all calls for the account",
+        "operationId": "listCalls",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by call status",
+            "schema": {
+              "type": "string",
+              "enum": ["queued", "ringing", "in-progress", "completed", "failed", "busy", "no-answer"]
+            }
+          },
+          {
+            "name": "campaignId",
+            "in": "query",
+            "description": "Filter by campaign",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of calls",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Calls"],
+        "summary": "Initiate call",
+        "description": "Make a new outbound call",
+        "operationId": "createCall",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string",
+                    "description": "Recipient phone number",
+                    "example": "+14155552671"
+                  },
+                  "from": {
+                    "type": "string",
+                    "description": "Caller phone number"
+                  },
+                  "campaignId": {
+                    "type": "string"
+                  },
+                  "twimlUrl": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "TwiML URL for call logic"
+                  },
+                  "record": {
+                    "type": "boolean",
+                    "description": "Record the call"
+                  },
+                  "recordingChannels": {
+                    "type": "string",
+                    "enum": ["mono", "stereo", "both"]
+                  },
+                  "statusCallback": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Webhook URL for status updates"
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": ["to"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Call initiated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Call"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/calls/{id}": {
+      "get": {
+        "tags": ["Calls"],
+        "summary": "Get call details",
+        "operationId": "getCall",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Call details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Call"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Call not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/calls/{id}/recordings": {
+      "get": {
+        "tags": ["Calls"],
+        "summary": "Get call recordings",
+        "description": "Get all recordings for a call",
+        "operationId": "getCallRecordings",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of recordings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/billing/plans": {
+      "get": {
+        "tags": ["Billing"],
+        "summary": "List subscription plans",
+        "description": "Get all available subscription plans",
+        "operationId": "listPlans",
+        "responses": {
+          "200": {
+            "description": "List of plans",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SubscriptionPlan"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/billing/subscription": {
+      "get": {
+        "tags": ["Billing"],
+        "summary": "Get current subscription",
+        "description": "Get the current subscription for the account",
+        "operationId": "getSubscription",
+        "responses": {
+          "200": {
+            "description": "Current subscription",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Subscription"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/billing/invoices": {
+      "get": {
+        "tags": ["Billing"],
+        "summary": "List invoices",
+        "description": "Get invoices for the account with filtering and pagination",
+        "operationId": "listInvoices",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by invoice status",
+            "schema": {
+              "type": "string",
+              "enum": ["draft", "open", "paid", "void", "uncollectible"]
+            }
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "description": "Filter by currency",
+            "schema": {
+              "type": "string",
+              "example": "USD"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of invoices",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Invoice"
+                      }
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "limit": {
+                          "type": "number"
+                        },
+                        "offset": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/billing/usage": {
+      "get": {
+        "tags": ["Billing"],
+        "summary": "Get usage metrics",
+        "description": "Get usage metrics for current billing period",
+        "operationId": "getUsage",
+        "responses": {
+          "200": {
+            "description": "Usage metrics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "usage": {
+                      "type": "object",
+                      "properties": {
+                        "contacts": {
+                          "type": "number"
+                        },
+                        "campaigns": {
+                          "type": "number"
+                        },
+                        "automations": {
+                          "type": "number"
+                        },
+                        "api_calls": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/webhooks/stripe": {
+      "post": {
+        "tags": ["Webhooks"],
+        "summary": "Stripe webhook endpoint",
+        "description": "Receive Stripe webhook events",
+        "operationId": "handleStripeWebhook",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Webhook received",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "received": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid webhook",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/webhooks/twilio": {
+      "post": {
+        "tags": ["Webhooks"],
+        "summary": "Twilio webhook endpoint",
+        "description": "Receive Twilio call and message events",
+        "operationId": "handleTwilioWebhook",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Webhook received",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "received": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid webhook",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/accounts": {
+      "get": {
+        "tags": ["Admin"],
+        "summary": "List accounts",
+        "description": "Get all accounts with optional filtering (admin only)",
+        "operationId": "listAccounts",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 10
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status",
+            "schema": {
+              "type": "string",
+              "enum": ["active", "inactive", "all"]
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by type",
+            "schema": {
+              "type": "string",
+              "enum": ["master", "sub", "all"]
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search by name or email",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of accounts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Account"
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "number"
+                        },
+                        "limit": {
+                          "type": "number"
+                        },
+                        "total": {
+                          "type": "number"
+                        },
+                        "pages": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/accounts/{id}": {
+      "get": {
+        "tags": ["Admin"],
+        "summary": "Get account details",
+        "description": "Get specific account details (admin only)",
+        "operationId": "getAccount",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Account"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication endpoints for user login, registration, and token management"
+    },
+    {
+      "name": "CRM",
+      "description": "Customer Relationship Management - Contacts and Opportunities"
+    },
+    {
+      "name": "Campaigns",
+      "description": "Email campaign management"
+    },
+    {
+      "name": "Automations",
+      "description": "Automation workflow management"
+    },
+    {
+      "name": "Calls",
+      "description": "Voice call management and recordings"
+    },
+    {
+      "name": "Billing",
+      "description": "Subscription and billing management"
+    },
+    {
+      "name": "Webhooks",
+      "description": "Webhook endpoints for receiving events from Stripe and Twilio"
+    },
+    {
+      "name": "Admin",
+      "description": "Administrative endpoints (admin role required)"
+    }
+  ]
+}
