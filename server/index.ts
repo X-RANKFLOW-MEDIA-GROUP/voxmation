@@ -15,6 +15,7 @@ import { whitelabelMiddleware } from "./middleware/whitelabel";
 import brandingRoutes from "./routes/branding";
 import billingRoutes from "./routes/billing";
 import campaignRoutes from "./routes/campaigns";
+import automationRoutes from "./routes/automations";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
