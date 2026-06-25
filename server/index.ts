@@ -10,6 +10,7 @@ import {
   getAdminNotificationEmail,
 } from "./email";
 import crmRoutes from "./routes/crm";
+import authRoutes from "./routes/auth";
 import { whitelabelMiddleware } from "./middleware/whitelabel";
 import brandingRoutes from "./routes/branding";
 import billingRoutes from "./routes/billing";
@@ -275,6 +276,7 @@ app.get("/api/resumes/:filename", (req, res) => {
 });
 
 // API Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/crm", crmRoutes);
 app.use("/api/branding", brandingRoutes);
 app.use("/api/billing", billingRoutes);
