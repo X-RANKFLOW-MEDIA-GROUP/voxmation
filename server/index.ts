@@ -14,6 +14,7 @@ import authRoutes from "./routes/auth";
 import { whitelabelMiddleware } from "./middleware/whitelabel";
 import brandingRoutes from "./routes/branding";
 import billingRoutes from "./routes/billing";
+import campaignRoutes from "./routes/campaigns";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -280,6 +281,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/crm", crmRoutes);
 app.use("/api/branding", brandingRoutes);
 app.use("/api/billing", billingRoutes);
+app.use("/api/campaigns", campaignRoutes);
 
 // Health check
 app.get("/health", (_req, res) => {
