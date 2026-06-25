@@ -11,8 +11,18 @@ interface Account {
   branding: {
     primary_color?: string;
     secondary_color?: string;
+    accent_color?: string;
     logo_url?: string;
+    logo_dark_url?: string;
+    favicon_url?: string;
     company_name?: string;
+    font_family?: string;
+    support_email?: string;
+    support_phone?: string;
+    support_url?: string;
+    custom_css?: string;
+    show_branding?: boolean;
+    theme?: 'light' | 'dark' | 'auto';
   };
   settings: {
     features: Record<string, boolean>;

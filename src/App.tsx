@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AdminAuthProvider } from "@/contexts/AdminAuthContext";
+import { BrandingProvider } from "@/contexts/BrandingContext";
 import ProtectedRoute from "@/components/portal/ProtectedRoute";
 import ProtectedAdminRoute from "@/components/admin/ProtectedAdminRoute";
 import PortalLayout from "@/components/portal/PortalLayout";
@@ -64,13 +65,14 @@ const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <AdminAuthProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-          <BrowserRouter>
-            <Suspense fallback={<div className="min-h-screen bg-background" />}>
-              <Routes>
+        <BrandingProvider>
+          <AdminAuthProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+            <BrowserRouter>
+              <Suspense fallback={<div className="min-h-screen bg-background" />}>
+                <Routes>
                 {/* Static routes first - these take priority */}
                 <Route path="/" element={<Index />} />
                 <Route path="/home-test" element={<HomeTest />} />
@@ -127,8 +129,9 @@ const App = () => (
               </Routes>
             </Suspense>
           </BrowserRouter>
-        </TooltipProvider>
-        </AdminAuthProvider>
+            </TooltipProvider>
+          </AdminAuthProvider>
+        </BrandingProvider>
       </AuthProvider>
     </QueryClientProvider>
   </HelmetProvider>
