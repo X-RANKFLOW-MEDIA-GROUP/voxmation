@@ -29,6 +29,7 @@ const TrialStart = lazy(() => import("./pages/TrialStart"));
 const Pricing = lazy(() => import("./pages/Pricing"));
 const ROICalculator = lazy(() => import("./pages/ROICalculator"));
 const Auth = lazy(() => import("./pages/Auth"));
+const Login = lazy(() => import("./pages/Login"));
 const Dashboard = lazy(() => import("./pages/portal/Dashboard"));
 const VoiceAgent = lazy(() => import("./pages/portal/VoiceAgent"));
 const MissedCalls = lazy(() => import("./pages/portal/MissedCalls"));
@@ -91,6 +92,7 @@ const App = () => (
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/trial-builder" element={<TrialBuilder />} />
                 <Route path="/trial/start" element={<TrialStart />} />
+                <Route path="/login" element={<Login />} />
 
                 {/* Portal routes - protected */}
                 <Route path="/portal" element={<PortalPage><Dashboard /></PortalPage>} />
