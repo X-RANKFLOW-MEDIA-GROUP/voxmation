@@ -136,6 +136,8 @@ const stripeWebhookHandlers: StripeWebhookHandlers = {
     try {
       const customerId = invoice.customer as string;
       const subscriptionId = invoice.subscription as string;
+      const currency = invoice.currency?.toUpperCase() || "USD";
+      const amount = (invoice.total || 0) / 100; // Convert cents to units
 
       // Store invoice in database
       const { error: invoiceError } = await supabase
@@ -145,18 +147,22 @@ const stripeWebhookHandlers: StripeWebhookHandlers = {
             stripe_invoice_id: invoice.id,
             stripe_customer_id: customerId,
             stripe_subscription_id: subscriptionId,
+            account_id: (invoice.metadata?.accountId as string) || null,
             status: "paid",
             amount_paid: invoice.amount_paid,
             total: invoice.total,
-            currency: invoice.currency?.toUpperCase() || "USD",
-            issue_date: new Date(
-              invoice.created * 1000
-            ).toISOString(),
+            currency,
+            invoice_number: invoice.number,
+            issue_date: new Date(invoice.created * 1000).toISOString(),
             paid_date: invoice.paid_at
               ? new Date(invoice.paid_at * 1000).toISOString()
+              : new Date().toISOString(),
+            due_date: invoice.due_date
+              ? new Date(invoice.due_date * 1000).toISOString()
               : null,
             pdf_url: invoice.pdf,
             metadata: invoice.metadata || {},
+            updated_at: new Date().toISOString(),
           },
           {
             onConflict: "stripe_invoice_id",
@@ -168,21 +174,38 @@ const stripeWebhookHandlers: StripeWebhookHandlers = {
         throw invoiceError;
       }
 
-      // Update subscription status if needed
+      // Update subscription last_paid_at
       if (subscriptionId) {
         const { error: subError } = await supabase
           .from("subscriptions")
           .update({
             last_paid_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
           })
           .eq("stripe_subscription_id", subscriptionId);
 
         if (subError) {
-          console.error("[Webhook] Error updating last paid:", subError);
+          console.error("[Webhook] Error updating subscription last_paid_at:", subError);
         }
       }
 
-      console.log(`[Webhook] Invoice paid: ${invoice.id}`);
+      // Create billing event log
+      await supabase.from("webhook_events").insert({
+        event_type: "invoice.paid",
+        stripe_event_id: customerId,
+        stripe_invoice_id: invoice.id,
+        amount,
+        currency,
+        processed_at: new Date().toISOString(),
+        metadata: {
+          invoiceNumber: invoice.number,
+          subscriptionId,
+        },
+      });
+
+      console.log(
+        `[Webhook] Invoice paid: ${invoice.id} (${currency} ${amount.toFixed(2)}) for customer ${customerId}`
+      );
     } catch (error) {
       console.error("[Webhook] Error in onInvoicePaid:", error);
       throw error;
@@ -336,8 +359,9 @@ registerWebhookHandlers(stripeWebhookHandlers);
 
 /**
  * POST /api/webhooks/stripe
- * Stripe webhook endpoint
- * Receives raw body for signature verification
+ * Stripe webhook endpoint for handling payment and subscription events
+ * Supports events: subscription.*, invoice.*, payment_intent.*, customer.*
+ * Requires: stripe-signature header for HMAC verification
  */
 router.post(
   "/stripe",
@@ -358,21 +382,46 @@ router.post(
       );
 
       console.log(
-        `[Webhook] Successfully processed event: ${event.id} (type: ${event.type})`
+        `[Webhook] Successfully processed event: ${event.id} (type: ${event.type}) at ${new Date(
+          event.created * 1000
+        ).toISOString()}`
       );
 
+      // Log webhook metrics
+      const accountId =
+        (event.data.object as any)?.metadata?.accountId ||
+        ((event.data.object as any)?.metadata as any)?.accountId;
+
+      if (accountId) {
+        console.log(
+          `[Webhook] Event for account: ${accountId} (event: ${event.type})`
+        );
+      }
+
       // Return 200 to acknowledge receipt
-      res.json({ received: true, eventId: event.id });
+      res.status(200).json({
+        received: true,
+        eventId: event.id,
+        eventType: event.type,
+        processedAt: new Date().toISOString(),
+      });
     } catch (error) {
       console.error("[Webhook] Error processing webhook:", error);
 
       // Return 400 for invalid signatures
       if ((error as any).type === "StripeSignatureVerificationError") {
+        console.warn(
+          "[Webhook] Invalid signature - possible tampering or outdated webhook secret"
+        );
         return res.status(400).json({ error: "Invalid signature" });
       }
 
-      // Return 500 for processing errors
-      res.status(500).json({ error: "Webhook processing failed" });
+      // Return 500 for processing errors (but still acknowledge to Stripe)
+      res.status(500).json({
+        error: "Webhook processing failed",
+        details:
+          error instanceof Error ? error.message : "Unknown error occurred",
+      });
     }
   }
 );

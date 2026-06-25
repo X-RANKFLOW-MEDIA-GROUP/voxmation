@@ -75,26 +75,60 @@ router.get("/subscription", async (req: Request, res: Response) => {
 
 /**
  * GET /api/billing/invoices
- * Get invoices for account
+ * Get invoices for account with filtering and pagination
+ * Query params: limit, offset, status, currency
  */
 router.get("/invoices", async (req: Request, res: Response) => {
   try {
     const accountId = req.accountId!;
-    const { limit = 10, offset = 0 } = req.query;
+    const { limit = 10, offset = 0, status, currency } = req.query;
 
-    const { data, count, error } = await supabase
+    let query = supabase
       .from("invoices")
       .select("*", { count: "exact" })
       .eq("account_id", accountId)
-      .order("issue_date", { ascending: false })
-      .range(
-        parseInt(offset as string),
-        parseInt(offset as string) + parseInt(limit as string) - 1
-      );
+      .order("issue_date", { ascending: false });
+
+    // Apply status filter if provided
+    if (status) {
+      query = query.eq("status", status);
+    }
+
+    // Apply currency filter if provided
+    if (currency) {
+      query = query.eq("currency", currency.toString().toUpperCase());
+    }
+
+    const { data, count, error } = await query.range(
+      parseInt(offset as string),
+      parseInt(offset as string) + parseInt(limit as string) - 1
+    );
 
     if (error) throw error;
 
-    res.json({ data: data || [], total: count || 0 });
+    // Transform invoice data for response
+    const transformedInvoices = (data || []).map((invoice) => ({
+      id: invoice.stripe_invoice_id,
+      invoiceNumber: invoice.invoice_number,
+      status: invoice.status,
+      amount: (invoice.total || 0) / 100, // Convert cents to units
+      currency: invoice.currency || "USD",
+      issueDate: invoice.issue_date,
+      paidDate: invoice.paid_date,
+      dueDate: invoice.due_date,
+      pdfUrl: invoice.pdf_url,
+      subscriptionId: invoice.stripe_subscription_id,
+      metadata: invoice.metadata || {},
+    }));
+
+    res.json({
+      data: transformedInvoices,
+      total: count || 0,
+      pagination: {
+        limit: parseInt(limit as string),
+        offset: parseInt(offset as string),
+      },
+    });
   } catch (error) {
     console.error("Error fetching invoices:", error);
     res.status(500).json({ error: "Failed to fetch invoices" });
@@ -147,97 +181,146 @@ router.get("/usage", async (req: Request, res: Response) => {
 
 /**
  * POST /api/billing/checkout
- * Create checkout session (requires owner/admin)
- * Body: { planId, billingCycle, currency }
+ * Create a Stripe checkout session for plan subscription
+ * Supports both USD and EUR currencies
+ * Body: { planId, billingCycle, currency, successUrl?, cancelUrl?, metadata? }
  */
 router.post("/checkout", requireRole("owner", "admin"), async (req: Request, res: Response) => {
   try {
     const accountId = req.accountId!;
-    const { planId, billingCycle = "monthly", currency = "usd" } = req.body;
+    const {
+      planId,
+      billingCycle = "monthly",
+      currency = "usd",
+      successUrl,
+      cancelUrl,
+      metadata = {},
+    } = req.body;
 
+    // Validation
     if (!planId) {
-      return res.status(400).json({ error: "Plan ID required" });
+      return res.status(400).json({ error: "Plan ID is required" });
     }
 
-    if (!["usd", "eur"].includes(currency.toLowerCase())) {
-      return res.status(400).json({ error: "Currency must be USD or EUR" });
+    const normalizedCurrency = currency.toLowerCase();
+    if (!["usd", "eur"].includes(normalizedCurrency)) {
+      return res.status(400).json({
+        error: "Invalid currency. Supported currencies: USD, EUR",
+      });
     }
 
-    // Get plan
+    if (!["monthly", "yearly"].includes(billingCycle)) {
+      return res.status(400).json({
+        error: "Invalid billing cycle. Supported: monthly, yearly",
+      });
+    }
+
+    // Get plan details
     const { data: plan, error: planError } = await supabase
       .from("subscription_plans")
       .select("*")
       .eq("id", planId)
+      .eq("is_active", true)
       .single();
 
     if (planError || !plan) {
-      return res.status(404).json({ error: "Plan not found" });
+      return res.status(404).json({ error: "Subscription plan not found" });
     }
 
-    // Get or create Stripe customer
-    const { data: account } = await supabase
+    // Get account details
+    const { data: account, error: accountError } = await supabase
       .from("accounts")
-      .select("*")
+      .select("id, email, name")
       .eq("id", accountId)
       .single();
 
-    let stripeCustomerId: string;
+    if (accountError || !account) {
+      return res.status(404).json({ error: "Account not found" });
+    }
 
-    // Check if customer exists
-    const { data: subscription } = await supabase
+    // Get or create Stripe customer
+    let stripeCustomerId: string;
+    const { data: existingSubscription } = await supabase
       .from("subscriptions")
       .select("stripe_customer_id")
       .eq("account_id", accountId)
-      .single();
+      .maybeSingle();
 
-    if (subscription?.stripe_customer_id) {
-      stripeCustomerId = subscription.stripe_customer_id;
+    if (existingSubscription?.stripe_customer_id) {
+      stripeCustomerId = existingSubscription.stripe_customer_id;
+      // Update customer with current account info
+      await updateStripeCustomer(stripeCustomerId, {
+        email: account.email,
+        name: account.name,
+        metadata: {
+          accountId,
+          currency: normalizedCurrency,
+          updatedAt: new Date().toISOString(),
+        },
+      });
     } else {
-      // Create new customer
+      // Create new Stripe customer
       const customer = await createStripeCustomer(
         accountId,
-        account?.email || "billing@account.local",
-        account?.name || "Account",
-        currency as "usd" | "eur"
+        account.email,
+        account.name,
+        normalizedCurrency as "usd" | "eur"
       );
       stripeCustomerId = customer.id;
     }
 
     // Get Stripe price ID based on billing cycle and currency
-    const priceKey =
-      billingCycle === "yearly"
-        ? currency === "eur"
-          ? "stripe_price_id_yearly_eur"
-          : "stripe_price_id_yearly"
-        : currency === "eur"
-          ? "stripe_price_id_monthly_eur"
-          : "stripe_price_id_monthly";
-
+    const priceKey = `stripe_price_id_${billingCycle}_${normalizedCurrency}`;
     const priceId = plan[priceKey];
 
     if (!priceId) {
       return res.status(400).json({
-        error: `Stripe ${currency.toUpperCase()} price not configured for this plan`,
+        error: `Price configuration not available for ${normalizedCurrency.toUpperCase()} ${billingCycle} billing`,
       });
     }
 
-    // Create checkout session
-    const successUrl = `${req.protocol}://${req.get("host")}/portal/billing?success=true`;
-    const cancelUrl = `${req.protocol}://${req.get("host")}/portal/billing?success=false`;
+    // Determine redirect URLs
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const finalSuccessUrl =
+      successUrl || `${baseUrl}/portal/billing?session=success&plan=${planId}`;
+    const finalCancelUrl =
+      cancelUrl || `${baseUrl}/portal/billing?session=cancelled`;
 
+    // Create checkout session
     const session = await createCheckoutSession({
       customerId: stripeCustomerId,
       priceId,
-      successUrl,
-      cancelUrl,
-      currency: currency as "usd" | "eur",
-      metadata: { accountId, planId, billingCycle },
+      successUrl: finalSuccessUrl,
+      cancelUrl: finalCancelUrl,
+      currency: normalizedCurrency as "usd" | "eur",
+      metadata: {
+        accountId,
+        planId,
+        billingCycle,
+        ...metadata,
+      },
     });
 
-    res.json({ url: session.url });
+    // Log checkout creation
+    console.log(
+      `[Billing] Checkout session created: ${session.id} for account ${accountId}`
+    );
+
+    // Return checkout session details
+    res.status(201).json({
+      sessionId: session.id,
+      checkoutUrl: session.url,
+      currency: normalizedCurrency.toUpperCase(),
+      billingCycle,
+      planId,
+      estimatedAmount:
+        plan[`price_${billingCycle}_${normalizedCurrency}`] / 100,
+    });
   } catch (error) {
     console.error("Error creating checkout session:", error);
-    res.status(500).json({ error: "Failed to create checkout session" });
+    const message =
+      error instanceof Error ? error.message : "Failed to create checkout session";
+    res.status(500).json({ error: message });
   }
 });
 
