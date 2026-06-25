@@ -1,4 +1,4 @@
-import { Router, Request, Response, raw } from "express";
+import express, { Router, Request, Response, raw } from "express";
 import { supabase } from "../supabase";
 import {
   verifyAndHandleWebhook,
@@ -6,6 +6,14 @@ import {
   StripeWebhookHandlers,
   Stripe,
 } from "../integrations/stripe";
+import {
+  handleWebhook as handleTwilioWebhook,
+  registerWebhookHandlers as registerTwilioHandlers,
+  TwilioWebhookHandlers,
+  CallWebhookEvent,
+  RecordingReadyWebhookEvent,
+  MessageWebhookEvent,
+} from "../integrations/twilio";
 
 const router = Router();
 
@@ -354,6 +362,209 @@ const stripeWebhookHandlers: StripeWebhookHandlers = {
 registerWebhookHandlers(stripeWebhookHandlers);
 
 // =============================================================================
+// TWILIO WEBHOOK HANDLERS
+// =============================================================================
+
+/**
+ * Define handlers for Twilio webhook events
+ * These will be called when corresponding Twilio events occur
+ */
+const twilioWebhookHandlers: TwilioWebhookHandlers = {
+  // Handle incoming call ringing
+  onCallRinging: async (event: CallWebhookEvent) => {
+    try {
+      console.log(`[Twilio Webhook] Call ringing: ${event.callSid} from ${event.from} to ${event.to}`);
+
+      // Store call event in database
+      const { error } = await supabase.from("twilio_call_events").insert({
+        call_sid: event.callSid,
+        account_sid: event.accountSid,
+        from_number: event.from,
+        to_number: event.to,
+        event_type: "ringing",
+        status: "ringing",
+        timestamp: event.timestamp.toISOString(),
+        metadata: event.metadata,
+      });
+
+      if (error) {
+        console.error("[Twilio Webhook] Error storing ringing event:", error);
+        throw error;
+      }
+
+      console.log(`[Twilio Webhook] Ringing event stored for call ${event.callSid}`);
+    } catch (error) {
+      console.error("[Twilio Webhook] Error in onCallRinging:", error);
+      // Don't re-throw to allow webhook to return 200 to Twilio
+    }
+  },
+
+  // Handle call answered
+  onCallAnswered: async (event: CallWebhookEvent) => {
+    try {
+      console.log(`[Twilio Webhook] Call answered: ${event.callSid}`);
+
+      const { error } = await supabase
+        .from("twilio_call_events")
+        .insert({
+          call_sid: event.callSid,
+          account_sid: event.accountSid,
+          from_number: event.from,
+          to_number: event.to,
+          event_type: "answered",
+          status: "in-progress",
+          timestamp: event.timestamp.toISOString(),
+          metadata: event.metadata,
+        });
+
+      if (error) {
+        console.error("[Twilio Webhook] Error storing answered event:", error);
+        throw error;
+      }
+
+      // Update call status
+      await supabase
+        .from("twilio_calls")
+        .update({
+          status: "in-progress",
+          answered_at: event.timestamp.toISOString(),
+          updated_at: new Date().toISOString(),
+        })
+        .eq("call_sid", event.callSid);
+
+      console.log(`[Twilio Webhook] Call answered event stored for ${event.callSid}`);
+    } catch (error) {
+      console.error("[Twilio Webhook] Error in onCallAnswered:", error);
+    }
+  },
+
+  // Handle call completed
+  onCallCompleted: async (event: CallWebhookEvent) => {
+    try {
+      console.log(`[Twilio Webhook] Call completed: ${event.callSid}, duration: ${event.duration}s`);
+
+      const { error } = await supabase
+        .from("twilio_call_events")
+        .insert({
+          call_sid: event.callSid,
+          account_sid: event.accountSid,
+          from_number: event.from,
+          to_number: event.to,
+          event_type: "completed",
+          status: "completed",
+          duration: event.duration,
+          timestamp: event.timestamp.toISOString(),
+          metadata: event.metadata,
+        });
+
+      if (error) {
+        console.error("[Twilio Webhook] Error storing completed event:", error);
+        throw error;
+      }
+
+      // Update call status and duration
+      await supabase
+        .from("twilio_calls")
+        .update({
+          status: "completed",
+          duration: event.duration,
+          ended_at: event.timestamp.toISOString(),
+          updated_at: new Date().toISOString(),
+        })
+        .eq("call_sid", event.callSid);
+
+      console.log(`[Twilio Webhook] Call completed event stored for ${event.callSid}`);
+    } catch (error) {
+      console.error("[Twilio Webhook] Error in onCallCompleted:", error);
+    }
+  },
+
+  // Handle recording ready
+  onRecordingReady: async (event: RecordingReadyWebhookEvent) => {
+    try {
+      console.log(
+        `[Twilio Webhook] Recording ready: ${event.recordingSid} for call ${event.callSid}, duration: ${event.recordingDuration}s`
+      );
+
+      // Store recording in database
+      const { error } = await supabase
+        .from("twilio_recordings")
+        .insert({
+          recording_sid: event.recordingSid,
+          call_sid: event.callSid,
+          account_sid: event.accountSid,
+          recording_url: event.recordingUrl,
+          duration: event.recordingDuration,
+          channels: event.recordingChannels,
+          timestamp: event.timestamp.toISOString(),
+        });
+
+      if (error) {
+        console.error("[Twilio Webhook] Error storing recording:", error);
+        throw error;
+      }
+
+      // Update call with recording info
+      await supabase
+        .from("twilio_calls")
+        .update({
+          recording_sid: event.recordingSid,
+          recording_url: event.recordingUrl,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("call_sid", event.callSid);
+
+      console.log(`[Twilio Webhook] Recording stored: ${event.recordingSid}`);
+    } catch (error) {
+      console.error("[Twilio Webhook] Error in onRecordingReady:", error);
+    }
+  },
+
+  // Handle SMS status changes
+  onMessageStatusChanged: async (event: MessageWebhookEvent) => {
+    try {
+      console.log(
+        `[Twilio Webhook] Message status changed: ${event.messageSid} - ${event.messageStatus}`
+      );
+
+      // Store message event in database
+      const { error } = await supabase
+        .from("twilio_message_events")
+        .insert({
+          message_sid: event.messageSid,
+          account_sid: event.accountSid,
+          from_number: event.from,
+          to_number: event.to,
+          status: event.messageStatus,
+          error_code: event.errorCode,
+          timestamp: event.timestamp.toISOString(),
+        });
+
+      if (error) {
+        console.error("[Twilio Webhook] Error storing message event:", error);
+        throw error;
+      }
+
+      // Update message status
+      await supabase
+        .from("twilio_messages")
+        .update({
+          status: event.messageStatus,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("message_sid", event.messageSid);
+
+      console.log(`[Twilio Webhook] Message event stored: ${event.messageSid}`);
+    } catch (error) {
+      console.error("[Twilio Webhook] Error in onMessageStatusChanged:", error);
+    }
+  },
+};
+
+// Register Twilio webhook handlers on startup
+registerTwilioHandlers(twilioWebhookHandlers);
+
+// =============================================================================
 // ROUTES
 // =============================================================================
 
@@ -427,29 +638,71 @@ router.post(
 );
 
 /**
+ * POST /api/webhooks/twilio
+ * Twilio webhook endpoint for handling call and SMS events
+ * Supports events: call status changes (ringing, answered, completed), recordings, message status
+ * No signature verification required - Twilio uses URL-based auth in production
+ */
+router.post("/twilio", express.urlencoded({ extended: true }), async (req: Request, res: Response) => {
+  try {
+    // Twilio sends form-encoded data, not JSON
+    const body = req.body;
+
+    console.log(`[Webhook] Twilio event received: ${body.CallStatus || body.MessageStatus || body.RecordingStatus}`);
+
+    // Handle the webhook
+    await handleTwilioWebhook(body);
+
+    // Return 200 immediately to acknowledge receipt
+    res.status(200).send("OK");
+  } catch (error) {
+    console.error("[Webhook] Error processing Twilio webhook:", error);
+
+    // Return 200 anyway to prevent Twilio from retrying
+    // (we log the error but don't block the response)
+    res.status(200).send("OK");
+  }
+});
+
+/**
  * GET /api/webhooks/health
  * Health check endpoint for webhook configuration
  */
 router.get("/health", async (req: Request, res: Response) => {
   try {
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-    const hasSecret = !!webhookSecret;
+    const stripeSecret = process.env.STRIPE_WEBHOOK_SECRET;
+    const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
+    const stripeConfigured = !!stripeSecret;
+    const twilioConfigured = !!twilioAccountSid;
 
     res.json({
       status: "ok",
-      webhook: {
-        configured: hasSecret,
-        endpoint: "/api/webhooks/stripe",
-        events: [
-          "customer.subscription.created",
-          "customer.subscription.updated",
-          "customer.subscription.deleted",
-          "invoice.paid",
-          "invoice.payment_failed",
-          "payment_intent.succeeded",
-          "customer.created",
-          "customer.deleted",
-        ],
+      webhooks: {
+        stripe: {
+          configured: stripeConfigured,
+          endpoint: "/api/webhooks/stripe",
+          events: [
+            "customer.subscription.created",
+            "customer.subscription.updated",
+            "customer.subscription.deleted",
+            "invoice.paid",
+            "invoice.payment_failed",
+            "payment_intent.succeeded",
+            "customer.created",
+            "customer.deleted",
+          ],
+        },
+        twilio: {
+          configured: twilioConfigured,
+          endpoint: "/api/webhooks/twilio",
+          events: [
+            "call.ringing",
+            "call.answered",
+            "call.completed",
+            "recording.ready",
+            "message.status_changed",
+          ],
+        },
       },
     });
   } catch (error) {

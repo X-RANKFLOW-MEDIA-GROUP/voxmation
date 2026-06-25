@@ -74,6 +74,7 @@
     "sonner": "^1.7.4",
     "stripe": "^16.4.0",
     "tailwind-merge": "^2.6.0",
+    "twilio": "^4.19.3",
     "tailwindcss-animate": "^1.0.7",
     "tsx": "^4.21.0",
     "uuid": "^14.0.0",
