@@ -21,18 +21,35 @@
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
-            background: linear-gradient(135deg, #0a1628 0%, #0f1f3c 100%);
+            background: url('https://res.cloudinary.com/dyfxkq2nk/image/upload/v1782924992/ChatGPT_Image_Jun_30_2026_09_25_54_PM_rjrvnx.png') center/cover no-repeat,
+                        linear-gradient(135deg, #0a1628 0%, #0f1f3c 100%);
+            background-attachment: fixed;
             border-left: 4px solid #ff9d00;
             padding: 0;
             font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+        .signature-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 22, 40, 0.95) 0%, rgba(15, 31, 60, 0.95) 100%);
+            pointer-events: none;
         }
 
         .signature-wrapper {
+            position: relative;
+            z-index: 1;
             display: flex;
             gap: 20px;
             padding: 24px;
             align-items: flex-start;
         }
+
 
         .left-section {
             flex-shrink: 0;
@@ -191,7 +208,7 @@
         <div class="signature-wrapper">
             <!-- Left Section -->
             <div class="left-section">
-                <img src="https://res.cloudinary.com/your-cloudinary/image/upload/v1/voxmation-logo.png" alt="Voxmation" class="logo" />
+                <img src="https://res.cloudinary.com/dyfxkq2nk/image/upload/v1782867568/voxmation_logo.png" alt="Voxmation" class="logo" />
                 <div class="divider-line"></div>
             </div>
 
@@ -226,7 +243,7 @@
 
             <!-- Right Section -->
             <div class="right-section">
-                <img src="https://res.cloudinary.com/your-cloudinary/image/upload/v1/bruno-santos.jpg" alt="Bruno Santos" class="profile-image" />
+                <img src="https://res.cloudinary.com/dyfxkq2nk/image/upload/bruno-santos.png" alt="Bruno Santos" class="profile-image" />
             </div>
         </div>
     </div>
