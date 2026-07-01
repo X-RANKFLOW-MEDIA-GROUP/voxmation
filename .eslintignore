@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+dist/
+dist-ssr/
+build/
+coverage/
+.next/
+
+# Build outputs
+*.bundle.js
+*.min.js
+*.min.css
+
+# Generated files
+.env.local
+.env.*.local
+*.pem
+
+# Editor directories
+.vscode/
+.idea/
+.DS_Store
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Package manager
+pnpm-lock.yaml.bak
+yarn.lock.bak
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
