@@ -39,15 +39,22 @@
 .logo {
     width: 100px;
     height: auto;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.mascots {
+    width: 100%;
+    height: auto;
+    margin-bottom: 8px;
     display: block;
 }
 
 .divider-line {
     width: 3px;
-    height: 120px;
+    height: 100px;
     background: linear-gradient(180deg, var(--primary-accent) 0%, rgba(255, 157, 0, 0) 100%);
-    margin-top: 12px;
+    margin-top: 8px;
 }
 
 /* Center Section - Contact & Info */
