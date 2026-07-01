@@ -41,12 +41,15 @@ out/
 .env.*.local
 *.pem
 
-# Documentation and Markdown
+# Documentation and Markdown (keep technical docs needed for build)
 README.md
 CHANGELOG.md
 CONTRIBUTING.md
 LICENSE
 docs/
+# Keep performance and setup docs
+!PERFORMANCE_OPTIMIZATIONS.md
+# Keep other .md files that might be documentation only
 *.md
 
 # Testing
