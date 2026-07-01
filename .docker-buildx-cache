@@ -1,0 +1,11 @@
+# Docker Buildx Cache Configuration
+# This file helps maintain proper cache invalidation for Docker builds
+
+# Last successful build: 2026-07-01
+# Cache reset: BUILDKIT_INLINE_CACHE=1
+# Build method: docker buildx build --progress=plain --load
+
+# If Docker build fails with "file not found" errors:
+# 1. Clear buildx cache: docker buildx prune -a
+# 2. Rebuild: docker buildx build --progress=plain --no-cache -t voxmation:latest .
+# 3. Or use docker build directly: docker build -t voxmation:latest .

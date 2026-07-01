@@ -25,9 +25,17 @@ FROM dependencies AS builder
 
 WORKDIR /app
 
-# Copy source code
-COPY tsconfig.json tsconfig.json
-COPY vite.config.ts vite.config.ts
+# Copy source code - config files first (most likely to be cached)
+COPY tsconfig.json ./
+COPY tsconfig.app.json ./
+COPY tsconfig.node.json ./
+COPY vite.config.ts ./
+COPY postcss.config.js ./
+COPY tailwind.config.ts ./
+COPY eslint.config.js ./
+COPY components.json ./
+
+# Copy source directories
 COPY src ./src
 COPY public ./public
 COPY server ./server

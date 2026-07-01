@@ -78,6 +78,10 @@ const Navbar = () => {
                 src="https://res.cloudinary.com/dyfxkq2nk/image/upload/v1782920036/ChatGPT_Image_Jun_30_2026_08_00_43_PM_bxwxdi.png"
                 alt="Voxmation"
                 className="h-12 w-auto"
+                loading="eager"
+                decoding="async"
+                width={200}
+                height={60}
               />
             </motion.a>
 

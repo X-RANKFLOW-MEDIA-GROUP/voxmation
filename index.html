@@ -18,6 +18,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://cal.com" />
     <link rel="dns-prefetch" href="https://api.elevenlabs.io" />
+    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+    <link rel="dns-prefetch" href="https://pagespeed.web.dev" />
+
+    <!-- Preload critical fonts for better LCP -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" as="style" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+
+    <!-- Prefetch secondary resources -->
+    <link rel="prefetch" href="/src/pages/About.tsx" as="script" />
+    <link rel="prefetch" href="/src/pages/Demo.tsx" as="script" />
 
     <!-- Favicons and App Icons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />

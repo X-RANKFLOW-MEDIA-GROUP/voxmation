@@ -236,3 +236,40 @@
 
 /* Smooth scroll */
 html { scroll-behavior: smooth; }
+
+/* CLS Optimizations - Cumulative Layout Shift prevention */
+img {
+  /* Prevent images from causing layout shift */
+  display: block;
+}
+
+/* Ensure aspect ratio containers prevent CLS */
+[style*="aspect-ratio"] {
+  overflow: hidden;
+}
+
+/* Button and link sizes to prevent text overflow */
+button, a {
+  min-height: 44px; /* Mobile touch target minimum */
+}
+
+/* Reserve space for dynamic content */
+.dynamic-content {
+  min-height: 1rem;
+}
+
+/* Font fallback stack to prevent layout shift */
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+}
+
+/* Prevent skeleton loaders from shifting */
+.skeleton {
+  display: block;
+}
+
+/* Video embeds should maintain aspect ratio */
+iframe, video {
+  max-width: 100%;
+  height: auto;
+}

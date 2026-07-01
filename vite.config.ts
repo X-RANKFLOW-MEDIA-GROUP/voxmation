@@ -18,6 +18,31 @@ export default defineConfig({
     },
   },
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split major dependencies into separate chunks
+          react: ["react", "react-dom"],
+          router: ["react-router-dom"],
+          motion: ["framer-motion"],
+          query: ["@tanstack/react-query"],
+          icons: ["lucide-react"],
+          ui: ["@radix-ui/primitive", "@radix-ui/slot"],
+        },
+      },
+    },
+    // Optimize for production
+    minify: "terser",
+    terserOptions: {
+      compress: {
+        drop_console: true,
+      },
+    },
+    cssCodeSplit: true,
+    sourcemap: false,
+    reportCompressedSize: true,
+  },
   // Bundle CJS-only deps into the SSR/prerender output so Node ESM can import
   // them without named-export interop errors.
   ssr: {

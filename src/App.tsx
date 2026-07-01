@@ -11,6 +11,7 @@ import { BrandingProvider } from "@/contexts/BrandingContext";
 import ProtectedRoute from "@/components/portal/ProtectedRoute";
 import ProtectedAdminRoute from "@/components/admin/ProtectedAdminRoute";
 import PortalLayout from "@/components/portal/PortalLayout";
+import { useWebVitals } from "@/hooks/useWebVitals";
 // Homepage stays eager for fast first paint / LCP; everything else is
 // code-split so each route ships only the JS it needs.
 import Index from "./pages/Index";
@@ -65,7 +66,10 @@ const PortalPage = ({ children }: { children: React.ReactNode }) => (
   </ProtectedRoute>
 );
 
-const App = () => (
+const App = () => {
+  useWebVitals();
+
+  return (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
@@ -136,13 +140,14 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
-          </BrowserRouter>
+            </BrowserRouter>
             </TooltipProvider>
           </AdminAuthProvider>
         </BrandingProvider>
       </AuthProvider>
     </QueryClientProvider>
   </HelmetProvider>
-);
+  );
+};
 
 export default App;
