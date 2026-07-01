@@ -153,6 +153,49 @@ export default function About() {
 
         <section className="py-8 md:py-12 border-t border-border">
           <Reveal>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-silver-bright mb-6 tracking-[-0.02em]">
+              Meet the Team
+            </h2>
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Rene Alvarez",
+                role: "Head of Sales Development",
+                image: "https://res.cloudinary.com/dyfxkq2nk/image/upload/v1782918531/Untitled_design_3_hd1s6h.png",
+              },
+              {
+                name: "Bruno Santos",
+                role: "SDR and Admin",
+                image: "https://res.cloudinary.com/dyfxkq2nk/image/upload/v1782918531/Untitled_design_3_hd1s6h.png",
+              },
+              {
+                name: "Chris Reece",
+                role: "Sales Development Representative",
+                image: "https://res.cloudinary.com/dyfxkq2nk/image/upload/v1773156050/profile-photos/1b78566d-232c-4683-91ac-e0f82aed82d3/hnd2gtr9gra0ftknhpra.png",
+              },
+            ].map((member, i) => (
+              <Reveal key={member.name} delay={0.04 * i}>
+                <div className="text-center">
+                  <div className="mb-4 rounded-xl overflow-hidden h-48 w-full">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3 className="text-lg font-display font-bold text-silver-bright mb-1 tracking-[-0.02em]">
+                    {member.name}
+                  </h3>
+                  <p className="text-sm text-silver">{member.role}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        <section className="py-8 md:py-12 border-t border-border">
+          <Reveal>
             <h2 className="text-2xl md:text-3xl font-display font-bold text-silver-bright mb-3 tracking-[-0.02em]">
               Official Brand Profiles
             </h2>
