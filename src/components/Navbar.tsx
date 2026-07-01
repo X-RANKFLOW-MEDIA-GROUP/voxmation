@@ -67,17 +67,21 @@ const Navbar = () => {
             ? "max-w-5xl rounded-2xl glass-card border border-border/60 shadow-2xl shadow-background/80" 
             : "max-w-full bg-transparent"
         }`}>
-          <div className="flex items-center justify-between h-14 px-5">
+          <div className="flex items-center justify-between h-16 px-5">
             <motion.a
               href="#"
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-              className="font-mono text-sm font-bold tracking-[0.2em] text-foreground hover:text-primary transition-colors duration-300"
+              className="flex items-center hover:opacity-80 transition-opacity duration-300"
               whileHover={{ scale: 1.02 }}
             >
-              VOXMATION
+              <img
+                src="https://res.cloudinary.com/dyfxkq2nk/image/upload/v1782920036/ChatGPT_Image_Jun_30_2026_08_00_43_PM_bxwxdi.png"
+                alt="Voxmation"
+                className="h-12 w-auto"
+              />
             </motion.a>
 
-            <div className="hidden lg:flex items-center">
+            <div className="hidden lg:flex items-center gap-8">
               <div className="flex items-center gap-0.5 rounded-full border border-border/40 px-1.5 py-1 bg-background/20 backdrop-blur-sm">
                 {navLinks.map((l) => {
                   const isActive = activeSection === l.href.replace("#", "");
@@ -101,6 +105,12 @@ const Navbar = () => {
                   );
                 })}
               </div>
+            </div>
+
+            <div className="flex lg:hidden items-center gap-3 order-last">
+              <Button variant="neon" size="sm" asChild>
+                <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">Demo</a>
+              </Button>
             </div>
 
             <div className="hidden lg:flex items-center gap-3">
