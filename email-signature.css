@@ -1,0 +1,261 @@
+/* Voxmation Email Signature Styles */
+
+/* Color Variables */
+:root {
+    --primary-dark: #0a1628;
+    --primary-dark-light: #0f1f3c;
+    --primary-accent: #ff9d00;
+    --text-white: #ffffff;
+    --text-light: #e0e0e0;
+    --accent-orange: #ff8c42;
+    --accent-orange-dark: #ff7c1c;
+}
+
+/* Container */
+.signature-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-dark-light) 100%);
+    border-left: 4px solid var(--primary-accent);
+    padding: 0;
+    font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    box-sizing: border-box;
+}
+
+.signature-wrapper {
+    display: flex;
+    gap: 20px;
+    padding: 24px;
+    align-items: flex-start;
+}
+
+/* Left Section - Logo & Divider */
+.left-section {
+    flex-shrink: 0;
+    width: 120px;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.divider-line {
+    width: 3px;
+    height: 120px;
+    background: linear-gradient(180deg, var(--primary-accent) 0%, rgba(255, 157, 0, 0) 100%);
+    margin-top: 12px;
+}
+
+/* Center Section - Contact & Info */
+.center-section {
+    flex: 1;
+    color: var(--text-white);
+}
+
+.name {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--text-white);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    margin-top: 0;
+}
+
+.title {
+    font-size: 14px;
+    color: var(--primary-accent);
+    font-weight: 500;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--primary-accent);
+    padding-bottom: 8px;
+    display: inline-block;
+    margin-top: 0;
+}
+
+/* Contact Information */
+.contact-info {
+    margin-bottom: 16px;
+    margin-top: 0;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--text-white);
+    text-decoration: none;
+}
+
+.contact-item:last-child {
+    margin-bottom: 0;
+}
+
+.contact-item a {
+    color: var(--text-white);
+    text-decoration: none;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
+}
+
+.contact-icon {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--primary-accent);
+    flex-shrink: 0;
+}
+
+.contact-text {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Tagline */
+.tagline {
+    font-size: 12px;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.tagline strong {
+    color: var(--text-white);
+    font-style: normal;
+    font-weight: 600;
+}
+
+/* Call-to-Action Button */
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-accent) 0%, var(--accent-orange) 100%);
+    color: var(--text-white) !important;
+    text-decoration: none !important;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+    line-height: 1;
+}
+
+.cta-button:hover {
+    background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-orange-dark) 100%);
+    text-decoration: none !important;
+}
+
+/* Right Section - Profile Image */
+.right-section {
+    flex-shrink: 0;
+    width: 140px;
+}
+
+.profile-image {
+    width: 140px;
+    height: 140px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid var(--primary-accent);
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 600px) {
+    .signature-container {
+        max-width: 100%;
+    }
+
+    .signature-wrapper {
+        flex-direction: column;
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .left-section {
+        width: 100%;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .logo {
+        width: 80px;
+        margin-bottom: 0;
+    }
+
+    .divider-line {
+        height: 80px;
+        margin-top: 0;
+    }
+
+    .right-section {
+        width: 100%;
+    }
+
+    .profile-image {
+        width: 100%;
+        height: auto;
+        max-width: 300px;
+    }
+
+    .name {
+        font-size: 18px;
+    }
+
+    .title {
+        font-size: 13px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .signature-wrapper {
+        padding: 12px;
+    }
+
+    .left-section {
+        flex-direction: column;
+    }
+
+    .divider-line {
+        display: none;
+    }
+
+    .logo {
+        width: 60px;
+    }
+
+    .name {
+        font-size: 16px;
+    }
+
+    .contact-item {
+        font-size: 12px;
+    }
+
+    .tagline {
+        font-size: 11px;
+    }
+
+    .cta-button {
+        font-size: 11px;
+        padding: 8px 12px;
+    }
+}

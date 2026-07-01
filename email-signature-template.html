@@ -1,0 +1,283 @@
+<!--
+Voxmation Email Signature Template
+Replace all [PLACEHOLDER] values with actual content
+Use email-signature-inline.html as the final version for email clients
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[NAME] - Email Signature</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .signature-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #0a1628 0%, #0f1f3c 100%);
+            border-left: 4px solid #ff9d00;
+        }
+
+        .signature-wrapper {
+            display: flex;
+            gap: 20px;
+            padding: 24px;
+            align-items: flex-start;
+        }
+
+        .left-section {
+            flex-shrink: 0;
+            width: 120px;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .divider-line {
+            width: 3px;
+            height: 120px;
+            background: linear-gradient(180deg, #ff9d00 0%, rgba(255, 157, 0, 0) 100%);
+            margin-top: 12px;
+        }
+
+        .center-section {
+            flex: 1;
+            color: white;
+        }
+
+        .name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .title {
+            font-size: 14px;
+            color: #ff9d00;
+            font-weight: 500;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #ff9d00;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .contact-info {
+            margin-bottom: 16px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .contact-icon {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ff9d00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #ff9d00;
+            flex-shrink: 0;
+        }
+
+        .tagline {
+            font-size: 12px;
+            color: #e0e0e0;
+            font-style: italic;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff9d00 0%, #ff8c42 100%);
+            color: white !important;
+            text-decoration: none !important;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 12px;
+            margin-top: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, #ff8c42 0%, #ff7c1c 100%);
+        }
+
+        .right-section {
+            flex-shrink: 0;
+            width: 140px;
+        }
+
+        .profile-image {
+            width: 140px;
+            height: 140px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #ff9d00;
+        }
+
+        .preview-info {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+            padding: 12px;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #856404;
+        }
+
+        .preview-info h4 {
+            margin-bottom: 8px;
+        }
+
+        .template-value {
+            background-color: #fff;
+            padding: 2px 4px;
+            border-radius: 2px;
+            font-family: monospace;
+            color: #d32f2f;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .signature-wrapper {
+                flex-direction: column;
+                padding: 16px;
+            }
+
+            .left-section {
+                width: 100%;
+            }
+
+            .divider-line {
+                display: none;
+            }
+
+            .right-section {
+                width: 100%;
+            }
+
+            .profile-image {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preview Container -->
+    <div class="signature-container">
+        <div class="signature-wrapper">
+            <!-- Left Section -->
+            <div class="left-section">
+                <img src="[LOGO_URL]" alt="Voxmation" class="logo" />
+                <div class="divider-line"></div>
+            </div>
+
+            <!-- Center Section -->
+            <div class="center-section">
+                <div class="name">[NAME]</div>
+                <div class="title">[JOB_TITLE]</div>
+
+                <div class="contact-info">
+                    <a href="tel:[PHONE_NUMBER]" class="contact-item" style="color: white; text-decoration: none;">
+                        <span class="contact-icon">📞</span>
+                        <span>[PHONE_DISPLAY]</span>
+                    </a>
+                    <a href="mailto:[EMAIL]" class="contact-item" style="color: white; text-decoration: none;">
+                        <span class="contact-icon">✉️</span>
+                        <span>[EMAIL]</span>
+                    </a>
+                    <a href="[WEBSITE_URL]" target="_blank" class="contact-item" style="color: white; text-decoration: none;">
+                        <span class="contact-icon">🌐</span>
+                        <span>[WEBSITE_DISPLAY]</span>
+                    </a>
+                </div>
+
+                <div class="tagline">
+                    🎙️ <strong>AI Voice Systems</strong> that capture and convert leads 24/7
+                </div>
+
+                <a href="[CTA_URL]" target="_blank" class="cta-button">
+                    🚀 GET YOUR 7 DAYS TRIAL
+                </a>
+            </div>
+
+            <!-- Right Section -->
+            <div class="right-section">
+                <img src="[PROFILE_IMAGE_URL]" alt="[NAME]" class="profile-image" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Template Instructions -->
+    <div class="preview-info">
+        <h4>📋 Template Placeholders - Replace These Values:</h4>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li><span class="template-value">[LOGO_URL]</span> - Voxmation logo URL (e.g., https://res.cloudinary.com/...)</li>
+            <li><span class="template-value">[NAME]</span> - Full name (e.g., BRUNO SANTOS)</li>
+            <li><span class="template-value">[JOB_TITLE]</span> - Job title (e.g., Sales Development Representative)</li>
+            <li><span class="template-value">[PHONE_NUMBER]</span> - Phone tel: format (e.g., +18446877999)</li>
+            <li><span class="template-value">[PHONE_DISPLAY]</span> - Phone display format (e.g., +1 844-687-7999 Ext 1005)</li>
+            <li><span class="template-value">[EMAIL]</span> - Email address (e.g., bruno@voxmation.com)</li>
+            <li><span class="template-value">[WEBSITE_URL]</span> - Full website URL (e.g., https://www.voxmation.com)</li>
+            <li><span class="template-value">[WEBSITE_DISPLAY]</span> - Website display (e.g., www.voxmation.com)</li>
+            <li><span class="template-value">[PROFILE_IMAGE_URL]</span> - Profile photo URL from Cloudinary</li>
+            <li><span class="template-value">[CTA_URL]</span> - Call-to-action link (e.g., https://www.voxmation.com/trial)</li>
+        </ul>
+    </div>
+
+    <div class="preview-info" style="background-color: #d4edda; border-color: #28a745; color: #155724; margin-top: 20px;">
+        <h4>✅ Next Steps:</h4>
+        <ol style="margin-left: 20px; line-height: 1.8;">
+            <li>Replace all <span class="template-value">[PLACEHOLDER]</span> values above</li>
+            <li>Open the file in a browser to preview</li>
+            <li>Copy the updated HTML and use in <strong>email-signature-inline.html</strong></li>
+            <li>Paste into your email client signature settings</li>
+            <li>Send a test email to verify it looks correct</li>
+        </ol>
+    </div>
+
+    <!-- Example Filled Values -->
+    <div class="preview-info" style="background-color: #e3f2fd; border-color: #2196f3; color: #1565c0; margin-top: 20px;">
+        <h4>📝 Example Values (Reference):</h4>
+        <ul style="margin-left: 20px; line-height: 1.8; font-size: 12px;">
+            <li><strong>[LOGO_URL]</strong> = https://res.cloudinary.com/YOUR-ACCOUNT/image/upload/v1/voxmation-logo.png</li>
+            <li><strong>[PROFILE_IMAGE_URL]</strong> = https://res.cloudinary.com/YOUR-ACCOUNT/image/upload/v1/bruno-santos.jpg</li>
+            <li><strong>[PHONE_NUMBER]</strong> = +18446877999 (for tel: link)</li>
+            <li><strong>[PHONE_DISPLAY]</strong> = +1 844-687-7999 Ext 1005 (for display)</li>
+            <li><strong>[CTA_URL]</strong> = https://www.voxmation.com/trial</li>
+        </ul>
+    </div>
+</body>
+</html>
