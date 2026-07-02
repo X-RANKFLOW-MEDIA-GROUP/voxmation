@@ -33,6 +33,7 @@ COPY postcss.config.js ./
 COPY tailwind.config.ts ./
 COPY eslint.config.* ./
 COPY components.json ./
+COPY index.html ./
 
 # Copy source directories
 COPY src ./src
