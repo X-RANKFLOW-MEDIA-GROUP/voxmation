@@ -21,14 +21,14 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
+        manualChunks: (id) => {
           // Split major dependencies into separate chunks
-          react: ["react", "react-dom"],
-          router: ["react-router-dom"],
-          motion: ["framer-motion"],
-          query: ["@tanstack/react-query"],
-          icons: ["lucide-react"],
-          ui: ["@radix-ui/primitive", "@radix-ui/slot"],
+          if (id.includes("node_modules/react")) return "react";
+          if (id.includes("node_modules/react-router-dom")) return "router";
+          if (id.includes("node_modules/framer-motion")) return "motion";
+          if (id.includes("node_modules/@tanstack/react-query")) return "query";
+          if (id.includes("node_modules/lucide-react")) return "icons";
+          if (id.includes("node_modules/@radix-ui")) return "ui";
         },
       },
     },
