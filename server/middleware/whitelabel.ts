@@ -11,8 +11,8 @@ const accountCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
 /**
  * Types para extensão do Express Request
  */
-// eslint-disable-next-line @typescript-eslint/no-namespace
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
     interface Request {
       account?: AccountRecord;
