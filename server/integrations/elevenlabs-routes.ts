@@ -5,7 +5,7 @@
  * Integrates ElevenLabs voice generation with Twilio webhooks
  */
 
-import { Router, Request, Response } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import {
   ElevenLabsVoiceGenerator,
   IVRMenuBuilder,
@@ -468,7 +468,7 @@ export function createElevenLabsRouter(voiceGenerator: ElevenLabsVoiceGenerator)
  * Middleware to parse Twilio webhook data
  */
 export function twilioWebhookMiddleware() {
-  return (req: Request, res: Response, next: Function) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     // Parse form-encoded body for Twilio
     if (req.is("application/x-www-form-urlencoded")) {
       // Parse already done by express.urlencoded()
@@ -482,7 +482,7 @@ export function twilioWebhookMiddleware() {
  * (Optional - implement if needed)
  */
 export function verifyTwilioSignature(authToken: string) {
-  return (req: Request, res: Response, next: Function) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     // Implementation of Twilio signature verification
     // See: https://www.twilio.com/docs/usage/webhooks/webhooks-security
     next();

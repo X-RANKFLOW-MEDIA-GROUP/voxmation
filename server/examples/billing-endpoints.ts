@@ -9,6 +9,8 @@
  * Both USD and EUR currencies are supported
  */
 
+import * as crypto from "crypto";
+
 // =============================================================================
 // 1. CREATE CHECKOUT SESSION
 // =============================================================================
@@ -302,8 +304,6 @@ export function verifyWebhookSignature(
   signature: string,
   secret: string
 ): boolean {
-  const crypto = require("crypto");
-
   const [timestamp, signedContent] = signature.split(",").map((pair: string) => {
     const [key, value] = pair.split("=");
     return value;

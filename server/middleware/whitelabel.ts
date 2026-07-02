@@ -11,6 +11,7 @@ const accountCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
 /**
  * Types para extensão do Express Request
  */
+// eslint-disable-next-line @typescript-eslint/no-namespace
 declare global {
   namespace Express {
     interface Request {
