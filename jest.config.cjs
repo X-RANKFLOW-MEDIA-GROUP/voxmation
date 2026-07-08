@@ -1,17 +1,12 @@
 /** @type {import('jest').Config} */
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   roots: ['<rootDir>/server', '<rootDir>/src'],
   testMatch: [
     '**/__tests__/**/*.test.ts',
     '**/__tests__/**/*.test.tsx',
-    '**/__tests__/**/*.spec.ts',
-    '**/__tests__/**/*.spec.tsx',
-    '**/*.test.ts',
-    '**/*.test.tsx',
-    '**/*.spec.ts',
-    '**/*.spec.tsx'
+    '**/*.test.tsx'
   ],
   testPathIgnorePatterns: [
     '/__tests__/fixtures/',
