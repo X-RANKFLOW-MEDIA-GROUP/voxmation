@@ -8,19 +8,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/src/components/ui/table';
+} from '@/components/ui/table';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuCheckboxItem,
-} from '@/src/components/ui/dropdown-menu';
-import { Button } from '@/src/components/ui/button';
-import { Input } from '@/src/components/ui/input';
-import { Badge } from '@/src/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/src/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/src/components/ui/tabs';
+} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChevronDown, Filter, Phone, Clock, AlertCircle, CheckCircle, Play, Pause, Volume2 } from 'lucide-react';
 import { Call, CallRecording, CallTranscription, CallDirection, CallStatus } from '@/types/calls_and_voice.types';
 import { format } from 'date-fns';
