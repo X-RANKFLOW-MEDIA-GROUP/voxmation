@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { render, screen, within, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { CallHistory } from './CallHistory';
 import { Call, CallRecording, CallTranscription, CallStatus } from '@/types/calls_and_voice.types';
