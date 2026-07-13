@@ -52,3 +52,29 @@ export const loginRateLimiter = rateLimit({
     });
   },
 });
+
+// Rate limiter for webhook endpoints
+export const webhookRateLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 100, // 100 requests per minute
+  keyGenerator: (req, _res) => {
+    return (
+      (req.headers["x-forwarded-for"] as string)?.split(",")[0] ||
+      req.ip ||
+      "unknown"
+    );
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: (_req, _res) => {
+    // Skip rate limiting in development
+    return process.env.NODE_ENV === "development";
+  },
+  handler: (_req, res) => {
+    res.status(429).json({
+      success: false,
+      message: "Webhook rate limit exceeded. Please try again later.",
+      error: "WEBHOOK_RATE_LIMIT_EXCEEDED",
+    });
+  },
+});

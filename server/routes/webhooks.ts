@@ -1,5 +1,6 @@
 import express, { Router, Request, Response, raw } from "express";
 import { supabase } from "../supabase";
+import { webhookRateLimiter } from "../middleware/rateLimiter";
 import {
   verifyAndHandleWebhook,
   registerWebhookHandlers,
@@ -577,6 +578,7 @@ registerTwilioHandlers(twilioWebhookHandlers);
 router.post(
   "/stripe",
   raw({ type: "application/json" }),
+  webhookRateLimiter,
   async (req: Request, res: Response) => {
     const signature = req.headers["stripe-signature"];
 
@@ -643,7 +645,7 @@ router.post(
  * Supports events: call status changes (ringing, answered, completed), recordings, message status
  * No signature verification required - Twilio uses URL-based auth in production
  */
-router.post("/twilio", express.urlencoded({ extended: true }), async (req: Request, res: Response) => {
+router.post("/twilio", express.urlencoded({ extended: true }), webhookRateLimiter, async (req: Request, res: Response) => {
   try {
     // Twilio sends form-encoded data, not JSON
     const body = req.body;

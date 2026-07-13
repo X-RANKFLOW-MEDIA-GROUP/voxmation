@@ -359,11 +359,11 @@ async function processEmailQueue(campaignId: string) {
       const recipient = campaign.recipients.find((r) => r.email === item.recipientEmail);
       if (recipient?.variables) {
         Object.entries(recipient.variables).forEach(([key, value]) => {
-          const placeholder = `{{${key}}}`;
-          personalizedSubject = personalizedSubject.replace(new RegExp(placeholder, "g"), value);
-          personalizedHtml = personalizedHtml.replace(new RegExp(placeholder, "g"), value);
+          const placeholder = `{{${key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}}}`;
+          personalizedSubject = personalizedSubject.replace(new RegExp(placeholder, "g"), String(value));
+          personalizedHtml = personalizedHtml.replace(new RegExp(placeholder, "g"), String(value));
           if (personalizedText) {
-            personalizedText = personalizedText.replace(new RegExp(placeholder, "g"), value);
+            personalizedText = personalizedText.replace(new RegExp(placeholder, "g"), String(value));
           }
         });
       }
