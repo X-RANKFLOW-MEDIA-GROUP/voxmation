@@ -1,6 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, LogIn } from "lucide-react";
+import { Menu, X, LogIn, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -27,9 +27,11 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loginDropdownOpen, setLoginDropdownOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const { scrollY } = useScroll();
   const [lastY, setLastY] = useState(0);
+  const loginDropdownRef = useRef<HTMLDivElement>(null);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const diff = latest - lastY;
@@ -39,6 +41,17 @@ const Navbar = () => {
     if (diff > 5) setHidden(true);
     if (diff < -5) setHidden(false);
   });
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (loginDropdownRef.current && !loginDropdownRef.current.contains(event.target as Node)) {
+        setLoginDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const scrollTo = useCallback((href: string, isRoute?: boolean) => {
     setMobileOpen(false);
@@ -118,10 +131,74 @@ const Navbar = () => {
             </div>
 
             <div className="hidden lg:flex items-center gap-3">
-              <Button variant="portal" size="sm" onClick={() => navigate("/portal")}>
-                  <LogIn className="h-3 w-3 mr-1" />
-                  Client Portal
-              </Button>
+              <div className="relative" ref={loginDropdownRef}>
+                <Button
+                  variant="portal"
+                  size="sm"
+                  onClick={() => setLoginDropdownOpen(!loginDropdownOpen)}
+                  className="flex items-center gap-1"
+                >
+                  <LogIn className="h-3 w-3" />
+                  Login
+                  <ChevronDown className={`h-3 w-3 transition-transform ${loginDropdownOpen ? 'rotate-180' : ''}`} />
+                </Button>
+
+                <AnimatePresence>
+                  {loginDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 mt-2 w-48 rounded-lg glass-card border border-border/60 shadow-xl overflow-hidden z-50"
+                    >
+                      <div className="py-2">
+                        <button
+                          onClick={() => {
+                            navigate("/login");
+                            setLoginDropdownOpen(false);
+                          }}
+                          className="w-full text-left px-4 py-2.5 text-sm text-silver hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2"
+                        >
+                          <LogIn className="h-4 w-4" />
+                          User Login
+                        </button>
+                        <button
+                          onClick={() => {
+                            navigate("/admin/login");
+                            setLoginDropdownOpen(false);
+                          }}
+                          className="w-full text-left px-4 py-2.5 text-sm text-silver hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2"
+                        >
+                          <LogIn className="h-4 w-4" />
+                          Admin Login
+                        </button>
+                        <div className="border-t border-border/40 my-2" />
+                        <button
+                          onClick={() => {
+                            navigate("/trial/start");
+                            setLoginDropdownOpen(false);
+                          }}
+                          className="w-full text-left px-4 py-2.5 text-sm text-silver hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2"
+                        >
+                          <span>🚀</span>
+                          Start Trial
+                        </button>
+                        <button
+                          onClick={() => {
+                            navigate("/demo");
+                            setLoginDropdownOpen(false);
+                          }}
+                          className="w-full text-left px-4 py-2.5 text-sm text-silver hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2"
+                        >
+                          <span>📹</span>
+                          Demo
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
               <Button variant="neon" size="sm" asChild>
                 <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">Book a Demo</a>
               </Button>
@@ -166,8 +243,18 @@ const Navbar = () => {
                   {l.label}
                 </motion.button>
               ))}
-              <button onClick={() => { setMobileOpen(false); navigate("/portal"); }} className="block w-full text-left text-sm py-3 px-4 text-silver hover:text-foreground font-mono transition-colors">
-                Client Portal
+              <div className="border-t border-border/40 my-2" />
+              <button onClick={() => { setMobileOpen(false); navigate("/login"); }} className="block w-full text-left text-sm py-3 px-4 text-silver hover:text-primary hover:bg-primary/5 font-mono transition-colors rounded-xl flex items-center gap-2">
+                <LogIn className="h-4 w-4" />
+                User Login
+              </button>
+              <button onClick={() => { setMobileOpen(false); navigate("/admin/login"); }} className="block w-full text-left text-sm py-3 px-4 text-silver hover:text-primary hover:bg-primary/5 font-mono transition-colors rounded-xl flex items-center gap-2">
+                <LogIn className="h-4 w-4" />
+                Admin Login
+              </button>
+              <button onClick={() => { setMobileOpen(false); navigate("/trial/start"); }} className="block w-full text-left text-sm py-3 px-4 text-silver hover:text-primary hover:bg-primary/5 font-mono transition-colors rounded-xl flex items-center gap-2">
+                <span>🚀</span>
+                Start Trial
               </button>
             </div>
             <div className="px-5 pb-4">

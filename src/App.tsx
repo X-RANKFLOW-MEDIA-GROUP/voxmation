@@ -56,6 +56,8 @@ const VerticalPage = lazy(() => import("./pages/VerticalPage"));
 const StateVerticalPage = lazy(() => import("./pages/StateVerticalPage"));
 const ComparisonPage = lazy(() => import("./pages/ComparisonPage"));
 const ResourcePage = lazy(() => import("./pages/ResourcePage"));
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const ApplicationDashboard = lazy(() => import("./pages/admin/ApplicationDashboard"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -64,6 +66,12 @@ const PortalPage = ({ children }: { children: React.ReactNode }) => (
   <ProtectedRoute>
     <PortalLayout>{children}</PortalLayout>
   </ProtectedRoute>
+);
+
+const AdminPage = ({ children }: { children: React.ReactNode }) => (
+  <ProtectedAdminRoute>
+    {children}
+  </ProtectedAdminRoute>
 );
 
 const App = () => {
@@ -103,6 +111,7 @@ const App = () => {
                 <Route path="/trial-builder" element={<TrialBuilder />} />
                 <Route path="/trial/start" element={<TrialStart />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
 
                 {/* Portal routes - protected */}
                 <Route path="/portal" element={<PortalPage><Dashboard /></PortalPage>} />
@@ -118,6 +127,9 @@ const App = () => {
                 <Route path="/portal/campaigns" element={<PortalPage><Campaigns /></PortalPage>} />
                 <Route path="/portal/team-management" element={<PortalPage><TeamManagement /></PortalPage>} />
                 <Route path="/portal/analytics" element={<PortalPage><Analytics /></PortalPage>} />
+
+                {/* Admin routes - protected */}
+                <Route path="/admin/applications" element={<AdminPage><ApplicationDashboard /></AdminPage>} />
 
                 {/* Comparison Pages - specific pattern before dynamic */}
                 <Route path="/vs/:slug" element={<ComparisonPage />} />
