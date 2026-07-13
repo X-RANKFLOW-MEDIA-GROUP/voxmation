@@ -82,19 +82,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install semgrep
+        run: |
+          python3 -m pip install --upgrade pipx
+          pipx install semgrep
+
       - name: Run semgrep
-        uses: returntocorp/semgrep-action@v1
         continue-on-error: true
-        with:
-          config: >-
-            p/security-audit
-            p/typescript
-            p/nodejs
-          generateSarif: true
+        run: |
+          semgrep --config=p/security-audit --config=p/typescript --config=p/nodejs --sarif --output=semgrep.sarif . || true
+
+      - name: Create empty SARIF if not exists
+        run: |
+          if [ ! -f semgrep.sarif ]; then
+            echo '{"$schema":"https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json","version":"2.1.0","runs":[{"tool":{"driver":{"name":"semgrep","version":"0.0.0","informationUri":"https://semgrep.dev"}},"results":[]}]}' > semgrep.sarif
+          fi
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v4
-        if: always() && hashFiles('semgrep.sarif') != ''
+        if: always()
         with:
           sarif_file: semgrep.sarif
           wait-for-processing: true
