@@ -1,16 +1,12 @@
-import rateLimit from "express-rate-limit";
+import rateLimit, { ipKeyGenerator } from "express-rate-limit";
 
 // Rate limiter for job applications
 export const applicationRateLimiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW || "3600000"), // 1 hour
   max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || "5"), // 5 requests per window
   keyGenerator: (req, _res) => {
-    // Use forwarded IP if behind proxy
-    return (
-      (req.headers["x-forwarded-for"] as string)?.split(",")[0] ||
-      req.ip ||
-      "unknown"
-    );
+    // Use provided ipKeyGenerator for proper IPv6 handling
+    return ipKeyGenerator(req);
   },
   message: {
     error: "Too many applications submitted. Please try again later.",
@@ -37,7 +33,8 @@ export const loginRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 5, // 5 login attempts
   keyGenerator: (req, _res) => {
-    return req.body?.email || req.ip || "unknown";
+    // Use email if available, fallback to IP for proper IPv6 handling
+    return req.body?.email || ipKeyGenerator(req);
   },
   message: {
     error: "Too many login attempts. Please try again later.",
@@ -58,11 +55,8 @@ export const webhookRateLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
   max: 100, // 100 requests per minute
   keyGenerator: (req, _res) => {
-    return (
-      (req.headers["x-forwarded-for"] as string)?.split(",")[0] ||
-      req.ip ||
-      "unknown"
-    );
+    // Use provided ipKeyGenerator for proper IPv6 handling
+    return ipKeyGenerator(req);
   },
   standardHeaders: true,
   legacyHeaders: false,
