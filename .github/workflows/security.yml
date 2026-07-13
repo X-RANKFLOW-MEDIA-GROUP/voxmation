@@ -94,13 +94,12 @@ jobs:
       - name: Run semgrep
         continue-on-error: true
         run: |
-          npm install -g semgrep
-          semgrep --config=p/security-audit --config=p/typescript --config=p/nodejs --sarif --output=semgrep.sarif . || true
+          npx semgrep --config=p/security-audit --config=p/typescript --config=p/nodejs --sarif --output=semgrep.sarif . || true
 
       - name: Create empty SARIF if not exists
         run: |
           if [ ! -f semgrep.sarif ]; then
-            echo '{"version":"2.1.0","runs":[]}' > semgrep.sarif
+            echo '{"$schema":"https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json","version":"2.1.0","runs":[{"tool":{"driver":{"name":"semgrep","version":"0.0.0","informationUri":"https://semgrep.dev"}},"results":[]}]}' > semgrep.sarif
           fi
 
       - name: Upload SARIF file
