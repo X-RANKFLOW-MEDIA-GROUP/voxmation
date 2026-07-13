@@ -90,7 +90,7 @@ const pricingFaqs = [
   { q: "Are there long-term contracts?", a: "No. All plans are month-to-month. Cancel anytime. We keep you because of results, not contracts." },
   { q: "What happens if I exceed my call limit?", a: "Additional calls are billed at a competitive per-call rate. We'll notify you before you hit your limit so there are no surprises." },
   { q: "Can I change plans later?", a: "Absolutely. Upgrade or downgrade at any time. Changes take effect on your next billing cycle." },
-  { q: "Do you offer a free trial?", a: "Yes. Every plan comes with a 14-day free trial. No credit card required to start." },
+  { q: "Do you offer a free trial?", a: "Yes. Every plan comes with a 7-day free trial. The seven days begin only after your agent passes testing and goes live." },
   { q: "What's your refund policy?", a: "We offer a 30-day money-back guarantee. If you're not seeing results, we'll refund your first month — no questions asked." },
 ];
 

@@ -191,7 +191,7 @@ const CaseStudies = () => {
                 Your business could be next.
               </h2>
               <p className="text-silver text-lg mb-8 max-w-2xl mx-auto">
-                Start with a free 14-day trial. See exactly how much revenue you can recover with Voxmation. No credit card required.
+                Start with a free 7-day trial. Your seven days begin only after the agent is tested and live. No credit card required.
               </p>
               <Button variant="neon" size="xl" asChild className="gap-2">
                 <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">

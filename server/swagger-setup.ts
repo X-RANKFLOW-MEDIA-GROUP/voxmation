@@ -3,6 +3,9 @@ import swaggerUi from 'swagger-ui-express';
 import { Express } from 'express';
 import path from 'path';
 import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
 
 /**
  * Setup Swagger/OpenAPI documentation for API
@@ -11,7 +14,7 @@ import fs from 'fs';
 export function setupSwagger(app: Express) {
   try {
     // Load swagger.json file
-    const swaggerPath = path.join(__dirname, 'swagger.json');
+    const swaggerPath = path.join(currentDirectory, 'swagger.json');
     const swaggerDocument = JSON.parse(fs.readFileSync(swaggerPath, 'utf-8'));
 
     // Serve Swagger UI
@@ -24,14 +27,6 @@ export function setupSwagger(app: Express) {
           displayOperationId: true,
           docExpansion: 'list',
           deepLinking: true,
-          presets: [
-            swaggerUi.presets.apis,
-            swaggerUi.SwaggerUIBundle.presets.SwaggerUIBundle,
-          ],
-          plugins: [
-            swaggerUi.SwaggerUIBundle.plugins.DownloadUrl,
-          ],
-          layout: 'StandaloneLayout',
         },
         customCss: `
           .topbar { display: none !important; }

@@ -17,16 +17,6 @@ interface Booking {
   created_at: string;
 }
 
-const demoBookings: Booking[] = [
-  { id: "1", title: "AC Repair — Sarah Mitchell", description: "Emergency AC unit not cooling", scheduled_at: new Date(Date.now() + 3600000).toISOString(), duration_minutes: 60, status: "confirmed", service_type: "HVAC", created_at: new Date().toISOString() },
-  { id: "2", title: "Panel Upgrade Estimate — James Wilson", description: "200A panel upgrade, residential", scheduled_at: new Date(Date.now() + 86400000).toISOString(), duration_minutes: 90, status: "confirmed", service_type: "Electrical", created_at: new Date().toISOString() },
-  { id: "3", title: "Plumbing Repair — Maria Gonzalez", description: "Kitchen sink leak", scheduled_at: new Date(Date.now() + 172800000).toISOString(), duration_minutes: 60, status: "confirmed", service_type: "Plumbing", created_at: new Date().toISOString() },
-  { id: "4", title: "Maintenance Check — David Chen", description: "Annual HVAC maintenance", scheduled_at: new Date(Date.now() + 259200000).toISOString(), duration_minutes: 45, status: "confirmed", service_type: "HVAC", created_at: new Date().toISOString() },
-  { id: "5", title: "Water Heater Install — Emily Rodriguez", description: "50gal tank replacement", scheduled_at: new Date(Date.now() - 86400000).toISOString(), duration_minutes: 120, status: "completed", service_type: "Plumbing", created_at: new Date(Date.now() - 172800000).toISOString() },
-  { id: "6", title: "Drain Cleaning — Michael Park", description: "Kitchen drain clog", scheduled_at: new Date(Date.now() - 172800000).toISOString(), duration_minutes: 60, status: "completed", service_type: "Plumbing", created_at: new Date(Date.now() - 259200000).toISOString() },
-  { id: "7", title: "AC Tune-Up — Robert K.", description: "Seasonal maintenance", scheduled_at: new Date(Date.now() - 43200000).toISOString(), duration_minutes: 45, status: "no_show", service_type: "HVAC", created_at: new Date(Date.now() - 86400000).toISOString() },
-];
-
 const formatDate = (iso: string) => {
   const d = new Date(iso);
   return {
@@ -44,7 +34,7 @@ const Bookings = () => {
     if (!user) return;
     const fetchBookings = async () => {
       const { data } = await supabase.from("bookings").select("*").eq("user_id", user.id).order("scheduled_at", { ascending: true });
-      setBookings(data && data.length > 0 ? data : demoBookings);
+      setBookings(data || []);
     };
     fetchBookings();
 
@@ -60,6 +50,8 @@ const Bookings = () => {
 
   const upcoming = bookings.filter((b) => new Date(b.scheduled_at) >= new Date() && b.status !== "cancelled");
   const past = bookings.filter((b) => new Date(b.scheduled_at) < new Date() || b.status === "cancelled");
+  const noShows = bookings.filter((b) => b.status === "no_show").length;
+  const averageDuration = bookings.length ? Math.round(bookings.reduce((sum, booking) => sum + (booking.duration_minutes || 0), 0) / bookings.length) : 0;
 
   return (
     <div>
@@ -72,15 +64,16 @@ const Bookings = () => {
       </motion.div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <MetricCard icon={CalendarCheck} label="This Week" value={upcoming.length} change="+3 vs last" delay={0} />
-        <MetricCard icon={Calendar} label="Total Booked" value={bookings.length} change="+19%" delay={0.05} />
-        <MetricCard icon={CalendarX} label="No-Shows" value={1} change="-89%" delay={0.1} />
-        <MetricCard icon={Clock} label="Avg Duration" value="62 min" delay={0.15} />
+        <MetricCard icon={CalendarCheck} label="Upcoming" value={upcoming.length} delay={0} />
+        <MetricCard icon={Calendar} label="Total Booked" value={bookings.length} delay={0.05} />
+        <MetricCard icon={CalendarX} label="No-Shows" value={noShows} delay={0.1} />
+        <MetricCard icon={Clock} label="Avg Duration" value={`${averageDuration} min`} delay={0.15} />
       </div>
 
       {/* Upcoming */}
       <h2 className="text-sm font-mono font-bold text-foreground tracking-wide mb-4">Upcoming</h2>
       <div className="space-y-3 mb-10">
+        {upcoming.length === 0 && <div className="surface-card rounded-2xl p-8 text-center text-sm text-silver">No upcoming bookings.</div>}
         {upcoming.map((b, i) => {
           const f = formatDate(b.scheduled_at);
           return (
@@ -110,6 +103,7 @@ const Bookings = () => {
       {/* Past */}
       <h2 className="text-sm font-mono font-bold text-foreground tracking-wide mb-4">Past</h2>
       <div className="space-y-2">
+        {past.length === 0 && <div className="surface-card rounded-2xl p-8 text-center text-sm text-silver">No past bookings.</div>}
         {past.map((b, i) => {
           const f = formatDate(b.scheduled_at);
           return (

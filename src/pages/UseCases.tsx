@@ -196,7 +196,7 @@ const UseCases = () => {
                 Ready to eliminate missed calls?
               </h2>
               <p className="text-silver text-lg mb-8 max-w-2xl mx-auto">
-                Start your free 14-day trial today. No credit card required. See exactly how much revenue you can recover.
+                Start your free 7-day trial today. The timer begins after testing and go-live. No credit card required.
               </p>
               <Button variant="neon" size="xl" asChild className="gap-2">
                 <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">

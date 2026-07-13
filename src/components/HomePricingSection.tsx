@@ -69,7 +69,7 @@ const HomePricingSection = () => {
           </Reveal>
           <Reveal delay={0.15}>
             <p className="text-silver text-lg max-w-2xl mx-auto leading-relaxed">
-              Start with a 14-day free trial. No credit card required, no setup fees, and no long-term contracts.
+              Start with a 7-day free trial. Your seven days begin after testing and go-live. No credit card required.
             </p>
           </Reveal>
         </div>

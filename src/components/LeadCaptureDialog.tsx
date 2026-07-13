@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { Loader2, ArrowRight } from "lucide-react";
-import { createTrial } from "@/lib/trial-service";
+import { supabase } from "@/integrations/supabase/client";
 
 const leadSchema = z.object({
   full_name: z.string().trim().min(1, "Full name is required").max(100),
@@ -63,17 +63,16 @@ const LeadCaptureDialog = ({ open, onOpenChange, pageSource = "website" }: LeadC
 
     setLoading(true);
     try {
-      await createTrial({
-        email: result.data.email,
-        businessName: result.data.business_name,
-        industry: result.data.industry,
-        fullName: result.data.full_name,
-        phone: result.data.phone,
+      const { error } = await supabase.from("website_leads").insert({
+        ...result.data,
+        source: "website",
+        page_source: pageSource,
       });
+      if (error) throw error;
 
       toast({
-        title: "🎉 Trial Activated!",
-        description: "Check your email for your API key. You have 7 days of free access with full features!",
+        title: "Demo request received",
+        description: "Choose a meeting time next. If you accept the trial, we will send a secure onboarding link. The seven days start only after go-live.",
       });
       onOpenChange(false);
       setForm({ full_name: "", business_name: "", email: "", phone: "", industry: "", monthly_call_volume: "" });
@@ -83,7 +82,7 @@ const LeadCaptureDialog = ({ open, onOpenChange, pageSource = "website" }: LeadC
     } catch (error) {
       console.error("Trial creation error:", error);
       toast({
-        title: "Error Creating Trial",
+        title: "Could not submit request",
         description: "Please try again or contact us for support.",
         variant: "destructive",
       });

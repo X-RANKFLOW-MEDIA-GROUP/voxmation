@@ -129,7 +129,7 @@ const Blog = () => {
                 Ready to transform your business?
               </h2>
               <p className="text-silver text-lg mb-8 max-w-2xl mx-auto">
-                Stop reading about AI voice agents. Start using them. Free 14-day trial. No credit card required.
+                Stop reading about AI voice agents. Start using them. Free 7-day trial. No credit card required.
               </p>
               <Button variant="neon" size="xl" asChild className="gap-2">
                 <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">

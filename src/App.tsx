@@ -28,6 +28,8 @@ const ComparePage = lazy(() => import("./pages/ComparePage"));
 const AlternativePage = lazy(() => import("./pages/AlternativePage"));
 const TrialBuilder = lazy(() => import("./pages/TrialBuilder"));
 const TrialStart = lazy(() => import("./pages/TrialStart"));
+const TrialOnboarding = lazy(() => import("./pages/portal/TrialOnboarding"));
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
 const Pricing = lazy(() => import("./pages/Pricing"));
 const ROICalculator = lazy(() => import("./pages/ROICalculator"));
 const Auth = lazy(() => import("./pages/Auth"));
@@ -42,7 +44,6 @@ const Automations = lazy(() => import("./pages/portal/Automations"));
 const Integrations = lazy(() => import("./pages/portal/Integrations"));
 const Billing = lazy(() => import("./pages/portal/Billing"));
 const Support = lazy(() => import("./pages/portal/Support"));
-const Campaigns = lazy(() => import("./pages/portal/Campaigns"));
 const TeamManagement = lazy(() => import("./pages/portal/TeamManagement"));
 const Analytics = lazy(() => import("./pages/portal/Analytics"));
 const UseCases = lazy(() => import("./pages/UseCases"));
@@ -100,7 +101,8 @@ const App = () => {
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/auth" element={<Auth />} />
-                <Route path="/trial-builder" element={<TrialBuilder />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/trial-builder" element={<ProtectedAdminRoute><TrialBuilder /></ProtectedAdminRoute>} />
                 <Route path="/trial/start" element={<TrialStart />} />
                 <Route path="/login" element={<Login />} />
 
@@ -115,9 +117,9 @@ const App = () => {
                 <Route path="/portal/integrations" element={<PortalPage><Integrations /></PortalPage>} />
                 <Route path="/portal/billing" element={<PortalPage><Billing /></PortalPage>} />
                 <Route path="/portal/support" element={<PortalPage><Support /></PortalPage>} />
-                <Route path="/portal/campaigns" element={<PortalPage><Campaigns /></PortalPage>} />
                 <Route path="/portal/team-management" element={<PortalPage><TeamManagement /></PortalPage>} />
                 <Route path="/portal/analytics" element={<PortalPage><Analytics /></PortalPage>} />
+                <Route path="/portal/onboarding" element={<PortalPage><TrialOnboarding /></PortalPage>} />
 
                 {/* Comparison Pages - specific pattern before dynamic */}
                 <Route path="/vs/:slug" element={<ComparisonPage />} />

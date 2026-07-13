@@ -1,63 +1,33 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { PhoneOff, MessageSquare, CheckCircle2, Clock } from "lucide-react";
-import MetricCard from "@/components/portal/MetricCard";
+import { PhoneOff } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 import StatusBadge from "@/components/portal/StatusBadge";
 
-const demoMissedCalls = [
-  { id: "1", phone: "(512) 555-0147", time: "9:47 PM", date: "Today", smsStatus: "delivered", smsText: "Hi! We missed your call. How can we help?", replied: true, replyText: "I need AC repair ASAP", converted: true },
-  { id: "2", phone: "(512) 555-0203", time: "6:12 PM", date: "Today", smsStatus: "delivered", smsText: "Sorry we missed you! Want to schedule a service?", replied: true, replyText: "Yes, tomorrow morning works", converted: true },
-  { id: "3", phone: "(512) 555-0089", time: "2:30 PM", date: "Today", smsStatus: "delivered", smsText: "Hi! We missed your call. How can we help?", replied: false, replyText: "", converted: false },
-  { id: "4", phone: "(512) 555-0331", time: "11:45 AM", date: "Yesterday", smsStatus: "delivered", smsText: "Sorry we missed you! Want to schedule a service?", replied: true, replyText: "What are your prices for drain cleaning?", converted: true },
-  { id: "5", phone: "(512) 555-0176", time: "8:20 PM", date: "Yesterday", smsStatus: "delivered", smsText: "Hi! We missed your call. How can we help?", replied: true, replyText: "Just checking if you service my area", converted: false },
-  { id: "6", phone: "(512) 555-0442", time: "3:15 PM", date: "Yesterday", smsStatus: "delivered", smsText: "Sorry we missed you! Want to schedule a service?", replied: false, replyText: "", converted: false },
-];
+type MissedCall = { id: string; caller_phone: string | null; status: string | null; summary: string | null; created_at: string };
 
-const MissedCalls = () => (
-  <div>
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <div className="flex items-center gap-3 mb-1">
-        <PhoneOff className="h-5 w-5 text-primary/60" />
-        <h1 className="text-2xl md:text-3xl font-display font-bold text-foreground tracking-tight">Missed Call Recovery</h1>
-      </div>
-      <p className="text-silver text-sm font-mono mb-8">Automated SMS follow-up on every missed call</p>
-    </motion.div>
+const MissedCalls = () => {
+  const { user } = useAuth();
+  const [calls, setCalls] = useState<MissedCall[]>([]);
 
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <MetricCard icon={PhoneOff} label="Missed Calls" value={23} change="This month" changeType="neutral" delay={0} />
-      <MetricCard icon={MessageSquare} label="SMS Sent" value={23} change="100%" delay={0.05} />
-      <MetricCard icon={CheckCircle2} label="Replied" value={16} change="70%" delay={0.1} />
-      <MetricCard icon={Clock} label="Converted" value={11} change="48%" delay={0.15} />
-    </div>
+  useEffect(() => {
+    if (!user) return;
+    const load = async () => {
+      const { data } = await supabase.from("calls").select("id, caller_phone, status, summary, created_at").eq("user_id", user.id).eq("is_test", false).in("status", ["missed", "no-answer", "failed"]).order("created_at", { ascending: false });
+      setCalls((data || []) as MissedCall[]);
+    };
+    void load();
+    const channel = supabase.channel("missed-calls-realtime").on("postgres_changes", { event: "*", schema: "public", table: "calls", filter: `user_id=eq.${user.id}` }, load).subscribe();
+    return () => { void supabase.removeChannel(channel); };
+  }, [user]);
 
-    <div className="surface-card rounded-2xl overflow-hidden">
-      {/* Table Header */}
-      <div className="grid grid-cols-12 gap-4 px-6 py-3 border-b border-border/50 text-[10px] font-mono text-silver tracking-wider uppercase">
-        <span className="col-span-2">Phone</span>
-        <span className="col-span-1">Time</span>
-        <span className="col-span-3">SMS Sent</span>
-        <span className="col-span-3">Reply</span>
-        <span className="col-span-1">Status</span>
-        <span className="col-span-2">Outcome</span>
-      </div>
-
-      {demoMissedCalls.map((call, i) => (
-        <motion.div
-          key={call.id}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: i * 0.05 }}
-          className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-border/30 last:border-0 hover:bg-primary/3 transition-colors items-center"
-        >
-          <span className="col-span-2 text-xs font-mono text-foreground">{call.phone}</span>
-          <span className="col-span-1 text-[11px] font-mono text-silver">{call.time}<br /><span className="text-silver/50">{call.date}</span></span>
-          <span className="col-span-3 text-xs font-mono text-silver truncate">{call.smsText}</span>
-          <span className="col-span-3 text-xs font-mono text-silver-bright truncate">{call.replied ? call.replyText : "—"}</span>
-          <span className="col-span-1"><StatusBadge status={call.replied ? "recovered" : "missed"} /></span>
-          <span className="col-span-2"><StatusBadge status={call.converted ? "booked" : call.replied ? "contacted" : "new"} /></span>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-);
+  return <div className="space-y-8">
+    <motion.header initial={{ opacity: 0 }} animate={{ opacity: 1 }}><div className="flex items-center gap-3"><PhoneOff className="h-5 w-5 text-primary/60" /><h1 className="text-2xl md:text-3xl font-display font-bold">Missed Calls</h1></div><p className="text-silver text-sm font-mono mt-2">Unanswered production calls requiring follow-up.</p></motion.header>
+    <section className="surface-card rounded-2xl overflow-hidden">
+      {calls.length === 0 ? <div className="p-12 text-center text-sm text-silver">No missed calls yet.</div> : calls.map((call) => <div key={call.id} className="grid md:grid-cols-[1fr_1fr_2fr] gap-4 px-6 py-4 border-b border-border/30 last:border-0"><div><p className="text-sm font-mono">{call.caller_phone || "Unknown caller"}</p><p className="text-xs text-silver mt-1">{new Date(call.created_at).toLocaleString()}</p></div><div><StatusBadge status={call.status || "missed"} /></div><p className="text-sm text-silver">{call.summary || "No summary available."}</p></div>)}
+    </section>
+  </div>;
+};
 
 export default MissedCalls;

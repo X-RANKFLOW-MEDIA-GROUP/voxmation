@@ -310,8 +310,11 @@ export async function cancelSubscription(
   try {
     const stripeInstance = getStripe();
 
-    const cancelled = await stripeInstance.subscriptions.del(subscriptionId, {
-      invoice_now: !atPeriodEnd,
+    if (atPeriodEnd) {
+      return stripeInstance.subscriptions.update(subscriptionId, { cancel_at_period_end: true });
+    }
+    const cancelled = await stripeInstance.subscriptions.cancel(subscriptionId, {
+      invoice_now: true,
     });
 
     console.log(
@@ -501,7 +504,7 @@ export interface StripeWebhookHandlers {
   onSubscriptionDeleted?: (subscription: Stripe.Subscription) => Promise<void>;
   onInvoicePaid?: (invoice: Stripe.Invoice) => Promise<void>;
   onInvoicePaymentFailed?: (invoice: Stripe.Invoice) => Promise<void>;
-  onPaymentSucceeded?: (invoice: Stripe.Invoice) => Promise<void>;
+  onPaymentSucceeded?: (paymentIntent: Stripe.PaymentIntent) => Promise<void>;
   onCustomerCreated?: (customer: Stripe.Customer) => Promise<void>;
   onCustomerDeleted?: (customer: Stripe.Customer) => Promise<void>;
 }
@@ -615,8 +618,7 @@ async function handleStripeWebhookEvent(event: Stripe.Event): Promise<void> {
       // Payment intent events
       case "payment_intent.succeeded":
         if (webhookHandlers.onPaymentSucceeded) {
-          const invoice = event.data.object as Stripe.Invoice;
-          await webhookHandlers.onPaymentSucceeded(invoice);
+          await webhookHandlers.onPaymentSucceeded(event.data.object as Stripe.PaymentIntent);
         }
         console.log("[Stripe Webhook] Payment succeeded");
         break;

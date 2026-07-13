@@ -32,7 +32,7 @@ const industries: Record<string, IndustryData> = {
     headline: "Never Lose a Plumbing Call Again — Even at 2 AM",
     subheadline: "Your AI agent answers every emergency call, qualifies the job, and books the appointment while you sleep.",
     keyword: "AI answering service for plumbers",
-    metaDesc: "AI voice agent for plumbing companies. Answer every call 24/7, book emergency jobs instantly, and never lose revenue to voicemail again. Try free for 14 days.",
+    metaDesc: "AI voice agent for plumbing companies. Answer every call 24/7, book emergency jobs instantly, and never lose revenue to voicemail again. Try free for 7 days.",
     heroScenario: "A burst pipe at midnight. The homeowner is panicking and calls your number. Without Voxmation, they hear voicemail and call the next plumber. With Voxmation, your AI answers instantly, confirms emergency availability, collects info, and books the job.",
     benefits: [
       { title: "24/7 Emergency Booking", desc: "Your AI answers plumbing emergencies around the clock — no missed revenue from after-hours calls." },
@@ -104,7 +104,7 @@ const industries: Record<string, IndustryData> = {
     headline: "First to Respond Wins the Case",
     subheadline: "Your AI qualifies cases, collects intake info, and books consultations — in under 1 second. 24/7.",
     keyword: "AI receptionist for law firms",
-    metaDesc: "AI intake agent for law offices. Qualify cases, collect client info, and book consultations 24/7. First to respond wins. Try free for 14 days.",
+    metaDesc: "AI intake agent for law offices. Qualify cases, collect client info, and book consultations 24/7. First to respond wins. Try free for 7 days.",
     heroScenario: "A potential client calls about a personal injury case at 7 PM. Without AI, your answering service takes a message. You call back 16 hours later — they already hired someone else. With Voxmation, your AI qualifies the case, collects intake info, and books a consultation instantly.",
     benefits: [
       { title: "Instant Case Qualification", desc: "AI identifies case type, urgency, and value — so your team focuses on the best leads." },
@@ -214,7 +214,7 @@ const IndustryPage = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="neon" size="xl" asChild>
                   <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer" className="gap-2">
-                    Start Free 14-Day Trial <ArrowUpRight className="h-4 w-4" />
+                    Start Free 7-Day Trial <ArrowUpRight className="h-4 w-4" />
                   </a>
                 </Button>
                 <Button variant="neon-outline" size="xl" asChild>
@@ -342,7 +342,7 @@ const IndustryPage = () => {
                   Ready to Stop Losing {data.name} Calls?
                 </h2>
                 <p className="text-silver mb-8 max-w-lg mx-auto">
-                  Start your free 14-day trial. No contracts, no setup fees. See results in your first week.
+                  Start your free 7-day trial. No contracts or setup fees. The timer begins after testing and go-live.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button variant="neon" size="xl" asChild>

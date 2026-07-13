@@ -102,13 +102,23 @@ export type Database = {
       }
       calls: {
         Row: {
+          account_id: string | null
+          agent_version: string | null
           call_type: string | null
           caller_name: string | null
           caller_phone: string | null
+          cost_amount: number | null
+          cost_currency: string | null
           created_at: string | null
           duration_seconds: number | null
           id: string
+          is_test: boolean
+          metadata: Json
           outcome: string | null
+          provider: string | null
+          provider_agent_id: string | null
+          provider_call_id: string | null
+          provider_conversation_id: string | null
           recording_url: string | null
           sentiment: string | null
           status: string | null
@@ -117,13 +127,23 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          account_id?: string | null
+          agent_version?: string | null
           call_type?: string | null
           caller_name?: string | null
           caller_phone?: string | null
+          cost_amount?: number | null
+          cost_currency?: string | null
           created_at?: string | null
           duration_seconds?: number | null
           id?: string
+          is_test?: boolean
+          metadata?: Json
           outcome?: string | null
+          provider?: string | null
+          provider_agent_id?: string | null
+          provider_call_id?: string | null
+          provider_conversation_id?: string | null
           recording_url?: string | null
           sentiment?: string | null
           status?: string | null
@@ -132,13 +152,23 @@ export type Database = {
           user_id: string
         }
         Update: {
+          account_id?: string | null
+          agent_version?: string | null
           call_type?: string | null
           caller_name?: string | null
           caller_phone?: string | null
+          cost_amount?: number | null
+          cost_currency?: string | null
           created_at?: string | null
           duration_seconds?: number | null
           id?: string
+          is_test?: boolean
+          metadata?: Json
           outcome?: string | null
+          provider?: string | null
+          provider_agent_id?: string | null
+          provider_call_id?: string | null
+          provider_conversation_id?: string | null
           recording_url?: string | null
           sentiment?: string | null
           status?: string | null
