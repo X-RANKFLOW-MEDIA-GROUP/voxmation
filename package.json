@@ -15,7 +15,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
+    "vercel:env": "node scripts/export-vercel-env.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
