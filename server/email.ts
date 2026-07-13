@@ -59,10 +59,10 @@ export const sendEmail = async (options: SendEmailOptions): Promise<boolean> => 
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log(`✅ Email sent to ${options.to}:`, info.messageId);
+    console.log("✅ Email sent:", { to: options.to, messageId: info.messageId });
     return true;
   } catch (error) {
-    console.error(`❌ Failed to send email to ${options.to}:`, error);
+    console.error("❌ Failed to send email:", { to: options.to, error });
     return false;
   }
 };

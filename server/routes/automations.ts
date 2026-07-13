@@ -138,7 +138,8 @@ class TriggerExecutor {
       };
 
       Object.entries(variables).forEach(([key, value]) => {
-        const regex = new RegExp(`{{\\s*${key}\\s*}}`, "g");
+        const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const regex = new RegExp(`{{\\s*${escapedKey}\\s*}}`, "g");
         subject = subject.replace(regex, String(value));
         body = body.replace(regex, String(value));
       });
@@ -193,7 +194,8 @@ class TriggerExecutor {
       };
 
       Object.entries(variables).forEach(([key, value]) => {
-        const regex = new RegExp(`{{\\s*${key}\\s*}}`, "g");
+        const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const regex = new RegExp(`{{\\s*${escapedKey}\\s*}}`, "g");
         message = message.replace(regex, String(value));
       });
 

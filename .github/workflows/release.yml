@@ -178,6 +178,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Convert image name to lowercase
+        id: lowercase
+        run: echo "image=$(echo ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+
       - name: Build and push release images
         id: docker_build
         uses: docker/build-push-action@v5
@@ -186,8 +190,8 @@ jobs:
           target: production
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ needs.validate.outputs.version }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ steps.lowercase.outputs.image }}:v${{ needs.validate.outputs.version }}
+            ${{ steps.lowercase.outputs.image }}:latest
           labels: |
             org.opencontainers.image.title=Voxmation
             org.opencontainers.image.version=v${{ needs.validate.outputs.version }}
@@ -203,8 +207,8 @@ jobs:
           target: frontend-prod
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:frontend-v${{ needs.validate.outputs.version }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:frontend-latest
+            ${{ steps.lowercase.outputs.image }}:frontend-v${{ needs.validate.outputs.version }}
+            ${{ steps.lowercase.outputs.image }}:frontend-latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -215,8 +219,8 @@ jobs:
           target: backend-prod
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:backend-v${{ needs.validate.outputs.version }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:backend-latest
+            ${{ steps.lowercase.outputs.image }}:backend-v${{ needs.validate.outputs.version }}
+            ${{ steps.lowercase.outputs.image }}:backend-latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
