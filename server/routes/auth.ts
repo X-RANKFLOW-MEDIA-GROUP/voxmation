@@ -37,7 +37,7 @@ router.post("/login", async (req: Request, res: Response) => {
   }
 
   // Validate email format
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]{1,64}@[^\s@]{1,255}$/;
   if (!emailRegex.test(email)) {
     return res.status(400).json({
       success: false,

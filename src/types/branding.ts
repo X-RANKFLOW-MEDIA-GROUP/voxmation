@@ -150,7 +150,7 @@ export const DEFAULT_BRANDING: BrandingConfig = {
  * Regex patterns for validation
  */
 export const BRANDING_PATTERNS = {
-  EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  EMAIL: /^[^\s@]{1,64}@[^\s@]{1,255}$/,
   URL: /^https?:\/\/.+/,
   PHONE: /^[+]?[\d\s\-().]+$/,
   HEX_COLOR: /^#[0-9A-Fa-f]{6}$/,

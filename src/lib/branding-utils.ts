@@ -222,7 +222,7 @@ export const validateBranding = (branding: Partial<BrandingConfig>): string[] =>
  * Validate email format
  */
 export const isValidEmail = (email: string): boolean => {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return /^[^\s@]{1,64}@[^\s@]{1,255}$/.test(email);
 };
 
 /**
