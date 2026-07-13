@@ -5,6 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AlertCircle, Loader2 } from "lucide-react";
 
+const DEMO_CREDENTIALS = {
+  email: "admin@voxmation.com",
+  password: "142522",
+};
+
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,6 +17,11 @@ export default function AdminLogin() {
   const [loading, setLoading] = useState(false);
   const { signIn } = useAdminAuth();
   const navigate = useNavigate();
+
+  const useDemoCredentials = () => {
+    setEmail(DEMO_CREDENTIALS.email);
+    setPassword(DEMO_CREDENTIALS.password);
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +46,10 @@ export default function AdminLogin() {
           <h1 className="text-4xl font-display font-bold text-white mb-2">
             Voxmation
           </h1>
-          <p className="text-slate-400">Admin Dashboard</p>
+          <p className="text-slate-400 mb-3">Admin Dashboard</p>
+          <div className="inline-block bg-blue-500/20 border border-blue-500/40 rounded-full px-3 py-1">
+            <span className="text-xs text-blue-400 font-medium">Demo Account Available</span>
+          </div>
         </div>
 
         {/* Login Card */}
@@ -76,6 +89,18 @@ export default function AdminLogin() {
               />
             </div>
 
+            {/* Demo Credentials Helper */}
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={useDemoCredentials}
+                disabled={loading}
+                className="text-xs text-blue-400 hover:text-blue-300 underline disabled:opacity-50"
+              >
+                Use Demo Credentials
+              </button>
+            </div>
+
             {/* Error Message */}
             {error && (
               <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 flex gap-2">
@@ -104,14 +129,14 @@ export default function AdminLogin() {
           {/* Info Box */}
           <div className="mt-8 pt-8 border-t border-slate-700">
             <p className="text-xs text-slate-400 text-center mb-3">
-              Testing Credentials (Demo):
+              Demo Credentials:
             </p>
             <div className="bg-slate-700/30 rounded p-3 text-xs text-slate-300 space-y-1 font-mono">
-              <p>Email: admin@voxmation.com</p>
-              <p>Password: (from Supabase setup)</p>
+              <p>Email: {DEMO_CREDENTIALS.email}</p>
+              <p>Password: {DEMO_CREDENTIALS.password}</p>
             </div>
-            <p className="text-xs text-slate-400 text-center mt-3">
-              Contact Voxmation team for credentials
+            <p className="text-xs text-slate-500 text-center mt-3 italic">
+              Click "Use Demo Credentials" above to auto-fill
             </p>
           </div>
         </div>
