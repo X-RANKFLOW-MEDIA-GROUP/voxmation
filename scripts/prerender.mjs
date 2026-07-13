@@ -23,6 +23,20 @@ function stripManagedHead(html) {
 }
 
 async function main() {
+  // Verify SSR entry exists
+  try {
+    await fs.access(ssrEntry);
+  } catch (err) {
+    throw new Error(`SSR entry file not found at ${ssrEntry}`);
+  }
+
+  // Verify dist directory exists
+  try {
+    await fs.access(distDir);
+  } catch (err) {
+    throw new Error(`Output directory not found at ${distDir}`);
+  }
+
   const { render, prerenderUrls } = await import(pathToFileURL(ssrEntry).href);
   const template = await fs.readFile(path.join(distDir, "index.html"), "utf8");
   const baseTemplate = stripManagedHead(template);
