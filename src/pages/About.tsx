@@ -5,6 +5,7 @@ import FooterSection from "@/components/FooterSection";
 import Reveal from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Phone, Mail } from "lucide-react";
+import { teamMembers } from "@/data/teamMembers";
 import {
   VOXMATION_PHONE,
   VOXMATION_PHONE_TEL,
@@ -157,37 +158,22 @@ export default function About() {
               Meet the Team
             </h2>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Rene Alvarez",
-                role: "Head of Sales Development",
-                image: "https://res.cloudinary.com/dyfxkq2nk/image/upload/v1782918531/Untitled_design_3_hd1s6h.png",
-              },
-              {
-                name: "Bruno Santos",
-                role: "SDR and Admin",
-                image: "https://res.cloudinary.com/dyfxkq2nk/image/upload/v1782918531/Untitled_design_3_hd1s6h.png",
-              },
-              {
-                name: "Chris Reece",
-                role: "Sales Development Representative",
-                image: "https://res.cloudinary.com/dyfxkq2nk/image/upload/v1773156050/profile-photos/1b78566d-232c-4683-91ac-e0f82aed82d3/hnd2gtr9gra0ftknhpra.png",
-              },
-            ].map((member, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {teamMembers.map((member, i) => (
               <Reveal key={member.name} delay={0.04 * i}>
-                <div className="text-center">
-                  <div className="mb-4 rounded-xl overflow-hidden h-48 w-full">
+                <div className="group relative">
+                  <div className="mb-4 rounded-xl overflow-hidden h-56 w-full bg-gradient-to-br from-primary/10 to-secondary/10">
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <h3 className="text-lg font-display font-bold text-silver-bright mb-1 tracking-[-0.02em]">
                     {member.name}
                   </h3>
-                  <p className="text-sm text-silver">{member.role}</p>
+                  <p className="text-sm text-primary font-medium mb-1">{member.role}</p>
+                  <p className="text-xs text-silver">{member.department}</p>
                 </div>
               </Reveal>
             ))}
