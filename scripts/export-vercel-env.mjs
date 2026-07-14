@@ -31,7 +31,45 @@ if (!token) {
 }
 
 async function exportEnvVars() {
-  const url = new URL(`https://api.vercel.com/v9/projects/${projectId}/env`);
+  const data = await vercelGet(`/v9/projects/${projectId}/env`);
+  let envs = data.envs ?? [];
+
+  if (target) {
+    envs = envs.filter((e) => e.target?.includes(target));
+  }
+
+  if (asDotenv) {
+    for (const e of envs) {
+      if (e.type === "sensitive") {
+        console.error(`# skipped ${e.key} (sensitive — value not readable via API)`);
+        continue;
+      }
+      // The list endpoint returns encrypted vars as ciphertext; the
+      // per-variable endpoint is the only one that decrypts them.
+      const detail =
+        e.decrypted === false
+          ? await vercelGet(`/v9/projects/${projectId}/env/${e.id}`)
+          : e;
+      if (detail.value == null || detail.decrypted === false) {
+        console.error(`# skipped ${e.key} (value not decryptable — token may lack permission)`);
+        continue;
+      }
+      console.log(`${e.key}=${dotenvValue(detail.value)}`);
+    }
+  } else {
+    for (const e of envs) {
+      console.log(e.key);
+    }
+  }
+}
+
+function dotenvValue(value) {
+  if (!/[\n\r"'#\s\\]/.test(value)) return value;
+  return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\r?\n/g, "\\n")}"`;
+}
+
+async function vercelGet(path) {
+  const url = new URL(`https://api.vercel.com${path}`);
   if (teamId) url.searchParams.set("teamId", teamId);
 
   const res = await fetch(url, {
@@ -44,26 +82,7 @@ async function exportEnvVars() {
     process.exit(1);
   }
 
-  const data = await res.json();
-  let envs = data.envs ?? [];
-
-  if (target) {
-    envs = envs.filter((e) => e.target?.includes(target));
-  }
-
-  if (asDotenv) {
-    for (const e of envs) {
-      if (e.value == null || e.type === "sensitive") {
-        console.error(`# skipped ${e.key} (sensitive — value not readable via API)`);
-        continue;
-      }
-      console.log(`${e.key}=${e.value}`);
-    }
-  } else {
-    for (const e of envs) {
-      console.log(e.key);
-    }
-  }
+  return res.json();
 }
 
 exportEnvVars().catch((err) => {
