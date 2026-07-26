@@ -56,7 +56,7 @@ const Index = () => {
               { "@type": "Question", name: "Is there a long-term contract required?", acceptedAnswer: { "@type": "Answer", text: "No. All Voxmation plans are month-to-month. Cancel anytime with no penalties or hidden fees." } },
               { "@type": "Question", name: "What industries does Voxmation support?", acceptedAnswer: { "@type": "Answer", text: "Voxmation is built for home service businesses including HVAC, plumbing, electrical, roofing, landscaping, cleaning, spa & salon, and law offices." } },
               { "@type": "Question", name: "Does the AI integrate with my CRM?", acceptedAnswer: { "@type": "Answer", text: "Yes. Voxmation integrates with 50+ platforms including ServiceTitan, Jobber, Housecall Pro, GoHighLevel, HubSpot, and Zoho CRM." } },
-              { "@type": "Question", name: "How much does Voxmation cost?", acceptedAnswer: { "@type": "Answer", text: "Voxmation plans start at $297/month for the Starter plan. Growth plan is $497/month. Enterprise pricing is custom. All plans include a 14-day free trial." } },
+              { "@type": "Question", name: "How much does Voxmation cost?", acceptedAnswer: { "@type": "Answer", text: "Voxmation plans start at $297/month for the Starter plan. Growth plan is $497/month. Enterprise pricing is custom. All plans include a 7-day free trial that begins after go-live." } },
               { "@type": "Question", name: "Can the AI handle emergency calls after hours?", acceptedAnswer: { "@type": "Answer", text: "Yes. Voxmation's AI operates 24/7/365 and is specifically trained to handle emergency calls, qualify urgency levels, and book same-day appointments." } },
             ],
           },

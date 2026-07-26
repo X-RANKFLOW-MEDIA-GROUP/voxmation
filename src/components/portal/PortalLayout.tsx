@@ -5,13 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard, Headphones, PhoneOff, Users, Calendar, Workflow,
   Plug, CreditCard, LifeBuoy, LogOut, ChevronLeft, ChevronRight, Menu, X,
-  UsersRound, BarChart3
+  UsersRound, BarChart3, Rocket
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet-async";
 
 const navItems = [
   { path: "/portal", icon: LayoutDashboard, label: "Dashboard" },
+  { path: "/portal/onboarding", icon: Rocket, label: "Trial Launch" },
   { path: "/portal/analytics", icon: BarChart3, label: "Analytics" },
   { path: "/portal/voice-agent", icon: Headphones, label: "Voice Agent" },
   { path: "/portal/missed-calls", icon: PhoneOff, label: "Missed Calls" },

@@ -1,11 +1,12 @@
 import express, { Router, Request, Response, raw } from "express";
+import { createHmac, timingSafeEqual } from "crypto";
+import type Stripe from "stripe";
 import { supabase } from "../supabase";
 import { webhookRateLimiter } from "../middleware/rateLimiter";
 import {
   verifyAndHandleWebhook,
   registerWebhookHandlers,
   StripeWebhookHandlers,
-  Stripe,
 } from "../integrations/stripe";
 import {
   handleWebhook as handleTwilioWebhook,
@@ -15,8 +16,234 @@ import {
   RecordingReadyWebhookEvent,
   MessageWebhookEvent,
 } from "../integrations/twilio";
+import { assignAgentToPhoneNumber } from "../integrations/elevenlabs-agents";
 
 const router = Router();
+
+type ElevenLabsWebhookPayload = {
+  type?: string;
+  data?: Record<string, any>;
+};
+
+const verifyElevenLabsSignature = (rawBody: Buffer, signatureHeader: string) => {
+  const secret = process.env.ELEVENLABS_CONVAI_WEBHOOK_SECRET;
+  if (!secret) throw new Error("ELEVENLABS_CONVAI_WEBHOOK_SECRET is not configured");
+
+  const parts = Object.fromEntries(
+    signatureHeader.split(",").map((part) => {
+      const [key, ...value] = part.trim().split("=");
+      return [key, value.join("=")];
+    })
+  );
+  const timestamp = Number(parts.t);
+  const supplied = parts.v0;
+  if (!Number.isFinite(timestamp) || !supplied) return false;
+
+  const tolerance = Number(process.env.ELEVENLABS_WEBHOOK_TOLERANCE_SECONDS || 1800);
+  if (Math.abs(Math.floor(Date.now() / 1000) - timestamp) > tolerance) return false;
+
+  const expected = createHmac("sha256", secret)
+    .update(`${timestamp}.${rawBody.toString("utf8")}`)
+    .digest("hex");
+  const expectedBuffer = Buffer.from(expected, "utf8");
+  const suppliedBuffer = Buffer.from(supplied, "utf8");
+  return expectedBuffer.length === suppliedBuffer.length && timingSafeEqual(expectedBuffer, suppliedBuffer);
+};
+
+const transcriptToText = (transcript: unknown) => {
+  if (!Array.isArray(transcript)) return null;
+  const lines = transcript
+    .map((turn) => {
+      if (!turn || typeof turn !== "object") return null;
+      const entry = turn as Record<string, unknown>;
+      const message = typeof entry.message === "string" ? entry.message.trim() : "";
+      if (!message) return null;
+      const role = entry.role === "agent" ? "Agent" : entry.role === "user" ? "Caller" : "System";
+      return `${role}: ${message}`;
+    })
+    .filter(Boolean);
+  return lines.length ? lines.join("\n") : null;
+};
+
+const normalizeCallSuccessful = (value: unknown) => {
+  if (value === true || value === "success") return "successful";
+  if (value === false || value === "failure") return "unsuccessful";
+  return null;
+};
+
+/**
+ * Signed, idempotent ingestion for completed ElevenLabs Agent conversations.
+ */
+router.post(
+  "/elevenlabs/post-call",
+  raw({ type: "application/json", limit: "10mb" }),
+  async (req: Request, res: Response) => {
+    const signature = req.header("elevenlabs-signature");
+    const rawBody = Buffer.isBuffer(req.body) ? req.body : Buffer.from("");
+
+    if (!signature || !rawBody.length) {
+      return res.status(400).json({ error: "Missing signed webhook payload" });
+    }
+
+    try {
+      if (!verifyElevenLabsSignature(rawBody, signature)) {
+        return res.status(401).json({ error: "Invalid webhook signature" });
+      }
+
+      const payload = JSON.parse(rawBody.toString("utf8")) as ElevenLabsWebhookPayload;
+      const data = payload.data || {};
+      const agentId = typeof data.agent_id === "string" ? data.agent_id : null;
+
+      if (!agentId) return res.status(200).json({ received: true, ignored: "missing_agent_id" });
+
+      const { data: trial, error: trialError } = await supabase
+        .from("client_trials")
+        .select("id, account_id, owner_user_id, status")
+        .eq("elevenlabs_agent_id", agentId)
+        .maybeSingle();
+      if (trialError) throw trialError;
+      if (!trial) return res.status(200).json({ received: true, ignored: "unknown_agent" });
+
+      if (payload.type === "call_initiation_failure") {
+        const errorMessage = String(data.error || data.failure_reason || "Call initiation failed").slice(0, 1000);
+        await Promise.all([
+          supabase.from("client_trials").update({ last_error: errorMessage }).eq("id", trial.id),
+          supabase.from("client_trial_events").insert({
+            trial_id: trial.id,
+            event_type: "call_initiation_failed",
+            event_data: { agentId, error: errorMessage },
+          }),
+        ]);
+        return res.status(200).json({ received: true });
+      }
+
+      if (payload.type !== "post_call_transcription") {
+        return res.status(200).json({ received: true, ignored: "unsupported_event" });
+      }
+
+      const conversationId = typeof data.conversation_id === "string" ? data.conversation_id : null;
+      if (!conversationId || !trial.owner_user_id) {
+        throw new Error("Conversation or claimed trial owner is missing");
+      }
+
+      const metadata = (data.metadata || {}) as Record<string, any>;
+      const phoneCall = (metadata.phone_call || {}) as Record<string, any>;
+      const initiation = (data.conversation_initiation_client_data || {}) as Record<string, any>;
+      const dynamicVariables = (initiation.dynamic_variables || {}) as Record<string, any>;
+      const analysis = (data.analysis || {}) as Record<string, any>;
+      const isTest = dynamicVariables.call_type === "onboarding_test" || dynamicVariables.trial_id === trial.id;
+      const callSid = phoneCall.call_sid || metadata.call_sid || null;
+      const callerPhone = phoneCall.external_number || phoneCall.caller_id || null;
+      const direction = phoneCall.direction === "outbound" || isTest ? "outbound" : "inbound";
+      const startSeconds = Number(metadata.start_time_unix_secs);
+      const durationSeconds = Number(metadata.call_duration_secs || 0);
+      const cost = Number(metadata.cost_fiat ?? metadata.cost);
+      const outcome = normalizeCallSuccessful(analysis.call_successful);
+      const status = data.status === "failed" || metadata.termination_reason === "error" ? "failed" : "completed";
+
+      const { data: existing, error: existingError } = await supabase
+        .from("calls")
+        .select("id")
+        .eq("provider", "elevenlabs")
+        .eq("provider_conversation_id", conversationId)
+        .maybeSingle();
+      if (existingError) throw existingError;
+
+      const callRecord = {
+        user_id: trial.owner_user_id,
+        account_id: trial.account_id,
+        caller_phone: callerPhone,
+        call_type: isTest ? "test" : direction,
+        status,
+        duration_seconds: Number.isFinite(durationSeconds) ? Math.max(0, Math.round(durationSeconds)) : 0,
+        transcript: transcriptToText(data.transcript),
+        summary: typeof analysis.transcript_summary === "string" ? analysis.transcript_summary : null,
+        outcome,
+        sentiment: typeof analysis.user_sentiment === "string" ? analysis.user_sentiment : null,
+        provider: "elevenlabs",
+        provider_call_id: callSid,
+        provider_conversation_id: conversationId,
+        provider_agent_id: agentId,
+        is_test: isTest,
+        cost_amount: Number.isFinite(cost) ? cost : null,
+        cost_currency: Number.isFinite(cost) ? "USD" : null,
+        agent_version: typeof data.version_id === "string" ? data.version_id : null,
+        metadata: {
+          termination_reason: metadata.termination_reason || null,
+          evaluation: analysis.evaluation_criteria_results || null,
+          data_collection: analysis.data_collection_results || null,
+        },
+        created_at: Number.isFinite(startSeconds)
+          ? new Date(startSeconds * 1000).toISOString()
+          : new Date().toISOString(),
+      };
+
+      const { data: savedCall, error: callError } = await supabase
+        .from("calls")
+        .upsert(callRecord, { onConflict: "provider,provider_conversation_id" })
+        .select("id")
+        .single();
+      if (callError) throw callError;
+
+      if (!existing) {
+        await supabase.from("client_trial_events").insert({
+          trial_id: trial.id,
+          event_type: isTest ? "test_call_received" : "live_call_received",
+          event_data: { callId: savedCall.id, conversationId, outcome },
+        });
+
+        if (!isTest) {
+          const accountFilter = trial.account_id
+            ? supabase.from("calls").select("id", { count: "exact", head: true }).eq("account_id", trial.account_id)
+            : supabase.from("calls").select("id", { count: "exact", head: true }).eq("user_id", trial.owner_user_id);
+          const { count } = await accountFilter.eq("provider", "elevenlabs").eq("is_test", false);
+          if ((count || 0) <= 5) {
+            await supabase.from("client_trial_tasks").insert({
+              trial_id: trial.id,
+              task_type: "first_call_review",
+              title: `Review live call ${conversationId}`,
+              due_at: new Date().toISOString(),
+            });
+          }
+        }
+      }
+
+      return res.status(200).json({ received: true, callId: savedCall.id });
+    } catch (error) {
+      console.error("[Webhook] Error processing ElevenLabs webhook:", error);
+      return res.status(500).json({ error: "Webhook processing failed" });
+    }
+  }
+);
+
+const markClientTrialConverted = async (accountId: string | undefined, subscriptionId: string, status: string) => {
+  if (!accountId || !["active", "trialing"].includes(status)) return;
+  const convertedAt = new Date().toISOString();
+  const { data: trial } = await supabase
+    .from("client_trials")
+    .update({
+      status: "converted",
+      converted_at: convertedAt,
+      next_action: "Paid subscription active",
+      next_action_at: null,
+    })
+    .eq("account_id", accountId)
+    .in("status", ["live", "expired"])
+    .select("id, elevenlabs_phone_number_id, elevenlabs_agent_id")
+    .limit(1)
+    .maybeSingle();
+  if (trial) {
+    if (trial.elevenlabs_phone_number_id && trial.elevenlabs_agent_id) {
+      await assignAgentToPhoneNumber(trial.elevenlabs_phone_number_id, trial.elevenlabs_agent_id);
+    }
+    await supabase.from("client_trial_events").insert({
+      trial_id: trial.id,
+      event_type: "trial_converted",
+      event_data: { stripeSubscriptionId: subscriptionId },
+    });
+    await supabase.from("client_trial_messages").update({ status: "cancelled" }).eq("trial_id", trial.id).eq("status", "pending");
+  }
+};
 
 // =============================================================================
 // WEBHOOK HANDLERS
@@ -66,6 +293,8 @@ const stripeWebhookHandlers: StripeWebhookHandlers = {
         throw error;
       }
 
+      await markClientTrialConverted(metadata.accountId, subscription.id, subscription.status);
+
       console.log(
         `[Webhook] Subscription created for customer ${customerId}`
       );
@@ -104,6 +333,9 @@ const stripeWebhookHandlers: StripeWebhookHandlers = {
         console.error("[Webhook] Error updating subscription:", error);
         throw error;
       }
+
+
+      await markClientTrialConverted(metadata.accountId, subscription.id, subscription.status);
 
       console.log(
         `[Webhook] Subscription updated: ${subscription.id}`
@@ -163,13 +395,13 @@ const stripeWebhookHandlers: StripeWebhookHandlers = {
             currency,
             invoice_number: invoice.number,
             issue_date: new Date(invoice.created * 1000).toISOString(),
-            paid_date: invoice.paid_at
-              ? new Date(invoice.paid_at * 1000).toISOString()
+            paid_date: invoice.status_transitions?.paid_at
+              ? new Date(invoice.status_transitions.paid_at * 1000).toISOString()
               : new Date().toISOString(),
             due_date: invoice.due_date
               ? new Date(invoice.due_date * 1000).toISOString()
               : null,
-            pdf_url: invoice.pdf,
+            pdf_url: invoice.invoice_pdf,
             metadata: invoice.metadata || {},
             updated_at: new Date().toISOString(),
           },
@@ -292,9 +524,9 @@ const stripeWebhookHandlers: StripeWebhookHandlers = {
   },
 
   // Handle payment success
-  onPaymentSucceeded: async (invoice: Stripe.Invoice) => {
+  onPaymentSucceeded: async (paymentIntent: Stripe.PaymentIntent) => {
     try {
-      console.log(`[Webhook] Payment succeeded: ${invoice.id}`);
+      console.log(`[Webhook] Payment succeeded: ${paymentIntent.id}`);
     } catch (error) {
       console.error("[Webhook] Error in onPaymentSucceeded:", error);
       throw error;
@@ -674,6 +906,7 @@ router.get("/health", async (req: Request, res: Response) => {
   try {
     const stripeSecret = process.env.STRIPE_WEBHOOK_SECRET;
     const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
+    const elevenLabsSecret = process.env.ELEVENLABS_CONVAI_WEBHOOK_SECRET;
     const stripeConfigured = !!stripeSecret;
     const twilioConfigured = !!twilioAccountSid;
 
@@ -704,6 +937,11 @@ router.get("/health", async (req: Request, res: Response) => {
             "recording.ready",
             "message.status_changed",
           ],
+        },
+        elevenlabs: {
+          configured: Boolean(elevenLabsSecret),
+          endpoint: "/api/webhooks/elevenlabs/post-call",
+          events: ["post_call_transcription", "call_initiation_failure"],
         },
       },
     });

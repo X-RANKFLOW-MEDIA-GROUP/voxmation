@@ -138,7 +138,7 @@ export interface TwilioWebhookHandlers {
 // INITIALIZATION
 // =============================================================================
 
-let twilioClient: ReturnType<typeof twilio.Twilio> | null = null;
+let twilioClient: any = null;
 let twilioConfig: TwilioInitConfig | null = null;
 let webhookHandlers: TwilioWebhookHandlers = {};
 
@@ -146,7 +146,7 @@ let webhookHandlers: TwilioWebhookHandlers = {};
  * Initialize Twilio client with credentials
  * Can be called multiple times safely - uses cached instance
  */
-export function initTwilio(config?: TwilioInitConfig): ReturnType<typeof twilio.Twilio> {
+export function initTwilio(config?: TwilioInitConfig): any {
   if (twilioClient) {
     return twilioClient;
   }
@@ -183,7 +183,7 @@ export function initTwilio(config?: TwilioInitConfig): ReturnType<typeof twilio.
  * Get initialized Twilio client
  * Throws if not initialized
  */
-function getTwilioClient(): ReturnType<typeof twilio.Twilio> {
+function getTwilioClient(): any {
   if (!twilioClient) {
     return initTwilio();
   }

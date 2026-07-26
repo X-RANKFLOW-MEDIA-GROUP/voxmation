@@ -20,6 +20,7 @@ import campaignRoutes from "./routes/campaigns";
 import automationRoutes from "./routes/automations";
 import callRoutes from "./routes/calls";
 import webhookRoutes from "./routes/webhooks";
+import clientTrialRoutes from "./routes/client-trials";
 import { setupSwagger } from "./swagger-setup";
 
 // Initialize Sentry for server-side error tracking
@@ -33,17 +34,17 @@ Sentry.init({
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Attach Sentry request handler as early as possible
-app.use(Sentry.Handlers.requestHandler());
-
 // CORS configuration - restrict to allowed origins
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173,http://localhost:3000').split(',');
 app.use(cors({
   origin: allowedOrigins.map(o => o.trim()),
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Provider webhooks need the original request bytes for HMAC verification.
+app.use("/api/webhooks", webhookRoutes);
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -313,7 +314,7 @@ app.use("/api/billing", billingRoutes);
 app.use("/api/campaigns", campaignRoutes);
 app.use("/api/automations", automationRoutes);
 app.use("/api/calls", callRoutes);
-app.use("/api/webhooks", webhookRoutes);
+app.use("/api/client-trials", clientTrialRoutes);
 
 // Health check
 app.get("/health", (_req, res) => {
@@ -330,8 +331,8 @@ app.get("/api/test-error", (_req, res) => {
   }
 });
 
-// Attach Sentry error handler after all middleware and routes
-app.use(Sentry.Handlers.errorHandler());
+// Sentry v10 Express error handler (must be after routes, before our fallback).
+Sentry.setupExpressErrorHandler(app);
 
 // Global error handler (must be last)
 app.use((err: any, _req: any, res: any, _next: any) => {

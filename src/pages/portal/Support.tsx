@@ -1,19 +1,15 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import StatusBadge from "@/components/portal/StatusBadge";
 import { motion } from "framer-motion";
-import { LifeBuoy, Plus, Send, Calendar, MessageCircle, X } from "lucide-react";
+import { LifeBuoy, Plus, Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
-const demoTickets = [
-  { id: "1", subject: "CRM sync not updating leads", priority: "high", status: "in_progress", category: "technical", created_at: "Mar 6, 2026", updated_at: "Mar 7, 2026" },
-  { id: "2", subject: "Add Spanish language to AI voice", priority: "medium", status: "open", category: "feature_request", created_at: "Mar 4, 2026", updated_at: "Mar 4, 2026" },
-  { id: "3", subject: "Invoice question — February charge", priority: "low", status: "resolved", category: "billing", created_at: "Feb 28, 2026", updated_at: "Mar 1, 2026" },
-];
+type Ticket = { id: string; subject: string; priority: string | null; status: string | null; category: string | null; created_at: string | null; updated_at: string | null };
 
 const Support = () => {
   const { user } = useAuth();
@@ -23,6 +19,14 @@ const Support = () => {
   const [priority, setPriority] = useState("medium");
   const [category, setCategory] = useState("general");
   const [submitting, setSubmitting] = useState(false);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
+
+  const loadTickets = useCallback(async () => {
+    if (!user) return;
+    const { data } = await supabase.from("support_tickets").select("id, subject, priority, status, category, created_at, updated_at").eq("user_id", user.id).order("created_at", { ascending: false });
+    setTickets((data || []) as Ticket[]);
+  }, [user]);
+  useEffect(() => { void loadTickets(); }, [loadTickets]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,6 +48,7 @@ const Support = () => {
       setShowForm(false);
       setSubject("");
       setDescription("");
+      await loadTickets();
     }
     setSubmitting(false);
   };
@@ -65,40 +70,6 @@ const Support = () => {
           </Button>
         </div>
       </motion.div>
-
-      {/* Quick Actions */}
-      <div className="grid md:grid-cols-2 gap-4 mb-8">
-        <motion.a
-          href="https://cal.com/voxmation/support"
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="surface-card rounded-2xl p-6 flex items-center gap-4 hover:border-primary/15 transition-all cursor-pointer"
-        >
-          <div className="w-10 h-10 rounded-xl bg-primary/8 border border-primary/15 flex items-center justify-center">
-            <Calendar className="h-5 w-5 text-primary/70" />
-          </div>
-          <div>
-            <p className="text-sm font-mono font-bold text-foreground">Schedule a Support Call</p>
-            <p className="text-[11px] font-mono text-silver">Book a 1:1 with our team</p>
-          </div>
-        </motion.a>
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05 }}
-          className="surface-card rounded-2xl p-6 flex items-center gap-4 hover:border-primary/15 transition-all cursor-pointer"
-        >
-          <div className="w-10 h-10 rounded-xl bg-primary/8 border border-primary/15 flex items-center justify-center">
-            <MessageCircle className="h-5 w-5 text-primary/70" />
-          </div>
-          <div>
-            <p className="text-sm font-mono font-bold text-foreground">Live Chat</p>
-            <p className="text-[11px] font-mono text-silver">Chat with us in real-time</p>
-          </div>
-        </motion.div>
-      </div>
 
       {/* New Ticket Form */}
       {showForm && (
@@ -150,7 +121,8 @@ const Support = () => {
         <div className="px-6 py-3 border-b border-border/50">
           <p className="text-[10px] font-mono text-silver tracking-wider uppercase">Your Tickets</p>
         </div>
-        {demoTickets.map((ticket, i) => (
+        {tickets.length === 0 && <div className="px-6 py-12 text-center text-sm text-silver">No support tickets.</div>}
+        {tickets.map((ticket, i) => (
           <motion.div
             key={ticket.id}
             initial={{ opacity: 0 }}
@@ -160,11 +132,11 @@ const Support = () => {
           >
             <div className="flex-1 min-w-0">
               <p className="text-sm font-mono font-bold text-foreground truncate">{ticket.subject}</p>
-              <p className="text-[10px] font-mono text-silver">Created {ticket.created_at} · Updated {ticket.updated_at}</p>
+              <p className="text-[10px] font-mono text-silver">Created {ticket.created_at ? new Date(ticket.created_at).toLocaleString() : "—"} · Updated {ticket.updated_at ? new Date(ticket.updated_at).toLocaleString() : "—"}</p>
             </div>
-            <StatusBadge status={ticket.category.replace("_", " ")} />
-            <StatusBadge status={ticket.priority} />
-            <StatusBadge status={ticket.status} />
+            <StatusBadge status={(ticket.category || "general").replace("_", " ")} />
+            <StatusBadge status={ticket.priority || "medium"} />
+            <StatusBadge status={ticket.status || "open"} />
           </motion.div>
         ))}
       </div>

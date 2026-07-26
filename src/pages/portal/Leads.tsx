@@ -19,17 +19,6 @@ interface Lead {
   created_at: string;
 }
 
-const demoLeads: Lead[] = [
-  { id: "1", name: "Sarah Mitchell", phone: "(512) 555-0134", email: "sarah.m@email.com", city: "Austin", service_requested: "AC Repair", status: "booked", source: "ai_voice", lead_score: 92, created_at: new Date(Date.now() - 1200000).toISOString() },
-  { id: "2", name: "James Wilson", phone: "(512) 555-0189", email: "jwilson@email.com", city: "Round Rock", service_requested: "Panel Upgrade", status: "qualified", source: "ai_voice", lead_score: 85, created_at: new Date(Date.now() - 3600000).toISOString() },
-  { id: "3", name: "Maria Gonzalez", phone: "(512) 555-0092", email: "maria.g@email.com", city: "Cedar Park", service_requested: "Plumbing Leak", status: "booked", source: "missed_call", lead_score: 88, created_at: new Date(Date.now() - 7200000).toISOString() },
-  { id: "4", name: "David Chen", phone: "(512) 555-0067", email: "dchen@email.com", city: "Pflugerville", service_requested: "Maintenance Plan", status: "contacted", source: "ai_voice", lead_score: 72, created_at: new Date(Date.now() - 10800000).toISOString() },
-  { id: "5", name: "Emily Rodriguez", phone: "(512) 555-0201", email: "emily.r@email.com", city: "Austin", service_requested: "Water Heater", status: "new", source: "website", lead_score: 65, created_at: new Date(Date.now() - 14400000).toISOString() },
-  { id: "6", name: "Robert Johnson", phone: "(512) 555-0318", email: "rjohnson@email.com", city: "Georgetown", service_requested: "Electrical Wiring", status: "qualified", source: "ai_voice", lead_score: 78, created_at: new Date(Date.now() - 18000000).toISOString() },
-  { id: "7", name: "Lisa Thompson", phone: "(512) 555-0445", email: "lisa.t@email.com", city: "Lakeway", service_requested: "AC Installation", status: "lost", source: "referral", lead_score: 45, created_at: new Date(Date.now() - 86400000).toISOString() },
-  { id: "8", name: "Michael Park", phone: "(512) 555-0109", email: "mpark@email.com", city: "Austin", service_requested: "Drain Cleaning", status: "booked", source: "missed_call", lead_score: 90, created_at: new Date(Date.now() - 90000000).toISOString() },
-];
-
 const Leads = () => {
   const { user } = useAuth();
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -39,7 +28,7 @@ const Leads = () => {
     if (!user) return;
     const fetchLeads = async () => {
       const { data } = await supabase.from("leads").select("*").eq("user_id", user.id).order("created_at", { ascending: false });
-      setLeads(data && data.length > 0 ? data : demoLeads);
+      setLeads(data || []);
     };
     fetchLeads();
 
@@ -106,6 +95,7 @@ const Leads = () => {
             </tr>
           </thead>
           <tbody>
+            {filtered.length === 0 && <tr><td colSpan={7} className="px-6 py-12 text-center text-sm text-silver">No captured leads yet.</td></tr>}
             {filtered.map((lead, i) => (
               <motion.tr
                 key={lead.id}

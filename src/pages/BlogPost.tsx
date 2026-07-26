@@ -213,7 +213,7 @@ const BlogPost = () => {
                 Enough reading. Time to act.
               </h2>
               <p className="text-silver text-lg mb-8 max-w-2xl mx-auto">
-                See firsthand how AI voice agents transform home service businesses. Start your free 14-day trial today.
+                See firsthand how AI voice agents transform home service businesses. Start your free 7-day trial today.
               </p>
               <Button variant="neon" size="xl" asChild className="gap-2">
                 <a href="https://cal.com/voxmation/meeting" target="_blank" rel="noopener noreferrer">

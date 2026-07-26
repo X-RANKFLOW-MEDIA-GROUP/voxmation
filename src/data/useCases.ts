@@ -79,7 +79,7 @@ export const useCasesData: Record<string, UseCase> = {
       { label: "Answer Rate", value: "100%" },
       { label: "Avg Response Time", value: "< 1s" },
     ],
-    cta: "Stop losing calls. Start your free 14-day trial today.",
+    cta: "Stop losing calls. Start your free 7-day trial today.",
   },
   "missed-call-recovery": {
     slug: "missed-call-recovery",

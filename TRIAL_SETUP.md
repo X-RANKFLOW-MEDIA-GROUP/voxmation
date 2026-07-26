@@ -1,182 +1,110 @@
-# Sistema de Trial de 7 Dias - Guia de Configuração
+# VOXmation 7-Day Trial Operations
 
-## Visão Geral
+This is the production workflow for accepted trial clients. A trial is **not active when a lead accepts**. The seven-day clock starts only after intake, agent configuration, phone connection, a passed test call, and explicit client go-live approval.
 
-O sistema de trial de 7 dias da Voxmation permite que novos usuários testem o serviço com acesso completo por 7 dias, usando vozes realistas do ElevenLabs.
+## Lifecycle
 
-## Componentes
+`accepted → intake → agent_configured → number_connected → testing → awaiting_approval → live → converted | expired`
 
-### 1. Banco de Dados (Supabase)
+The app records every material transition in `client_trial_events`. Staff exceptions and follow-ups live in `client_trial_tasks`.
 
-#### Tabelas Criadas:
-- **trials**: Armazena informações dos trials de cada lead
-- **api_keys**: Armazena as chaves de API geradas para cada trial
+## Required setup
 
-#### Schema:
-```sql
--- trials
-- id (UUID, PK)
-- lead_id (UUID, FK -> website_leads)
-- email (VARCHAR)
-- business_name (VARCHAR)
-- industry (VARCHAR)
-- status (VARCHAR) - active, expired, converted, cancelled
-- started_at (TIMESTAMP)
-- expires_at (TIMESTAMP) - +7 dias
-- created_at (TIMESTAMP)
-- updated_at (TIMESTAMP)
+1. Apply `supabase/migrations/20260713000000_create_client_trial_operations.sql`.
+2. Configure the environment variables below.
+3. Ensure one VOXmation staff account belongs to an `accounts.type = 'master'` account with role `owner` or `admin`.
+4. Start the web app and API (`npm run dev`).
+5. Schedule `POST /api/client-trials/operations/run-lifecycle` hourly with `Authorization: Bearer $CRON_SECRET`.
 
--- api_keys
-- id (UUID, PK)
-- trial_id (UUID, FK -> trials)
-- api_key (VARCHAR, UNIQUE)
-- elevenlabs_key (VARCHAR)
-- status (VARCHAR) - active, revoked
-- created_at (TIMESTAMP)
-- last_used_at (TIMESTAMP)
-```
-
-### 2. Serviços
-
-#### `trial-service.ts`
-Funções principais:
-- `createTrial()`: Cria um novo trial e gera a chave de API
-- `validateApiKey()`: Valida uma chave de API
-- `getTrial()`: Recupera informações do trial
-
-#### `api-key-generator.ts`
-Funções para gerar chaves:
-- `generateApiKey()`: Gera uma chave de API única
-- `generateTrialToken()`: Gera um token seguro
-- `maskApiKey()`: Mascara a chave para exibição
-
-#### `email-service.ts`
-Funções para enviar emails:
-- `sendTrialEmail()`: Envia email com detalhes do trial
-- `sendTrialExpiringEmail()`: Notifica expiração iminente
-
-### 3. Endpoints de API
-
-#### `POST /api/email`
-Envia emails usando Resend
-- Requer: `RESEND_API_KEY`
-- Body: `{ to, subject, html, text }`
-
-#### `POST /api/validate-key`
-Valida uma chave de API
-- Body: `{ apiKey }`
-- Response: `{ valid: boolean, error?: string, trial?: object }`
-
-#### `POST /api/tts`
-Gera áudio usando ElevenLabs
-- Requer: `ELEVENLABS_API_KEY`
-- Body: `{ text, voiceId, apiKey? }`
-- Response: Audio MP3
-
-### 4. Componentes React
-
-#### LeadCaptureDialog
-- Integrado com `createTrial()`
-- Exibe mensagem de sucesso com informações do trial
-- Abre Cal.com para agendamento
-
-## Configuração de Variáveis de Ambiente
-
-Adicione as seguintes variáveis ao `.env`:
+## Environment variables
 
 ```bash
-# Supabase
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_anon_key
+VITE_SUPABASE_URL=
+VITE_SUPABASE_PUBLISHABLE_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
 
-# Resend (para emails)
-RESEND_API_KEY=your_resend_api_key
+APP_URL=https://voxmation.com
+VITE_API_URL=https://api.voxmation.com
+CRON_SECRET=generate-a-long-random-secret
 
-# ElevenLabs (para voice)
-ELEVENLABS_API_KEY=your_elevenlabs_api_key
+ELEVENLABS_API_KEY=
+ELEVENLABS_DEFAULT_VOICE_ID=21m00Tcm4TlvDq8ikWAM
+ELEVENLABS_AGENT_LLM=gemini-2.0-flash-001
+ELEVENLABS_CONVAI_WEBHOOK_SECRET=
+ELEVENLABS_WEBHOOK_TOLERANCE_SECONDS=1800
+
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTH_TOKEN=
+TWILIO_PHONE_NUMBER=+1...
+
+EMAIL_SERVICE=sendgrid
+SENDGRID_API_KEY=
+SMTP_FROM_EMAIL=trial@voxmation.com
 ```
 
-## Fluxo de Criação de Trial
+Never expose provider keys in Vite variables. ElevenLabs, Twilio, Stripe, Supabase service-role, and cron secrets are server-only.
 
-1. **Usuário preenche o formulário de Lead Capture**
-   - Full name, business name, email, phone, industry, monthly calls
+## Staff workflow
 
-2. **Clica "Book My Free Demo"**
-   - `handleSubmit` é acionado
+1. Sign in at `/admin/login`.
+2. Open `/trial-builder`.
+3. Create and send a secure invite for the accepted client. The API emails it immediately; if delivery fails, the queue creates a manual-delivery task and the UI keeps the link available for copying.
+4. The link contains only a random one-time token; no client PII is present in the URL.
+5. Watch the launch queue for completed intake.
+6. Click **Configure agent**. The server builds a guarded, versioned prompt and creates an ElevenLabs conversational agent in test state.
+7. Enter an existing Twilio number in E.164 format and click **Connect**. This imports the number into ElevenLabs but leaves inbound service disconnected until client approval.
+8. The client places a test call, reports changes or marks it passed, then explicitly approves go-live.
 
-3. **`createTrial()` é chamada**
-   - Cria registro em `website_leads`
-   - Cria registro em `trials` com expiração em +7 dias
-   - Gera chave de API única
-   - Envia email com detalhes
+This implementation deliberately does not purchase phone numbers automatically. Number purchase changes external billing and must remain an intentional Twilio operation. The app connects an existing Twilio number after staff supplies it.
 
-4. **Email é entregue**
-   - Contém a chave de API
-   - Data de expiração
-   - Link para dashboard
+## Client workflow
 
-5. **Usuário pode usar a API**
-   - Usar a chave para chamar `/api/tts`
-   - Gerar chamadas com diferentes vozes
-   - Testar na dashboard (quando implementada)
+1. Client opens the secure invite and signs in with the invited email.
+2. The invite claim creates/links the client sub-account.
+3. Client completes the four-part onboarding at `/portal/onboarding`:
+   - business profile and services;
+   - hours and exact greeting;
+   - call goals, capture fields, booking/pricing/emergency rules;
+   - phone strategy, terms, and recording-compliance acknowledgement.
+4. VOXmation configures the provider resources.
+5. Client requests the outbound test call. Pass/fail unlocks only after the signed post-call webhook confirms completion.
+6. Go-live unlocks only when all readiness checks pass; it is the action that assigns the agent to the inbound number.
+7. `trial_started_at = live_at` and `trial_ends_at = live_at + 7 days` are written atomically with go-live.
 
-## Validação de Chaves de API
+## Lifecycle automation
 
-```typescript
-// Exemplo de validação
-const result = await validateApiKey(apiKey);
+The hourly lifecycle endpoint:
 
-if (result.valid) {
-  // Use o trial
-  const trial = result.trial;
-  console.log(`Trial expira em: ${trial.expires_at}`);
-} else {
-  // Erro
-  console.error(result.error);
-}
-```
+- expires live trials whose exact end time has passed;
+- unassigns the ElevenLabs agent from an expired phone number;
+- preserves configuration for reactivation;
+- queues state-aware email messages for intake recovery, test readiness, days 1/3/5/6, and expiration;
+- deduplicates every message by trial, message key, and channel;
+- retries through the operations queue without duplicating sends.
 
-## Tarefas Pendentes
+When Stripe reports an active subscription, the webhook marks the trial converted, cancels pending trial messages, and reassigns the preserved agent to the phone number if the trial had expired.
 
-- [ ] Implementar dashboard de trial
-- [ ] Criar job de expiração automática (cron)
-- [ ] Implementar email de "trial expirando em 24h"
-- [ ] Criar página de upgrade/planos
-- [ ] Implementar métricas de uso do trial
-- [ ] Adicionar suporte a múltiplos provedores de email
-- [ ] Criar admin panel para gerenciar trials
-- [ ] Implementar renovação automática após conversão
+## ElevenLabs post-call ingestion
 
-## Testes
+In ElevenLabs Workspace Settings, create a signed webhook pointing to
+`https://<api-host>/api/webhooks/elevenlabs/post-call`. Enable post-call
+transcription and call-initiation-failure events, then copy its signing secret
+to `ELEVENLABS_CONVAI_WEBHOOK_SECRET`. Completed calls are stored idempotently;
+onboarding tests stay out of live metrics, and each of the first five live calls
+creates a staff review task.
 
-### Criar um trial manualmente
-```typescript
-import { createTrial } from '@/lib/trial-service';
+## Go-live acceptance checklist
 
-await createTrial({
-  email: 'test@example.com',
-  businessName: 'Test Business',
-  industry: 'HVAC',
-  fullName: 'Test User',
-  phone: '+1 (555) 123-4567',
-});
-```
+- Business description, services, hours, goals, and escalation number are complete.
+- Prompt includes anti-hallucination, payment-data, emergency, confirmation, prompt-injection, and transfer-loop guardrails.
+- ElevenLabs agent ID is stored and its configuration is versioned.
+- Existing Twilio number is imported and assigned to the agent.
+- Client completes a real test call.
+- Client explicitly marks the call passed.
+- Client explicitly approves go-live.
+- Portal shows only real calls, leads, bookings, and minutes; demo metrics are never substituted.
+- Trial expiration and Stripe reactivation are tested in staging before production.
 
-### Validar uma chave
-```typescript
-import { validateApiKey } from '@/lib/trial-service';
+## Known deployment dependency
 
-const result = await validateApiKey('vox_trial_...');
-console.log(result);
-```
-
-## Segurança
-
-- Chaves de API são geradas com `crypto.randomBytes()`
-- Chaves são armazenadas criptografadas no Supabase
-- Validação de expiração em cada uso
-- Rate limiting recomendado nos endpoints de API
-
-## Suporte
-
-Para questões sobre o sistema de trial, contact suporte@voxmation.com
+The API must run as a persistent Express service or compatible serverless functions. The current static Vercel rewrite serves the Vite frontend only; deploy `server/index.ts` separately (or convert the routes to Vercel functions) and set `VITE_API_URL` to that API origin.
